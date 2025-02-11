@@ -57,13 +57,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="public/backend/images/2.png">
-                <span class="username">John Doe</span>
+                <span class="username">
+				<?php
+					$name = Session::get('admin_name');
+					if($name){
+						echo $name;
+					}
+				?>
+				</span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
                 <li><a href="#"><i class=" fa fa-suitcase"></i>Hồ sơ</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i>Cài đặt</a></li>
-                <li><a href="{{URL::to('/admin')}}"><i class="fa fa-key"></i>Đăng xuất</a></li>
+                <li><a href="{{URL::to('/logout')}}"><i class="fa fa-key"></i>Đăng xuất</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -92,8 +99,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <span>Danh mục sách</span>
                     </a>
                     <ul class="sub">
-						<li><a href="typography.html">Thêm sách</a></li>
-						<li><a href="glyphicon.html">Liệt kê</a></li>
+						<li><a href="{{URL::to('/add_category_product')}}">Thêm danh mục</a></li>
+						<li><a href="{{URL::to('/all_category_product')}}">Liệt kê danh mục</a></li>
                     </ul>
                 </li>   
             </ul>            

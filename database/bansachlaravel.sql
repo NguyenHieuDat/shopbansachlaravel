@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2025 at 05:26 AM
+-- Generation Time: Feb 11, 2025 at 09:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,7 +39,8 @@ CREATE TABLE `migrations` (
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
-(2, '2025_02_11_031813_create_tbl_admin_table', 1);
+(2, '2025_02_11_031813_create_tbl_admin_table', 1),
+(3, '2025_02_11_081813_create_tbl_category_product', 2);
 
 -- --------------------------------------------------------
 
@@ -94,6 +95,28 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_category_product`
+--
+
+CREATE TABLE `tbl_category_product` (
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `category_description` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_category_product`
+--
+
+INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `created_at`, `updated_at`) VALUES
+(1, 'Sách tranh', 'okok', NULL, NULL),
+(2, 'Truyện dài', 'hello', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -133,6 +156,12 @@ ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `tbl_category_product`
+--
+ALTER TABLE `tbl_category_product`
+  ADD PRIMARY KEY (`category_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -146,13 +175,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
   MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_category_product`
+--
+ALTER TABLE `tbl_category_product`
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
