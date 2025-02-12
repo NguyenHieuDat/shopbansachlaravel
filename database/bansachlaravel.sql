@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2025 at 04:38 AM
+-- Generation Time: Feb 12, 2025 at 10:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '2025_02_11_031813_create_tbl_admin_table', 1),
-(3, '2025_02_11_081813_create_tbl_category_product', 2);
+(3, '2025_02_11_081813_create_tbl_category_product', 2),
+(4, '2025_02_12_065338_create_tbl_author', 3);
 
 -- --------------------------------------------------------
 
@@ -91,6 +92,29 @@ CREATE TABLE `tbl_admin` (
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
 (1, 'datnguyen@gmail.com', '12345', 'datnguyen', '0123456789', '2025-02-11 03:42:07', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_author`
+--
+
+CREATE TABLE `tbl_author` (
+  `author_id` int(10) UNSIGNED NOT NULL,
+  `author_name` varchar(255) NOT NULL,
+  `author_image` varchar(255) NOT NULL,
+  `author_description` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_author`
+--
+
+INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
+(4, 'Nam cao 22', '1739352628_jpg', 'nam cao la mot nha van rat gioi', NULL, NULL),
+(5, 'To huu', '1739352671_jpg', 'to huu la nha tho', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -156,6 +180,12 @@ ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `tbl_author`
+--
+ALTER TABLE `tbl_author`
+  ADD PRIMARY KEY (`author_id`);
+
+--
 -- Indexes for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
@@ -175,13 +205,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
   MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_author`
+--
+ALTER TABLE `tbl_author`
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
