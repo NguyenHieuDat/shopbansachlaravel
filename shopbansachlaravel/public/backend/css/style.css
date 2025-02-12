@@ -3156,3 +3156,21 @@ span.text-alert {
     border-radius: 5px;
     display: inline-block;
 }
+a.active.style-edit {
+    font-size: 20px;
+}
+a.active.style-delete {
+    font-size: 20px;
+}
+span.text-success {
+    color: green;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffecec;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 5px;
+    display: inline-block;
+}

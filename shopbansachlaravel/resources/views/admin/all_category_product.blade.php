@@ -6,6 +6,13 @@
       <div class="panel-heading">
         Liệt kê danh mục sách
       </div>
+        <?php
+            $message = Session::get('message');
+            if($message){
+                echo "<span class='text-success'>{$message}</span>";
+                Session::put('message',null);
+            }
+          ?>
       <div class="row w3-res-tb">
         <div class="col-sm-5 m-b-xs">
           <select class="input-sm form-control w-sm inline v-middle">
@@ -38,21 +45,22 @@
               </th>
               <th>Tên danh mục</th>
               <th>Mô tả</th>
-              <th>Ngày thêm</th>
+              <th>Quản lý</th>
               <th style="width:30px;"></th>
             </tr>
           </thead>
           <tbody>
+            @foreach ($all_category_product as $key => $cate_pro)
             <tr>
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-              <td>Idrawfast prototype design prototype design prototype design prototype design prototype design</td>
-              <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
-              <td><span class="text-ellipsis">{item.PrHelpText1}</span></td>
+              <td>{{$cate_pro->category_name}}</td>
+              <td><span class="text-ellipsis">{{$cate_pro->category_description}}</span></td>
               <td>
-                <a href="" class="active" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
-                    <i class="fa fa-trash-o text-danger text"></i></a>
+                <a href="{{URL::to('/edit_category_product/'.$cate_pro->category_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                <a href="{{URL::to('/delete_category_product/'.$cate_pro->category_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
