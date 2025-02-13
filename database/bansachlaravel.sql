@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2025 at 04:51 AM
+-- Generation Time: Feb 13, 2025 at 10:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -187,6 +187,15 @@ CREATE TABLE `tbl_author` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_author`
+--
+
+INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
+(15, 'Nam cao', '1739432575_Shakespeare.jpg', '123', NULL, NULL),
+(16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '12namcao', NULL, NULL),
+(17, 'to huu', '1739437646_To_Huu.jpg', '12', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -210,6 +219,14 @@ CREATE TABLE `tbl_book` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_book`
+--
+
+INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `created_at`, `updated_at`) VALUES
+(5, 'Sau muoi chin', 4, 15, 2, '1739435493_Shakespeare.jpg', 'Tiếng việt', 2012, 319, '123', 0, '123', NULL, NULL),
+(6, 'Chin muoi sau chin', 1, 17, 2, '1739438162_To_Huu.jpg', 'Tiếng Anh', 2019, 404, '100000', 1, '123hahahahaha', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -230,7 +247,8 @@ CREATE TABLE `tbl_category_product` (
 
 INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `created_at`, `updated_at`) VALUES
 (1, 'Sách tranh tranh k', 'okokkkk', NULL, NULL),
-(2, 'Truyện dài', 'hellolo', NULL, NULL);
+(2, 'Truyện dài', 'hellolo', NULL, NULL),
+(4, 'Văn học', 'âssasa', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -245,6 +263,14 @@ CREATE TABLE `tbl_publisher` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_publisher`
+--
+
+INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_description`, `created_at`, `updated_at`) VALUES
+(2, 'NXB Kim Đồng', '123456', NULL, NULL),
+(3, 'NXB ABC', '12sss', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -381,25 +407,25 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
-  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -34,7 +34,9 @@ class AuthorController extends Controller
         $image = $request->file('author_image');
         if ($request->hasFile('author_image')) {
             $image = $request->file('author_image');
-            $imageName = time() . '_' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
+            $getimageName = $image->getClientOriginalName();
+            $nameimage = current(explode('.',$getimageName));
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/author/
             $image->move('public/upload/author',$imageName);
             // Lưu đường dẫn ảnh vào database
@@ -44,9 +46,10 @@ class AuthorController extends Controller
             return Redirect::to('add_author');
         }
 
+        $data['author_image'] = '';
         DB::table('tbl_author')->insert($data);
         Session::put('message','Thêm tác giả thành công!');
-        return Redirect::to('all_author');
+        return Redirect::to('add_author');
     }
 
     public function edit_author($aut_id){
@@ -62,7 +65,9 @@ class AuthorController extends Controller
         $image = $request->file('author_image');
         if ($request->hasFile('author_image')) {
             $image = $request->file('author_image');
-            $imageName = time() . '_' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
+            $getimageName = $image->getClientOriginalName();
+            $nameimage = current(explode('.',$getimageName));
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/author/
             $image->move('public/upload/author',$imageName);
             // Lưu đường dẫn ảnh vào database
@@ -72,6 +77,7 @@ class AuthorController extends Controller
             return Redirect::to('all_author');
         }
 
+        $data['author_image'] = '';
         DB::table('tbl_author')->where('author_id',$aut_id)->update($data);
         Session::put('message','Sửa tác giả thành công!');
         return Redirect::to('all_author');

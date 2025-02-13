@@ -47,3 +47,6 @@ Route::post('/save_book', 'App\Http\Controllers\BookController@save_book');
 Route::get('/edit_book/{books_id}', 'App\Http\Controllers\BookController@edit_book');
 Route::get('/delete_book/{books_id}', 'App\Http\Controllers\BookController@delete_book');
 Route::post('/update_book/{books_id}', 'App\Http\Controllers\BookController@update_book');
+Route::get('/unactive_book/{books_id}', 'App\Http\Controllers\BookController@unactive_book');
+Route::get('/active_book/{books_id}', 'App\Http\Controllers\BookController@active_book');
+

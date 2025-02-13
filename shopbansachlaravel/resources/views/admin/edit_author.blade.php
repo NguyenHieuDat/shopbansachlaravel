@@ -20,7 +20,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Tên tác giả</label>
-                            <input type="text" value="{{$edit_value->author_name}}" name="author_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên tác giả">
+                            <input type="text" value="{{$edit_value->author_name}}" name="author_name" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="form-group">
                             <label>Hình ảnh</label>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả">{{$edit_value->author_description}}</textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="exampleInputPassword1">{{$edit_value->author_description}}</textarea>
                         </div>
                         <button type="submit" name="edit_author" class="btn btn-info">Sửa tác giả</button>
                     </form>

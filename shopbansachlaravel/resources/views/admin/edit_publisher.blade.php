@@ -20,11 +20,11 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Tên nhà xuất bản</label>
-                            <input type="text" value="{{$edit_value->publisher_name}}" name="publisher_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên nhà xuất bản">
+                            <input type="text" value="{{$edit_value->publisher_name}}" name="publisher_name" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả">{{$edit_value->publisher_description}}</textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="exampleInputPassword1">{{$edit_value->publisher_description}}</textarea>
                         </div>
                         <button type="submit" name="edit_publisher" class="btn btn-info">Sửa nhà xuất bản</button>
                     </form>
