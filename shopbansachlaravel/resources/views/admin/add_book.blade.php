@@ -1,0 +1,83 @@
+@extends('admin_layout')
+@section('admin_content')
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Thêm sách
+            </header>
+            <div class="panel-body">
+                <?php
+                $message = Session::get('message');
+                if($message){
+                    echo "<span class='text-success'>{$message}</span>";
+                    Session::put('message',null);
+                }
+                ?>
+                <div class="position-center">
+                    <form role="form" action="{{URL::to('/save_book')}}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label>Tên sách</label>
+                            <input type="text" name="book_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên sách">
+                        </div>
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" name="book_image" class="form-control-file">
+                        </div>
+                        <div class="form-group">
+                            <label>Danh mục sách</label>
+                            <select name="category_id" class="form-control input -sm m -bot15">
+                                <option value="0">Hết</option>
+                                <option value="1">Còn</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tác giả</label>
+                            <select name="author_id" class="form-control input -sm m -bot15">
+                                <option value="0">Hết</option>
+                                <option value="1">Còn</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nhà xuất bản</label>
+                            <select name="publisher_id" class="form-control input -sm m -bot15">
+                                <option value="0">Hết</option>
+                                <option value="1">Còn</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngôn ngữ</label>
+                            <input type="text" name="book_language" class="form-control" id="exampleInputEmail1" placeholder="Nhập ngôn ngữ của sách">
+                        </div>
+                        <div class="form-group">
+                            <label>Năm xuất bản</label>
+                            <input type="text" name="book_year" class="form-control" id="exampleInputEmail1" placeholder="Nhập năm xuất bản">
+                        </div>
+                        <div class="form-group">
+                            <label>Số trang</label>
+                            <input type="text" name="book_page" class="form-control" id="exampleInputEmail1" placeholder="Nhập số trang">
+                        </div>
+                        <div class="form-group">
+                            <label>Giá tiền</label>
+                            <input type="text" name="book_price" class="form-control" id="exampleInputEmail1" placeholder="Nhập giá tiền">
+                        </div>
+                        <div class="form-group">
+                            <label>Tình trạng</label>
+                            <select name="book_status" class="form-control input -sm m -bot15">
+                                <option value="0">Hết</option>
+                                <option value="1">Còn</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả"></textarea>
+                        </div>
+                        <button type="submit" name="add_book" class="btn btn-info">Thêm sách</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@endsection

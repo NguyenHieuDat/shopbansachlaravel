@@ -78,8 +78,22 @@ class AuthorController extends Controller
     }
 
     public function delete_author($aut_id){
+        // Lấy thông tin tác giả từ database
+    $author = DB::table('tbl_author')->where('author_id', $aut_id)->first();
+
+    // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
+    if ($author) {
+        // Đường dẫn trực tiếp từ thư mục public
+        $image_path = 'public/upload/author/' .($author->author_image);
+
+        // Kiểm tra nếu file tồn tại thì xóa
+        if (file_exists($image_path)) {
+            unlink($image_path);
+        }
+        // Xóa dữ liệu trong database
         DB::table('tbl_author')->where('author_id',$aut_id)->delete();
         Session::put('message','Xóa tác giả thành công!');
         return Redirect::to('all_author');
+    }
     }
 }

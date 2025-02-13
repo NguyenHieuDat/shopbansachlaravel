@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Thêm tác giả
+                Thêm nhà xuất bản
             </header>
             <div class="panel-body">
                 <?php
@@ -15,21 +15,17 @@
                 }
                 ?>
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save_author')}}" method="POST" enctype="multipart/form-data">
+                    <form role="form" action="{{URL::to('/save_publisher')}}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label>Tên tác giả</label>
-                            <input type="text" name="author_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên tác giả">
-                        </div>
-                        <div class="form-group">
-                            <label>Hình ảnh</label>
-                            <input type="file" name="author_image" class="form-control-file">
+                            <label>Tên nhà xuất bản</label>
+                            <input type="text" name="publisher_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên nhà xuất bản">
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả"></textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả"></textarea>
                         </div>
-                        <button type="submit" name="add_author" class="btn btn-info">Thêm tác giả</button>
+                        <button type="submit" name="add_publisher" class="btn btn-info">Thêm nhà xuất bản</button>
                     </form>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2025 at 10:33 AM
+-- Generation Time: Feb 13, 2025 at 04:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,81 @@ SET time_zone = "+00:00";
 --
 -- Database: `bansachlaravel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -41,7 +116,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '2025_02_11_031813_create_tbl_admin_table', 1),
 (3, '2025_02_11_081813_create_tbl_category_product', 2),
-(4, '2025_02_12_065338_create_tbl_author', 3);
+(4, '2025_02_12_065338_create_tbl_author', 3),
+(5, '0001_01_01_000001_create_cache_table', 4),
+(6, '0001_01_01_000002_create_jobs_table', 4),
+(7, '2025_02_13_020242_create_tbl_book', 4),
+(8, '2025_02_13_021600_create_tbl_publisher', 4);
 
 -- --------------------------------------------------------
 
@@ -108,13 +187,28 @@ CREATE TABLE `tbl_author` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tbl_author`
+-- Table structure for table `tbl_book`
 --
 
-INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
-(4, 'Nam cao 22', '1739352628_jpg', 'nam cao la mot nha van rat gioi', NULL, NULL),
-(5, 'To huu', '1739352671_jpg', 'to huu la nha tho', NULL, NULL);
+CREATE TABLE `tbl_book` (
+  `book_id` int(10) UNSIGNED NOT NULL,
+  `book_name` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `publisher_id` int(11) NOT NULL,
+  `book_image` varchar(255) NOT NULL,
+  `book_language` varchar(255) NOT NULL,
+  `book_year` int(11) NOT NULL,
+  `book_page` int(11) NOT NULL,
+  `book_price` varchar(255) NOT NULL,
+  `book_status` int(11) NOT NULL,
+  `book_description` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -141,6 +235,20 @@ INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_de
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_publisher`
+--
+
+CREATE TABLE `tbl_publisher` (
+  `publisher_id` int(10) UNSIGNED NOT NULL,
+  `publisher_name` varchar(255) NOT NULL,
+  `publisher_description` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -158,6 +266,38 @@ CREATE TABLE `users` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -186,10 +326,22 @@ ALTER TABLE `tbl_author`
   ADD PRIMARY KEY (`author_id`);
 
 --
+-- Indexes for table `tbl_book`
+--
+ALTER TABLE `tbl_book`
+  ADD PRIMARY KEY (`book_id`);
+
+--
 -- Indexes for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `tbl_publisher`
+--
+ALTER TABLE `tbl_publisher`
+  ADD PRIMARY KEY (`publisher_id`);
 
 --
 -- Indexes for table `users`
@@ -202,10 +354,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -217,13 +381,25 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_book`
+--
+ALTER TABLE `tbl_book`
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
   MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_publisher`
+--
+ALTER TABLE `tbl_publisher`
+  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
