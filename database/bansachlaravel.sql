@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2025 at 04:58 AM
+-- Generation Time: Feb 14, 2025 at 09:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -218,6 +218,16 @@ CREATE TABLE `tbl_book` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_book`
+--
+
+INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `created_at`, `updated_at`) VALUES
+(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '123', NULL, NULL),
+(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
+(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -404,7 +414,7 @@ ALTER TABLE `tbl_author`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
