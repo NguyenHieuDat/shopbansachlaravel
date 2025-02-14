@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2025 at 10:16 AM
+-- Generation Time: Feb 14, 2025 at 04:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -192,7 +192,6 @@ CREATE TABLE `tbl_author` (
 --
 
 INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
-(15, 'Nam cao', '1739432575_Shakespeare.jpg', '123', NULL, NULL),
 (16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '12namcao', NULL, NULL),
 (17, 'to huu', '1739437646_To_Huu.jpg', '12', NULL, NULL);
 
@@ -218,14 +217,6 @@ CREATE TABLE `tbl_book` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tbl_book`
---
-
-INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `created_at`, `updated_at`) VALUES
-(5, 'Sau muoi chin', 4, 15, 2, '1739435493_Shakespeare.jpg', 'Tiếng việt', 2012, 319, '123', 0, '123', NULL, NULL),
-(6, 'Chin muoi sau chin', 1, 17, 2, '1739438162_To_Huu.jpg', 'Tiếng Anh', 2019, 404, '100000', 1, '123hahahahaha', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -413,7 +404,7 @@ ALTER TABLE `tbl_author`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`

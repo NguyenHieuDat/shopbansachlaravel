@@ -11,7 +11,18 @@ session_start();
 
 class BookController extends Controller
 {
+    public function check_login(){
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }
+        else{
+            return Redirect::to('admin')->send();
+        }
+    }
+
     public function add_book(){
+        $this->check_login();
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -19,6 +30,7 @@ class BookController extends Controller
     }
 
     public function all_book(){
+        $this->check_login();
         $all_book = DB::table('tbl_book')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
         ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')->orderby('tbl_book.book_id','desc')->get();
@@ -27,6 +39,7 @@ class BookController extends Controller
     }
 
     public function save_book(Request $request){
+        $this->check_login();
         $data = array();
         $data['book_name'] = $request->book_name;
         $data['category_id'] = $request->category;
@@ -60,6 +73,7 @@ class BookController extends Controller
     }
 
     public function edit_book($books_id){
+        $this->check_login();
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -71,18 +85,21 @@ class BookController extends Controller
     }
 
     public function active_book($books_id){
+        $this->check_login();
         DB::table('tbl_book')->where('book_id',$books_id)->update(['book_status'=>0]);
         Session::put('message','Kích hoạt trạng thái hết hàng');
         return Redirect::to('all_book');
     }
 
     public function unactive_book($books_id){
+        $this->check_login();
         DB::table('tbl_book')->where('book_id',$books_id)->update(['book_status'=>1]);
         Session::put('message','Kích hoạt trạng thái còn hàng');
         return Redirect::to('all_book');
     }
 
     public function update_book(Request $request,$books_id){
+        $this->check_login();
         $data = array();
         $data['book_name'] = $request->book_name;
         $data['category_id'] = $request->category;
@@ -108,19 +125,21 @@ class BookController extends Controller
             Session::put('message','Sửa sách thành công!');
             return Redirect::to('all_book');
         }
+
         DB::table('tbl_book')->where('book_id',$books_id)->update($data);
         Session::put('message','Sửa sách thành công!');
         return Redirect::to('all_book');
     }
 
     public function delete_book($books_id){
+        $this->check_login();
         // Lấy thông tin tác giả từ database
         $book = DB::table('tbl_book')->where('book_id', $books_id)->first();
 
         // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
         if ($book) {
         // Đường dẫn trực tiếp từ thư mục public
-            $image_path = 'public/upload/book/' .($book->book_image);
+            $image_path = base_path('public/upload/book/' .($book->book_image));
 
         // Kiểm tra nếu file tồn tại thì xóa
             if (file_exists($image_path)) {

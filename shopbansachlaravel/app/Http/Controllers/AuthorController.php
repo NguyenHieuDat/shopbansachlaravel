@@ -11,17 +11,30 @@ session_start();
 
 class AuthorController extends Controller
 {
+    public function check_login(){
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }
+        else{
+            return Redirect::to('admin')->send();
+        }
+    }
+
     public function add_author(){
+        $this->check_login();
         return view('admin.add_author');
     }
 
     public function all_author(){
+        $this->check_login();
         $all_author = DB::table('tbl_author')->get();
         $manager_author = view('admin.all_author')->with('all_author',$all_author);
         return view('admin_layout')->with('admin.all_author',$manager_author);
     }
 
     public function save_author(Request $request){
+        $this->check_login();
         $request->validate([
             'author_name' => 'required|string|max:255',
             'author_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -53,12 +66,14 @@ class AuthorController extends Controller
     }
 
     public function edit_author($aut_id){
+        $this->check_login();
         $edit_author = DB::table('tbl_author')->where('author_id',$aut_id)->get();
         $manager_author = view('admin.edit_author')->with('edit_author',$edit_author);
         return view('admin_layout')->with('admin.edit_author',$manager_author);
     }
 
     public function update_author(Request $request,$aut_id){
+        $this->check_login();
         $data = array();
         $data['author_name'] = $request->author_name;
         $data['author_description'] = $request->author_description;
@@ -76,24 +91,24 @@ class AuthorController extends Controller
             Session::put('message','Sửa tác giả thành công!');
             return Redirect::to('all_author');
         }
-
-        $data['author_image'] = '';
+        
         DB::table('tbl_author')->where('author_id',$aut_id)->update($data);
         Session::put('message','Sửa tác giả thành công!');
         return Redirect::to('all_author');
     }
 
     public function delete_author($aut_id){
+        $this->check_login();
         // Lấy thông tin tác giả từ database
-    $author = DB::table('tbl_author')->where('author_id', $aut_id)->first();
+        $author = DB::table('tbl_author')->where('author_id', $aut_id)->first();
 
-    // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
-    if ($author) {
-        // Đường dẫn trực tiếp từ thư mục public
-        $image_path = 'public/upload/author/' .($author->author_image);
+        // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
+        if ($author) {
+            // Đường dẫn trực tiếp từ thư mục public
+            $image_path = 'public/upload/author/' .($author->author_image);
 
-        // Kiểm tra nếu file tồn tại thì xóa
-        if (file_exists($image_path)) {
+            // Kiểm tra nếu file tồn tại thì xóa
+            if (file_exists($image_path)) {
             unlink($image_path);
         }
         // Xóa dữ liệu trong database
