@@ -11,6 +11,8 @@ session_start();
 
 class AuthorController extends Controller
 {
+    //Ham admin
+
     public function check_login(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -116,5 +118,21 @@ class AuthorController extends Controller
         Session::put('message','Xóa tác giả thành công!');
         return Redirect::to('all_author');
     }
+    }
+
+    //Ham user
+
+    public function author_home($author_id){
+        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        $author_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_author','tbl_book.author_id','=','tbl_author.author_id')
+        ->where('tbl_book.author_id',$author_id)->get();
+
+        $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->limit(1)->get();
+
+        return view('pages.author.show_author')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('author_by_id',$author_by_id)->with('author_name_show',$author_name_show);
     }
 }

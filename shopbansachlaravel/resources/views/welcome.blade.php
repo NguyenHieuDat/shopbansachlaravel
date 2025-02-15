@@ -64,7 +64,7 @@
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="" class="text-decoration-none">
-                    <img src="public/frontend/img/fahasa-logo.jpeg" alt="Logo" style="height: 50px; max-width: 100%; object-fit: contain;">
+                    <img src="{{asset('public/frontend/img/fahasa-logo.jpeg')}}" alt="Logo" style="height: 50px; max-width: 100%; object-fit: contain;">
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
@@ -170,19 +170,19 @@
                     
                     <div class="carousel-inner">
                         <div class="carousel-item position-relative active" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="public/frontend/img/banner-1.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-1.jpg')}}" style="object-fit: cover;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 
                             </div>
                         </div>
                         <div class="carousel-item position-relative" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="public/frontend/img/banner-2.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-2.jpg')}}" style="object-fit: cover;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 
                             </div>
                         </div>
                         <div class="carousel-item position-relative" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="public/frontend/img/banner-3.jpg" style="object-fit: cover;">
+                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-3.jpg')}}" style="object-fit: cover;">
                             <div class="d-flex flex-column align-items-center justify-content-center">
                                 
                             </div>
@@ -202,11 +202,11 @@
             </div>
             <div class="col-lg-4">
                 <div class="product-offer mb-30" style="height: 135px;">
-                    <img class="img-fluid" src="public/frontend/img/sub-banner-1.jpg" alt="">
+                    <img class="img-fluid" src="{{asset('public/frontend/img/sub-banner-1.jpg')}}" alt="">
                     
                 </div>
                 <div class="product-offer mb-30" style="height: 135px;">
-                    <img class="img-fluid" src="public/frontend/img/sub-banner-2.jpg" alt="">
+                    <img class="img-fluid" src="{{asset('public/frontend/img/sub-banner-2.jpg')}}" alt="">
                     
                 </div>
             </div>
@@ -215,7 +215,7 @@
     <!-- Carousel End -->
 
     <!-- Home -->
-    <div class="container-fluid">
+    <div>
         @yield('content')
     </div>
 

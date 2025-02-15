@@ -11,6 +11,8 @@ session_start();
 
 class PublisherController extends Controller
 {
+    //Ham admin
+
     public function check_login(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -67,5 +69,21 @@ class PublisherController extends Controller
         DB::table('tbl_publisher')->where('publisher_id',$publish_id)->delete();
         Session::put('message','Xóa nhà xuất bản thành công!');
         return Redirect::to('all_publisher');
+    }
+
+    //Ham user
+
+    public function publisher_home($publisher_id){
+        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        $publisher_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_publisher','tbl_book.publisher_id','=','tbl_publisher.publisher_id')
+        ->where('tbl_book.publisher_id',$publisher_id)->get();
+
+        $publisher_name_show = DB::table('tbl_publisher')->where('tbl_publisher.publisher_id',$publisher_id)->limit(1)->get();
+
+        return view('pages.publisher.show_publisher')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('publisher_by_id',$publisher_by_id)->with('publisher_name_show',$publisher_name_show);
     }
 }

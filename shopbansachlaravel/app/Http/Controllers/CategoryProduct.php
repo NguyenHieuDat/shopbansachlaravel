@@ -11,6 +11,8 @@ session_start();
 
 class CategoryProduct extends Controller
 {
+    //Ham Admin 
+
     public function check_login(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -67,5 +69,21 @@ class CategoryProduct extends Controller
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->delete();
         Session::put('message','Xóa danh mục sách thành công!');
         return Redirect::to('all_category_product');
+    }
+
+    //Ham User
+
+    public function category_home($category_id){
+        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        $category_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_book.category_id','=','tbl_category_product.category_id')
+        ->where('tbl_book.category_id',$category_id)->get();
+
+        $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->limit(1)->get();
+
+        return view('pages.category.show_category')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('category_by_id',$category_by_id)->with('category_name_show',$category_name_show);
     }
 }

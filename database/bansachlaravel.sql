@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2025 at 09:34 AM
+-- Generation Time: Feb 15, 2025 at 11:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -207,7 +207,7 @@ CREATE TABLE `tbl_book` (
   `category_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
-  `book_image` varchar(255) NOT NULL,
+  `book_image` longtext NOT NULL,
   `book_language` varchar(255) NOT NULL,
   `book_year` int(11) NOT NULL,
   `book_page` int(11) NOT NULL,
@@ -226,7 +226,10 @@ INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `pub
 (9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '123', NULL, NULL),
 (10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
 (11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL);
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL),
+(13, 'Muoi hai', 1, 17, 3, '1739611003_giaitridenchet.jpg', 'Tiếng Việt', 2020, 404, '210000', 1, 'kkkkkkkkkkkkkkk', NULL, NULL),
+(14, 'Muoi hai hai', 4, 17, 3, '\"1739614314_giaitridenchet.jpg\"', 'Tiếng Việt', 2012, 200, '123', 1, 'kkkkkkkkk', NULL, NULL),
+(15, 'Sau muoi chin 2', 2, 17, 3, '\"1739615046_giaitridenchet.jpg\"', 'Tiếng Việt', 2012, 12, '123456', 1, '12345', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,7 +417,7 @@ ALTER TABLE `tbl_author`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`

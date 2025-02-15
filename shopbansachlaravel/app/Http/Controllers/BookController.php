@@ -11,6 +11,8 @@ session_start();
 
 class BookController extends Controller
 {
+    //Ham admin
+
     public function check_login(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -53,14 +55,15 @@ class BookController extends Controller
         $data['book_description'] = $request->book_description;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
-            $image = $request->file('book_image');
+            foreach($request->file('book_image') as $image){
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
             $image->move('public/upload/book',$imageName);
+            }
             // Lưu đường dẫn ảnh vào database
-            $data['book_image'] = $imageName;
+            $data['book_image'] = json_encode($imageName);
             DB::table('tbl_book')->insert($data);
             Session::put('message','Thêm sách thành công!');
             return Redirect::to('add_book');
@@ -113,12 +116,13 @@ class BookController extends Controller
         $data['book_description'] = $request->book_description;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
-            $image = $request->file('book_image');
+            foreach($request->file('book_image') as $image){
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
             $image->move('public/upload/book',$imageName);
+            }
             // Lưu đường dẫn ảnh vào database
             $data['book_image'] = $imageName;
             DB::table('tbl_book')->where('book_id',$books_id)->update($data);
@@ -133,7 +137,7 @@ class BookController extends Controller
 
     public function delete_book($books_id){
         $this->check_login();
-        // Lấy thông tin tác giả từ database
+        // Lấy thông tin từ database
         $book = DB::table('tbl_book')->where('book_id', $books_id)->first();
 
         // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
@@ -149,5 +153,22 @@ class BookController extends Controller
         Session::put('message','Xóa sách thành công!');
         return Redirect::to('all_book');
         }
+    }
+
+    //Ham user
+
+    public function book_detail($books_id){
+        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        $book_detail = DB::table('tbl_book')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
+        ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
+        ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
+        ->where('tbl_book.book_id',$books_id)->get();
+        $bookimg = DB::table('tbl_book')->where('book_id', $books_id)->first();
+
+        return view('pages.book.show_book_detail', compact('bookimg'))->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('book_detail',$book_detail);
     }
 }

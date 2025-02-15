@@ -16,7 +16,7 @@ class HomeController extends Controller
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
-        $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(4)->get();
+        $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(8)->get();
         return view('pages.home')->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)->with('all_book',$all_book);
     }
 }

@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label>Hình ảnh</label>
-                            <input type="file" name="book_image" class="form-control-file">
+                            <input type="file" name="book_image[]" class="form-control-file" multiple>
                         </div>
                         <div class="form-group">
                             <label>Danh mục sách</label>

@@ -9732,3 +9732,21 @@ a.text-dark:hover, a.text-dark:focus {
 .custom-carousel-control:hover {
   color: rgba(255, 255, 255, 1);
 }
+
+.btn.btn-detail-book {
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #dc3545; /* Màu danger mặc định */
+  border: 2px solid #dc3545;
+  border-radius: 25px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn.btn-detail-book:hover {
+  background-color: #dc3545;
+  color: white;
+}
