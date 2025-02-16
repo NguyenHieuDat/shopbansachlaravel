@@ -25,14 +25,14 @@ class PublisherController extends Controller
 
     public function add_publisher(){
         $this->check_login();
-        return view('admin.add_publisher');
+        return view('admin.publisher.add_publisher');
     }
 
     public function all_publisher(){
         $this->check_login();
         $all_publisher = DB::table('tbl_publisher')->get();
-        $manager_publisher = view('admin.all_publisher')->with('all_publisher',$all_publisher);
-        return view('admin_layout')->with('admin.all_publisher',$manager_publisher);
+        $manager_publisher = view('admin.publisher.all_publisher')->with('all_publisher',$all_publisher);
+        return view('admin_layout')->with('admin.publisher.all_publisher',$manager_publisher);
     }
 
     public function save_publisher(Request $request){
@@ -50,7 +50,7 @@ class PublisherController extends Controller
         $this->check_login();
         $edit_publisher = DB::table('tbl_publisher')->where('publisher_id',$publish_id)->get();
         $manager_publisher = view('admin.edit_publisher')->with('edit_publisher',$edit_publisher);
-        return view('admin_layout')->with('admin.edit_publisher',$manager_publisher);
+        return view('admin_layout')->with('admin.publisher.edit_publisher',$manager_publisher);
     }
 
     public function update_publisher(Request $request,$publish_id){

@@ -3,32 +3,19 @@
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
-    @php
-    $images = json_decode($bookimg->book_image, true);
-    if (!is_array($images)) {
-        $images = [$bookimg->book_image]; // Chuyển thành mảng nếu chỉ có 1 ảnh
-    }
-    @endphp
-    @if(!empty($images))
-    @foreach($images as $image)
+
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner bg-light">
-                    <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{ asset($image) }}" alt="Image">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                    <i class="fa fa-2x fa-angle-left text-dark"></i>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                    <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
-            </div>
+            <ul id="imageGallery">
+                <li width="100%" data-thumb="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" data-src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg">
+                  <img width="100%" src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+                </li>
+                <li width="100%" data-thumb="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" data-src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg">
+                  <img width="100%" src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+                </li>
+              </ul>
         </div>
-        @endforeach
-        @endif
+
         @foreach ($book_detail as $key => $detail)
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">

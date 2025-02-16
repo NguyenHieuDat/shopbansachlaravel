@@ -28,7 +28,7 @@ class BookController extends Controller
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
-        return view('admin.add_book')->with('cate_product',$cate_product)->with('author',$author)->with('publisher',$publisher);
+        return view('admin.book.add_book')->with('cate_product',$cate_product)->with('author',$author)->with('publisher',$publisher);
     }
 
     public function all_book(){
@@ -36,8 +36,8 @@ class BookController extends Controller
         $all_book = DB::table('tbl_book')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
         ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')->orderby('tbl_book.book_id','desc')->get();
-        $manager_book = view('admin.all_book')->with('all_book',$all_book);
-        return view('admin_layout')->with('admin.all_book',$manager_book);
+        $manager_book = view('admin.book.all_book')->with('all_book',$all_book);
+        return view('admin_layout')->with('admin.book.all_book',$manager_book);
     }
 
     public function save_book(Request $request){
@@ -55,15 +55,15 @@ class BookController extends Controller
         $data['book_description'] = $request->book_description;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
-            foreach($request->file('book_image') as $image){
+            $image = $request->file('book_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
             $image->move('public/upload/book',$imageName);
-            }
+            
             // Lưu đường dẫn ảnh vào database
-            $data['book_image'] = json_encode($imageName);
+            $data['book_image'] = $imageName;
             DB::table('tbl_book')->insert($data);
             Session::put('message','Thêm sách thành công!');
             return Redirect::to('add_book');
@@ -84,7 +84,7 @@ class BookController extends Controller
         $edit_book = DB::table('tbl_book')->where('book_id',$books_id)->get();
         $manager_book = view('admin.edit_book')->with('edit_book',$edit_book)->with('cate_product',$cate_product)
         ->with('author',$author)->with('publisher',$publisher);
-        return view('admin_layout')->with('admin.edit_book',$manager_book);
+        return view('admin_layout')->with('admin.book.edit_book',$manager_book);
     }
 
     public function active_book($books_id){
@@ -116,13 +116,13 @@ class BookController extends Controller
         $data['book_description'] = $request->book_description;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
-            foreach($request->file('book_image') as $image){
+            $image = $request->file('book_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
             $image->move('public/upload/book',$imageName);
-            }
+            
             // Lưu đường dẫn ảnh vào database
             $data['book_image'] = $imageName;
             DB::table('tbl_book')->where('book_id',$books_id)->update($data);
@@ -166,9 +166,8 @@ class BookController extends Controller
         ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
         ->where('tbl_book.book_id',$books_id)->get();
-        $bookimg = DB::table('tbl_book')->where('book_id', $books_id)->first();
 
-        return view('pages.book.show_book_detail', compact('bookimg'))->with('category',$cate_product)->with('author',$author)
+        return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('book_detail',$book_detail);
     }
 }

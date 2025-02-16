@@ -25,14 +25,14 @@ class AuthorController extends Controller
 
     public function add_author(){
         $this->check_login();
-        return view('admin.add_author');
+        return view('admin.author.add_author');
     }
 
     public function all_author(){
         $this->check_login();
         $all_author = DB::table('tbl_author')->get();
-        $manager_author = view('admin.all_author')->with('all_author',$all_author);
-        return view('admin_layout')->with('admin.all_author',$manager_author);
+        $manager_author = view('admin.author.all_author')->with('all_author',$all_author);
+        return view('admin_layout')->with('admin.author.all_author',$manager_author);
     }
 
     public function save_author(Request $request){
@@ -71,7 +71,7 @@ class AuthorController extends Controller
         $this->check_login();
         $edit_author = DB::table('tbl_author')->where('author_id',$aut_id)->get();
         $manager_author = view('admin.edit_author')->with('edit_author',$edit_author);
-        return view('admin_layout')->with('admin.edit_author',$manager_author);
+        return view('admin_layout')->with('admin.author.edit_author',$manager_author);
     }
 
     public function update_author(Request $request,$aut_id){

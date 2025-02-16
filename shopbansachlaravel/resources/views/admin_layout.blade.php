@@ -31,6 +31,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		load_gallery();
+		function load_gallery(){
+			var gal_id = $('.gal_id').val();
+			var _token = $('input[name="_token"]').val();
+		$.ajax({
+			url:"{{url('/select_gallery')}}",
+			method:"POST",
+			data:{gal_id:gal_id,_token:_token},
+			success:function(data){
+				$('#gallery_load').html(data);
+			}
+		});
+		}
+
+		$('#file').change(function(){
+			var error = '';
+			var files = $('#file')[0].files;
+			$('#error_gallery').html('');
+			if(files.length>5){
+				error+='<p>Chỉ được chọn tối đa 5 ảnh!</p>';
+			}else if(files.length == 0){
+				error+='<p>Không được bỏ trống ảnh!</p>';
+			}
+			var totalSize = 0;
+    		for (var i = 0; i < files.length; i++) {
+        	totalSize += files[i].size; // Tính tổng kích thước của các tệp
+    		}
+    		if (totalSize > 2000000) { // 2 MB = 2,000,000 bytes
+        		error += '<p>Ảnh không được lớn hơn 2 MB!</p>';
+    		}
+			if(error==''){
+
+			}else{
+				$('#file').val('');
+				$('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+				return false;
+			}
+		});
+	});
+</script>
 </head>
 <body>
 <section id="container">
@@ -56,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="public/backend/images/2.png">
+                <img alt="" src="">
                 <span class="username">
 				<?php
 					$name = Session::get('admin_name');
@@ -122,7 +165,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('/add_publisher')}}">Thêm nhà xuất bản</a></li>
-						<li><a href="{{URL::to('/all_publisher')}}">Danh sách nhà xuất bản</a></li>
+						<li><a href="{{URL::to('/all_publisher')}}">Liệt kê nhà xuất bản</a></li>
                     </ul>
                 </li>
 
@@ -136,7 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('/all_book')}}">Liệt kê sách</a></li>
                     </ul>
                 </li>
-
+                
 
             </ul>            
         </div>
@@ -167,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->	
-<script>
+{{-- <script>
 	$(document).ready(function() {
 		//BOX BUTTON SHOW AND CLOSE
 	   jQuery('.small-graph-box').hover(function() {
@@ -221,8 +264,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 	   
 	});
-	</script>
-<!-- calendar -->
+	</script> --}}
+	{{-- <!-- calendar -->
 	<script type="text/javascript" src="{{asset('public/backend/js/monthly.js')}}"></script>
 	<script type="text/javascript">
 		$(window).load( function() {
@@ -253,6 +296,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		});
 	</script>
-	<!-- //calendar -->
+	<!-- //calendar --> --}}
 </body>
 </html>

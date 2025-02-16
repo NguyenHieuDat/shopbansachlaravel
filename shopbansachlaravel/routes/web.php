@@ -58,3 +58,10 @@ Route::post('/update_book/{books_id}', 'App\Http\Controllers\BookController@upda
 Route::get('/unactive_book/{books_id}', 'App\Http\Controllers\BookController@unactive_book');
 Route::get('/active_book/{books_id}', 'App\Http\Controllers\BookController@active_book');
 
+//Thu vien anh
+
+Route::get('/add_gallery/{book_id}', 'App\Http\Controllers\GalleryController@add_gallery');
+Route::match(['get', 'post'], '/select_gallery', [App\Http\Controllers\GalleryController::class, 'select_gallery']);
+Route::post('/insert_gallery/{gal_id}', 'App\Http\Controllers\GalleryController@insert_gallery');
+
+//

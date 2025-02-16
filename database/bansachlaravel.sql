@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2025 at 11:33 AM
+-- Generation Time: Feb 16, 2025 at 11:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,7 +120,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '0001_01_01_000001_create_cache_table', 4),
 (6, '0001_01_01_000002_create_jobs_table', 4),
 (7, '2025_02_13_020242_create_tbl_book', 4),
-(8, '2025_02_13_021600_create_tbl_publisher', 4);
+(8, '2025_02_13_021600_create_tbl_publisher', 4),
+(9, '2025_02_16_052609_create_tbl_gallery', 5);
 
 -- --------------------------------------------------------
 
@@ -207,7 +208,7 @@ CREATE TABLE `tbl_book` (
   `category_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `publisher_id` int(11) NOT NULL,
-  `book_image` longtext NOT NULL,
+  `book_image` varchar(255) NOT NULL,
   `book_language` varchar(255) NOT NULL,
   `book_year` int(11) NOT NULL,
   `book_page` int(11) NOT NULL,
@@ -226,10 +227,7 @@ INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `pub
 (9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '123', NULL, NULL),
 (10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
 (11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL),
-(13, 'Muoi hai', 1, 17, 3, '1739611003_giaitridenchet.jpg', 'Tiếng Việt', 2020, 404, '210000', 1, 'kkkkkkkkkkkkkkk', NULL, NULL),
-(14, 'Muoi hai hai', 4, 17, 3, '\"1739614314_giaitridenchet.jpg\"', 'Tiếng Việt', 2012, 200, '123', 1, 'kkkkkkkkk', NULL, NULL),
-(15, 'Sau muoi chin 2', 2, 17, 3, '\"1739615046_giaitridenchet.jpg\"', 'Tiếng Việt', 2012, 12, '123456', 1, '12345', NULL, NULL);
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -253,6 +251,30 @@ INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_de
 (1, 'Sách tranh tranh k', 'okokkkk', NULL, NULL),
 (2, 'Truyện dài', 'hellolo', NULL, NULL),
 (4, 'Văn học', 'âssasa', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_gallerry`
+--
+
+CREATE TABLE `tbl_gallerry` (
+  `gallery_id` int(10) UNSIGNED NOT NULL,
+  `gallery_name` varchar(255) NOT NULL,
+  `gallery_image` varchar(255) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_gallerry`
+--
+
+INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book_id`, `created_at`, `updated_at`) VALUES
+(3, '1739701216_laohac.jpg', '1739701216_laohac.jpg', 12, NULL, NULL),
+(4, '1739701216_tatuduy.jpg', '1739701216_tatuduy.jpg', 12, NULL, NULL),
+(5, '1739701216_giaitridenchet.jpg', '1739701216_giaitridenchet.jpg', 12, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -368,6 +390,12 @@ ALTER TABLE `tbl_category_product`
   ADD PRIMARY KEY (`category_id`);
 
 --
+-- Indexes for table `tbl_gallerry`
+--
+ALTER TABLE `tbl_gallerry`
+  ADD PRIMARY KEY (`gallery_id`);
+
+--
 -- Indexes for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
@@ -399,7 +427,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -417,13 +445,19 @@ ALTER TABLE `tbl_author`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
   MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_gallerry`
+--
+ALTER TABLE `tbl_gallerry`
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_publisher`
