@@ -61,7 +61,6 @@ class BookController extends Controller
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
             $image->move('public/upload/book',$imageName);
-            
             // Lưu đường dẫn ảnh vào database
             $data['book_image'] = $imageName;
             DB::table('tbl_book')->insert($data);

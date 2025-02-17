@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 11:23 AM
+-- Generation Time: Feb 17, 2025 at 04:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -272,9 +272,9 @@ CREATE TABLE `tbl_gallerry` (
 --
 
 INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book_id`, `created_at`, `updated_at`) VALUES
-(3, '1739701216_laohac.jpg', '1739701216_laohac.jpg', 12, NULL, NULL),
-(4, '1739701216_tatuduy.jpg', '1739701216_tatuduy.jpg', 12, NULL, NULL),
-(5, '1739701216_giaitridenchet.jpg', '1739701216_giaitridenchet.jpg', 12, NULL, NULL);
+(7, '1739760620_tatuduy.jpg', '1739763304_laohac.jpg', 12, NULL, NULL),
+(8, '1739760620_giaitridenchet.jpg', '1739763345_tatuduy.jpg', 12, NULL, NULL),
+(9, '1739760620_thientaibentrai.jpg', '1739763351_giaitridenchet.jpg', 12, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -457,7 +457,7 @@ ALTER TABLE `tbl_category_product`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_publisher`

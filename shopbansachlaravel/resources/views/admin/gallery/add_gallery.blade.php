@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-6">
                 <input type="file" class="form-control" id="file" name="file[]" accept="image/*" multiple>
-                <span id="error_gallery"></span>
+                <span id="error_gallery" style="text-align: center"></span>
             </div>
             <div class="col-md-3">
                 <input type="submit" name="upload" name="taianh" value="Tải ảnh lên" class="btn btn-success">

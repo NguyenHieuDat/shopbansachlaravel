@@ -63,5 +63,8 @@ Route::get('/active_book/{books_id}', 'App\Http\Controllers\BookController@activ
 Route::get('/add_gallery/{book_id}', 'App\Http\Controllers\GalleryController@add_gallery');
 Route::match(['get', 'post'], '/select_gallery', [App\Http\Controllers\GalleryController::class, 'select_gallery']);
 Route::post('/insert_gallery/{gal_id}', 'App\Http\Controllers\GalleryController@insert_gallery');
+Route::post('/update_gallery', 'App\Http\Controllers\GalleryController@update_gallery');
+Route::post('/delete_gallery', 'App\Http\Controllers\GalleryController@delete_gallery');
+Route::post('/update_gallery_name', 'App\Http\Controllers\GalleryController@update_gallery_name');
 
 //
