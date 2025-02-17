@@ -62,7 +62,7 @@ class GalleryController extends Controller
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
               <td>'.$i.'</td>
               <td contenteditable class="edit_gal_name" data-gal_id="'.$gal->gallery_id.'">'.$gal->gallery_name.'</td>
-              <td><img src="'.url('public/upload/gallery/'.$gal->gallery_image).'" height="150" width="150">
+              <td><img src="'.url('public/upload/gallery/'.$gal->gallery_image).'" height="150" width="120">
               <input type="file" class="file_image" style="width: 40%" data-gal_id="'.$gal->gallery_id.'" id="file-'.$gal->gallery_id.'" name="file" accept="image/*">
               </td>
               <td>

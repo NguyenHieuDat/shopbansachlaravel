@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2025 at 04:37 AM
+-- Generation Time: Feb 17, 2025 at 10:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -227,7 +227,8 @@ INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `pub
 (9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '123', NULL, NULL),
 (10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
 (11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL);
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL),
+(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 2, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, 'mmm', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -272,9 +273,14 @@ CREATE TABLE `tbl_gallerry` (
 --
 
 INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book_id`, `created_at`, `updated_at`) VALUES
-(7, '1739760620_tatuduy.jpg', '1739763304_laohac.jpg', 12, NULL, NULL),
-(8, '1739760620_giaitridenchet.jpg', '1739763345_tatuduy.jpg', 12, NULL, NULL),
-(9, '1739760620_thientaibentrai.jpg', '1739763351_giaitridenchet.jpg', 12, NULL, NULL);
+(7, '1739760620_tatuduy.jpg', '1739776610_laohac.jpg', 12, NULL, NULL),
+(8, '1739760620_giaitridenchet.jpg', '1739776618_giaitridenchet.jpg', 12, NULL, NULL),
+(9, '1739760620_thientaibentrai.jpg', '1739776625_thientaibentrai.jpg', 12, NULL, NULL),
+(10, '1739776639_tatuduy.jpg', '1739776639_tatuduy.jpg', 12, NULL, NULL),
+(11, '1739782323_caycamngot1.jpg', '1739783445_giaitridenchet.jpg', 18, NULL, NULL),
+(15, '1739782825_caycamngot2.jpg', '1739782825_caycamngot2.jpg', 18, NULL, NULL),
+(16, '1739782825_caycamngot3.jpg', '1739782825_caycamngot3.jpg', 18, NULL, NULL),
+(17, '1739782825_caycamngot4.jpg', '1739782825_caycamngot4.jpg', 18, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -445,7 +451,7 @@ ALTER TABLE `tbl_author`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
@@ -457,7 +463,7 @@ ALTER TABLE `tbl_category_product`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_publisher`

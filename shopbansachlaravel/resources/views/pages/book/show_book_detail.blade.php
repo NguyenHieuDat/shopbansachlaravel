@@ -3,19 +3,26 @@
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
-
+<style>
+    /* li.active{
+        border: 2px solid red;
+    } */
+    .lSSlideOuter .lSPager.lSGallery li img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover; /* Ảnh sẽ được crop để phủ kín ô li */
+    }
+</style>
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
             <ul id="imageGallery">
-                <li width="100%" data-thumb="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" data-src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg">
-                  <img width="100%" src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+                @foreach ($gallery as $key => $gall)
+                <li data-thumb="{{asset('public/upload/gallery/'.$gall->gallery_image)}}" data-src="{{asset('public/upload/gallery/'.$gall->gallery_image)}}">
+                  <img width="100%" height="600px" alt="{{$gall->gallery_name}}" src="{{asset('public/upload/gallery/'.$gall->gallery_image)}}">
                 </li>
-                <li width="100%" data-thumb="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" data-src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg">
-                  <img width="100%" src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
-                </li>
+                @endforeach
               </ul>
         </div>
-
         @foreach ($book_detail as $key => $detail)
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">

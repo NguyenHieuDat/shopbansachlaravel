@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use App\Models\GalleryModel;
 use Session;
+use File;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -54,22 +56,26 @@ class BookController extends Controller
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
         $image = $request->file('book_image');
+        $path = 'public/upload/book/';
+        $path_gallery = 'public/upload/gallery/';
         if ($request->hasFile('book_image')) {
-            $image = $request->file('book_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
-            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
+            $newimage = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
             // Di chuyển ảnh vào thư mục public/upload/book/
-            $image->move('public/upload/book',$imageName);
+            $image->move($path,$newimage);
+            File::copy($path.$newimage,$path_gallery.$newimage);
             // Lưu đường dẫn ảnh vào database
-            $data['book_image'] = $imageName;
-            DB::table('tbl_book')->insert($data);
-            Session::put('message','Thêm sách thành công!');
-            return Redirect::to('add_book');
+            $data['book_image'] = $newimage;
+            
         }
+        $book_id = DB::table('tbl_book')->insertGetId($data);
+        $gallery = new GalleryModel;
+        $gallery->gallery_image = $newimage;
+        $gallery->gallery_name = $newimage;
+        $gallery->book_id = $book_id;
+        $gallery->save();
 
-        $data['book_image'] = '';
-        DB::table('tbl_book')->insert($data);
         Session::put('message','Thêm sách thành công!');
         return Redirect::to('add_book');
     }
@@ -166,7 +172,12 @@ class BookController extends Controller
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
         ->where('tbl_book.book_id',$books_id)->get();
 
+        foreach($book_detail as $key => $value){
+            $book_id = $value->book_id;
+        }
+        $gallery = GalleryModel::where('book_id',$book_id)->get();
+
         return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
-        ->with('publisher',$publisher)->with('book_detail',$book_detail);
+        ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery);
     }
 }

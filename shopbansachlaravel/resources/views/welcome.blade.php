@@ -24,7 +24,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('public/frontend/css/lightgallery.min.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{asset('public/frontend/css/lightgallery.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettify.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}" />
 </head>

@@ -154,7 +154,9 @@
     display: block;
     top: 50%;
     height: 32px;
-    background-image: url('../img/controls.png');
+    background-color: black;
+    -webkit-mask-image: url('../img/controls.png');
+    mask-image: url('../img/controls.png');
     cursor: pointer;
     position: absolute;
     z-index: 99;
@@ -167,11 +169,10 @@
     opacity: 1;
 }
 .lSAction > .lSPrev {
-    background-position: 0 0;
     left: 10px;
 }
 .lSAction > .lSNext {
-    background-position: -32px 0;
+    transform: scaleX(-1);
     right: 10px;
 }
 .lSAction > a.disabled {
