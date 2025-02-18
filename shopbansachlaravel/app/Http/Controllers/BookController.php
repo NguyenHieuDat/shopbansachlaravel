@@ -175,6 +175,7 @@ class BookController extends Controller
         foreach($book_detail as $key => $details){
             $category_id = $details->category_id;
         }
+        
         $book_related = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
         ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')

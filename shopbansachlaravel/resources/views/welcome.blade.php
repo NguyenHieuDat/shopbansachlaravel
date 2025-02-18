@@ -26,7 +26,8 @@
     <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet">
     <link type="text/css" href="{{asset('public/frontend/css/lightgallery.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/frontend/css/prettify.css')}}" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
 </head>
 
 <body>
@@ -144,7 +145,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{URL::to('/trang_chu')}}" class="nav-item nav-link text-light active">Trang Chủ</a>
                             <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
-                            <a href="cart.html" class="nav-item nav-link text-light">Giỏ Hàng</a>
+                            <a href="{{URL::to('/gio_hang')}}" class="nav-item nav-link text-light">Giỏ Hàng</a>
                             <a href="checkout.html" class="nav-item nav-link text-light">Thanh Toán</a>
                             <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
                         </div>
@@ -315,6 +316,7 @@
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script type="text/javascript">
     $(document).ready(function() {
@@ -332,6 +334,71 @@
                 });
             }   
         });  
+    });
+
+    $(document).ready(function() {
+        $('.add-to-cart').click(function(e){
+            e.preventDefault(); // Ngăn hành động mặc định
+            var id = $(this).data('id_book');
+            var cart_book_id = $('.cart_book_id_'+id).val();
+            var cart_book_name = $('.cart_book_name_'+id).val();
+            var cart_book_image = $('.cart_book_image_'+id).val();
+            var cart_book_price = $('.cart_book_price_'+id).val();
+            var cart_book_qty = $('.cart_book_qty_'+id).val();
+            var _token = $('input[name="_token"]').val();
+
+            // Hiển thị hộp thoại xác nhận với SweetAlert2
+        Swal.fire({
+            title: "Thêm vào giỏ hàng",
+            text: "Bạn có muốn thêm vào giỏ hàng?",
+            imageUrl: "{{ asset('public/frontend/img/cart-icon-gif.gif') }}", // Đường dẫn ảnh giỏ hàng
+            imageWidth: 120, // Độ rộng ảnh (có thể chỉnh)
+            imageHeight: 120, // Độ cao ảnh
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng nhấn Đồng ý, gọi Ajax để thêm sản phẩm
+                $.ajax({
+                    url: "{{ url('/add_cart') }}",
+                    method: "POST",
+                    data: {
+                        cart_book_id: cart_book_id,
+                        cart_book_name: cart_book_name,
+                        cart_book_image: cart_book_image,
+                        cart_book_price: cart_book_price,
+                        cart_book_qty: cart_book_qty,
+                        _token: _token
+                    },
+                    success: function(data) {
+                    // Sau khi thêm thành công, hiển thị thông báo
+                    Swal.fire({
+                        title: "Đã thêm vào giỏ hàng!",
+                        text: "Sản phẩm đã được thêm thành công",
+                        icon: "success",
+                        confirmButtonText: "Đi đến giỏ hàng",
+                        cancelButtonText: "OK",
+                        showCancelButton: true, // Hiển thị nút Hủy
+                        customClass: {
+                            popup: 'swal-danger'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Nếu người dùng nhấn "Đi đến giỏ hàng"
+                            window.location.href = "{{ url('/gio_hang') }}";
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // Không làm gì cả, SweetAlert sẽ tự đóng
+                        }
+                    });
+                },
+                    error: function(xhr, status, error) {
+                        Swal.fire("Có lỗi xảy ra: " + error);
+                    }
+                });
+            } 
+            });
+        });
     });
     </script>
     

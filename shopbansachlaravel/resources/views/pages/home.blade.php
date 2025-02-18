@@ -29,13 +29,21 @@
             @foreach ($all_book as $key => $book)
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_book_id_{{$book->book_id}}" value="{{$book->book_id}}">
+                        <input type="hidden" class="cart_book_name_{{$book->book_id}}" value="{{$book->book_name}}">
+                        <input type="hidden" class="cart_book_image_{{$book->book_id}}" value="{{$book->book_image}}">
+                        <input type="hidden" class="cart_book_price_{{$book->book_id}}" value="{{$book->book_price}}">
+                        <input type="hidden" class="cart_book_qty_{{$book->book_id}}" value="1">
+
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img w-100" src="{{URL::to('/public/upload/book/'.$book->book_image)}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-danger btn-square add-to-cart" name="add-to-cart" data-id_book="{{$book->book_id}}"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-danger btn-square"><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-danger btn-square"><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-danger btn-square"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -51,11 +59,11 @@
                             <small class="fa fa-star text-danger mr-1"></small>
                             <small>(99)</small>
                         </div>
-                        
                     </div>
                     <div style="text-align: center">
                         <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book->book_id)}}">Xem Chi Tiết</a>
                     </div>
+                    </form>
                 </div>
                 
             </div>

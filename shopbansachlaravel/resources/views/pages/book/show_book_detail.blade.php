@@ -66,14 +66,14 @@
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                        <input type="text" name="qty" class="form-control bg-secondary border-0 text-center" value="1">
                         <div class="input-group-btn">
                             <button class="btn btn-danger btn-plus">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-danger px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
+                    <button type="submit" class="btn btn-danger px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Chia sẻ: </strong>
@@ -174,16 +174,11 @@
         <div class="col">
             <div class="owl-carousel related-carousel">
                 @foreach ($related as $key => $lq)
-                    
                 <div class="product-item bg-light">
+                    
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="{{URL::to('public/upload/book/'.$lq->book_image)}}" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
+                        <img class="img w-100" src="{{URL::to('public/upload/book/'.$lq->book_image)}}" alt="">
+                        
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="">{{$lq->book_name}}</a>
@@ -200,6 +195,7 @@
                         </div>
                         <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$lq->book_id)}}">Xem Chi Tiết</a>
                     </div>
+
                 </div>
                 @endforeach
             </div>
