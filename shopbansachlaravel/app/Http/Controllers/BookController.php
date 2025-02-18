@@ -172,12 +172,21 @@ class BookController extends Controller
         ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
         ->where('tbl_book.book_id',$books_id)->get();
 
+        foreach($book_detail as $key => $details){
+            $category_id = $details->category_id;
+        }
+        $book_related = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
+        ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
+        ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
+        ->where('tbl_category_product.category_id',$category_id)->whereNotIn('tbl_book.book_id',[$books_id])->get();
+
         foreach($book_detail as $key => $value){
             $book_id = $value->book_id;
         }
         $gallery = GalleryModel::where('book_id',$book_id)->get();
 
         return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
-        ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery);
+        ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery)
+        ->with('related',$book_related);
     }
 }

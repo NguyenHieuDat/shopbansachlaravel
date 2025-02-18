@@ -9616,7 +9616,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-item {
-  transition: .5s;
+  /* transition: .5s; */
 }
 
 .product-action {
@@ -9628,7 +9628,15 @@ a.text-dark:hover, a.text-dark:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: .5s;
+  /* transition: .5s; */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.product-img:hover .product-action {
+  opacity: 1;
+  visibility: visible;
 }
 
 .product-action a.btn {
@@ -9638,47 +9646,47 @@ a.text-dark:hover, a.text-dark:focus {
   opacity: 0;
 }
 
-.product-item:hover {
+.product-img:hover {
   box-shadow: 0 0 30px #DDDDDD;
 }
 
-.product-item:hover .product-action {
+.product-img:hover .product-action {
   background: rgba(255, 255, 255, 0.7);
 }
 
-.product-item:hover .product-action a.btn:first-child {
+.product-img:hover .product-action a.btn:first-child {
   opacity: 1;
   margin-top: 0;
   transition: .3s 0s;
 }
 
-.product-item:hover .product-action a.btn:nth-child(2) {
+.product-img:hover .product-action a.btn:nth-child(2) {
   opacity: 1;
   margin-top: 0;
   transition: .3s .05s;
 }
 
-.product-item:hover .product-action a.btn:nth-child(3) {
+.product-img:hover .product-action a.btn:nth-child(3) {
   opacity: 1;
   margin-top: 0;
   transition: .3s .1s;
 }
 
-.product-item:hover .product-action a.btn:nth-child(4) {
+.product-img:hover .product-action a.btn:nth-child(4) {
   opacity: 1;
   margin-top: 0;
   transition: .3s .15s;
 }
 
-.product-item .product-img img {
+.product-img .img {
   transition: .5s;
 }
 
-.product-item:hover .product-img img {
+.product-img:hover .img {
   transform: scale(1.2);
 }
 
-.product-item .btn:hover {
+.product-img .btn:hover {
   color: #FFD333 !important;
 }
 
@@ -9744,10 +9752,16 @@ a.text-dark:hover, a.text-dark:focus {
   border: 2px solid #dc3545;
   border-radius: 25px;
   transition: all 0.3s ease-in-out;
+  margin: 0 auto;
 }
 
 .btn.btn-detail-book:hover {
   background-color: #dc3545;
-  color: white;
+  color: white !important;
 }
 
+.btn.btn-outline-danger:hover {
+  background-color: #dc3545; /* Màu nền khi hover */
+  border-color: #dc3545;
+  color: white !important; /* Đặt màu chữ khi hover theo ý muốn */
+}
