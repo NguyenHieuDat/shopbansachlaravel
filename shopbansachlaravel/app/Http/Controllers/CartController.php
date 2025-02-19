@@ -59,4 +59,56 @@ class CartController extends Controller
         ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
+
+    public function update_cart_ajax(Request $request){
+        $rowid = $request->input('rowid');
+        $qty = $request->input('qty');
+        // Lấy giỏ hàng từ session
+        $cart = Session::get('cart', []);
+
+        // Kiểm tra nếu sản phẩm tồn tại trong giỏ hàng
+        if(isset($cart[$rowid])){
+            $cart[$rowid]['book_qty'] = $qty;
+            // Tính lại subtotal cho sản phẩm
+            $bookPrice = $cart[$rowid]['book_price'];
+            $newSubtotal = $bookPrice * $qty;
+            // Lưu lại giỏ hàng
+            Session::put('cart', $cart);
+            // Nếu bạn cần tính tổng giỏ hàng
+            $total = 0;
+            foreach($cart as $item){
+                $total += $item['book_price'] * $item['book_qty'];
+            }
+            return response()->json([
+                'success'      => true,
+                'new_subtotal' => number_format($newSubtotal, 0, ',', '.').'đ',
+                'total'        => number_format($total, 0, ',', '.').'đ'
+            ]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+    public function remove_cart_ajax(Request $request){
+        $rowid = $request->input('rowid');
+        $cart = Session::get('cart', []);
+        if (isset($cart[$rowid])) {
+            // Xóa sản phẩm khỏi giỏ hàng
+            unset($cart[$rowid]);
+            // Cập nhật lại session giỏ hàng
+            Session::put('cart', $cart);
+
+            // Tính lại tổng giỏ hàng
+            $total = 0;
+            foreach ($cart as $item) {
+                $total += $item['book_price'] * $item['book_qty'];
+            }
+            return response()->json([
+                'success' => true,
+                'total'   => number_format($total, 0, ',', '.') . 'đ'
+            ]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+
 }

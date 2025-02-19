@@ -11,49 +11,65 @@
                         <th>Sản Phẩm</th>
                         <th>Giá Tiền</th>
                         <th>Số Lượng</th>
-                        <th>Tổng Tiền</th>
+                        <th>Thành Tiền</th>
                         <th>Bỏ</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
                     @php
-                        print_r(Session::get('cart'));
+                     $total = 0;
                     @endphp
-                        
-                    <tr>
+
+                    @if(Session::has('cart') && count(Session::get('cart')) > 0)
+                    @foreach (Session::get('cart') as $key => $cart)
+                    
+                    @php
+                     $subtotal = $cart['book_price']*$cart['book_qty'];
+                     $total += $subtotal;
+                    @endphp
+
+                    <tr data-rowid="{{ $key }}">
                         <td class="align-middle">
-                            <img src="" alt="" style="width: 50px;">
-                            Product Name
+                            <img src="{{asset('public/upload/book/'.$cart['book_image'])}}" alt="" style="width: 50px;">
+                            {{$cart['book_name']}}
                         </td>
-                        <td class="align-middle">$150</td>
+                        <td class="align-middle">{{number_format($cart['book_price'],0,',','.')}}đ</td>
                         <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                            <div class="input-group quantity mx-auto" style="width: 120px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
+                                    <button type="button" class="btn btn-sm btn-danger btn-minus" style="margin-right: 3px;">
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
+                                <input type="text" class="form-control form-control-sm bg-white border-0 text-center quantity-input" 
+                                value="{{$cart['book_qty']}}" data-initial="{{ $cart['book_qty'] }}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
+                                    <button type="button" class="btn btn-sm btn-danger btn-plus" style="margin-left: 3px;">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                        <td class="align-middle subtotal">{{number_format($subtotal,0,',','.')}}đ</td>
+                        <td class="align-middle"><button class="btn btn-sm btn-danger cart-remove"><i class="fa fa-times"></i></button></td>
                     </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5" class="text-center">Giỏ hàng của bạn đang trống! Đi đến 
+                            <a class="text-danger" href="{{URL::to('/cua_hang')}}">Cửa Hàng</a>?
+                        </td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
-
         <div class="col-lg-4">
             <form class="mb-30" action="">
                 <div class="input-group">
                     <input type="text" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá">
                     <div class="input-group-append">
-                        <button class="btn btn-primary">Nhập</button>
+                        <button class="btn btn-danger">Nhập Mã Giảm Giá</button>
                     </div>
                 </div>
             </form>
@@ -62,7 +78,11 @@
                 <div class="border-bottom pb-2">
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Thành Tiền</h6>
-                        <h6>$150</h6>
+                        <h6 id="total">{{number_format($total,0,',','.')}}đ</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Thuế</h6>
+                        <h6 class="font-weight-medium">$15</h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Phí Giao Hàng</h6>
@@ -71,10 +91,10 @@
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
-                        <h5>Tổng</h5>
+                        <h5>Tổng Tiền</h5>
                         <h5>$160</h5>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Thanh Toán</button>
+                    <button class="btn btn-block btn-danger font-weight-bold my-3 py-3">Thanh Toán</button>
                 </div>
             </div>
         </div>

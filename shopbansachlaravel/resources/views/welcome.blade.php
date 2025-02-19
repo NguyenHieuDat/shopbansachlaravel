@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link href="public/frontend/img/favicon.ico" rel="icon">
@@ -28,6 +29,7 @@
     <link href="{{asset('public/frontend/css/prettify.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -154,7 +156,7 @@
                                 <i class="fas fa-heart text-light"></i>
                                 <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="" class="btn px-0 ml-3">
+                            <a href="{{URL::to('/gio_hang')}}" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-light"></i>
                                 <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
@@ -312,7 +314,7 @@
     <!-- Template Javascript -->
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
@@ -335,6 +337,10 @@
             }   
         });  
     });
+
+    $(document).ready(function(){
+    console.log("Initial input value:", $('.quantity-input').val());
+});
 
     $(document).ready(function() {
         $('.add-to-cart').click(function(e){
@@ -400,6 +406,158 @@
             });
         });
     });
+
+        $(document).ready(function() {
+        // Sử dụng event delegation để gán sự kiện cho nút plus
+        $(document).on('click', '.btn-plus', function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            var input = row.find('.quantity-input');
+            // Lấy giá trị ban đầu được lưu trong data-initial
+            var currentInitial = parseInt(input.data('initial'));
+            console.log("Initial qty from data:", currentInitial);
+            // Tính giá trị mới
+            var newQty = currentInitial + 1;
+            console.log("New qty:", newQty);
+            // Cập nhật cả giá trị hiển thị và data-initial
+            input.val(newQty);
+            input.data('initial', newQty);
+            // Gọi hàm updateCart nếu cần cập nhật vào server
+            var rowid = row.data('rowid');
+            updateCart(rowid, newQty, row);
+        });
+
+        $(document).on('click', '.btn-minus', function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            var input = row.find('.quantity-input');
+
+            // Lấy giá trị từ data-initial
+            var currentInitial = parseInt(input.data('initial'));
+            console.log("Initial qty from data:", currentInitial);
+
+            // Nếu giá trị đang là 1, không cho giảm thêm nữa
+            if (currentInitial <= 1) {
+                input.val(1);
+                input.data('initial', 1);
+                input.attr('data-initial', 1);
+                console.log("Quantity is already at the minimum value (1).");
+                return;
+            }
+            // Nếu lớn hơn 1, giảm đi 1
+            var newQty = currentInitial - 1;
+            console.log("New qty:", newQty);
+
+            // Cập nhật lại input và data-initial
+            input.val(newQty);
+            input.data('initial', newQty);
+            // Đảm bảo đồng bộ với thuộc tính DOM (nếu cần)
+            input.attr('data-initial', newQty);
+
+            var rowid = row.data('rowid');
+            updateCart(rowid, newQty, row);
+        });
+
+
+        $(document).on('blur', '.quantity-input', function() {
+            var row   = $(this).closest('tr');
+            var input = $(this);
+            var newQty = parseInt(input.val());
+            // Kiểm tra số lượng hợp lệ (>= 1)
+            if (isNaN(newQty) || newQty < 1) {
+                newQty = 1; // Mặc định về 1 nếu giá trị không hợp lệ
+            }
+            // Giới hạn số lượng tối đa là 999
+            if(newQty > 999) {
+                newQty = 999;
+                alert("Số lượng tối đa là 999!");
+            }
+            // Cập nhật lại giá trị hiển thị và data-initial
+            input.val(newQty);
+            input.data('initial', newQty);
+            var rowid = row.data('rowid');
+            updateCart(rowid, newQty, row);
+        });
+
+        function updateCart(rowid, qty, row) {
+            $.ajax({
+                url: "{{ url('/update_cart') }}", // Đường dẫn cập nhật giỏ hàng
+                method: 'POST',
+                data: {
+                    rowid: rowid,
+                    qty: qty,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Cập nhật subtotal và các thông tin khác nếu cần
+                        row.find('.subtotal').text(response.new_subtotal);
+                        $('#total').text(response.total);
+                    } else {
+                        alert('Cập nhật giỏ hàng thất bại!');
+                    }
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi cập nhật giỏ hàng!');
+                }
+            });
+        }
+    });
+
+            $(document).on('click', '.cart-remove', function(e) {
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            var rowid = row.data('rowid');
+
+            Swal.fire({
+            title: 'Bạn chắc chắn?',
+            text: "Bạn chắc chắn muốn bỏ sản phẩm này khỏi giỏ hàng chứ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa nó!',
+            cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('/remove_cart') }}", // Đường dẫn xử lý xóa sản phẩm khỏi giỏ hàng ở controller
+                        method: 'POST',
+                        data: {
+                            rowid: rowid,
+                            _token: '{{ csrf_token() }}'
+                        },
+                    success: function(response) {
+                        if (response.success) {
+                            // Xóa dòng sản phẩm khỏi giao diện
+                            row.remove();
+                            // Cập nhật lại tổng giỏ hàng nếu cần
+                            $('#total').text(response.total);
+                            Swal.fire(
+                                'Đã xóa!',
+                                'Sản phẩm đã được xóa khỏi giỏ hàng.',
+                                'success'
+                            );
+                        } else {
+                            Swal.fire(
+                                'Thất bại!',
+                                'Xóa sản phẩm thất bại!',
+                                'error'
+                            );
+                        }
+                    },
+                        error: function() {
+                            Swal.fire(
+                            'Có lỗi!',
+                            'Có lỗi xảy ra khi xóa sản phẩm!',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    });
+
     </script>
     
 </body>

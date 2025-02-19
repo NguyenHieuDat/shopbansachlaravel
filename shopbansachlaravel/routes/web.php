@@ -70,5 +70,7 @@ Route::post('/update_gallery_name', 'App\Http\Controllers\GalleryController@upda
 //Gio hang
 Route::post('/add_cart', 'App\Http\Controllers\CartController@add_cart_ajax');
 Route::get('/gio_hang', 'App\Http\Controllers\CartController@show_cart_ajax');
+Route::post('/update_cart', 'App\Http\Controllers\CartController@update_cart_ajax');
+Route::post('/remove_cart', 'App\Http\Controllers\CartController@remove_cart_ajax');
 
-
+//
