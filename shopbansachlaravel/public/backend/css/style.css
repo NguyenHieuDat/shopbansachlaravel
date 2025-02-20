@@ -3174,3 +3174,15 @@ span.text-success {
     border-radius: 5px;
     display: inline-block;
 }
+span.text-dangerr {
+    color: red;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffecec;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+    display: inline-block;
+}

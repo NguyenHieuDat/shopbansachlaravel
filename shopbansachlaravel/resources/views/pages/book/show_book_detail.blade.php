@@ -3,25 +3,28 @@
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">
-<style>
-    /* li.active{
-        border: 2px solid red;
-    } */
-    .lSSlideOuter .lSPager.lSGallery li img {
-        width: 100%;
-        height: 100px;
-        object-fit: cover; /* Ảnh sẽ được crop để phủ kín ô li */
-    }
-    .book-container {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 20px;
-        max-width: 500px;
-    }
-    .book-container .title {
-        font-weight: bold;
-}
-</style>
+        <style>
+            /* li.active{
+                border: 2px solid red;
+            } */
+            .lSSlideOuter .lSPager.lSGallery li img {
+                width: 100%;
+                height: 100px;
+                object-fit: cover; /* Ảnh sẽ được crop để phủ kín ô li */
+            }
+            .book-container {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                gap: 20px;
+                max-width: 500px;
+            }
+            .book-container .title {
+                font-weight: bold;
+        }
+        </style>
+    <div>   
+            @foreach ($book_detail as $key => $detail)
+            
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
             <ul id="imageGallery">
@@ -32,7 +35,6 @@
                 @endforeach
               </ul>
         </div>
-        @foreach ($book_detail as $key => $detail)
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
                 <h3>{{$detail->book_name}}</h3>
@@ -46,7 +48,8 @@
                     </div>
                     <small class="pt-1">(99 Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">{{number_format($detail->book_price).' '.'đ'}}</h3>
+                
+                <h3 class="font-weight-semi-bold mb-4 book-price" data-price="{{$detail->book_price}}">Giá tiền: {{number_format($detail->book_price).' '.'đ'}}</h3>
                 <div class="book-container">
                     <div class="title">Mã sách:</div><div>{{$detail->book_id}}</div>
                     <div class="title">Danh mục sách:</div><div>{{$detail->category_name}}</div>
@@ -60,20 +63,15 @@
                 </div>
                 <br>
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 150px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-danger btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <input type="text" name="qty" class="form-control bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-danger btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-danger px-3"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_book_id_{{$detail->book_id}}" value="{{$detail->book_id}}">
+                        <input type="hidden" class="cart_book_name_{{$detail->book_id}}" value="{{$detail->book_name}}">
+                        <input type="hidden" class="cart_book_image_{{$detail->book_id}}" value="{{$detail->book_image}}">
+                        <input type="hidden" class="cart_book_price_{{$detail->book_id}}" value="{{$detail->book_price}}">
+                        <input type="hidden" class="cart_book_qty_{{$detail->book_id}}" value="1"> <!-- Mặc định số lượng là 1 -->
+                    <button type="button" name="add-to-cart" data-id_book="{{$detail->book_id}}" class="btn btn-danger px-3 add-to-cart"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
+                    </form>
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Chia sẻ: </strong>
@@ -163,9 +161,10 @@
             </div>
         </div>
     </div>
+    @endforeach
+</div>
 </div>
 <!-- Shop Detail End -->
-@endforeach
 
 <!-- Products Start -->
 <div class="container-fluid py-5">
@@ -203,4 +202,5 @@
     </div>
 </div>
 <!-- Products End -->
+
 @endsection

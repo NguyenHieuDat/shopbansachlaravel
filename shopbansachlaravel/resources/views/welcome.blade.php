@@ -340,7 +340,7 @@
 
     $(document).ready(function(){
     console.log("Initial input value:", $('.quantity-input').val());
-});
+    });
 
     $(document).ready(function() {
         $('.add-to-cart').click(function(e){
@@ -514,8 +514,8 @@
             text: "Bạn chắc chắn muốn bỏ sản phẩm này khỏi giỏ hàng chứ?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#e63946',
+            cancelButtonColor: '#6c757d',
             confirmButtonText: 'Có, xóa nó!',
             cancelButtonText: 'Hủy'
             }).then((result) => {
@@ -557,7 +557,51 @@
             }
         });
     });
+    
+    $(document).ready(function(){
+        $('.check_coupon').click(function(e){
+            e.preventDefault(); // Ngăn trang reload
 
+            var coupon_code = $('#coupon_code').val(); // Lấy giá trị mã giảm giá
+
+            if(coupon_code === '') {
+                showMessage('<div class="alert alert-warning">Vui lòng nhập mã giảm giá!</div>');
+                return;
+            }
+
+            $.ajax({
+                url: "{{ url('/check_coupon') }}", // Đường dẫn tới route xử lý
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    coupon: coupon_code
+                },
+                beforeSend: function() {
+                    $('.check_coupon').prop('disabled', true).text('Đang kiểm tra...'); // Vô hiệu hóa nút khi đang gửi request
+                },
+                success: function(response) {
+                    if(response.status === 'success') {
+                        showMessage('<div class="alert alert-success">'+ response.message +'</div>');
+                    } else {
+                        showMessage('<div class="alert alert-danger">'+ response.message +'</div>');
+                    }
+                },
+                error: function() {
+                    showMessage('<div class="alert alert-danger">Có lỗi xảy ra!</div>');
+                },
+                complete: function() {
+                    $('.check_coupon').prop('disabled', false).text('Tính Mã Giảm Giá'); // Bật lại nút sau khi xử lý xong
+                }
+            });
+        });
+
+        function showMessage(message) {
+            $('#coupon_message').stop(true, true).html(message).fadeIn(); // Hiển thị lại nếu bị ẩn
+            setTimeout(function() {
+                $('#coupon_message').fadeOut(); // Ẩn sau 6 giây
+            }, 6000);
+        }
+    });
     </script>
     
 </body>

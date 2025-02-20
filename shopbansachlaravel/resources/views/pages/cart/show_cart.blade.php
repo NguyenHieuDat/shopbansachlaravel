@@ -65,11 +65,13 @@
             </table>
         </div>
         <div class="col-lg-4">
-            <form class="mb-30" action="">
+            <form class="mb-30" action="{{url('/check_coupon')}}" method="POST">
+                @csrf
+                <div id="coupon_message"></div>
                 <div class="input-group">
-                    <input type="text" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá">
+                    <input type="text" id="coupon_code" name="coupon" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá">
                     <div class="input-group-append">
-                        <button class="btn btn-danger">Nhập Mã Giảm Giá</button>
+                        <button type="submit" class="btn btn-danger check_coupon" name="check_coupon">Tính Mã Giảm Giá</button>
                     </div>
                 </div>
             </form>
@@ -80,8 +82,8 @@
                         <h6>Thành Tiền</h6>
                         <h6 id="total">{{number_format($total,0,',','.')}}đ</h6>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Thuế</h6>
+                    <div class="d-flex justify-content-between mb-3">
+                        <h6>Thành Tiền Sau Khuyến Mãi</h6>
                         <h6 class="font-weight-medium">$15</h6>
                     </div>
                     <div class="d-flex justify-content-between">
@@ -101,4 +103,5 @@
     </div>
 </div>
 <!-- Cart End -->
+
 @endsection

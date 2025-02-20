@@ -68,9 +68,17 @@ Route::post('/delete_gallery', 'App\Http\Controllers\GalleryController@delete_ga
 Route::post('/update_gallery_name', 'App\Http\Controllers\GalleryController@update_gallery_name');
 
 //Gio hang
-Route::post('/add_cart', 'App\Http\Controllers\CartController@add_cart_ajax');
 Route::get('/gio_hang', 'App\Http\Controllers\CartController@show_cart_ajax');
 Route::post('/update_cart', 'App\Http\Controllers\CartController@update_cart_ajax');
 Route::post('/remove_cart', 'App\Http\Controllers\CartController@remove_cart_ajax');
+Route::match(['get', 'post'], '/add_cart', [App\Http\Controllers\CartController::class, 'add_cart_ajax']);
 
-//
+//Ma giam gia
+Route::post('/check_coupon', 'App\Http\Controllers\CartController@check_coupon');
+Route::get('/add_coupon', 'App\Http\Controllers\CouponController@add_coupon');
+Route::post('/save_coupon', 'App\Http\Controllers\CouponController@save_coupon');
+Route::get('/all_coupon', 'App\Http\Controllers\CouponController@all_coupon');
+Route::get('/delete_coupon/{coupon_id}', 'App\Http\Controllers\CouponController@delete_coupon');
+
+//Thanh toan
+

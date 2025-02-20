@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2025 at 10:19 AM
+-- Generation Time: Feb 20, 2025 at 10:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -121,7 +121,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '0001_01_01_000002_create_jobs_table', 4),
 (7, '2025_02_13_020242_create_tbl_book', 4),
 (8, '2025_02_13_021600_create_tbl_publisher', 4),
-(9, '2025_02_16_052609_create_tbl_gallery', 5);
+(9, '2025_02_16_052609_create_tbl_gallery', 5),
+(10, '2025_02_20_072620_create_tbl_coupon', 6);
 
 -- --------------------------------------------------------
 
@@ -252,6 +253,31 @@ INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_de
 (1, 'Sách tranh tranh k', 'okokkkk', NULL, NULL),
 (2, 'Truyện dài', 'hellolo', NULL, NULL),
 (4, 'Văn học', 'âssasa', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_coupon`
+--
+
+CREATE TABLE `tbl_coupon` (
+  `coupon_id` int(10) UNSIGNED NOT NULL,
+  `coupon_name` varchar(255) NOT NULL,
+  `coupon_code` varchar(255) NOT NULL,
+  `coupon_time` int(50) NOT NULL,
+  `coupon_condition` int(11) NOT NULL,
+  `coupon_price` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_coupon`
+--
+
+INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_time`, `coupon_condition`, `coupon_price`, `created_at`, `updated_at`) VALUES
+(1, 'Giảm giá 14/2', 'VALEN142', 10, 1, 20, NULL, NULL),
+(2, 'Giảm giá 6/9', 'SSS69', 69, 2, 69000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -396,6 +422,12 @@ ALTER TABLE `tbl_category_product`
   ADD PRIMARY KEY (`category_id`);
 
 --
+-- Indexes for table `tbl_coupon`
+--
+ALTER TABLE `tbl_coupon`
+  ADD PRIMARY KEY (`coupon_id`);
+
+--
 -- Indexes for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
@@ -433,7 +465,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -458,6 +490,12 @@ ALTER TABLE `tbl_book`
 --
 ALTER TABLE `tbl_category_product`
   MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_coupon`
+--
+ALTER TABLE `tbl_coupon`
+  MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_gallerry`

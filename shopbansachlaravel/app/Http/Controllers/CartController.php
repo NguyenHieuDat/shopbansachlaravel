@@ -5,46 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use App\Models\Coupon;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
 class CartController extends Controller
 {
-    public function add_cart_ajax(Request $request){
-    $data = $request->all();
-    $session_id = substr(md5(microtime()), rand(0,26), 5);
+    public function add_cart_ajax(Request $request) {
+        $data = $request->all();
+        $session_id = substr(md5(microtime()), rand(0, 26), 5);
     
-    // Lấy giỏ hàng từ session, nếu chưa có thì khởi tạo mảng rỗng
-    $cart = Session::get('cart', []);
+        // Lấy giỏ hàng hiện tại từ session
+        $cart = session()->get('cart', []);
     
-    $found = false;
-    
-    // Duyệt qua các mục có trong giỏ hàng
-    foreach ($cart as $key => $item) {
-        // Nếu tìm thấy sách có book_id trùng
-        if ($item['book_id'] == $data['cart_book_id']) {
-            // Cộng thêm số lượng mới vào số lượng cũ
-            $cart[$key]['book_qty'] += $data['cart_book_qty'];
-            $found = true;
-            break;
+        // Nếu sách đã có trong giỏ hàng, cập nhật số lượng
+        if (isset($cart[$data['cart_book_id']])) {
+            $cart[$data['cart_book_id']]['book_qty'] += $data['cart_book_qty'];
+        } else {
+            // Nếu chưa có, thêm mới vào giỏ hàng
+            $cart[$data['cart_book_id']] = [
+                'session_id' => $session_id,
+                'book_name'  => $data['cart_book_name'],
+                'book_id'    => $data['cart_book_id'],
+                'book_image' => $data['cart_book_image'],
+                'book_qty'   => $data['cart_book_qty'],
+                'book_price' => $data['cart_book_price'],
+            ];
         }
+        // Lưu lại giỏ hàng vào session
+        session()->put('cart', $cart);
+        session()->save();
+    
+        return response()->json([
+            'success' => 'Thêm vào giỏ hàng thành công!',
+            'cart' => $cart
+        ]);
     }
-    // Nếu không tìm thấy, thêm sách mới vào giỏ hàng
-    if (!$found) {
-        $cart[] = [
-            'session_id' => $session_id,
-            'book_name'  => $data['cart_book_name'],
-            'book_id'    => $data['cart_book_id'],
-            'book_image' => $data['cart_book_image'],
-            'book_qty'   => $data['cart_book_qty'],
-            'book_price' => $data['cart_book_price'],
-        ];
-    }
-    // Lưu giỏ hàng vào session
-    Session::put('cart', $cart);
-    Session::save();
-}
 
     public function show_cart_ajax(Request $request){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
@@ -110,5 +107,45 @@ class CartController extends Controller
         return response()->json(['success' => false]);
     }
 
+    public function check_coupon(Request $request){
+        $data = $request->all();
+        $coupon = Coupon::where('coupon_code',$data['coupon'])->first();
+        if($coupon){
+            $count_coupon = $coupon->count();
+            if($count_coupon>0){
+                $coupon_session = Session::get('coupon');
+                if($coupon_session==true){
+                    $available = 0;
+                    if($available==0){
+                        $cou[] = array(
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_condition' => $coupon->coupon_condition,
+                            'coupon_price' => $coupon->coupon_price
+                        );
+                        Session::put('coupon',$cou);
+                    }
+                }else{
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_condition' => $coupon->coupon_condition,
+                        'coupon_price' => $coupon->coupon_price
+                    );
+                    Session::put('coupon',$cou);
+                }
+                Session::save();
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Thêm mã giảm giá thành công!',
+                    'coupon' => $cou
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Mã giảm giá không đúng!'
+            ]);
+        }
+
+    }
 
 }
