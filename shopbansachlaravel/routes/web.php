@@ -73,6 +73,7 @@ Route::post('/update_cart', 'App\Http\Controllers\CartController@update_cart_aja
 Route::post('/remove_cart', 'App\Http\Controllers\CartController@remove_cart_ajax');
 Route::match(['get', 'post'], '/add_cart', [App\Http\Controllers\CartController::class, 'add_cart_ajax']);
 
+
 //Ma giam gia
 Route::post('/check_coupon', 'App\Http\Controllers\CartController@check_coupon');
 Route::get('/add_coupon', 'App\Http\Controllers\CouponController@add_coupon');

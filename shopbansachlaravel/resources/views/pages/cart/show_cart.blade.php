@@ -65,35 +65,59 @@
             </table>
         </div>
         <div class="col-lg-4">
+            @if(Session::get('cart'))
             <form class="mb-30" action="{{url('/check_coupon')}}" method="POST">
                 @csrf
                 <div id="coupon_message"></div>
                 <div class="input-group">
                     <input type="text" id="coupon_code" name="coupon" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-danger check_coupon" name="check_coupon">Tính Mã Giảm Giá</button>
+                        <button type="button" class="btn btn-danger check_coupon" name="check_coupon">Tính Mã Giảm Giá</button>
                     </div>
                 </div>
             </form>
+            @endif
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin giỏ hàng</span></h5>
             <div class="bg-light p-30 mb-5">
                 <div class="border-bottom pb-2">
                     <div class="d-flex justify-content-between mb-3">
-                        <h6>Thành Tiền</h6>
+                        <h6>Thành Tiền:</h6>
                         <h6 id="total">{{number_format($total,0,',','.')}}đ</h6>
                     </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Mã giảm:</h6>
+                        <h6 id="coupon_value" class="font-weight-medium coupon_amount">
+                            @if(Session::get('coupon'))
+                        @foreach (Session::get('coupon') as $key => $cou)
+                            @if($cou['coupon_condition'] == 1)
+                            {{$cou['coupon_price']}}% {{-- Hiển thị đúng phần trăm --}}
+                        @elseif($cou['coupon_condition'] == 2)
+                            {{ number_format($cou['coupon_price'], 0, ',', '.') }}đ
+                        @endif
+                        @endforeach
+                        @else
+                            <em>Không có mã</em>
+                        @endif  
+                        </h6>
+                    </div>
                     <div class="d-flex justify-content-between mb-3">
-                        <h6>Thành Tiền Sau Khuyến Mãi</h6>
-                        <h6 class="font-weight-medium">$15</h6>
+                        <h6>Thành Tiền Sau Khuyến Mãi:</h6>
+                        <h6 class="font-weight-medium total_after_discount">
+                            @if(Session::get('coupon'))
+                                {{number_format($total - $total_coupon, 0, ',', '.')}}đ
+                            @else
+                                <em>Không có mã</em>
+                            @endif
+                        </h6>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Phí Giao Hàng</h6>
+                        <h6 class="font-weight-medium">Phí Giao Hàng:</h6>
                         <h6 class="font-weight-medium">$10</h6>
                     </div>
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
-                        <h5>Tổng Tiền</h5>
+                        <h5>Tổng Tiền:</h5>
                         <h5>$160</h5>
                     </div>
                     <button class="btn btn-block btn-danger font-weight-bold my-3 py-3">Thanh Toán</button>

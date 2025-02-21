@@ -559,11 +559,16 @@
     });
     
     $(document).ready(function(){
+        $('#coupon_code').keypress(function(e) {
+            if (e.which === 13) { // 13 là mã phím Enter
+                e.preventDefault(); // Ngăn reload trang
+                $('.check_coupon').click(); // Gọi sự kiện click của nút check_coupon
+            }
+        });
+
         $('.check_coupon').click(function(e){
             e.preventDefault(); // Ngăn trang reload
-
-            var coupon_code = $('#coupon_code').val(); // Lấy giá trị mã giảm giá
-
+            var coupon_code = $('#coupon_code').val().trim(); // Lấy giá trị mã giảm giá
             if(coupon_code === '') {
                 showMessage('<div class="alert alert-warning">Vui lòng nhập mã giảm giá!</div>');
                 return;
@@ -582,12 +587,20 @@
                 success: function(response) {
                     if(response.status === 'success') {
                         showMessage('<div class="alert alert-success">'+ response.message +'</div>');
+                        // Cập nhật Mã giảm (hiển thị % hoặc số tiền)
+                        $('#coupon_value').text(response.coupon_value);
+                        // Cập nhật tổng tiền sau giảm giá
+                        $('.total_after_discount').text(response.total_after_discount + 'đ');
                     } else {
                         showMessage('<div class="alert alert-danger">'+ response.message +'</div>');
+                        $("#discount_value").html("<em>Không có mã</em>");
+                        $("#total_after_discount").html("<em>Không có mã</em>");
                     }
                 },
                 error: function() {
                     showMessage('<div class="alert alert-danger">Có lỗi xảy ra!</div>');
+                    $("#discount_value").html("<em>Không có mã</em>");
+                    $("#total_after_discount").html("<em>Không có mã</em>");
                 },
                 complete: function() {
                     $('.check_coupon').prop('disabled', false).text('Tính Mã Giảm Giá'); // Bật lại nút sau khi xử lý xong
@@ -598,10 +611,12 @@
         function showMessage(message) {
             $('#coupon_message').stop(true, true).html(message).fadeIn(); // Hiển thị lại nếu bị ẩn
             setTimeout(function() {
-                $('#coupon_message').fadeOut(); // Ẩn sau 6 giây
-            }, 6000);
+                $('#coupon_message').fadeOut();
+            }, 5000);
         }
     });
+
+
     </script>
     
 </body>
