@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Models\City;
+use App\Models\Province;
+use App\Models\Ward;
+use App\Models\Feeship;
+use Session;
+use Illuminate\Support\Facades\Redirect;
+session_start();
+
+class DeliveryController extends Controller
+{
+    public function delivery(Request $request){
+        $city = City::orderby('matp','ASC')->get();
+        return view('admin.delivery.add_delivery')->with(compact('city'));
+    }
+    
+    public function select_delivery(Request $request) {
+        if (!$request->has(['action', 'maid'])) {
+            return response()->json(['error' => 'Thiếu dữ liệu!'], 400);
+        }
+    
+        $action = $request->action;
+        $maid = $request->maid;
+    
+        if ($action == "city") {
+            $select_province = Province::where('matp', $maid)->orderby('maqh', 'ASC')->get();
+            $output = '<option>--Chọn quận/huyện--</option>';
+            foreach ($select_province as $province) {
+                $output .= '<option value="'.$province->maqh.'">'.$province->tenqh.'</option>';
+            }
+        } else {
+            $select_ward = Ward::where('maqh', $maid)->orderby('xaid', 'ASC')->get();
+            $output = '<option>--Chọn phường/xã--</option>';
+            foreach ($select_ward as $wards) {
+                $output .= '<option value="'.$wards->xaid.'">'.$wards->tenxp.'</option>';
+            }
+        }
+        return response()->json(['output' => $output]);
+    }
+
+    public function insert_delivery(Request $request){
+        $data = $request->all();
+        $fee_ship = new Feeship();
+        $fee_ship->fee_matp = $data['city'];
+        $fee_ship->fee_maqh = $data['province'];
+        $fee_ship->fee_xaid = $data['ward'];
+        $fee_ship->fee_price = $data['feeship'];
+        $fee_ship->save();
+    }
+}

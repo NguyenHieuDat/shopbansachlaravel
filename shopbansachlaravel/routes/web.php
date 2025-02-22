@@ -83,3 +83,11 @@ Route::get('/delete_coupon/{coupon_id}', 'App\Http\Controllers\CouponController@
 
 //Thanh toan
 
+//Van chuyen
+Route::match(['get', 'post'], '/delivery', [App\Http\Controllers\DeliveryController::class, 'delivery']);
+Route::post('/select_delivery', 'App\Http\Controllers\DeliveryController@select_delivery');
+Route::post('/insert_delivery', 'App\Http\Controllers\DeliveryController@insert_delivery');
+
+
+
+

@@ -12,7 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<meta name="csrf-token" content="{{csrf_token()}}" />
+<meta name="csrf-token" content="{{csrf_token()}}">
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap.min.css')}}" >
 <!-- //bootstrap-css -->
@@ -125,7 +125,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 		});
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.add_delivery').click(function(){
+			var city = $('.city').val();
+			var province = $('.province').val();
+			var ward = $('.ward').val();
+			var feeship = $('.fee_ship').val();
+			var _token = $('meta[name="csrf-token"]').attr('content');
 
+			$.ajax({
+				url: "{{url('/insert_delivery')}}",
+				type: 'POST',
+				data: { city: city, province: province,ward: ward,feeship: feeship, _token: _token },
+				success: function(response) {
+					alert('Thêm thành công');
+				}
+				
+			});
+		});
+
+		$('.choose').on('change', function() {
+			var action = $(this).attr('id');
+			var maid = $(this).val();
+			var _token = $('meta[name="csrf-token"]').attr('content');
+
+			$.ajax({
+				url: "{{url('/select_delivery')}}",
+				type: 'POST',
+				data: { action: action, maid: maid, _token: _token },
+				dataType: 'json',
+				success: function(response) {
+					var result = (action == 'city') ? 'province' : 'ward';
+					$('#' + result).html(response.output);
+				},
+				error: function(xhr) {
+					console.log("Lỗi Ajax:", xhr.responseText);
+				}
+			});
+		});
 	});
 </script>
 </head>
@@ -253,6 +293,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
 						<li><a href="{{URL::to('/add_coupon')}}">Thêm mã giảm giá</a></li>
 						<li><a href="{{URL::to('/all_coupon')}}">Liệt kê mã giảm giá</a></li>
+                    </ul>
+                </li>
+
+				<li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý phí vận chuyển</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/delivery')}}">Thêm phí vận chuyển</a></li>
+
                     </ul>
                 </li>
             </ul>            
