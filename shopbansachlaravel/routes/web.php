@@ -82,12 +82,13 @@ Route::get('/all_coupon', 'App\Http\Controllers\CouponController@all_coupon');
 Route::get('/delete_coupon/{coupon_id}', 'App\Http\Controllers\CouponController@delete_coupon');
 
 //Thanh toan
+Route::get('/login_checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
+
 
 //Van chuyen
 Route::match(['get', 'post'], '/delivery', [App\Http\Controllers\DeliveryController::class, 'delivery']);
 Route::post('/select_delivery', 'App\Http\Controllers\DeliveryController@select_delivery');
 Route::post('/insert_delivery', 'App\Http\Controllers\DeliveryController@insert_delivery');
-
-
-
+Route::post('/select_feeship', 'App\Http\Controllers\DeliveryController@select_feeship');
+Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_delivery');
 

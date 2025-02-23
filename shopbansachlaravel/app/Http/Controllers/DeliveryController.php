@@ -52,4 +52,40 @@ class DeliveryController extends Controller
         $fee_ship->fee_price = $data['feeship'];
         $fee_ship->save();
     }
+
+    public function select_feeship(){
+        $feeship = Feeship::orderby('fee_id','desc')->get();
+        $output = '';
+        $output .= '<div class="table-responsive">
+        <table class="table table-bordered">
+        <thread>
+        <tr>
+            <th>Tên thành phố</th>
+            <th>Tên quận/huyện</th>
+            <th>Tên phường/xã</th>
+            <th>Phí vận chuyển</th>
+        </tr>
+        </thread>
+        <tbody>';
+        foreach($feeship as $key => $feesh){
+            $output .= '
+            <tr>
+                <td>'.$feesh->city->tentp.'</td>
+                <td>'.$feesh->province->tenqh.'</td>
+                <td>'.$feesh->ward->tenxp.'</td>
+                <td contenteditable data-feeship_id="'.$feesh->fee_id.'" class="feeship_edit">'.number_format($feesh->fee_price,0,',','.').' đ</td>
+            </tr>';
+        }
+        $output .= '</tbody>
+        </table>
+        </div>';
+        echo $output;
+    }
+
+    public function update_delivery(Request $request){
+        $data = $request->all();
+        $fee_ship = Feeship::find($data['feeship_id']);
+        $fee_ship->fee_price = $data['fee_value'];
+        $fee_ship->save();
+    }
 }

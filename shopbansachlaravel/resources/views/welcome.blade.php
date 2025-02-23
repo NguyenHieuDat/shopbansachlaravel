@@ -148,8 +148,9 @@
                             <a href="{{URL::to('/trang_chu')}}" class="nav-item nav-link text-light active">Trang Chủ</a>
                             <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
                             <a href="{{URL::to('/gio_hang')}}" class="nav-item nav-link text-light">Giỏ Hàng</a>
-                            <a href="checkout.html" class="nav-item nav-link text-light">Thanh Toán</a>
+                            <a href="{{URL::to('/show_checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
                             <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
+                            <a href="{{URL::to('/login_checkout')}}" class="nav-item nav-link text-light">Tài Khoản</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2025 at 10:18 AM
+-- Generation Time: Feb 23, 2025 at 10:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -301,7 +301,8 @@ CREATE TABLE `tbl_feeship` (
 --
 
 INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_price`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 37, '50000', NULL, NULL);
+(1, 1, 2, 37, '60000', NULL, NULL),
+(2, 31, 305, 11404, '30000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12551,7 +12552,7 @@ ALTER TABLE `tbl_coupon`
 -- AUTO_INCREMENT for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
-  MODIFY `fee_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `fee_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_gallerry`

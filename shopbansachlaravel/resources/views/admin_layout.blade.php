@@ -128,6 +128,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <script type="text/javascript">
+	fetch_delivery();
+	function fetch_delivery(){
+		var _token = $('input[name="_token"]').val();
+		$.ajaxSetup({
+    	headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	}
+	});
+		$.ajax({
+			url: "{{url('/select_feeship')}}",
+				type: "POST",
+				data: {_token: _token},
+				success:function(data){
+					$('#load_delivery').html(data);
+				}
+		});
+	}
 	$(document).ready(function(){
 		$('.add_delivery').click(function(){
 			var city = $('.city').val();
@@ -141,9 +158,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				type: 'POST',
 				data: { city: city, province: province,ward: ward,feeship: feeship, _token: _token },
 				success: function(response) {
-					alert('Thêm thành công');
+					fetch_delivery();
 				}
-				
 			});
 		});
 
@@ -166,6 +182,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 		});
+	});
+
+	$(document).on('blur','.feeship_edit',function(){
+		var feeship_id = $(this).data('feeship_id');
+		var fee_price = $(this).text();
+		var _token = $('meta[name="csrf-token"]').attr('content');
+
+		var fee_value = fee_price.replace('.', '');  // Xóa dấu chấm
+		fee_value = fee_value.replace(/\s?đ$/, '');  // Xóa khoảng trắng và chữ "đ"
+		$.ajaxSetup({
+    	headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	}
+	});
+
+		$.ajax({
+				url: "{{url('/update_delivery')}}",
+				type: "POST",
+				data: {feeship_id:feeship_id, fee_value:fee_value, _token:_token},
+				success: function(data) {
+					fetch_delivery();
+				}
+			});
 	});
 </script>
 </head>

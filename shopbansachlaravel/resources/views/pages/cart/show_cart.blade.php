@@ -120,7 +120,7 @@
                         <h5>Tổng Tiền:</h5>
                         <h5>$160</h5>
                     </div>
-                    <button class="btn btn-block btn-danger font-weight-bold my-3 py-3">Thanh Toán</button>
+                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" href="{{URL::to('/show_checkout')}}">Thanh Toán</button>
                 </div>
             </div>
         </div>

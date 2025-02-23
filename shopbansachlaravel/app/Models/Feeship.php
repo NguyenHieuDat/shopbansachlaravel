@@ -12,4 +12,14 @@ class Feeship extends Model
     ];
     protected $primaryKey = 'fee_id';
     protected $table = 'tbl_feeship';
+
+    public function city(){
+        return $this->belongsTo('App\Models\City','fee_matp');
+    }
+    public function province(){
+        return $this->belongsTo('App\Models\Province','fee_maqh');
+    }
+    public function ward(){
+        return $this->belongsTo('App\Models\Ward','fee_xaid');
+    }
 }
