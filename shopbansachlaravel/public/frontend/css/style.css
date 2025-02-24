@@ -9765,3 +9765,107 @@ a.text-dark:hover, a.text-dark:focus {
   border-color: #dc3545;
   color: white !important; /* Đặt màu chữ khi hover theo ý muốn */
 }
+
+ /* Container chứa giỏ hàng và tài khoản */
+ .user-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Khoảng cách giữa giỏ hàng và tài khoản */
+  position: relative;
+  right: 20px;
+  margin-top: 3px;
+}
+
+/* Giỏ hàng */
+.cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cart i {
+  font-size: 25px;
+  color: #555;
+}
+
+.cart span {
+  font-size: 12px;
+  color: #333;
+  display: block;
+}
+
+/* Tài khoản */
+.account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  position: relative; /* Sửa từ absolute để không bị lệch */
+}
+
+.account i {
+  font-size: 25px;
+  color: #555;
+}
+
+.account span {
+  font-size: 12px;
+  color: #333;
+  margin-top: 2px;
+  white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 140px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  padding: 10px;
+  z-index: 9999;
+}
+
+/* Khi hover vào .account, hiển thị dropdown */
+.account:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* Nút trong dropdown */
+.dropdown button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #dc3545;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 5px;
+}
+
+.dropdown button:last-child {
+  margin-bottom: 0;
+}
+
+/* Hiệu ứng hover cho nút */
+.dropdown button:hover {
+  background: #b52b3a;
+}

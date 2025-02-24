@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2025 at 10:13 AM
+-- Generation Time: Feb 24, 2025 at 09:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -123,7 +123,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2025_02_13_021600_create_tbl_publisher', 4),
 (9, '2025_02_16_052609_create_tbl_gallery', 5),
 (10, '2025_02_20_072620_create_tbl_coupon', 6),
-(11, '2025_02_22_065025_create_tbl_feeship', 7);
+(11, '2025_02_22_065025_create_tbl_feeship', 7),
+(12, '2025_02_24_015108_create_tbl_customer', 8),
+(13, '2025_02_24_030613_create_tbl_shipping', 9);
 
 -- --------------------------------------------------------
 
@@ -279,6 +281,29 @@ CREATE TABLE `tbl_coupon` (
 INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_time`, `coupon_condition`, `coupon_price`, `created_at`, `updated_at`) VALUES
 (1, 'Giảm giá 14/2', 'VALEN142', 10, 1, 20, NULL, NULL),
 (2, 'Giảm giá 6/9', 'SSS69', 69, 2, 69000, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_customer`
+--
+
+CREATE TABLE `tbl_customer` (
+  `customer_id` int(10) UNSIGNED NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `customer_password` varchar(255) NOT NULL,
+  `customer_phone` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `created_at`, `updated_at`) VALUES
+(4, 'DatHN', 'datnguyen@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1086,6 +1111,23 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `tenqh`, `type`, `matp`) VALUES
 ('971', 'Huyện Năm Căn', 'Huyện', 96),
 ('972', 'Huyện Phú Tân', 'Huyện', 96),
 ('973', 'Huyện Ngọc Hiển', 'Huyện', 96);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_shipping`
+--
+
+CREATE TABLE `tbl_shipping` (
+  `shipping_id` int(10) UNSIGNED NOT NULL,
+  `shipping_name` varchar(255) NOT NULL,
+  `shipping_email` varchar(255) NOT NULL,
+  `shipping_phone` varchar(255) NOT NULL,
+  `shipping_address` varchar(255) NOT NULL,
+  `shipping_note` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -12455,6 +12497,12 @@ ALTER TABLE `tbl_coupon`
   ADD PRIMARY KEY (`coupon_id`);
 
 --
+-- Indexes for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD PRIMARY KEY (`customer_id`);
+
+--
 -- Indexes for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
@@ -12477,6 +12525,12 @@ ALTER TABLE `tbl_publisher`
 --
 ALTER TABLE `tbl_quanhuyen`
   ADD PRIMARY KEY (`maqh`);
+
+--
+-- Indexes for table `tbl_shipping`
+--
+ALTER TABLE `tbl_shipping`
+  ADD PRIMARY KEY (`shipping_id`);
 
 --
 -- Indexes for table `tbl_tinhthanhpho`
@@ -12516,7 +12570,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -12549,6 +12603,12 @@ ALTER TABLE `tbl_coupon`
   MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
@@ -12565,6 +12625,12 @@ ALTER TABLE `tbl_gallerry`
 --
 ALTER TABLE `tbl_publisher`
   MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_shipping`
+--
+ALTER TABLE `tbl_shipping`
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

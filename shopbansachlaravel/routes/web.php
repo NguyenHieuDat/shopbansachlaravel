@@ -12,6 +12,7 @@ Route::get('/danh_muc_tac_gia/{author_id}', 'App\Http\Controllers\AuthorControll
 Route::get('/danh_muc_nha_xb/{publisher_id}', 'App\Http\Controllers\PublisherController@publisher_home');
 Route::get('/chi_tiet_sach/{books_id}', 'App\Http\Controllers\BookController@book_detail');
 
+Route::post('/tim_kiem', 'App\Http\Controllers\HomeController@tim_kiem');
 
 //Admin
 
@@ -83,6 +84,11 @@ Route::get('/delete_coupon/{coupon_id}', 'App\Http\Controllers\CouponController@
 
 //Thanh toan
 Route::get('/login_checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
+Route::get('/logout_checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
+Route::post('/add_customer', 'App\Http\Controllers\CheckoutController@add_customer');
+Route::post('/login_customer', 'App\Http\Controllers\CheckoutController@login_customer');
+Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
+Route::post('/save_checkout_customer', 'App\Http\Controllers\CheckoutController@save_checkout_customer');
 
 
 //Van chuyen

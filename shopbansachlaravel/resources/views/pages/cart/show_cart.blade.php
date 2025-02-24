@@ -111,7 +111,7 @@
                         </h6>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Phí Giao Hàng:</h6>
+                        <h6 class="font-weight-medium">Phí Vận Chuyển:</h6>
                         <h6 class="font-weight-medium">$10</h6>
                     </div>
                 </div>
@@ -120,7 +120,14 @@
                         <h5>Tổng Tiền:</h5>
                         <h5>$160</h5>
                     </div>
-                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" href="{{URL::to('/show_checkout')}}">Thanh Toán</button>
+                    @php
+                        $customer_id = Session::get('customer_id');
+                    @endphp
+                    @if($customer_id != null)
+                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/checkout') }}'">Thanh Toán</button>
+                    @else
+                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/login_checkout') }}'">Thanh Toán</button>
+                    @endif
                 </div>
             </div>
         </div>

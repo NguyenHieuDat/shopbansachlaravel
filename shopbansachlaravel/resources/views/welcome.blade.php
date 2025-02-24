@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Nhà sách Fahasa</title>
+    <title>Cửa hàng sách Fahasa</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -30,43 +30,13 @@
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-</head>
 
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</head>
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row bg-secondary py-1 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
-              
-            </div>
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tài Khoản</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Đăng Nhập</button>
-                            <button class="dropdown-item" type="button">Đăng Ký</button>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Tiếng Việt</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Tiếng Anh</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                </div>
-            </div>
-        </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="" class="text-decoration-none">
@@ -74,11 +44,12 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
+                <form id="searchForm" action="{{URL::to('/tim_kiem')}}" method="POST">
+                    @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm Kiếm Sách">
+                        <input type="text" name="keywords_submit" id="searchInput" class="form-control" placeholder="Tìm Kiếm Sách">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-danger">
+                            <span class="input-group-text bg-transparent text-danger" id="searchIcon">
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
@@ -86,8 +57,27 @@
                 </form>
             </div>
             <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Liên hệ với chúng tôi!</p>
-                <h5 class="m-0">+012 345 6789</h5>
+                <div class="user-actions d-flex justify-content-end align-items-center">
+                    <div class="cart" onclick="window.location.href='{{ url('/gio_hang') }}'">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Giỏ hàng</span>
+                    </div>
+                    <div class="account">
+                        <i class="fas fa-user"></i>
+                        <span>Tài khoản</span>
+                        <div class="dropdown">
+                            @php
+                                $customer_id = Session::get('customer_id');
+                            @endphp
+                            @if($customer_id != null)
+                                <button onclick="window.location.href='{{ url('/logout_checkout') }}'">Đăng xuất</button>
+                            @else
+                                <button onclick="window.location.href='{{ url('/login_checkout') }}'">Đăng nhập</button>
+                                <button onclick="window.location.href='{{ url('/login_checkout') }}'">Đăng ký</button>
+                        @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,9 +138,15 @@
                             <a href="{{URL::to('/trang_chu')}}" class="nav-item nav-link text-light active">Trang Chủ</a>
                             <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
                             <a href="{{URL::to('/gio_hang')}}" class="nav-item nav-link text-light">Giỏ Hàng</a>
-                            <a href="{{URL::to('/show_checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            @php
+                            $customer_id = Session::get('customer_id');
+                            @endphp
+                            @if($customer_id != null)
+                            <a href="{{URL::to('/checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            @else
+                            <a href="{{URL::to('/login_checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            @endif
                             <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
-                            <a href="{{URL::to('/login_checkout')}}" class="nav-item nav-link text-light">Tài Khoản</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">
@@ -617,7 +613,28 @@
         }
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        let searchForm = document.getElementById("searchForm");
+        let searchInput = document.getElementById("searchInput");
+        let searchIcon = document.getElementById("searchIcon");
 
+        // Khi nhấn Enter trong input
+        searchInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Chặn form submit mặc định
+                if (searchInput.value.trim() !== "") {
+                    searchForm.submit(); // Chỉ submit nếu có nội dung
+                }
+            }
+        });
+
+        // Khi click vào icon tìm kiếm
+        searchIcon.addEventListener("click", function () {
+            if (searchInput.value.trim() !== "") {
+                searchForm.submit();
+            }
+        });
+    });
     </script>
     
 </body>

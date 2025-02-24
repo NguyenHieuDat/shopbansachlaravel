@@ -62,7 +62,8 @@
                 <div class="col-md-5">
                     <div class="login-form">
                         <h2 class="text-danger text-center mb-4">Đăng nhập</h2>
-                        <form>
+                        <form action="{{URL::to('/login_customer')}}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <input type="text" name="email_account" class="form-control" placeholder="Nhập tài khoản">
                             </div>
@@ -86,15 +87,19 @@
                 <div class="col-md-5">
                     <div class="signup-form">
                         <h2 class="text-danger text-center mb-4">Đăng ký</h2>
-                        <form>
+                        <form action="{{URL::to('/add_customer')}}" method="POST">
+                            @csrf
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nhập tên tài khoản">
+                                <input type="text" name="customer_name" class="form-control" placeholder="Nhập tên tài khoản">
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Nhập địa chỉ Email">
+                                <input type="email" name="customer_email" class="form-control" placeholder="Nhập địa chỉ Email">
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" placeholder="Nhập mật khẩu">
+                                <input type="password" name="customer_password" class="form-control" placeholder="Nhập mật khẩu">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="customer_phone" class="form-control" placeholder="Nhập số điện thoại">
                             </div>
                             <button type="submit" class="btn btn-danger w-100">Đăng ký</button>
                         </form>
