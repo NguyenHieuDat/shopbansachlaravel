@@ -106,19 +106,15 @@
                             @if(Session::get('coupon'))
                                 {{number_format($total - $total_coupon, 0, ',', '.')}}đ
                             @else
-                                <em>Không có mã</em>
+                                <em>Chưa áp dụng</em>
                             @endif
                         </h6>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Phí Vận Chuyển:</h6>
-                        <h6 class="font-weight-medium">$10</h6>
-                    </div>
                 </div>
                 <div class="pt-2">
-                    <div class="d-flex justify-content-between mt-2">
+                    <div class="d-flex justify-content-between mt-2 total_include">
                         <h5>Tổng Tiền:</h5>
-                        <h5>$160</h5>
+                        <h4>{{ number_format($total, 0, ',', '.') }}đ</h4>
                     </div>
                     @php
                         $customer_id = Session::get('customer_id');

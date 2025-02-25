@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2025 at 09:31 AM
+-- Generation Time: Feb 25, 2025 at 11:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -153,6 +153,13 @@ CREATE TABLE `sessions` (
   `payload` longtext NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154);
 
 -- --------------------------------------------------------
 
@@ -1128,6 +1135,13 @@ CREATE TABLE `tbl_shipping` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_shipping`
+--
+
+INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_note`, `created_at`, `updated_at`) VALUES
+(1, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao hàng trong ngày', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12630,7 +12644,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`

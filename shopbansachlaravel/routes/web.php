@@ -89,7 +89,9 @@ Route::post('/add_customer', 'App\Http\Controllers\CheckoutController@add_custom
 Route::post('/login_customer', 'App\Http\Controllers\CheckoutController@login_customer');
 Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
 Route::post('/save_checkout_customer', 'App\Http\Controllers\CheckoutController@save_checkout_customer');
-
+Route::post('/checkout_delivery', 'App\Http\Controllers\CheckoutController@checkout_delivery');
+Route::get('/payment', 'App\Http\Controllers\CheckoutController@payment');
+Route::post('/calculate_feeship', 'App\Http\Controllers\CheckoutController@calculate_feeship');
 
 //Van chuyen
 Route::match(['get', 'post'], '/delivery', [App\Http\Controllers\DeliveryController::class, 'delivery']);

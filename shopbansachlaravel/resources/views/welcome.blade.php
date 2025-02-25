@@ -31,8 +31,6 @@
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
 </head>
 <body>
     <!-- Topbar Start -->
@@ -490,6 +488,7 @@
                         // Cập nhật subtotal và các thông tin khác nếu cần
                         row.find('.subtotal').text(response.new_subtotal);
                         $('#total').text(response.total);
+                        $('.total_include h4').text(response.total_final);
                     } else {
                         alert('Cập nhật giỏ hàng thất bại!');
                     }
@@ -588,23 +587,33 @@
                         $('#coupon_value').text(response.coupon_value);
                         // Cập nhật tổng tiền sau giảm giá
                         $('.total_after_discount').text(response.total_after_discount + 'đ');
+                        // Cập nhật tổng tiền bao gồm giảm giá
+                        $('.total_include h4').text(response.total_after_discount + 'đ');
+                        
                     } else {
                         showMessage('<div class="alert alert-danger">'+ response.message +'</div>');
                         $("#discount_value").html("<em>Không có mã</em>");
-                        $("#total_after_discount").html("<em>Không có mã</em>");
+                        $("#total_after_discount").html("<em>Chưa áp dụng</em>");
+                        $('.total_include').html(`
+                            <h5>Tổng Tiền:</h5>
+                        <h5>${response.total}đ</h5>
+                        `);
                     }
                 },
                 error: function() {
                     showMessage('<div class="alert alert-danger">Có lỗi xảy ra!</div>');
                     $("#discount_value").html("<em>Không có mã</em>");
-                    $("#total_after_discount").html("<em>Không có mã</em>");
+                    $("#total_after_discount").html("<em>Chưa áp dụng</em>");
+                    $('.total_include').html(`
+                            <h5>Tổng Tiền:</h5>
+                        <h5>${response.total}đ</h5>
+                        `);
                 },
                 complete: function() {
                     $('.check_coupon').prop('disabled', false).text('Tính Mã Giảm Giá'); // Bật lại nút sau khi xử lý xong
                 }
             });
         });
-
         function showMessage(message) {
             $('#coupon_message').stop(true, true).html(message).fadeIn(); // Hiển thị lại nếu bị ẩn
             setTimeout(function() {
@@ -612,7 +621,7 @@
             }, 5000);
         }
     });
-
+    
     document.addEventListener("DOMContentLoaded", function () {
         let searchForm = document.getElementById("searchForm");
         let searchInput = document.getElementById("searchInput");
@@ -627,7 +636,6 @@
                 }
             }
         });
-
         // Khi click vào icon tìm kiếm
         searchIcon.addEventListener("click", function () {
             if (searchInput.value.trim() !== "") {
@@ -636,7 +644,72 @@
         });
     });
     </script>
-    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('.choose').on('change', function() {
+            var action = $(this).attr('id');
+            var maid = $(this).val();
+            var _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "{{url('/checkout_delivery')}}",
+                type: 'POST',
+                data: { action: action, maid: maid, _token: _token },
+                dataType: 'json',
+                success: function(response) {
+                    var result = (action == 'city') ? 'province' : 'ward';
+                    $('#' + result).html(response.output);
+                },
+                error: function(xhr) {
+                    console.log("Lỗi Ajax:", xhr.responseText);
+                }
+            });
+        });
+
+        $('.calculate_delivery').click(function() {
+            var matp = $('.city').val();
+            var maqh = $('.province').val();
+            var xaid = $('.ward').val();
+            var _token = $('meta[name="csrf-token"]').attr('content');
+
+            if (matp == '' || maqh == '' || xaid == '') {
+                alert('Hãy chọn đầy đủ địa chỉ để tính phí vận chuyển');
+            } else {
+                $.ajax({
+                    url: "{{url('/calculate_feeship')}}",
+                    type: "POST",
+                    data: { matp: matp, maqh: maqh, xaid: xaid, _token: _token },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.feeship !== undefined) {
+                            var feeship = parseInt(data.feeship) || 0; // Chuyển về số, nếu lỗi thì = 0
+                            // Hiển thị phí vận chuyển hoặc "Chưa tính"
+                            if (feeship > 0) {
+                                $('.feeship_display').text(feeship.toLocaleString('vi-VN') + 'đ');
+                            } else {
+                                $('.feeship_display').html('<em>Chưa tính phí</em>');
+                            }
+                            // Lấy tổng tiền sau giảm giá, nếu không có mã giảm giá thì lấy tổng tiền gốc
+                            var total_after_discount = parseInt($('.total_after_discount').text().replace(/\D/g, '')) || 
+                                                    parseInt($('#total').attr('data-total').replace(/\D/g, '')) || 0;
+
+                            var total_final = total_after_discount + feeship; // Cộng phí vận chuyển vào tổng sau giảm giá
+                            
+                            // Cập nhật tổng tiền mới
+                            $('.total_include h4').text(total_final.toLocaleString('vi-VN') + 'đ');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log("Lỗi AJAX:", xhr.responseText);
+                    }
+                });
+            }
+        });
+
+
+    });
+
+    </script>
 </body>
 
 </html>

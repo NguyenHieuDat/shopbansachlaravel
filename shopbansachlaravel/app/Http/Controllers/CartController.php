@@ -78,10 +78,25 @@ class CartController extends Controller
             foreach($cart as $item){
                 $total += $item['book_price'] * $item['book_qty'];
             }
+
+             // Tính tổng tiền sau giảm giá nếu có mã giảm giá
+             $total_coupon = 0;
+             if (Session::has('coupon')) {
+                 foreach (Session::get('coupon') as $coupon) {
+                     if ($coupon['coupon_condition'] == 1) { // Giảm theo %
+                         $total_coupon = ($total * $coupon['coupon_price']) / 100;
+                     } else { // Giảm theo số tiền
+                         $total_coupon = $coupon['coupon_price'];
+                     }
+                 }
+             }
+        // Tổng tiền sau giảm giá
+        $totalFinal = $total - $total_coupon;
             return response()->json([
                 'success'      => true,
                 'new_subtotal' => number_format($newSubtotal, 0, ',', '.').'đ',
-                'total'        => number_format($total, 0, ',', '.').'đ'
+                'total'        => number_format($total, 0, ',', '.').'đ',
+                'total_final'  => number_format($totalFinal, 0, ',', '.') . 'đ'
             ]);
         }
         return response()->json(['success' => false]);
@@ -136,6 +151,15 @@ class CartController extends Controller
                         Session::put('coupon',$cou);
                     }
                 }else{
+                    $total_coupon = 0;
+                if ($coupon->coupon_condition == 1) {
+                    $total_coupon = ($total * $coupon->coupon_price) / 100;
+                } elseif ($coupon->coupon_condition == 2) {
+                    $total_coupon = $coupon->coupon_price;
+                }
+                Session::put('total_coupon', $total_coupon); // Lưu tổng giảm giá vào Session
+                Session::save(); // Đảm bảo Session được lưu
+                $total_after_discount = max(0, $total - $total_coupon);
                     $cou[] = array(
                         'coupon_code' => $coupon->coupon_code,
                         'coupon_condition' => $coupon->coupon_condition,
@@ -144,18 +168,6 @@ class CartController extends Controller
                     );
                     Session::put('coupon',$cou);
                 }
-                Session::save();
-                
-                $total_coupon = 0;
-
-                if ($coupon->coupon_condition == 1) {
-                    $total_coupon = ($total * $coupon->coupon_price) / 100;
-                } elseif ($coupon->coupon_condition == 2) {
-                    $total_coupon = $coupon->coupon_price;
-                }
-
-                $total_after_discount = max(0, $total - $total_coupon);
-                
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Thêm mã giảm giá thành công!',
@@ -164,7 +176,8 @@ class CartController extends Controller
                     ? $coupon->coupon_price . '%' // Nếu là giảm theo %, hiển thị %
                     : number_format($coupon->coupon_price, 0, ',', '.') . 'đ', // Nếu là số tiền, hiển thị đ
                     'total_coupon' => number_format($total_coupon, 0, ',', '.'),
-                    'total_after_discount' => number_format($total_after_discount, 0, ',', '.')
+                    'total_after_discount' => number_format($total_after_discount, 0, ',', '.'),
+                    'total' => number_format($total, 0, ',', '.')
                 ]);
             }
         }else{

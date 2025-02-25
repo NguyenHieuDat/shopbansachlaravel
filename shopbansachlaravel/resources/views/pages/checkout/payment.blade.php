@@ -4,39 +4,39 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-lg-8">
-            <div>
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin vận chuyển</span></h5>
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tính phí vận chuyển</span></h5>
             <div class="bg-light p-30 mb-5">
-                <form action="{{URL::to('/save_checkout_customer')}}" method="POST">
-                    @csrf
-                <div class="row">
+                    <form role="form" method="POST">
+                        @csrf
+                    <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>Họ và tên</label>
-                        <input class="form-control" type="text" name="shipping_name" placeholder="Nhập họ và tên">
+                        <label>Chọn thành phố</label>
+                            <select name="city" id="city" class="form-control input-sm m-bot15 choose city">
+                                <option value="0">--Chọn thành phố--</option>
+                                @foreach ($city as $key => $cities)
+                                    <option value="{{$cities->matp}}">{{$cities->tentp}}</option>
+                                @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>Địa chỉ E-mail</label>
-                        <input class="form-control" type="text" name="shipping_email" placeholder="Nhập địa chỉ Email">
+                        <label>Chọn quận/huyện</label>
+                            <select name="province" id="province" class="form-control input-sm m-bot15 choose province">
+                                <option value="0">--Chọn quận/huyện--</option>
+                            </select>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>Số điện thoại</label>
-                        <input class="form-control" type="text" name="shipping_phone" placeholder="Nhập số điện thoại">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Địa chỉ thường trú</label>
-                        <input class="form-control" type="text" name="shipping_address" placeholder="Nhập địa chỉ thường trú">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label>Ghi chú</label>
-                        <textarea class="form-control" name="shipping_note" rows="6" style="resize: none;" placeholder="Nhập ghi chú đơn hàng"></textarea>
+                        <label>Chọn phường/xã</label>
+                        <select name="ward" id="ward" class="form-control input-sm m-bot15 ward">
+                            <option value="0">--Chọn phường/xã--</option> 
+                        </select>
                     </div>
                 </div>
-                <input type="submit" name="send_order" value="Xác nhận thông tin" class="btn btn-block btn-danger font-weight-bold py-3">
+                </form>
+                <input type="button" name="calculate_order" value="Tính phí vận chuyển" class="btn btn-block btn-danger font-weight-bold py-3 calculate_delivery">
             </form>
             </div>
-            </div>
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin giỏ hàng</span></h5>
             <div>
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin giỏ hàng</span></h5>
                 <table class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
@@ -63,14 +63,20 @@
                             </td>
                             <td class="align-middle">{{number_format($cart['book_price'],0,',','.')}}đ</td>
                             <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 60px;"> 
-                                <input type="text" class="form-control form-control-sm bg-white border-0 text-center quantity-input" 
+                                <div class="input-group quantity mx-auto" style="width: 60px;">
+                                    <input type="text" class="form-control form-control-sm bg-white border-0 text-center quantity-input" 
                                     value="{{$cart['book_qty']}}" readonly>
                                 </div>
                             </td>
                             <td class="align-middle subtotal">{{number_format($subtotal,0,',','.')}}đ</td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td colspan="5" class="text-center">Giỏ hàng của bạn đang trống! Đi đến 
+                                <a class="text-danger" href="{{URL::to('/cua_hang')}}">Cửa Hàng</a>?
+                            </td>
+                        </tr>
                         @endif
                     </tbody>
                 </table>
@@ -83,7 +89,7 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Thành Tiền:</h6>
-                            <h6 id="total">{{number_format($total,0,',','.')}}đ</h6>
+                            <h6 id="total" data-total="{{ $total }}">{{ number_format($total, 0, ',', '.') }}đ</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6>Mã giảm:</h6>
@@ -114,17 +120,52 @@
                                 @endif
                             </h6>
                         </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Phí Vận Chuyển:</h6>
+                            <h6 class="font-weight-medium feeship_display">
+                                @if(Session::has('fees'))
+                                    {{ number_format(Session::get('fees'), 0, ',', '.') }}đ
+                                @else
+                                    <em>Chưa tính phí</em>
+                                @endif
+                            </h6>
+                        </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2 total_include">
                             <h5>Tổng Tiền:</h5>
                             <h4>@php
-                                 $total_coupon = Session::get('coupon') ? Session::get('total_coupon', 0) : 0; 
-                                 $total_final = $total - $total_coupon;
+                                $total_coupon = Session::get('coupon') ? Session::get('total_coupon', 0) : 0; 
+                                $feeship = Session::get('fees', 0);
+                                $total_final = ($total - $total_coupon) + $feeship;
                             @endphp
                             {{ number_format($total_final, 0, ',', '.') }}đ</h4>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thanh toán</span></h5>
+                <div class="bg-light p-30">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                            <label class="custom-control-label" for="paypal">Paypal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+                            <label class="custom-control-label" for="directcheck">Direct Check</label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                        </div>
+                    </div>
+                    <input type="submit" value="Thanh Toán" class="btn btn-block btn-danger font-weight-bold py-3">
                 </div>
             </div>
         </div>
