@@ -19,6 +19,9 @@ class CheckoutController extends Controller
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+        if (!Session::has('previous_url')) {
+            Session::put('previous_url', url()->previous());
+        }
         return view('pages.checkout.login_checkout')->with('category',$category)->with('author',$author)->with('publisher',$publisher);
     }
 
@@ -86,6 +89,13 @@ class CheckoutController extends Controller
         return Redirect::to('/login_checkout');
     }
 
+    public function save_previous_url(Request $request)
+    {
+        // Lưu previous_url vào session
+        Session::put('previous_url', $request->previous_url);
+        return response()->json(['success' => true]);
+    }
+
     public function login_customer(Request $request){
         $email = $request->email_account;
         $password = md5($request->password_account);
@@ -98,9 +108,11 @@ class CheckoutController extends Controller
             $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
             $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
             $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(8)->get();
-            return view('pages.home')->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)->with('all_book',$all_book);
+            $previous_url = Session::get('previous_url', '/');
+            Session::forget('previous_url');
+            return redirect($previous_url)->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)->with('all_book',$all_book);
         }else{
-            return Redirect::to('/login_checkout');
+            return Redirect::to('/login_checkout')->with('error', 'Sai email hoặc mật khẩu. Vui lòng thử lại!');
         }
     }
 

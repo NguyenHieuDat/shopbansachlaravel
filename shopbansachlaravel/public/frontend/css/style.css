@@ -9822,7 +9822,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /* Dropdown */
-.dropdown {
+.dropdown-account {
   position: absolute;
   top: 50px;
   left: 50%;
@@ -9840,14 +9840,14 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /* Khi hover vào .account, hiển thị dropdown */
-.account:hover .dropdown {
+.account:hover .dropdown-account {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(10px);
 }
 
 /* Nút trong dropdown */
-.dropdown button {
+.dropdown-account button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -9861,11 +9861,11 @@ a.text-dark:hover, a.text-dark:focus {
   margin-bottom: 5px;
 }
 
-.dropdown button:last-child {
+.dropdown-account button:last-child {
   margin-bottom: 0;
 }
 
 /* Hiệu ứng hover cho nút */
-.dropdown button:hover {
+.dropdown-account button:hover {
   background: #b52b3a;
 }

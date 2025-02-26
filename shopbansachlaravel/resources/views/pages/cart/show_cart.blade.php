@@ -118,9 +118,12 @@
                     </div>
                     @php
                         $customer_id = Session::get('customer_id');
+                        $shipping_id = Session::get('shipping_id');
                     @endphp
-                    @if($customer_id != null)
+                    @if($customer_id != null && $shipping_id == null)
                     <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/checkout') }}'">Thanh Toán</button>
+                    @elseif($customer_id != null && $shipping_id != null)
+                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/payment') }}'">Thanh Toán</button>
                     @else
                     <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/login_checkout') }}'">Thanh Toán</button>
                     @endif

@@ -92,6 +92,7 @@ Route::post('/save_checkout_customer', 'App\Http\Controllers\CheckoutController@
 Route::post('/checkout_delivery', 'App\Http\Controllers\CheckoutController@checkout_delivery');
 Route::get('/payment', 'App\Http\Controllers\CheckoutController@payment');
 Route::post('/calculate_feeship', 'App\Http\Controllers\CheckoutController@calculate_feeship');
+Route::post('/save_previous_url', 'App\Http\Controllers\CheckoutController@save_previous_url');
 
 //Van chuyen
 Route::match(['get', 'post'], '/delivery', [App\Http\Controllers\DeliveryController::class, 'delivery']);

@@ -150,19 +150,19 @@
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                            <label class="custom-control-label" for="paypal">Paypal</label>
+                            <label class="custom-control-label" for="paypal">Chuyển khoản ngân hàng</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                            <label class="custom-control-label" for="directcheck">Direct Check</label>
+                            <label class="custom-control-label" for="directcheck">Trả tiền mặt</label>
                         </div>
                     </div>
                     <div class="form-group mb-4">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                            <label class="custom-control-label" for="banktransfer">Paypal</label>
                         </div>
                     </div>
                     <input type="submit" value="Thanh Toán" class="btn btn-block btn-danger font-weight-bold py-3">

@@ -63,7 +63,7 @@
                     <div class="account">
                         <i class="fas fa-user"></i>
                         <span>Tài khoản</span>
-                        <div class="dropdown">
+                        <div class="dropdown-account">
                             @php
                                 $customer_id = Session::get('customer_id');
                             @endphp
@@ -100,7 +100,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                             <div class="nav-item dropdown dropright">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tác giả<i class="fa fa-angle-right float-right mt-1"></i></a>
                             <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
@@ -109,7 +108,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         <div class="nav-item dropdown dropright">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nhà xuất bản<i class="fa fa-angle-right float-right mt-1"></i></a>
                             <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
@@ -118,8 +116,6 @@
                                 @endforeach
                             </div>
                         </div>
-
-                            <a href="" class="nav-item nav-link">Shirts</a>
                     </div>
                 </nav>
             </div>
@@ -138,9 +134,12 @@
                             <a href="{{URL::to('/gio_hang')}}" class="nav-item nav-link text-light">Giỏ Hàng</a>
                             @php
                             $customer_id = Session::get('customer_id');
+                            $shipping_id = Session::get('shipping_id');
                             @endphp
-                            @if($customer_id != null)
+                            @if($customer_id != null && $shipping_id == null)
                             <a href="{{URL::to('/checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            @elseif($customer_id != null && $shipping_id != null)
+                            <a href="{{URL::to('/payment')}}" class="nav-item nav-link text-light">Thanh Toán</a>
                             @else
                             <a href="{{URL::to('/login_checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
                             @endif
@@ -331,10 +330,6 @@
                 });
             }   
         });  
-    });
-
-    $(document).ready(function(){
-    console.log("Initial input value:", $('.quantity-input').val());
     });
 
     $(document).ready(function() {
@@ -705,11 +700,32 @@
                 });
             }
         });
-
-
     });
+</script>
 
-    </script>
+<script>
+    $(document).ready(function () {
+        var previousUrl = document.referrer; // Lấy URL trước khi vào trang login
+    
+        if (previousUrl) {
+            $.ajax({
+                url: "{{ url('/save_previous_url') }}", // Route để lưu session
+                type: "POST",
+                data: {
+                    previous_url: previousUrl,
+                    _token: "{{ csrf_token() }}" // Bảo vệ CSRF token
+                },
+                success: function (response) {
+                    console.log("Lưu URL trước thành công:", response);
+                },
+                error: function () {
+                    console.log("Lỗi khi lưu URL trước.");
+                }
+            });
+        }
+    });
+</script>
+    
 </body>
 
 </html>
