@@ -724,6 +724,61 @@
             });
         }
     });
+
+    $(document).ready(function() {
+        $('input[type="radio"]').on('click', function() {
+            if ($(this).hasClass('checked')) {
+                $(this).prop('checked', false).removeClass('checked');
+            } else {
+                $('input[type="radio"]').removeClass('checked'); // Xóa trạng thái checked của các radio khác
+                $(this).addClass('checked');
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#orderForm').submit(function(event) {
+            event.preventDefault(); // Ngăn load lại trang
+
+            var formData = $(this).serialize(); // Lấy dữ liệu từ form
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ URL::to('/order_place') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            text: "Phương thức: " + response.payment_method
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: '❌ Có lỗi xảy ra, vui lòng thử lại!'
+                    });
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+
 </script>
     
 </body>

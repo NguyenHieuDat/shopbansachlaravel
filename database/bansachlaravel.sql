@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2025 at 10:59 AM
+-- Generation Time: Feb 27, 2025 at 10:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -125,7 +125,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2025_02_20_072620_create_tbl_coupon', 6),
 (11, '2025_02_22_065025_create_tbl_feeship', 7),
 (12, '2025_02_24_015108_create_tbl_customer', 8),
-(13, '2025_02_24_030613_create_tbl_shipping', 9);
+(13, '2025_02_24_030613_create_tbl_shipping', 9),
+(14, '2025_02_27_071458_create_tbl_payment', 10),
+(15, '2025_02_27_071524_create_tbl_order', 10),
+(16, '2025_02_27_071626_create_tbl_order_detail', 10);
 
 -- --------------------------------------------------------
 
@@ -364,6 +367,62 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (15, '1739782825_caycamngot2.jpg', '1739782825_caycamngot2.jpg', 18, NULL, NULL),
 (16, '1739782825_caycamngot3.jpg', '1739782825_caycamngot3.jpg', 18, NULL, NULL),
 (17, '1739782825_caycamngot4.jpg', '1739782825_caycamngot4.jpg', 18, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_order`
+--
+
+CREATE TABLE `tbl_order` (
+  `order_id` int(10) UNSIGNED NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `shipping_id` int(11) NOT NULL,
+  `payment_id` int(11) NOT NULL,
+  `order_total` varchar(50) NOT NULL,
+  `order_status` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_order_detail`
+--
+
+CREATE TABLE `tbl_order_detail` (
+  `order_detail_id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `book_name` varchar(255) NOT NULL,
+  `book_price` varchar(50) NOT NULL,
+  `book_sale_quantity` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payment`
+--
+
+CREATE TABLE `tbl_payment` (
+  `payment_id` int(10) UNSIGNED NOT NULL,
+  `payment_method` varchar(255) NOT NULL,
+  `payment_status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_payment`
+--
+
+INSERT INTO `tbl_payment` (`payment_id`, `payment_method`, `payment_status`, `created_at`, `updated_at`) VALUES
+(1, 'Chuyển khoản', 1, NULL, NULL),
+(2, 'Tiền mặt', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12529,6 +12588,24 @@ ALTER TABLE `tbl_gallerry`
   ADD PRIMARY KEY (`gallery_id`);
 
 --
+-- Indexes for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  ADD PRIMARY KEY (`order_detail_id`);
+
+--
+-- Indexes for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  ADD PRIMARY KEY (`payment_id`);
+
+--
 -- Indexes for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
@@ -12584,7 +12661,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -12633,6 +12710,24 @@ ALTER TABLE `tbl_feeship`
 --
 ALTER TABLE `tbl_gallerry`
   MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  MODIFY `payment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_publisher`

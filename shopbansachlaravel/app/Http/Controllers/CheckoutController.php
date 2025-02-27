@@ -9,6 +9,9 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\Ward;
 use App\Models\Feeship;
+use App\Models\Payment;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -156,5 +159,33 @@ class CheckoutController extends Controller
             }
         }
         return response()->json(['feeship' => $feeship_price]);
+    }
+
+    public function order_place(Request $request){
+        $request->validate([
+            'payment_option' => 'required',
+        ], [
+            'payment_option.required' => 'Vui lòng chọn phương thức thanh toán!',
+        ]);
+        $payment_option = $request->input('payment_option');
+        $payment = Payment::where('payment_id', $payment_option)->first();
+        if (!$payment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Phương thức thanh toán không hợp lệ!'
+            ]);
+        }
+        if ($payment->payment_status == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => '🚫 Hiện tại phương thức thanh toán này không sử dụng được, vui lòng chọn phương thức khác!'
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => '✅ Đặt hàng thành công!',
+            'payment_method' => $payment->payment_method,
+            'payment_status' => $payment->payment_status
+        ]);
     }
 }

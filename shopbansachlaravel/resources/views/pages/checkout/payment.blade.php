@@ -1,5 +1,11 @@
 @extends('welcome')
 @section('content')
+<style>
+    .custom-control-input:checked ~ .custom-control-label::before {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+    }
+</style>
 <!-- Checkout Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
@@ -145,28 +151,31 @@
                 </div>
             </div>
             <div class="mb-5">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thanh toán</span></h5>
-                <div class="bg-light p-30">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Hình thức thanh toán</span></h5>
+                <form method="POST" id="orderForm">
+                    @csrf
+                <div class="bg-light p-30 payment_options">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                            <label class="custom-control-label" for="paypal">Chuyển khoản ngân hàng</label>
+                            <input type="radio" class="custom-control-input" name="payment_option" id="banktransfer" value="1">
+                            <label class="custom-control-label" for="banktransfer">Chuyển khoản</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                            <label class="custom-control-label" for="directcheck">Trả tiền mặt</label>
+                            <input type="radio" class="custom-control-input" name="payment_option" id="directcheck" value="2">
+                            <label class="custom-control-label" for="directcheck">Tiền mặt</label>
                         </div>
                     </div>
-                    <div class="form-group mb-4">
+                    {{-- <div class="form-group mb-4">
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                            <label class="custom-control-label" for="banktransfer">Paypal</label>
+                            <input type="radio" class="custom-control-input" name="payment_option" id="paypal">
+                            <label class="custom-control-label" for="paypal">Paypal</label>
                         </div>
-                    </div>
-                    <input type="submit" value="Thanh Toán" class="btn btn-block btn-danger font-weight-bold py-3">
+                    </div> --}}
+                    <button type="submit" name="send_order_place" class="btn btn-block btn-danger font-weight-bold py-3">Đặt hàng</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
