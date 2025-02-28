@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2025 at 10:45 AM
+-- Generation Time: Feb 28, 2025 at 10:05 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -385,6 +385,14 @@ CREATE TABLE `tbl_order` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_order`
+--
+
+INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
+(6, 4, 7, 1, '380000', 'Đang chờ xử lý', NULL, NULL),
+(7, 4, 7, 2, '431000', 'Đang chờ xử lý', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -401,6 +409,16 @@ CREATE TABLE `tbl_order_detail` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_order_detail`
+--
+
+INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
+(7, 6, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
+(8, 6, 12, 'Kinh di', '120000', 1, NULL, NULL),
+(9, 7, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
+(10, 7, 12, 'Kinh di', '120000', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1200,7 +1218,8 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(1, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao hàng trong ngày', NULL, NULL);
+(1, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao hàng trong ngày', NULL, NULL),
+(7, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao trong ngày', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12715,13 +12734,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -12739,7 +12758,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

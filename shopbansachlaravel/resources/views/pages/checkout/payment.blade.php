@@ -140,7 +140,8 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2 total_include">
                             <h5>Tổng Tiền:</h5>
-                            <h4>@php
+                            <h4>
+                            @php
                                 $total_coupon = Session::get('coupon') ? Session::get('total_coupon', 0) : 0; 
                                 $feeship = Session::get('fees', 0);
                                 $total_final = ($total - $total_coupon) + $feeship;

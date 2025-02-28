@@ -161,14 +161,35 @@ class CheckoutController extends Controller
         return response()->json(['feeship' => $feeship_price]);
     }
 
+    public function save_total_final(Request $request){
+        $total_final = $request->input('total_final', 0);
+        Session::put('total_final', $total_final);
+        return response()->json(['success' => true, 'total_final' => $total_final]);
+    }
+
     public function order_place(Request $request){
-        $request->validate([
-            'payment_option' => 'required',
-        ], [
-            'payment_option.required' => 'Vui lòng chọn phương thức thanh toán!',
-        ]);
         $payment_option = $request->input('payment_option');
         $payment = Payment::where('payment_id', $payment_option)->first();
+
+        $order = new Order();
+        $order->customer_id = Session::get('customer_id');
+        $order->shipping_id = Session::get('shipping_id');
+        $order->payment_id = $payment->payment_id;
+        $order->order_total = Session::get('total_final', 0);
+        $order->order_status = 'Đang chờ xử lý';
+        $order->save();
+        $order_id = $order->order_id; // Lấy ID của đơn hàng vừa tạo
+        
+        $cart = Session::get('cart', []);
+        foreach($cart as $key => $cart_order){
+            $order_detail = new OrderDetail();
+            $order_detail['order_id'] = $order_id;
+            $order_detail['book_id'] = $cart_order['book_id'];
+            $order_detail['book_name'] = $cart_order['book_name'];
+            $order_detail['book_price'] = $cart_order['book_price'];
+            $order_detail['book_sale_quantity'] = $cart_order['book_qty'];
+            $order_detail->save();
+        }
         if (!$payment) {
             return response()->json([
                 'success' => false,
@@ -183,9 +204,15 @@ class CheckoutController extends Controller
         }
         return response()->json([
             'success' => true,
-            'message' => '✅ Đặt hàng thành công!',
-            'payment_method' => $payment->payment_method,
-            'payment_status' => $payment->payment_status
+            'redirect_url' => ($payment->payment_id == 2) ? url('/direct_payment') : url('/bank_payment')
         ]);
+    }
+
+    public function direct_payment(){
+        return view('pages.checkout.direct_payment');
+    }
+
+    public function bank_payment(){
+        
     }
 }

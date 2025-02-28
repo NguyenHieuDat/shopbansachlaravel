@@ -693,6 +693,17 @@
                             // Cập nhật tổng tiền mới
                             $('.total_include h4').text(total_final.toLocaleString('vi-VN') + 'đ');
                         }
+                        $.ajax({
+                            url: "{{url('/save_total_final')}}",
+                            type: "POST",
+                            data: { total_final: total_final, _token: _token },
+                            success: function(response) {
+                                console.log("Đã lưu tổng tiền vào session:", response);
+                            },
+                            error: function(xhr) {
+                                console.log("Lỗi khi lưu tổng tiền:", xhr.responseText);
+                            }
+                        });
                     },
                     error: function(xhr) {
                         console.log("Lỗi AJAX:", xhr.responseText);
@@ -738,27 +749,29 @@
 
     $(document).ready(function() {
         $('#orderForm').submit(function(event) {
-            event.preventDefault(); // Ngăn load lại trang
-
-            var formData = $(this).serialize(); // Lấy dữ liệu từ form
-
+            event.preventDefault();
+            var payment_option = $('input[name="payment_option"]:checked').val();
+            if (!payment_option) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn phương thức thanh toán!'
+                });
+                return;
+            }
+            var formData = $(this).serialize();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
                 url: "{{ URL::to('/order_place') }}",
                 type: "POST",
                 data: formData,
                 success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            text: "Phương thức: " + response.payment_method
-                        });
+                    if (response.success && response.redirect_url) {
+                    window.location.href = response.redirect_url; // Chuyển trang ngay lập tức, không hiện thông báo
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -771,7 +784,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi!',
-                        text: '❌ Có lỗi xảy ra, vui lòng thử lại!'
+                        text: 'Có lỗi xảy ra, vui lòng thử lại!'
                     });
                     console.log(xhr.responseText);
                 }
