@@ -150,10 +150,9 @@ class CheckoutController extends Controller
         $feeship = Feeship::where('fee_matp', $data['matp'])
                           ->where('fee_maqh', $data['maqh'])
                           ->where('fee_xaid', $data['xaid'])
-                          ->first(); // Lấy dòng đầu tiên
-
+                          ->first();
         if($feeship){
-            $feeship_price = $feeship->fee_price; // Lấy giá phí ship
+            $feeship_price = $feeship->fee_price;
             Session::put('fees', $feeship_price);
             Session::save();
             }
@@ -199,20 +198,13 @@ class CheckoutController extends Controller
         if ($payment->payment_status == 0) {
             return response()->json([
                 'success' => false,
-                'message' => '🚫 Hiện tại phương thức thanh toán này không sử dụng được, vui lòng chọn phương thức khác!'
+                'message' => 'Hiện tại phương thức thanh toán này không sử dụng được, vui lòng chọn phương thức khác!'
             ]);
         }
+        Session::forget('cart');
         return response()->json([
             'success' => true,
-            'redirect_url' => ($payment->payment_id == 2) ? url('/direct_payment') : url('/bank_payment')
+            'payment_id' => $payment->payment_id
         ]);
-    }
-
-    public function direct_payment(){
-        return view('pages.checkout.direct_payment');
-    }
-
-    public function bank_payment(){
-        
     }
 }

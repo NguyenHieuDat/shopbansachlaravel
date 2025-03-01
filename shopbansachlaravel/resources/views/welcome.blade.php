@@ -770,8 +770,26 @@
                 type: "POST",
                 data: formData,
                 success: function(response) {
-                    if (response.success && response.redirect_url) {
-                    window.location.href = response.redirect_url; // Chuyển trang ngay lập tức, không hiện thông báo
+                    if (response.success) {
+                        if (response.payment_id == 2) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đặt hàng thành công!',
+                                text: 'Đơn hàng của bạn đang được giao',
+                                confirmButtonText: 'Về trang chủ'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ url('/trang_chu') }}";
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Đặt hàng thành công!',
+                                text: 'Bạn đã chọn phương thức thanh toán ngân hàng.'
+
+                            });
+                        }
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -779,7 +797,7 @@
                             text: response.message
                         });
                     }
-                },
+                }
                 error: function(xhr) {
                     Swal.fire({
                         icon: 'error',
