@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 //Home
-
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::get('/trang_chu', 'App\Http\Controllers\HomeController@index');
 
@@ -15,14 +14,12 @@ Route::get('/chi_tiet_sach/{books_id}', 'App\Http\Controllers\BookController@boo
 Route::post('/tim_kiem', 'App\Http\Controllers\HomeController@tim_kiem');
 
 //Admin
-
 Route::get('/admin', 'App\Http\Controllers\AdminController@index');
 Route::get('/dashboard', 'App\Http\Controllers\AdminController@dashboard_layout');
 Route::match(['get', 'post'], '/admin_dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin_dashboard');
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
 
 //Danh muc sach
-
 Route::get('/add_category_product', 'App\Http\Controllers\CategoryProduct@add_category_product');
 Route::get('/all_category_product', 'App\Http\Controllers\CategoryProduct@all_category_product');
 Route::post('/save_category_product', 'App\Http\Controllers\CategoryProduct@save_category_product');
@@ -31,7 +28,6 @@ Route::get('/delete_category_product/{category_product_id}', 'App\Http\Controlle
 Route::post('/update_category_product/{category_product_id}', 'App\Http\Controllers\CategoryProduct@update_category_product');
 
 //Tac gia
-
 Route::get('/add_author', 'App\Http\Controllers\AuthorController@add_author');
 Route::get('/all_author', 'App\Http\Controllers\AuthorController@all_author');
 Route::post('/save_author', 'App\Http\Controllers\AuthorController@save_author');
@@ -40,7 +36,6 @@ Route::get('/delete_author/{aut_id}', 'App\Http\Controllers\AuthorController@del
 Route::post('/update_author/{aut_id}', 'App\Http\Controllers\AuthorController@update_author');
 
 //Nha xuat ban
-
 Route::get('/add_publisher', 'App\Http\Controllers\PublisherController@add_publisher');
 Route::get('/all_publisher', 'App\Http\Controllers\PublisherController@all_publisher');
 Route::post('/save_publisher', 'App\Http\Controllers\PublisherController@save_publisher');
@@ -49,7 +44,6 @@ Route::get('/delete_publisher/{publish_id}', 'App\Http\Controllers\PublisherCont
 Route::post('/update_publisher/{publish_id}', 'App\Http\Controllers\PublisherController@update_publisher');
 
 //Sach
-
 Route::get('/add_book', 'App\Http\Controllers\BookController@add_book');
 Route::get('/all_book', 'App\Http\Controllers\BookController@all_book');
 Route::post('/save_book', 'App\Http\Controllers\BookController@save_book');
@@ -60,7 +54,6 @@ Route::get('/unactive_book/{books_id}', 'App\Http\Controllers\BookController@una
 Route::get('/active_book/{books_id}', 'App\Http\Controllers\BookController@active_book');
 
 //Thu vien anh
-
 Route::get('/add_gallery/{book_id}', 'App\Http\Controllers\GalleryController@add_gallery');
 Route::match(['get', 'post'], '/select_gallery', [App\Http\Controllers\GalleryController::class, 'select_gallery']);
 Route::post('/insert_gallery/{gal_id}', 'App\Http\Controllers\GalleryController@insert_gallery');
@@ -102,4 +95,9 @@ Route::post('/select_delivery', 'App\Http\Controllers\DeliveryController@select_
 Route::post('/insert_delivery', 'App\Http\Controllers\DeliveryController@insert_delivery');
 Route::post('/select_feeship', 'App\Http\Controllers\DeliveryController@select_feeship');
 Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_delivery');
+
+//Don hang
+Route::get('/all_order', 'App\Http\Controllers\CheckoutController@all_order');
+Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\CheckoutController@view_order_detail');
+// Route::get('/all_order', 'App\Http\Controllers\CheckoutController@all_order');
 

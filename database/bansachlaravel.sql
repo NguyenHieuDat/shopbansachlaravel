@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 10:05 AM
+-- Generation Time: Mar 05, 2025 at 10:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -390,8 +390,8 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(6, 4, 7, 1, '380000', 'Đang chờ xử lý', NULL, NULL),
-(7, 4, 7, 2, '431000', 'Đang chờ xử lý', NULL, NULL);
+(10, 4, 9, 2, '160000', 'Đang chờ xử lý', NULL, NULL),
+(11, 4, 9, 2, '270000', 'Đang chờ xử lý', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -415,10 +415,8 @@ CREATE TABLE `tbl_order_detail` (
 --
 
 INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
-(7, 6, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
-(8, 6, 12, 'Kinh di', '120000', 1, NULL, NULL),
-(9, 7, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
-(10, 7, 12, 'Kinh di', '120000', 2, NULL, NULL);
+(13, 10, 18, 'Cây Cam Ngọt Của Tôi', '100000', 1, NULL, NULL),
+(14, 11, 12, 'Kinh di', '120000', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1204,6 +1202,7 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `tenqh`, `type`, `matp`) VALUES
 
 CREATE TABLE `tbl_shipping` (
   `shipping_id` int(10) UNSIGNED NOT NULL,
+  `customer_id` int(10) NOT NULL,
   `shipping_name` varchar(255) NOT NULL,
   `shipping_email` varchar(255) NOT NULL,
   `shipping_phone` varchar(255) NOT NULL,
@@ -1217,9 +1216,8 @@ CREATE TABLE `tbl_shipping` (
 -- Dumping data for table `tbl_shipping`
 --
 
-INSERT INTO `tbl_shipping` (`shipping_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(1, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao hàng trong ngày', NULL, NULL),
-(7, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao trong ngày', NULL, NULL);
+INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_note`, `created_at`, `updated_at`) VALUES
+(9, 4, 'Nguyễn Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 12 phường dư hàng kênh lê chân hải phòng', 'Giao trong ngày', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12734,13 +12732,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -12758,7 +12756,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

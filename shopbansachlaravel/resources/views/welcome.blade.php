@@ -787,7 +787,6 @@
                                 icon: 'info',
                                 title: 'Đặt hàng thành công!',
                                 text: 'Bạn đã chọn phương thức thanh toán ngân hàng.'
-
                             });
                         }
                     } else {
@@ -797,7 +796,7 @@
                             text: response.message
                         });
                     }
-                }
+                },
                 error: function(xhr) {
                     Swal.fire({
                         icon: 'error',

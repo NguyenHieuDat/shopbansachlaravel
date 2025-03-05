@@ -18,6 +18,32 @@ session_start();
 
 class CheckoutController extends Controller
 {
+    //Ham admin
+    public function check_login(){
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }
+        else{
+            return Redirect::to('admin')->send();
+        }
+    }
+
+    public function all_order(){
+        $this->check_login();
+        $all_order = DB::table('tbl_order')->join('tbl_customer','tbl_customer.customer_id','=','tbl_order.customer_id')
+        ->select('tbl_order.*','tbl_customer.customer_name')
+        ->orderby('tbl_order.order_id','desc')->get();
+        $manager_order = view('admin.order.all_order')->with('all_order',$all_order);
+        return view('admin_layout')->with('admin.order.all_order',$manager_order);
+    }
+
+    public function view_order_detail($orders_id){
+        return view('admin.order.view_order_detail');
+    }
+
+    //Ham user
+
     public function login_checkout(){
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
@@ -42,6 +68,17 @@ class CheckoutController extends Controller
     }
 
     public function checkout(Request $request){
+        $customer_id = Session::get('customer_id');
+        $shipping_id = Session::get('shipping_id');
+
+        // Nếu khách hàng đã đăng nhập mà chưa có thông tin vận chuyển, chuyển hướng đến trang thông tin vận chuyển
+        if ($customer_id && !$shipping_id) {
+            // Kiểm tra xem người dùng đang ở trang checkout chưa
+            $current_url = url()->current();
+            if ($current_url != url('/checkout')) {
+                return Redirect::to('/checkout');
+            }
+        }
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -75,15 +112,26 @@ class CheckoutController extends Controller
     }
 
     public function save_checkout_customer(Request $request){
+        $customer_id = Session::get('customer_id');
+
+        // Kiểm tra nếu khách hàng đã có thông tin vận chuyển
+        $existing_shipping = DB::table('tbl_shipping')->where('customer_id', $customer_id)->first();
+
+        // Nếu chưa có thông tin vận chuyển thì lưu vào cơ sở dữ liệu
+    if (!$existing_shipping) {
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
         $data['shipping_email'] = $request->shipping_email;
         $data['shipping_phone'] = $request->shipping_phone;
         $data['shipping_address'] = $request->shipping_address;
         $data['shipping_note'] = $request->shipping_note;
+        $data['customer_id'] = $customer_id;
 
         $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
         Session::put('shipping_id',$shipping_id);
+    }else{
+        Session::put('shipping_id', $existing_shipping->shipping_id);
+    }
         return Redirect::to('/payment');
     }
 
@@ -106,6 +154,15 @@ class CheckoutController extends Controller
 
         if($result){
             Session::put('customer_id',$result->customer_id);
+            Session::put('customer_name', $result->customer_name);
+
+            // Check if the customer already has shipping information
+            $shipping = DB::table('tbl_shipping')->where('customer_id', $result->customer_id)->first();
+
+            // If shipping info exists, save the shipping_id to the session
+            if ($shipping) {
+                Session::put('shipping_id', $shipping->shipping_id);
+            }
 
             $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
             $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
@@ -207,4 +264,5 @@ class CheckoutController extends Controller
             'payment_id' => $payment->payment_id
         ]);
     }
+
 }
