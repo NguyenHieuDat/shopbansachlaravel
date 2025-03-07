@@ -68,70 +68,114 @@ class CheckoutController extends Controller
     }
 
     public function checkout(Request $request){
-        $customer_id = Session::get('customer_id');
-        $shipping_id = Session::get('shipping_id');
-
-        // Nếu khách hàng đã đăng nhập mà chưa có thông tin vận chuyển, chuyển hướng đến trang thông tin vận chuyển
-        if ($customer_id && !$shipping_id) {
-            // Kiểm tra xem người dùng đang ở trang checkout chưa
-            $current_url = url()->current();
-            if ($current_url != url('/checkout')) {
-                return Redirect::to('/checkout');
-            }
+        $customer_id = Session::get('customer_id'); 
+        
+        // Kiểm tra nếu người dùng chưa đăng nhập, chuyển hướng đến trang login
+        if (!$customer_id) {
+            return Redirect::to('/login_checkout');
         }
-        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
-        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
-        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+        // Lấy thông tin vận chuyển nếu có
+        $shipping = DB::table('tbl_shipping')->where('customer_id', $customer_id)->first();
+        
+        if ($shipping) {
+            Session::put('shipping_id', $shipping->shipping_id);
+            Session::put('shipping_name', $shipping->shipping_name);
+            Session::put('shipping_email', $shipping->shipping_email);
+            Session::put('shipping_phone', $shipping->shipping_phone);
+            Session::put('shipping_address', $shipping->shipping_address);
+            Session::put('shipping_note', $shipping->shipping_note);
+        }
+
+        $city = City::orderBy('matp', 'ASC')->get();
+        $province = Province::orderBy('maqh', 'ASC')->get();
+        $ward = Ward::orderBy('xaid', 'ASC')->get();
+
+        $category = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
+        $author = DB::table('tbl_author')->orderBy('author_id', 'desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderBy('publisher_id', 'desc')->get();
 
         $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        return view('pages.checkout.show_checkout')->with('category',$category)
-        ->with('author',$author)->with('publisher',$publisher)
-        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
-        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+
+        return view('pages.checkout.show_checkout', compact(
+            'category', 'author', 'publisher', 'meta_desc', 'meta_keywords', 
+            'meta_title', 'url_canonical', 'shipping', 'city', 'province', 'ward'
+        ));
     }
 
     public function payment(Request $request){
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
-        $city = City::orderby('matp','ASC')->get();
+        $feeship = Session::get('feeship', 0);
 
         $meta_desc = "Đăng nhập thanh toán";
         $meta_keywords = "Đăng nhập thanh toán";
         $meta_title = "Đăng nhập thanh toán";
         $url_canonical = $request->url();
-        Session::forget('fees');
         return view('pages.checkout.payment')->with('category',$category)
         ->with('author',$author)->with('publisher',$publisher)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)
-        ->with('city',$city);
+        ->with('feeship',$feeship);
     }
 
     public function save_checkout_customer(Request $request){
         $customer_id = Session::get('customer_id');
+        $shipping_id = Session::get('shipping_id');
 
-        // Kiểm tra nếu khách hàng đã có thông tin vận chuyển
-        $existing_shipping = DB::table('tbl_shipping')->where('customer_id', $customer_id)->first();
+        $current_shipping = DB::table('tbl_shipping')
+        ->where('shipping_id', $shipping_id)
+        ->first();
+        Session::put('city', $request->city);
+        Session::put('province', $request->province);
+        Session::put('ward', $request->ward);
 
-        // Nếu chưa có thông tin vận chuyển thì lưu vào cơ sở dữ liệu
-    if (!$existing_shipping) {
-        $data = array();
-        $data['shipping_name'] = $request->shipping_name;
-        $data['shipping_email'] = $request->shipping_email;
-        $data['shipping_phone'] = $request->shipping_phone;
-        $data['shipping_address'] = $request->shipping_address;
-        $data['shipping_note'] = $request->shipping_note;
-        $data['customer_id'] = $customer_id;
+        $city = City::where('matp', $request->city)->first();
+        $province = Province::where('maqh', $request->province)->first();
+        $ward = Ward::where('xaid', $request->ward)->first();
 
-        $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
-        Session::put('shipping_id',$shipping_id);
-    }else{
-        Session::put('shipping_id', $existing_shipping->shipping_id);
-    }
+        $city_name = $city->tentp ?? 'Không tìm thấy thành phố';
+        $province_name = $province->tenqh ?? 'Không tìm thấy quận';
+        $ward_name = $ward->tenxp ?? 'Không tìm thấy xã/phường';
+
+        $city_address = $request->shipping_city. '' .$ward_name . ', ' . $province_name . ', ' . $city_name;
+
+        if ($current_shipping) {
+            DB::table('tbl_shipping')
+                ->where('shipping_id', $shipping_id)
+                ->update([
+                    'shipping_name' => $request->shipping_name,
+                    'shipping_email' => $request->shipping_email,
+                    'shipping_phone' => $request->shipping_phone,
+                    'shipping_address' => $request->shipping_address,
+                    'shipping_city' => $city_address,
+                    'shipping_note' => $request->shipping_note
+                ]);
+        } else {
+            $shipping_id = DB::table('tbl_shipping')->insertGetId([
+                'customer_id' => $customer_id,
+                'shipping_name' => $request->shipping_name,
+                'shipping_email' => $request->shipping_email,
+                'shipping_phone' => $request->shipping_phone,
+                'shipping_address' => $request->shipping_address,
+                'shipping_city' => $city_address,
+                'shipping_note' => $request->shipping_note
+            ]);
+        }
+
+        Session::put('shipping_id', $shipping_id);
+        Session::put('shipping_city', $city_address);
+
+        // Tính phí vận chuyển
+        $feeship = Feeship::where('fee_matp', $request->city)
+            ->where('fee_maqh', $request->province)
+            ->where('fee_xaid', $request->ward)
+            ->value('fee_price') ?? 0;
+
+        Session::put('feeship', $feeship);
         return Redirect::to('/payment');
     }
 
@@ -217,21 +261,16 @@ class CheckoutController extends Controller
         return response()->json(['feeship' => $feeship_price]);
     }
 
-    public function save_total_final(Request $request){
-        $total_final = $request->input('total_final', 0);
-        Session::put('total_final', $total_final);
-        return response()->json(['success' => true, 'total_final' => $total_final]);
-    }
-
     public function order_place(Request $request){
         $payment_option = $request->input('payment_option');
         $payment = Payment::where('payment_id', $payment_option)->first();
+        $total_final = $request->input('total_final');
 
         $order = new Order();
         $order->customer_id = Session::get('customer_id');
         $order->shipping_id = Session::get('shipping_id');
         $order->payment_id = $payment->payment_id;
-        $order->order_total = Session::get('total_final', 0);
+        $order->order_total = $total_final;
         $order->order_status = 'Đang chờ xử lý';
         $order->save();
         $order_id = $order->order_id; // Lấy ID của đơn hàng vừa tạo

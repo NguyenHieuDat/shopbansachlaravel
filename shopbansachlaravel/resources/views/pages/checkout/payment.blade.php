@@ -10,37 +10,6 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-lg-8">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tính phí vận chuyển</span></h5>
-            <div class="bg-light p-30 mb-5">
-                    <form role="form" method="POST">
-                        @csrf
-                    <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>Chọn thành phố</label>
-                            <select name="city" id="city" class="form-control input-sm m-bot15 choose city">
-                                <option value="0">--Chọn thành phố--</option>
-                                @foreach ($city as $key => $cities)
-                                    <option value="{{$cities->matp}}">{{$cities->tentp}}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Chọn quận/huyện</label>
-                            <select name="province" id="province" class="form-control input-sm m-bot15 choose province">
-                                <option value="0">--Chọn quận/huyện--</option>
-                            </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Chọn phường/xã</label>
-                        <select name="ward" id="ward" class="form-control input-sm m-bot15 ward">
-                            <option value="0">--Chọn phường/xã--</option> 
-                        </select>
-                    </div>
-                </div>
-                </form>
-                <input type="button" name="calculate_order" value="Tính phí vận chuyển" class="btn btn-block btn-danger font-weight-bold py-3 calculate_delivery">
-            </form>
-            </div>
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Thông tin giỏ hàng</span></h5>
             <div>
                 <table class="table table-light table-borderless table-hover text-center mb-0">
@@ -129,8 +98,11 @@
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Phí Vận Chuyển:</h6>
                             <h6 class="font-weight-medium feeship_display">
-                                @if(Session::has('fees'))
-                                    {{ number_format(Session::get('fees'), 0, ',', '.') }}đ
+                                @php
+                                 $feeship = Session::get('fees', 0);   
+                                @endphp
+                                @if($feeship > 0)
+                                    {{ number_format($feeship, 0, ',', '.') }}đ
                                 @else
                                     <em>Chưa tính phí</em>
                                 @endif
@@ -140,7 +112,7 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2 total_include">
                             <h5>Tổng Tiền:</h5>
-                            <h4>
+                            <h4 class="total_final_display">
                             @php
                                 $total_coupon = Session::get('coupon') ? Session::get('total_coupon', 0) : 0; 
                                 $feeship = Session::get('fees', 0);

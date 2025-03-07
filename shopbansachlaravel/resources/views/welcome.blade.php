@@ -68,6 +68,7 @@
                                 $customer_id = Session::get('customer_id');
                             @endphp
                             @if($customer_id != null)
+                                <button onclick="window.location.href='{{ url('/user_account') }}'">Xem tài khoản</button>
                                 <button onclick="window.location.href='{{ url('/logout_checkout') }}'">Đăng xuất</button>
                             @else
                                 <button onclick="window.location.href='{{ url('/login_checkout') }}'">Đăng nhập</button>
@@ -645,7 +646,7 @@
             var action = $(this).attr('id');
             var maid = $(this).val();
             var _token = $('meta[name="csrf-token"]').attr('content');
-
+            
             $.ajax({
                 url: "{{url('/checkout_delivery')}}",
                 type: 'POST',
@@ -693,20 +694,9 @@
                             // Cập nhật tổng tiền mới
                             $('.total_include h4').text(total_final.toLocaleString('vi-VN') + 'đ');
                         }
-                        $.ajax({
-                            url: "{{url('/save_total_final')}}",
-                            type: "POST",
-                            data: { total_final: total_final, _token: _token },
-                            success: function(response) {
-                                console.log("Đã lưu tổng tiền vào session:", response);
-                            },
-                            error: function(xhr) {
-                                console.log("Lỗi khi lưu tổng tiền:", xhr.responseText);
-                            }
-                        });
-                    },
-                    error: function(xhr) {
-                        console.log("Lỗi AJAX:", xhr.responseText);
+                },
+                error: function(xhr) {
+                    console.log("Lỗi AJAX:", xhr.responseText);
                     }
                 });
             }
@@ -750,7 +740,9 @@
     $(document).ready(function() {
         $('#orderForm').submit(function(event) {
             event.preventDefault();
+            var total_final = parseInt($('.total_final_display').text().replace(/\D/g, '')) || 0;
             var payment_option = $('input[name="payment_option"]:checked').val();
+
             if (!payment_option) {
                 Swal.fire({
                     icon: 'error',
@@ -760,6 +752,7 @@
                 return;
             }
             var formData = $(this).serialize();
+            formData += '&total_final=' + total_final;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
