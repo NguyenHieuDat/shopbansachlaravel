@@ -44,6 +44,7 @@ class DeliveryController extends Controller
     }
 
     public function insert_delivery(Request $request){
+
         $data = $request->all();
         $fee_ship = new Feeship();
         $fee_ship->fee_matp = $data['city'];
@@ -63,7 +64,7 @@ class DeliveryController extends Controller
             <th>Tên thành phố</th>
             <th>Tên quận/huyện</th>
             <th>Tên phường/xã</th>
-            <th>Phí vận chuyển</th>
+            <th>Phí vận chuyển <br> (nhấn vào ô nhập liệu để chỉnh sửa)</th>
         </tr>
         </thread>
         <tbody>';

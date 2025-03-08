@@ -74,7 +74,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="exampleInputPassword1" placeholder="Nhập mô tả"></textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="ckeditor_book_add" placeholder="Nhập mô tả"></textarea>
                         </div>
                         <button type="submit" name="add_book" class="btn btn-info">Thêm sách</button>
                     </form>

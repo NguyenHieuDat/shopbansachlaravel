@@ -127,6 +127,7 @@
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Hình thức thanh toán</span></h5>
                 <form method="POST" id="orderForm">
                     @csrf
+                <input type="hidden" name="total_bf" value="{{ $total }}">
                 <div class="bg-light p-30 payment_options">
                     <div class="form-group">
                         <div class="custom-control custom-radio">

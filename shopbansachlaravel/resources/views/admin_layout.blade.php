@@ -33,6 +33,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		load_gallery();
@@ -457,5 +458,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	</script>
 	<!-- //calendar --> --}}
+<script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
+
+<script>
+    CKEDITOR.replace('ckeditor_author_add');
+    CKEDITOR.replace('ckeditor_author_edit');
+    CKEDITOR.replace('ckeditor_book_add');
+    CKEDITOR.replace('ckeditor_book_edit');
+    CKEDITOR.replace('ckeditor_cate_add');
+    CKEDITOR.replace('ckeditor_cate_edit');
+    CKEDITOR.replace('ckeditor_pub_add');
+    CKEDITOR.replace('ckeditor_pub_edit');
+
+</script>
+
 </body>
 </html>

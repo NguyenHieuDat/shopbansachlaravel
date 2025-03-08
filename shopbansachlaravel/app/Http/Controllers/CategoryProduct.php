@@ -37,6 +37,7 @@ class CategoryProduct extends Controller
 
     public function save_category_product(Request $request){
         $this->check_login();
+
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_description'] = $request->category_product_description;
@@ -49,12 +50,13 @@ class CategoryProduct extends Controller
     public function edit_category_product($category_product_id){
         $this->check_login();
         $edit_category_product = DB::table('tbl_category_product')->where('category_id',$category_product_id)->get();
-        $manager_category_product = view('admin.edit_category_product')->with('edit_category_product',$edit_category_product);
+        $manager_category_product = view('admin.category_product.edit_category_product')->with('edit_category_product',$edit_category_product);
         return view('admin_layout')->with('admin.category_product.edit_category_product',$manager_category_product);
     }
 
     public function update_category_product(Request $request,$category_product_id){
         $this->check_login();
+
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_description'] = $request->category_product_description;

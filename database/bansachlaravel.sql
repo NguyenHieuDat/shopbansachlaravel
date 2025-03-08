@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2025 at 10:08 AM
+-- Generation Time: Mar 08, 2025 at 10:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -162,6 +162,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('6k1CiPXJX73c8aXZNJRdTQZM3zNS6OZi9ERs77lZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoidklCdHdQdDREeDFrRUlQRmZGOGFCdDBPQVpkWHR1czVQV2EwOEd1RCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741424440),
 ('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154);
 
 -- --------------------------------------------------------
@@ -208,7 +209,9 @@ CREATE TABLE `tbl_author` (
 
 INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
 (16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '12namcao', NULL, NULL),
-(17, 'to huu', '1739437646_To_Huu.jpg', '12', NULL, NULL);
+(17, 'to huu', '1739437646_To_Huu.jpg', '12', NULL, NULL),
+(18, 'William Shakespeare', '1741416702_Shakespeare.jpg', '<p>Wiliam shakepere l&agrave; một nh&agrave; văn <strong>đại t&agrave;i&nbsp;<img alt=\"broken heart\" src=\"http://localhost/shopbansachlaravel/public/backend/ckeditor/plugins/smiley/images/broken_heart.png\" style=\"height:23px; width:23px\" title=\"broken heart\" /></strong></p>', NULL, NULL),
+(19, 'Otsuichi', '1741423870_otsuichi.jpeg', '<p>T&aacute;c giả&nbsp;Otsuichi</p>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -238,11 +241,12 @@ CREATE TABLE `tbl_book` (
 --
 
 INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `created_at`, `updated_at`) VALUES
-(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '123', NULL, NULL),
+(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 1, '123', NULL, NULL),
 (10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
 (11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
 (12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL),
-(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 2, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, 'mmm', NULL, NULL);
+(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 2, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, 'mmm', NULL, NULL),
+(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -263,9 +267,10 @@ CREATE TABLE `tbl_category_product` (
 --
 
 INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `created_at`, `updated_at`) VALUES
-(1, 'Sách tranh tranh k', 'okokkkk', NULL, NULL),
+(1, 'Sách tranh', '<p>okokkkk</p>', NULL, NULL),
 (2, 'Truyện dài', 'hellolo', NULL, NULL),
-(4, 'Văn học', 'âssasa', NULL, NULL);
+(4, 'Văn học', 'âssasa', NULL, NULL),
+(5, 'Kinh dị', '<p>Kinh dị l&agrave; thể loại rất được <span style=\"color:#c0392b\"><strong>ưa chuộng</strong></span></p>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -338,7 +343,9 @@ CREATE TABLE `tbl_feeship` (
 INSERT INTO `tbl_feeship` (`fee_id`, `fee_matp`, `fee_maqh`, `fee_xaid`, `fee_price`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, 37, '60000', NULL, NULL),
 (2, 31, 305, 11404, '30000', NULL, NULL),
-(3, 1, 1, 4, '50000', NULL, NULL);
+(3, 1, 1, 4, '50000', NULL, NULL),
+(4, 1, 1, 1, '70000', NULL, NULL),
+(6, 31, 305, 11389, '20000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -367,7 +374,12 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (11, '1739782323_caycamngot1.jpg', '1739783445_giaitridenchet.jpg', 18, NULL, NULL),
 (15, '1739782825_caycamngot2.jpg', '1739782825_caycamngot2.jpg', 18, NULL, NULL),
 (16, '1739782825_caycamngot3.jpg', '1739782825_caycamngot3.jpg', 18, NULL, NULL),
-(17, '1739782825_caycamngot4.jpg', '1739782825_caycamngot4.jpg', 18, NULL, NULL);
+(17, '1739782825_caycamngot4.jpg', '1739782825_caycamngot4.jpg', 18, NULL, NULL),
+(18, '1741424261_goth_bia2.jpg', '1741424521_goth_bia.jpg', 19, NULL, NULL),
+(19, '1741424285_goth1.jpg', '1741424285_goth1.jpg', 19, NULL, NULL),
+(20, '1741424285_goth2.jpg', '1741424285_goth2.jpg', 19, NULL, NULL),
+(21, '1741424285_goth3.jpg', '1741424285_goth3.jpg', 19, NULL, NULL),
+(22, '1741424285_goth4.jpg', '1741424285_goth4.jpg', 19, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -380,6 +392,10 @@ CREATE TABLE `tbl_order` (
   `customer_id` int(11) NOT NULL,
   `shipping_id` int(11) NOT NULL,
   `payment_id` int(11) NOT NULL,
+  `total_bf` varchar(255) NOT NULL,
+  `coupon_code` varchar(255) NOT NULL,
+  `coupon_price` varchar(255) NOT NULL,
+  `feeship_price` varchar(255) NOT NULL,
   `order_total` varchar(50) NOT NULL,
   `order_status` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -390,10 +406,12 @@ CREATE TABLE `tbl_order` (
 -- Dumping data for table `tbl_order`
 --
 
-INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(23, 4, 9, 2, '150000', 'Đang chờ xử lý', NULL, NULL),
-(24, 4, 9, 2, '350000', 'Đang chờ xử lý', NULL, NULL),
-(25, 4, 9, 2, '332000', 'Đang chờ xử lý', NULL, NULL);
+INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
+(23, 4, 9, 2, '', '', '', '', '150000', 'Đang chờ xử lý', NULL, NULL),
+(24, 4, 9, 2, '', '', '', '', '350000', 'Đang chờ xử lý', NULL, NULL),
+(25, 4, 9, 2, '', '', '', '', '332000', 'Đang chờ xử lý', NULL, NULL),
+(26, 4, 9, 2, '', 'VALEN142', '88000', '60000', '412000', 'Đang chờ xử lý', NULL, NULL),
+(27, 4, 9, 2, '400000', 'SSS69', '69000', '60000', '391000', 'Đang chờ xử lý', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -421,7 +439,11 @@ INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_
 (26, 24, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
 (27, 24, 12, 'Kinh di', '120000', 1, NULL, NULL),
 (28, 25, 18, 'Cây Cam Ngọt Của Tôi', '100000', 1, NULL, NULL),
-(29, 25, 12, 'Kinh di', '120000', 2, NULL, NULL);
+(29, 25, 12, 'Kinh di', '120000', 2, NULL, NULL),
+(30, 26, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
+(31, 26, 12, 'Kinh di', '120000', 2, NULL, NULL),
+(32, 27, 18, 'Cây Cam Ngọt Của Tôi', '100000', 2, NULL, NULL),
+(33, 27, 11, 'Ta tu duy', '200000', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -465,7 +487,8 @@ CREATE TABLE `tbl_publisher` (
 
 INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_description`, `created_at`, `updated_at`) VALUES
 (2, 'NXB Kim Đồng', '123456', NULL, NULL),
-(3, 'NXB ABC', '12sss', NULL, NULL);
+(3, 'NXB ABC', '12sss', NULL, NULL),
+(4, 'Hà Nội', '<p>Nh&agrave; xuất bản&nbsp;H&agrave; Nội l&agrave; nh&agrave; xuất bản c&oacute; trụ sở tại&nbsp;H&agrave; Nội</p>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1223,7 +1246,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456788', 'Số 1234', 'Phường Phúc Tân, Quận Hoàn Kiếm, Thành phố Hà Nội', 'ok', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456788', 'Số 1234', 'Phường Phúc Tân, Quận Hoàn Kiếm, Thành phố Hà Nội', '123', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12695,19 +12718,19 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -12725,25 +12748,25 @@ ALTER TABLE `tbl_customer`
 -- AUTO_INCREMENT for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
-  MODIFY `fee_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `fee_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -12755,7 +12778,7 @@ ALTER TABLE `tbl_payment`
 -- AUTO_INCREMENT for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
-  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping`

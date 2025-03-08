@@ -55,6 +55,10 @@
             <tr>
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
               <td>{{$order->customer_name}}</td>
+              <td>{{$order->total_bf}}</td>
+              <td>{{$order->coupon_code}}</td>
+              <td>{{$order->coupon_price}}</td>
+              <td>{{$order->feeship_price}}</td>
               <td>{{$order->order_total}}</td>
               <td>{{$order->order_status}}</td>
               <td>

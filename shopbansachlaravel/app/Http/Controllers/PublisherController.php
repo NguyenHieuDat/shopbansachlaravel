@@ -37,6 +37,7 @@ class PublisherController extends Controller
 
     public function save_publisher(Request $request){
         $this->check_login();
+
         $data = array();
         $data['publisher_name'] = $request->publisher_name;
         $data['publisher_description'] = $request->publisher_description;
@@ -49,12 +50,13 @@ class PublisherController extends Controller
     public function edit_publisher($publish_id){
         $this->check_login();
         $edit_publisher = DB::table('tbl_publisher')->where('publisher_id',$publish_id)->get();
-        $manager_publisher = view('admin.edit_publisher')->with('edit_publisher',$edit_publisher);
+        $manager_publisher = view('admin.publisher.edit_publisher')->with('edit_publisher',$edit_publisher);
         return view('admin_layout')->with('admin.publisher.edit_publisher',$manager_publisher);
     }
 
     public function update_publisher(Request $request,$publish_id){
         $this->check_login();
+
         $data = array();
         $data['publisher_name'] = $request->publisher_name;
         $data['publisher_description'] = $request->publisher_description;

@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="exampleInputPassword1">{{$edit_value->book_description}}</textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="ckeditor_book_edit">{!! $edit_value->book_description !!}</textarea>
                         </div>
                         <button type="submit" name="add_book" class="btn btn-info">Sửa sách</button>
                     </form>

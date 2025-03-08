@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="exampleInputPassword1">{{$edit_value->author_description}}</textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="ckeditor_author_edit">{!! $edit_value->author_description !!}</textarea>
                         </div>
                         <button type="submit" name="edit_author" class="btn btn-info">Sửa tác giả</button>
                     </form>

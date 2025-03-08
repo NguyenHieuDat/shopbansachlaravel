@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="exampleInputPassword1">{{$edit_value->publisher_description}}</textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="ckeditor_pub_edit">{!! $edit_value->publisher_description !!}</textarea>
                         </div>
                         <button type="submit" name="edit_publisher" class="btn btn-info">Sửa nhà xuất bản</button>
                     </form>

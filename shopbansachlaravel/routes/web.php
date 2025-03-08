@@ -101,5 +101,5 @@ Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_
 //Don hang
 Route::get('/all_order', 'App\Http\Controllers\CheckoutController@all_order');
 Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\CheckoutController@view_order_detail');
-// Route::get('/all_order', 'App\Http\Controllers\CheckoutController@all_order');
+
 

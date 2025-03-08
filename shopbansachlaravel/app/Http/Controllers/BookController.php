@@ -44,6 +44,7 @@ class BookController extends Controller
 
     public function save_book(Request $request){
         $this->check_login();
+
         $data = array();
         $data['book_name'] = $request->book_name;
         $data['category_id'] = $request->category;
@@ -87,7 +88,7 @@ class BookController extends Controller
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
         $edit_book = DB::table('tbl_book')->where('book_id',$books_id)->get();
-        $manager_book = view('admin.edit_book')->with('edit_book',$edit_book)->with('cate_product',$cate_product)
+        $manager_book = view('admin.book.edit_book')->with('edit_book',$edit_book)->with('cate_product',$cate_product)
         ->with('author',$author)->with('publisher',$publisher);
         return view('admin_layout')->with('admin.book.edit_book',$manager_book);
     }
@@ -108,6 +109,7 @@ class BookController extends Controller
 
     public function update_book(Request $request,$books_id){
         $this->check_login();
+
         $data = array();
         $data['book_name'] = $request->book_name;
         $data['category_id'] = $request->category;

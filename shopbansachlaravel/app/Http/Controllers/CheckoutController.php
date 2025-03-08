@@ -39,7 +39,21 @@ class CheckoutController extends Controller
     }
 
     public function view_order_detail($orders_id){
-        return view('admin.order.view_order_detail');
+        $this->check_login();
+
+        $shipping_info = DB::table('tbl_order')
+        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_order.shipping_id')
+        ->select('tbl_shipping.*')
+        ->where('tbl_order.order_id', $orders_id)->first();
+
+        $order_details = DB::table('tbl_order')
+        ->join('tbl_order_detail','tbl_order_detail.order_id','=','tbl_order.order_id')
+        ->select('tbl_order_detail.*')
+        ->where('tbl_order.order_id', $orders_id)->get();
+
+        $view_order = view('admin.order.view_order_detail', compact('shipping_info', 'order_details'));
+        return view('admin_layout')->with('admin.order.view_order_detail',$view_order);
+        
     }
 
     //Ham user
@@ -265,11 +279,31 @@ class CheckoutController extends Controller
         $payment_option = $request->input('payment_option');
         $payment = Payment::where('payment_id', $payment_option)->first();
         $total_final = $request->input('total_final');
+        $total_bf = $request->input('total_bf');
+        $coupon = Session::get('coupon');
+        $total_coupon = Session::get('total_coupon', 0);
+        $feeship = Session::get('fees', 0);
+
+        if ($coupon) {
+            // Lấy coupon từ bảng tbl_coupon bằng coupon_code
+            $coupon_code = $coupon[0]['coupon_code'];
+            $coupon_price = $total_coupon > 0 ? $total_coupon : 0;
+        } else {
+            $coupon_code = 'Không có';
+            $coupon_value = 0;
+        }
+    
+        // Kiểm tra nếu không có phí ship, gán "Không có"
+        $shipping_fee = $feeship > 0 ? $feeship : 'Không có';
 
         $order = new Order();
         $order->customer_id = Session::get('customer_id');
         $order->shipping_id = Session::get('shipping_id');
         $order->payment_id = $payment->payment_id;
+        $order->total_bf = $total_bf;
+        $order->coupon_code = $coupon_code;
+        $order->coupon_price = $coupon_price;
+        $order->feeship_price = $shipping_fee;
         $order->order_total = $total_final;
         $order->order_status = 'Đang chờ xử lý';
         $order->save();
@@ -298,6 +332,8 @@ class CheckoutController extends Controller
             ]);
         }
         Session::forget('cart');
+        Session::forget('coupon');
+        Session::forget('fees');
         return response()->json([
             'success' => true,
             'payment_id' => $payment->payment_id

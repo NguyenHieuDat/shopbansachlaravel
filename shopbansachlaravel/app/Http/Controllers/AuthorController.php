@@ -37,11 +37,6 @@ class AuthorController extends Controller
 
     public function save_author(Request $request){
         $this->check_login();
-        $request->validate([
-            'author_name' => 'required|string|max:255',
-            'author_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'author_description' => 'nullable|string',
-        ]);
 
         $data = array();
         $data['author_name'] = $request->author_name;
@@ -70,12 +65,13 @@ class AuthorController extends Controller
     public function edit_author($aut_id){
         $this->check_login();
         $edit_author = DB::table('tbl_author')->where('author_id',$aut_id)->get();
-        $manager_author = view('admin.edit_author')->with('edit_author',$edit_author);
+        $manager_author = view('admin.author.edit_author')->with('edit_author',$edit_author);
         return view('admin_layout')->with('admin.author.edit_author',$manager_author);
     }
 
     public function update_author(Request $request,$aut_id){
         $this->check_login();
+
         $data = array();
         $data['author_name'] = $request->author_name;
         $data['author_description'] = $request->author_description;
