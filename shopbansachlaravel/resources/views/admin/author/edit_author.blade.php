@@ -31,6 +31,10 @@
                             <label>Mô tả</label>
                             <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="ckeditor_author_edit">{!! $edit_value->author_description !!}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Từ khóa</label>
+                            <input type="text" value="{{$edit_value->author_keywords}}" name="author_keywords" class="form-control">
+                        </div>
                         <button type="submit" name="edit_author" class="btn btn-info">Sửa tác giả</button>
                     </form>
                 </div>

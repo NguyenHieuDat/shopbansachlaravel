@@ -90,6 +90,10 @@
                             <label>Mô tả</label>
                             <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="ckeditor_book_edit">{!! $edit_value->book_description !!}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Từ khóa</label>
+                            <input type="text" name="book_keywords" class="form-control" value="{{$edit_value->book_keywords}}">
+                        </div>
                         <button type="submit" name="add_book" class="btn btn-info">Sửa sách</button>
                     </form>
                 </div>

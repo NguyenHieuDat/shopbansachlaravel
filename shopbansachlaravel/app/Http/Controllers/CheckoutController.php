@@ -58,14 +58,22 @@ class CheckoutController extends Controller
 
     //Ham user
 
-    public function login_checkout(){
+    public function login_checkout(Request $request){
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
         if (!Session::has('previous_url')) {
             Session::put('previous_url', url()->previous());
         }
-        return view('pages.checkout.login_checkout')->with('category',$category)->with('author',$author)->with('publisher',$publisher);
+        $meta_desc = "Trang đăng nhập hoặc đăng ký tài khoản người dùng. Bạn cần đăng nhập hoặc đăng ký tài khoản để thực hiện thanh toán";
+        $meta_keywords = "dang nhap,đăng nhập,dang ky,đăng ký,tai khoan,tài khoản,tai khoan khach hang,tài khoản khách hàng,fahasa";
+        $meta_title = "Đăng nhập/Đăng ký tài khoản khách hàng";
+        $url_canonical = $request->url();
+
+        return view('pages.checkout.login_checkout', compact(
+            'category', 'author', 'publisher', 'meta_desc', 'meta_keywords', 
+            'meta_title', 'url_canonical'
+        ));
     }
 
     public function add_customer(Request $request){
@@ -108,9 +116,9 @@ class CheckoutController extends Controller
         $author = DB::table('tbl_author')->orderBy('author_id', 'desc')->get();
         $publisher = DB::table('tbl_publisher')->orderBy('publisher_id', 'desc')->get();
 
-        $meta_desc = "Đăng nhập thanh toán";
-        $meta_keywords = "Đăng nhập thanh toán";
-        $meta_title = "Đăng nhập thanh toán";
+        $meta_desc = "Giao diện thanh toán với thông tin vận chuyển";
+        $meta_keywords = "thanh toan,thanh toán,van chuyen,vận chuyển,nhập thông tin,fahasa";
+        $meta_title = "Thanh toán và vận chuyển";
         $url_canonical = $request->url();
 
         return view('pages.checkout.show_checkout', compact(
@@ -125,15 +133,14 @@ class CheckoutController extends Controller
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
         $feeship = Session::get('feeship', 0);
 
-        $meta_desc = "Đăng nhập thanh toán";
-        $meta_keywords = "Đăng nhập thanh toán";
-        $meta_title = "Đăng nhập thanh toán";
+        $meta_desc = "Bước thanh toán cuối cùng. Bạn sẽ chọn phương thức thanh toán bạn thấy tốt nhất.";
+        $meta_keywords = "thanh toan cuoi,thanh toán cuối,phuong thuc,phương thức,phuong thuc thanh toan,phương thức thanh toán";
+        $meta_title = "Phương thức thanh toán";
         $url_canonical = $request->url();
-        return view('pages.checkout.payment')->with('category',$category)
-        ->with('author',$author)->with('publisher',$publisher)
-        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
-        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)
-        ->with('feeship',$feeship);
+        return view('pages.checkout.payment', compact(
+            'category', 'author', 'publisher', 'meta_desc', 'meta_keywords', 
+            'meta_title', 'url_canonical', 'feeship'
+        ));
     }
 
     public function save_checkout_customer(Request $request){

@@ -20,11 +20,15 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Tên nhà xuất bản</label>
-                            <input type="text" value="{{$edit_value->publisher_name}}" name="publisher_name" class="form-control" id="exampleInputEmail1">
+                            <input type="text" value="{{$edit_value->publisher_name}}" name="publisher_name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
                             <textarea type="text" style="resize: none" rows="7" name="publisher_description" class="form-control" id="ckeditor_pub_edit">{!! $edit_value->publisher_description !!}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Từ khóa</label>
+                            <input type="text" value="{{$edit_value->publisher_keywords}}" name="publisher_keywords" class="form-control">
                         </div>
                         <button type="submit" name="edit_publisher" class="btn btn-info">Sửa nhà xuất bản</button>
                     </form>

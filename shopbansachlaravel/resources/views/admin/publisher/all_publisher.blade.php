@@ -45,6 +45,7 @@
               </th>
               <th>Tên nhà xuất bản</th>
               <th>Mô tả</th>
+              <th>Từ khóa</th>
               <th>Quản lý</th>
               <th style="width:30px;"></th>
             </tr>
@@ -55,6 +56,7 @@
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
               <td>{{$pub->publisher_name}}</td>
               <td><span class="text-ellipsis">{!! $pub->publisher_description !!}</span></td>
+              <td><span class="text-ellipsis">{{ $pub->publisher_keywords }}</span></td>
               <td>
                 <a href="{{URL::to('/edit_publisher/'.$pub->publisher_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <a href="{{URL::to('/delete_publisher/'.$pub->publisher_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>

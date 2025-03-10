@@ -3,14 +3,18 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Cửa hàng sách Fahasa</title>
+    <title>{{$meta_title}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta content="{{$meta_keywords}}" name="keywords">
+    <meta content="{{$meta_desc}}" name="description">
+    <meta content="INDEX,FOLLOW" name="robots">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link href="public/frontend/img/favicon.ico" rel="icon">
+    <link href="{{asset('public/frontend/img/favicon.ico')}}" rel="icon">
+    <!-- SEO link -->
+    <link href="{{$url_canonical}}" rel="canonical">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

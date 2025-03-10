@@ -41,6 +41,7 @@ class AuthorController extends Controller
         $data = array();
         $data['author_name'] = $request->author_name;
         $data['author_description'] = $request->author_description;
+        $data['author_keywords'] = $request->author_keywords;
         $image = $request->file('author_image');
         if ($request->hasFile('author_image')) {
             $image = $request->file('author_image');
@@ -75,6 +76,7 @@ class AuthorController extends Controller
         $data = array();
         $data['author_name'] = $request->author_name;
         $data['author_description'] = $request->author_description;
+        $data['author_keywords'] = $request->author_keywords;
         $image = $request->file('author_image');
         if ($request->hasFile('author_image')) {
             $image = $request->file('author_image');
@@ -118,7 +120,7 @@ class AuthorController extends Controller
 
     //Ham user
 
-    public function author_home($author_id){
+    public function author_home(Request $request,$author_id){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -128,7 +130,21 @@ class AuthorController extends Controller
 
         $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->limit(1)->get();
 
+        $meta_desc = "";
+        $meta_keywords = "";
+        $meta_title = "";
+        $url_canonical = $request->url();
+        if (!$author_by_id->isEmpty()) {
+            foreach($author_by_id as $key => $seo_value){
+                $meta_desc = $seo_value->author_description ?? '';
+                $meta_keywords = $seo_value->author_keywords ?? '';
+                $meta_title = $seo_value->author_name ?? '';
+                break;
+            }
+        }
         return view('pages.author.show_author')->with('category',$cate_product)->with('author',$author)
-        ->with('publisher',$publisher)->with('author_by_id',$author_by_id)->with('author_name_show',$author_name_show);
+        ->with('publisher',$publisher)->with('author_by_id',$author_by_id)->with('author_name_show',$author_name_show)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

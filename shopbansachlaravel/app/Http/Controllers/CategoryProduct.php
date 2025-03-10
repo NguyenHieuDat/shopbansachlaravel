@@ -37,10 +37,10 @@ class CategoryProduct extends Controller
 
     public function save_category_product(Request $request){
         $this->check_login();
-
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_description'] = $request->category_product_description;
+        $data['category_keywords'] = $request->category_product_keywords;
 
         DB::table('tbl_category_product')->insert($data);
         Session::put('message','Thêm danh mục sách thành công!');
@@ -60,6 +60,7 @@ class CategoryProduct extends Controller
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_description'] = $request->category_product_description;
+        $data['category_keywords'] = $request->category_product_keywords;
 
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
         Session::put('message','Sửa danh mục sách thành công!');
@@ -75,7 +76,7 @@ class CategoryProduct extends Controller
 
     //Ham User
 
-    public function category_home($category_id){
+    public function category_home(Request $request,$category_id){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -84,8 +85,22 @@ class CategoryProduct extends Controller
         ->where('tbl_book.category_id',$category_id)->get();
 
         $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->limit(1)->get();
-
+        
+        $meta_desc = "";
+        $meta_keywords = "";
+        $meta_title = "";
+        $url_canonical = $request->url();
+        if (!$category_by_id->isEmpty()) {
+            foreach($category_by_id as $key => $seo_value){
+                $meta_desc = $seo_value->category_description ?? '';
+                $meta_keywords = $seo_value->category_keywords ?? '';
+                $meta_title = $seo_value->category_name ?? '';
+                break;
+            }
+        }
         return view('pages.category.show_category')->with('category',$cate_product)->with('author',$author)
-        ->with('publisher',$publisher)->with('category_by_id',$category_by_id)->with('category_name_show',$category_name_show);
+        ->with('publisher',$publisher)->with('category_by_id',$category_by_id)->with('category_name_show',$category_name_show)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

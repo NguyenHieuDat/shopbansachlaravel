@@ -46,6 +46,7 @@
               <th>Tên tác giả</th>
               <th>Hình ảnh</th>
               <th>Mô tả</th>
+              <th>Từ khóa</th>
               <th>Quản lý</th>
               <th style="width:30px;"></th>
             </tr>
@@ -59,6 +60,7 @@
                 <img src="public/upload/author/{{$aut->author_image}}" height="150" width="120">
               </td>
               <td><span class="text-ellipsis">{!! $aut->author_description !!}</span></td>
+              <td><span class="text-ellipsis">{{ $aut->author_keywords }}</span></td>
               <td>
                 <a href="{{URL::to('/edit_author/'.$aut->author_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <a href="{{URL::to('/delete_author/'.$aut->author_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>

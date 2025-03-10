@@ -45,6 +45,7 @@
               </th>
               <th>Tên danh mục</th>
               <th>Mô tả</th>
+              <th>Từ khóa</th>
               <th>Quản lý</th>
               <th style="width:30px;"></th>
             </tr>
@@ -55,6 +56,7 @@
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
               <td>{{$cate_pro->category_name}}</td>
               <td><span class="text-ellipsis">{!! $cate_pro->category_description !!}</span></td>
+              <td><span class="text-ellipsis">{{$cate_pro->category_keywords}}</span></td>
               <td>
                 <a href="{{URL::to('/edit_category_product/'.$cate_pro->category_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
                 <a href="{{URL::to('/delete_category_product/'.$cate_pro->category_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa danh mục này chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>

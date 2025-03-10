@@ -26,6 +26,10 @@
                             <label for="exampleInputPassword1">Mô tả</label>
                             <textarea type="text" style="resize: none" rows="7" name="category_product_description" class="form-control" id="ckeditor_cate_edit">{!! $edit_value->category_description !!}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Từ khóa</label>
+                            <input type="text" value="{{$edit_value->category_keywords}}" name="category_product_keywords" class="form-control" id="exampleInputEmail1">
+                        </div>
                         <button type="submit" name="edit_category_product" class="btn btn-info">Sửa danh mục</button>
                     </form>
                 </div>

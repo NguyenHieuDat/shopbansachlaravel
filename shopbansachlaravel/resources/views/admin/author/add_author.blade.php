@@ -29,6 +29,10 @@
                             <label>Mô tả</label>
                             <textarea type="text" style="resize: none" rows="7" name="author_description" class="form-control" id="ckeditor_author_add" placeholder="Nhập mô tả"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label>Từ khóa</label>
+                            <input type="text" name="author_keywords" class="form-control" placeholder="Nhập từ khóa">
+                        </div>
                         <button type="submit" name="add_author" class="btn btn-info">Thêm tác giả</button>
                     </form>
                 </div>

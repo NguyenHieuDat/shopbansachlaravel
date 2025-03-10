@@ -48,9 +48,9 @@ class CartController extends Controller
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
-        $meta_desc = "Giỏ hàng của bạn";
-        $meta_keywords = "Giỏ hàng";
-        $meta_title = "Giỏ hàng";
+        $meta_desc = "Thêm các đầu sách mà bạn yêu thích vào giỏ hàng ngay nhé!";
+        $meta_keywords = "gio hang,giỏ hàng,thong tin gio hang,thông tin giỏ hàng,fahasa";
+        $meta_title = "Giỏ hàng của bạn";
         $url_canonical = $request->url();
         Session::forget('coupon');
         return view('pages.cart.show_cart')->with('category',$cate_product)->with('author',$author)
@@ -186,7 +186,6 @@ class CartController extends Controller
                 'message' => 'Mã giảm giá không đúng!'
             ]);
         }
-
     }
 
 }

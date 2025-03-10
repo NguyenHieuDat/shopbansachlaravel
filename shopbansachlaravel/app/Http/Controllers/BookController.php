@@ -56,6 +56,7 @@ class BookController extends Controller
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
+        $data['book_keywords'] = $request->book_keywords;
         $image = $request->file('book_image');
         $path = 'public/upload/book/';
         $path_gallery = 'public/upload/gallery/';
@@ -121,6 +122,7 @@ class BookController extends Controller
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
+        $data['book_keywords'] = $request->book_keywords;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
             $image = $request->file('book_image');
@@ -164,7 +166,7 @@ class BookController extends Controller
 
     //Ham user
 
-    public function book_detail($books_id){
+    public function book_detail(Request $request,$books_id){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
@@ -188,8 +190,21 @@ class BookController extends Controller
         }
         $gallery = GalleryModel::where('book_id',$book_id)->get();
 
+        $meta_desc = "";
+        $meta_keywords = "";
+        $meta_title = "";
+        $url_canonical = $request->url();
+        if (!$book_detail->isEmpty()) {
+            foreach($book_detail as $key => $seo_value){
+                $meta_desc = $seo_value->book_description ?? '';
+                $meta_keywords = $seo_value->book_keywords ?? '';
+                $meta_title = $seo_value->book_name ?? '';
+                break;
+            }
+        }
         return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery)
-        ->with('related',$book_related);
+        ->with('related',$book_related)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2025 at 10:13 AM
+-- Generation Time: Mar 10, 2025 at 10:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -199,6 +199,7 @@ CREATE TABLE `tbl_author` (
   `author_name` varchar(255) NOT NULL,
   `author_image` varchar(255) NOT NULL,
   `author_description` text NOT NULL,
+  `author_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -207,11 +208,11 @@ CREATE TABLE `tbl_author` (
 -- Dumping data for table `tbl_author`
 --
 
-INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `created_at`, `updated_at`) VALUES
-(16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '12namcao', NULL, NULL),
-(17, 'to huu', '1739437646_To_Huu.jpg', '12', NULL, NULL),
-(18, 'William Shakespeare', '1741416702_Shakespeare.jpg', '<p>Wiliam shakepere l&agrave; một nh&agrave; văn <strong>đại t&agrave;i&nbsp;<img alt=\"broken heart\" src=\"http://localhost/shopbansachlaravel/public/backend/ckeditor/plugins/smiley/images/broken_heart.png\" style=\"height:23px; width:23px\" title=\"broken heart\" /></strong></p>', NULL, NULL),
-(19, 'Otsuichi', '1741423870_otsuichi.jpeg', '<p>T&aacute;c giả&nbsp;Otsuichi</p>', NULL, NULL);
+INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `author_keywords`, `created_at`, `updated_at`) VALUES
+(16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '<p>12namcao</p>', 'nam cao, Nam Cao', NULL, NULL),
+(17, 'to huu', '1739437646_To_Huu.jpg', '<p>123</p>', 'Tố hữu,to huu', NULL, NULL),
+(18, 'William Shakespeare', '1741416702_Shakespeare.jpg', '<p>Wiliam shakepere l&agrave; một nh&agrave; văn <strong>đại t&agrave;i&nbsp;<img alt=\"broken heart\" src=\"http://localhost/shopbansachlaravel/public/backend/ckeditor/plugins/smiley/images/broken_heart.png\" style=\"height:23px; width:23px\" title=\"broken heart\" /></strong></p>', 'William Shakespeare.William,Shakespeare', NULL, NULL),
+(19, 'Otsuichi', '1741423870_otsuichi.jpeg', '<p>T&aacute;c giả&nbsp;Otsuichi</p>', 'Otsuichi', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -232,6 +233,7 @@ CREATE TABLE `tbl_book` (
   `book_price` varchar(255) NOT NULL,
   `book_status` int(11) NOT NULL,
   `book_description` text NOT NULL,
+  `book_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -240,13 +242,14 @@ CREATE TABLE `tbl_book` (
 -- Dumping data for table `tbl_book`
 --
 
-INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `created_at`, `updated_at`) VALUES
-(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 1, '123', NULL, NULL),
-(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '600000', 1, '1234', NULL, NULL),
-(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '123', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '123456', NULL, NULL),
-(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 2, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, 'mmm', NULL, NULL),
-(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', NULL, NULL);
+INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `book_keywords`, `created_at`, `updated_at`) VALUES
+(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '<p>123</p>', 'ke dien ben trai', NULL, NULL),
+(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '160000', 1, '<p>1234</p>', 'lao hac,lão hạc', NULL, NULL),
+(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '<p>123</p>', 'tu duy,tư duy', NULL, NULL),
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '<p>123456</p>', 'kinh di', NULL, NULL),
+(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 5, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, '<p>mmm</p>', 'cay cam,cây cam,ngot,ngọt', NULL, NULL),
+(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', 'goth', NULL, NULL),
+(20, 'Sau muoi chin', 6, 19, 5, '1741598360_goth_bia2.jpg', 'Tiếng Việt', 2003, 123, '10000', 1, '<p>okokok</p>', 'sau,chin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,6 +261,7 @@ CREATE TABLE `tbl_category_product` (
   `category_id` int(10) UNSIGNED NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `category_description` text NOT NULL,
+  `category_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -266,11 +270,12 @@ CREATE TABLE `tbl_category_product` (
 -- Dumping data for table `tbl_category_product`
 --
 
-INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `created_at`, `updated_at`) VALUES
-(1, 'Sách tranh', '<p>okokkkk</p>', NULL, NULL),
-(2, 'Truyện dài', 'hellolo', NULL, NULL),
-(4, 'Văn học', 'âssasa', NULL, NULL),
-(5, 'Kinh dị', '<p>Kinh dị l&agrave; thể loại rất được <span style=\"color:#c0392b\"><strong>ưa chuộng</strong></span></p>', NULL, NULL);
+INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Sách tranh', '<p>okokkkk</p>', 'sach tranh,sách tranh', NULL, NULL),
+(2, 'Truyện dài', '<p>hellolo</p>', 'dai,dài,truyen dai,truyện dài', NULL, NULL),
+(4, 'Văn học', 'văn học là thể loại được ưa chuộng', 'van hoc,văn học,văn,van,ngu van,ngữ văn', NULL, NULL),
+(5, 'Kinh dị', '<p>Kinh dị l&agrave; thể loại rất được <span style=\"color:#c0392b\"><strong>ưa chuộng</strong></span></p>', 'kinh di,kinh dị,horror', NULL, NULL),
+(6, 'Truyện tranh', '<p>Truyện tranh cho trẻ con</p>', 'truyen tranh,truyện tranh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -379,7 +384,8 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (19, '1741424285_goth1.jpg', '1741424285_goth1.jpg', 19, NULL, NULL),
 (20, '1741424285_goth2.jpg', '1741424285_goth2.jpg', 19, NULL, NULL),
 (21, '1741424285_goth3.jpg', '1741424285_goth3.jpg', 19, NULL, NULL),
-(22, '1741424285_goth4.jpg', '1741424285_goth4.jpg', 19, NULL, NULL);
+(22, '1741424285_goth4.jpg', '1741424285_goth4.jpg', 19, NULL, NULL),
+(23, '1741598360_goth_bia2.jpg', '1741598360_goth_bia2.jpg', 20, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -477,6 +483,7 @@ CREATE TABLE `tbl_publisher` (
   `publisher_id` int(10) UNSIGNED NOT NULL,
   `publisher_name` varchar(255) NOT NULL,
   `publisher_description` text NOT NULL,
+  `publisher_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -485,10 +492,12 @@ CREATE TABLE `tbl_publisher` (
 -- Dumping data for table `tbl_publisher`
 --
 
-INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_description`, `created_at`, `updated_at`) VALUES
-(2, 'NXB Kim Đồng', '123456', NULL, NULL),
-(3, 'NXB ABC', '12sss', NULL, NULL),
-(4, 'Hà Nội', '<p>Nh&agrave; xuất bản&nbsp;H&agrave; Nội l&agrave; nh&agrave; xuất bản c&oacute; trụ sở tại&nbsp;H&agrave; Nội</p>', NULL, NULL);
+INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_description`, `publisher_keywords`, `created_at`, `updated_at`) VALUES
+(2, 'NXB Kim Đồng', '<p>123456</p>', 'kim dong,kim đồng', NULL, NULL),
+(3, 'NXB ABC', '<p>12sss</p>', 'abc', NULL, NULL),
+(4, 'Hà Nội', '<p>Nh&agrave; xuất bản&nbsp;H&agrave; Nội l&agrave; nh&agrave; xuất bản c&oacute; trụ sở tại&nbsp;H&agrave; Nội</p>', 'ha noi,hà nội', NULL, NULL),
+(5, 'Hải Phòng', '<p>nxb hải ph&ograve;ng lala</p>', 'hai phong,hải phòng', NULL, NULL),
+(6, 'B69', '<p>nh&agrave; xuất bản số 69 đầy hứa hẹn</p>', '69,sau,chin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12718,19 +12727,19 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -12754,7 +12763,7 @@ ALTER TABLE `tbl_feeship`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
@@ -12778,7 +12787,7 @@ ALTER TABLE `tbl_payment`
 -- AUTO_INCREMENT for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
-  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping`
