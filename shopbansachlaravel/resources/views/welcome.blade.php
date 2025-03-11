@@ -34,7 +34,8 @@
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!-- Topbar Start -->
@@ -807,7 +808,38 @@
     });
 
 </script>
-    
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    $('#loginForm').on('submit', function(e) {
+        e.preventDefault();
+        $('#error-message').html(''); // Xóa thông báo lỗi cũ
+
+        $.ajax({
+            url: "{{ url('/login_customer') }}",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function(response) {
+                if(response.success) {
+                    window.location.href = response.redirect_url; // Chuyển hướng khi đăng nhập thành công
+                } else {
+                    $('#error-message').html(response.error); // Hiện lỗi nếu có
+                }
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                if (errors) {
+                    let errorMessage = '';
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorMessage += errors[key][0] + '<br>';
+                        }
+                    }
+                    $('#error-message').html(errorMessage);
+                }
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

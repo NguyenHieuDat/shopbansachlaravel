@@ -62,14 +62,17 @@
                 <div class="col-md-5">
                     <div class="login-form">
                         <h2 class="text-danger text-center mb-4">Đăng nhập</h2>
-                        <form action="{{URL::to('/login_customer')}}" method="POST">
+                        <form action="{{URL::to('/login_customer')}}" method="POST" id="loginForm">
                             @csrf
+                            <div id="error-message" style="color: red; margin-top: 10px;"></div>
                             <div class="mb-3">
                                 <input type="text" name="email_account" class="form-control" placeholder="Nhập tài khoản">
                             </div>
                             <div class="mb-3">
                                 <input type="password" name="password_account" class="form-control" placeholder="Nhập mật khẩu">
                             </div>
+                            <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
+                            
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="keepSignedIn">
                                 <label class="form-check-label" for="keepSignedIn">Ghi nhớ đăng nhập</label>

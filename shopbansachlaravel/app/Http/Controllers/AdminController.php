@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use App\Models\Login;
+use App\Models\SocialModel;
+use Socialite;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 session_start();
@@ -31,13 +34,14 @@ class AdminController extends Controller
     }
 
     public function dashboard(Request $request){
-        $admin_email = $request->admin_email;
-        $admin_password = $request->admin_password;
+        $data = $request->all();
+        $admin_email = $data['admin_email'];
+        $admin_password = $data['admin_password'];
 
-        $result = DB::table('tbl_admin')->where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
-        if($result){
-            Session::put('admin_name',$result->admin_name);
-            Session::put('admin_id',$result->admin_id);
+        $login = Login::where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
+        if($login){
+            Session::put('admin_name',$login->admin_name);
+            Session::put('admin_id',$login->admin_id);
             return Redirect::to('/dashboard');
             }
         else{
@@ -52,4 +56,46 @@ class AdminController extends Controller
         Session::put('admin_id',null);
         return Redirect::to('/admin');
     }
+
+    // public function login_fb(){
+    //     return Socialite::driver('facebook')->redirect();
+    // }
+
+    // public function callback_fb(){
+    //     $provider = Socialite::driver('facebook')->user();
+    //     $account = SocialModel::where('provider','facebook')->where('provider_user_id',$provider->getId())->first();
+    //     if($account){
+    //         //login in vao trang quan tri  
+    //         $account_name = Login::where('admin_id',$account->user)->first();
+    //         Session::put('admin_name',$account_name->admin_name);
+    //         Session::put('admin_id',$account_name->admin_id);
+    //         return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
+    //     }else{
+
+    //         $fb_acc = new SocialModel([
+    //             'provider_user_id' => $provider->getId(),
+    //             'provider' => 'facebook'
+    //         ]);
+
+    //         $orang = Login::where('admin_email',$provider->getEmail())->first();
+
+    //         if(!$orang){
+    //             $orang = Login::create([
+    //                 'admin_name' => $provider->getName(),
+    //                 'admin_email' => $provider->getEmail(),
+    //                 'admin_password' => '',
+    //                 'admin_phone' => ''
+
+    //             ]);
+    //         }
+    //         $fb_acc->login()->associate($orang);
+    //         $fb_acc->save();
+
+    //         Session::put('admin_name',$orang->admin_name);
+    //         Session::put('admin_id',$orang->admin_id);
+    //         return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
+    //     } 
+    // }
+
+
 }

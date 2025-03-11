@@ -22,6 +22,10 @@ Route::get('/dashboard', 'App\Http\Controllers\AdminController@dashboard_layout'
 Route::match(['get', 'post'], '/admin_dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin_dashboard');
 Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
 
+Route::get('/login_facebook', 'App\Http\Controllers\AdminController@login_fb');
+Route::get('/admin/callback', 'App\Http\Controllers\AdminController@callback_fb');
+
+
 //Danh muc sach
 Route::get('/add_category_product', 'App\Http\Controllers\CategoryProduct@add_category_product');
 Route::get('/all_category_product', 'App\Http\Controllers\CategoryProduct@all_category_product');

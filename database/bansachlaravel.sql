@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2025 at 10:43 AM
+-- Generation Time: Mar 11, 2025 at 10:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -186,7 +186,7 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
-(1, 'datnguyen@gmail.com', '12345', 'datnguyen', '0123456789', '2025-02-11 03:42:07', NULL);
+(1, 'datnguyen@gmail.com', '123456', 'datnguyen', '0123456789', '2025-02-11 03:42:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -1256,6 +1256,19 @@ CREATE TABLE `tbl_shipping` (
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
 (9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456788', 'Số 1234', 'Phường Phúc Tân, Quận Hoàn Kiếm, Thành phố Hà Nội', '123', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_social`
+--
+
+CREATE TABLE `tbl_social` (
+  `user_id` int(11) NOT NULL,
+  `provider_user_id` varchar(255) NOT NULL,
+  `provider` varchar(255) NOT NULL,
+  `user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -12678,6 +12691,12 @@ ALTER TABLE `tbl_shipping`
   ADD PRIMARY KEY (`shipping_id`);
 
 --
+-- Indexes for table `tbl_social`
+--
+ALTER TABLE `tbl_social`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- Indexes for table `tbl_tinhthanhpho`
 --
 ALTER TABLE `tbl_tinhthanhpho`
@@ -12794,6 +12813,12 @@ ALTER TABLE `tbl_publisher`
 --
 ALTER TABLE `tbl_shipping`
   MODIFY `shipping_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_social`
+--
+ALTER TABLE `tbl_social`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

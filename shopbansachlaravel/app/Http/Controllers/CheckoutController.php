@@ -13,6 +13,8 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Session;
+use App\Rules\Captcha;
+use Validator;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -213,18 +215,25 @@ class CheckoutController extends Controller
     }
 
     public function login_customer(Request $request){
-        $email = $request->email_account;
-        $password = md5($request->password_account);
+        $validator = \Validator::make($request->all(), [
+            'email_account' => 'required|email',
+            'password_account' => 'required',
+            'g-recaptcha-response' => ['required', new Captcha()],
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $email = $request->input('email_account');
+        $password = md5($request->input('password_account'));
         $result = DB::table('tbl_customer')->where('customer_email',$email)->where('customer_password',$password)->first();
 
         if($result){
             Session::put('customer_id',$result->customer_id);
             Session::put('customer_name', $result->customer_name);
 
-            // Check if the customer already has shipping information
             $shipping = DB::table('tbl_shipping')->where('customer_id', $result->customer_id)->first();
-
-            // If shipping info exists, save the shipping_id to the session
             if ($shipping) {
                 Session::put('shipping_id', $shipping->shipping_id);
             }
@@ -235,9 +244,19 @@ class CheckoutController extends Controller
             $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(8)->get();
             $previous_url = Session::get('previous_url', '/');
             Session::forget('previous_url');
-            return redirect($previous_url)->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)->with('all_book',$all_book);
-        }else{
-            return Redirect::to('/login_checkout')->with('error', 'Sai email hoặc mật khẩu. Vui lòng thử lại!');
+            return response()->json([
+                'success' => true,
+                'redirect_url' => $previous_url,
+                'category' => $cate_product,
+                'author' => $author,
+                'publisher' => $publisher,
+                'all_book' => $all_book
+            ]);
+            } else {
+            return response()->json([
+                'success' => false,
+                'error' => 'Sai email hoặc mật khẩu. Vui lòng thử lại!'
+            ]);
         }
     }
 
