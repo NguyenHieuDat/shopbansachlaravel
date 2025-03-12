@@ -70,7 +70,7 @@
                 @csrf
                 <div id="coupon_message"></div>
                 <div class="input-group">
-                    <input type="text" id="coupon_code" name="coupon" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá">
+                    <input type="text" id="coupon_code" name="coupon" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá" autocomplete="off">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-danger check_coupon" name="check_coupon">Tính Mã Giảm Giá</button>
                     </div>
@@ -103,8 +103,11 @@
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Thành Tiền Sau Khuyến Mãi:</h6>
                         <h6 class="font-weight-medium total_after_discount">
+                            @php
+                                $total_coupon = Session::get('total_coupon', 0);
+                            @endphp
                             @if(Session::get('coupon'))
-                                {{number_format($total - $total_coupon, 0, ',', '.')}}đ
+                                {{number_format(max(0, $total - $total_coupon, 0, ',', '.'))}}đ
                             @else
                                 <em>Chưa áp dụng</em>
                             @endif

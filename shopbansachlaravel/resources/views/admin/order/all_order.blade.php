@@ -43,7 +43,11 @@
                   <input type="checkbox"><i></i>
                 </label>
               </th>
-              <th>Tên khách hàng</th>
+              <th>Thứ tự đơn hàng</th>
+              <th>Tổng tiền trước</th>
+              <th>Mã giảm giá</th>
+              <th>Tiền giảm</th>
+              <th>Phí vận chuyển</th>
               <th>Tổng tiền</th>
               <th>Tình trạng giao hàng</th>
               <th>Quản lý</th>
@@ -51,16 +55,31 @@
             </tr>
           </thead>
           <tbody>
+            @php
+                $i = 0;
+            @endphp
             @foreach ($all_order as $key => $order)
             <tr>
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-              <td>{{$order->customer_name}}</td>
-              <td>{{$order->total_bf}}</td>
+              {{-- <td>{{$order->customer_name}}</td> --}}
+              <td>
+                @php
+                    $i++;
+                @endphp
+                {{$i}}
+              </td>
+              <td>{{number_format($order->total_bf, 0, ',', '.')}} đ</td>
               <td>{{$order->coupon_code}}</td>
-              <td>{{$order->coupon_price}}</td>
-              <td>{{$order->feeship_price}}</td>
-              <td>{{$order->order_total}}</td>
-              <td>{{$order->order_status}}</td>
+              <td>{{number_format($order->coupon_price, 0, ',', '.')}} đ</td>
+              <td>{{number_format($order->feeship_price, 0, ',', '.')}} đ</td>
+              <td>{{number_format($order->order_total, 0, ',', '.')}} đ</td>
+              <td>
+                @if ($order->order_status == 1)
+                  Đang chờ xử lý
+                @elseif ($order->order_status == 2)
+                  Đã hoàn thành
+                @endif
+              </td>
               <td>
                 <a href="{{URL::to('/view_order_detail/'.$order->order_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-eye text-success text-active"></i></a>
                 <a href="{{URL::to('/delete_order/'.$order->order_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa đơn hàng này chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>

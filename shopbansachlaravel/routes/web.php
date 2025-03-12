@@ -103,7 +103,9 @@ Route::post('/select_feeship', 'App\Http\Controllers\DeliveryController@select_f
 Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_delivery');
 
 //Don hang
-Route::get('/all_order', 'App\Http\Controllers\CheckoutController@all_order');
-Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\CheckoutController@view_order_detail');
+Route::get('/all_order', 'App\Http\Controllers\OrderController@all_order');
+Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\OrderController@view_order_detail');
+Route::get('/print_order/{orders_id}', 'App\Http\Controllers\OrderController@print_order');
+
 
 

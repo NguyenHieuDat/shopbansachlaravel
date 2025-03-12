@@ -758,54 +758,70 @@
             }
             var formData = $(this).serialize();
             formData += '&total_final=' + total_final;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ URL::to('/order_place') }}",
-                type: "POST",
-                data: formData,
-                success: function(response) {
-                    if (response.success) {
-                        if (response.payment_id == 2) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Đặt hàng thành công!',
-                                text: 'Đơn hàng của bạn đang được giao',
-                                confirmButtonText: 'Về trang chủ'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "{{ url('/trang_chu') }}";
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'info',
-                                title: 'Đặt hàng thành công!',
-                                text: 'Bạn đã chọn phương thức thanh toán ngân hàng.'
-                            });
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn thanh toán?',
+                text: "Hãy kiểm tra kỹ trước khi xác nhận!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, tôi muốn thanh toán',
+                cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lỗi!',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra, vui lòng thử lại!'
                     });
-                    console.log(xhr.responseText);
+                    $.ajax({
+                        url: "{{ URL::to('/order_place') }}",
+                        type: "POST",
+                        data: formData,
+                        success: function(response) {
+                            if (response.success) {
+                                if (response.payment_id == 2) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Đặt hàng thành công!',
+                                        text: 'Đơn hàng của bạn đang được giao',
+                                        confirmButtonText: 'Về trang chủ'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "{{ url('/trang_chu') }}";
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'info',
+                                        title: 'Đặt hàng thành công!',
+                                        text: 'Bạn đã chọn phương thức thanh toán ngân hàng.'
+                                    });
+                                }
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: 'Có lỗi xảy ra, vui lòng thử lại!'
+                            });
+                            console.log(xhr.responseText);
+                        }
+                    });
                 }
             });
+
         });
     });
+
 
 </script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>

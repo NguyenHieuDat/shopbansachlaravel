@@ -31,33 +31,6 @@ class CheckoutController extends Controller
         }
     }
 
-    public function all_order(){
-        $this->check_login();
-        $all_order = DB::table('tbl_order')->join('tbl_customer','tbl_customer.customer_id','=','tbl_order.customer_id')
-        ->select('tbl_order.*','tbl_customer.customer_name')
-        ->orderby('tbl_order.order_id','desc')->get();
-        $manager_order = view('admin.order.all_order')->with('all_order',$all_order);
-        return view('admin_layout')->with('admin.order.all_order',$manager_order);
-    }
-
-    public function view_order_detail($orders_id){
-        $this->check_login();
-
-        $shipping_info = DB::table('tbl_order')
-        ->join('tbl_shipping', 'tbl_shipping.shipping_id', '=', 'tbl_order.shipping_id')
-        ->select('tbl_shipping.*')
-        ->where('tbl_order.order_id', $orders_id)->first();
-
-        $order_details = DB::table('tbl_order')
-        ->join('tbl_order_detail','tbl_order_detail.order_id','=','tbl_order.order_id')
-        ->select('tbl_order_detail.*')
-        ->where('tbl_order.order_id', $orders_id)->get();
-
-        $view_order = view('admin.order.view_order_detail', compact('shipping_info', 'order_details'));
-        return view('admin_layout')->with('admin.order.view_order_detail',$view_order);
-        
-    }
-
     //Ham user
 
     public function login_checkout(Request $request){
@@ -311,15 +284,14 @@ class CheckoutController extends Controller
         $feeship = Session::get('fees', 0);
 
         if ($coupon) {
-            // Lấy coupon từ bảng tbl_coupon bằng coupon_code
             $coupon_code = $coupon[0]['coupon_code'];
             $coupon_price = $total_coupon > 0 ? $total_coupon : 0;
         } else {
             $coupon_code = 'Không có';
-            $coupon_value = 0;
+            $coupon_price = 0;
         }
-    
-        // Kiểm tra nếu không có phí ship, gán "Không có"
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        
         $shipping_fee = $feeship > 0 ? $feeship : 'Không có';
 
         $order = new Order();
@@ -331,7 +303,8 @@ class CheckoutController extends Controller
         $order->coupon_price = $coupon_price;
         $order->feeship_price = $shipping_fee;
         $order->order_total = $total_final;
-        $order->order_status = 'Đang chờ xử lý';
+        $order->order_status = 1;
+        $order->created_at = now();
         $order->save();
         $order_id = $order->order_id; // Lấy ID của đơn hàng vừa tạo
         
@@ -343,6 +316,7 @@ class CheckoutController extends Controller
             $order_detail['book_name'] = $cart_order['book_name'];
             $order_detail['book_price'] = $cart_order['book_price'];
             $order_detail['book_sale_quantity'] = $cart_order['book_qty'];
+            $order_detail->created_at = now();
             $order_detail->save();
         }
         if (!$payment) {
