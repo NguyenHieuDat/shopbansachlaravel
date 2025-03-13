@@ -168,58 +168,6 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Carousel Start -->
-    <div class="container-fluid mb-3">
-        <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
-                    
-                    <div class="carousel-inner">
-                        <div class="carousel-item position-relative active" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-1.jpg')}}" style="object-fit: cover;">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                
-                            </div>
-                        </div>
-                        <div class="carousel-item position-relative" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-2.jpg')}}" style="object-fit: cover;">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                
-                            </div>
-                        </div>
-                        <div class="carousel-item position-relative" style="height: 300px;">
-                            <img class="position-absolute w-100 h-100" src="{{asset('public/frontend/img/banner-3.jpg')}}" style="object-fit: cover;">
-                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                
-                            </div>
-                        </div>
-                        <!-- Nút chuyển bên trái -->
-                        <a class="carousel-control-prev custom-carousel-control" href="#header-carousel" role="button" data-slide="prev">
-                            <i class="fa-solid fa-circle-chevron-left"></i>
-                        </a>
-
-                        <!-- Nút chuyển bên phải -->
-                        <a class="carousel-control-next custom-carousel-control" href="#header-carousel" role="button" data-slide="next">
-                            <i class="fa-solid fa-circle-chevron-right"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="product-offer mb-30" style="height: 135px;">
-                    <img class="img-fluid" src="{{asset('public/frontend/img/sub-banner-1.jpg')}}" alt="">
-                    
-                </div>
-                <div class="product-offer mb-30" style="height: 135px;">
-                    <img class="img-fluid" src="{{asset('public/frontend/img/sub-banner-2.jpg')}}" alt="">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Carousel End -->
-
     <!-- Home -->
     <div>
         @yield('content')

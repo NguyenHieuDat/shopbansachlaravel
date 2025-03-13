@@ -107,5 +107,13 @@ Route::get('/all_order', 'App\Http\Controllers\OrderController@all_order');
 Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\OrderController@view_order_detail');
 Route::get('/print_order/{orders_id}', 'App\Http\Controllers\OrderController@print_order');
 
-
+//Banner
+Route::get('/all_banner', 'App\Http\Controllers\BannerController@all_banner');
+Route::get('/add_banner', 'App\Http\Controllers\BannerController@add_banner');
+Route::post('/save_banner', 'App\Http\Controllers\BannerController@save_banner');
+Route::get('/edit_banner/{banner_id}', 'App\Http\Controllers\BannerController@edit_banner');
+Route::get('/delete_banner/{banner_id}', 'App\Http\Controllers\BannerController@delete_banner');
+Route::post('/update_banner/{banner_id}', 'App\Http\Controllers\BannerController@update_banner');
+Route::get('/unactive_banner/{banner_id}', 'App\Http\Controllers\BannerController@unactive_banner');
+Route::get('/active_banner/{banner_id}', 'App\Http\Controllers\BannerController@active_banner');
 

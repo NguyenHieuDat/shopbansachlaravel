@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2025 at 10:55 AM
+-- Generation Time: Mar 13, 2025 at 09:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -214,6 +214,29 @@ INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_de
 (17, 'to huu', '1739437646_To_Huu.jpg', '<p>123</p>', 'Tố hữu,to huu', NULL, NULL),
 (18, 'William Shakespeare', '1741416702_Shakespeare.jpg', '<p>Wiliam shakepere l&agrave; một nh&agrave; văn <strong>đại t&agrave;i&nbsp;<img alt=\"broken heart\" src=\"http://localhost/shopbansachlaravel/public/backend/ckeditor/plugins/smiley/images/broken_heart.png\" style=\"height:23px; width:23px\" title=\"broken heart\" /></strong></p>', 'William Shakespeare.William,Shakespeare', NULL, NULL),
 (19, 'Otsuichi', '1741423870_otsuichi.jpeg', '<p>T&aacute;c giả&nbsp;Otsuichi</p>', 'Otsuichi', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_banner`
+--
+
+CREATE TABLE `tbl_banner` (
+  `banner_id` int(11) NOT NULL,
+  `banner_name` varchar(255) NOT NULL,
+  `banner_image` varchar(255) NOT NULL,
+  `banner_status` int(10) NOT NULL,
+  `banner_description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_banner`
+--
+
+INSERT INTO `tbl_banner` (`banner_id`, `banner_name`, `banner_image`, `banner_status`, `banner_description`) VALUES
+(2, 'Tặng sách đầu xuân, con học nhiều điều mới', '1741853521_banner-1.jpg', 1, '<p><em>Giảm gi&aacute; l&ecirc;n đến 38%</em></p>'),
+(3, 'Đón xuân sang, sale rộn ràng', '1741853581_banner-2.jpg', 1, '<p><em>Giảm gi&aacute; l&ecirc;n đến 35%</em></p>'),
+(4, 'Mua sắm không tiền mặt', '1741853624_banner-3.jpg', 1, '<p><em>Deal to kh&ocirc;ng lo với v&iacute; v&agrave; ng&acirc;n h&agrave;ng</em></p>');
 
 -- --------------------------------------------------------
 
@@ -12613,6 +12636,12 @@ ALTER TABLE `tbl_author`
   ADD PRIMARY KEY (`author_id`);
 
 --
+-- Indexes for table `tbl_banner`
+--
+ALTER TABLE `tbl_banner`
+  ADD PRIMARY KEY (`banner_id`);
+
+--
 -- Indexes for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
@@ -12741,6 +12770,12 @@ ALTER TABLE `tbl_admin`
 --
 ALTER TABLE `tbl_author`
   MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `tbl_banner`
+--
+ALTER TABLE `tbl_banner`
+  MODIFY `banner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_book`

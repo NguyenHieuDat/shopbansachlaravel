@@ -343,6 +343,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </li>
 
+				<li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý banner</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/add_banner')}}">Thêm banner</a></li>
+						<li><a href="{{URL::to('/all_banner')}}">Liệt kê banner</a></li>
+                    </ul>
+                </li>
+
             </ul>            
         </div>
         <!-- sidebar menu end-->
@@ -470,6 +481,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     CKEDITOR.replace('ckeditor_cate_edit');
     CKEDITOR.replace('ckeditor_pub_add');
     CKEDITOR.replace('ckeditor_pub_edit');
+	CKEDITOR.replace('ckeditor_banner_add');
+    CKEDITOR.replace('ckeditor_banner_edit');
 
 </script>
 
