@@ -10,7 +10,7 @@ class Book extends Model
     protected $fillable = [
         'book_name', 'category_id', 'author_id', 'publisher_id', 
         'book_image', 'book_language', 'book_year', 'book_page', 
-        'book_price', 'book_status', 'book_description', 'book_keywords'
+        'book_price', 'book_quantity', 'book_sold', 'book_status', 'book_description', 'book_keywords'
     ];
     protected $primaryKey = 'book_id';
     protected $table = 'tbl_book';

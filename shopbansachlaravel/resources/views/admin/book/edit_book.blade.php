@@ -65,19 +65,23 @@
                         </div>
                         <div class="form-group">
                             <label>Ngôn ngữ</label>
-                            <input type="text" name="book_language" class="form-control" id="exampleInputEmail1" value="{{$edit_value->book_language}}">
+                            <input type="text" name="book_language" class="form-control" value="{{$edit_value->book_language}}">
                         </div>
                         <div class="form-group">
                             <label>Năm xuất bản</label>
-                            <input type="text" name="book_year" class="form-control" id="exampleInputEmail1" value="{{$edit_value->book_year}}">
+                            <input type="text" name="book_year" class="form-control" value="{{$edit_value->book_year}}">
                         </div>
                         <div class="form-group">
                             <label>Số trang</label>
-                            <input type="text" name="book_page" class="form-control" id="exampleInputEmail1" value="{{$edit_value->book_page}}">
+                            <input type="text" name="book_page" class="form-control" value="{{$edit_value->book_page}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng kho</label>
+                            <input type="text" name="book_quantity" class="form-control" value="{{$edit_value->book_quantity}}">
                         </div>
                         <div class="form-group">
                             <label>Giá tiền</label>
-                            <input type="text" name="book_price" class="form-control" id="exampleInputEmail1" value="{{$edit_value->book_price}}">
+                            <input type="text" name="book_price" class="form-control" value="{{$edit_value->book_price}}">
                         </div>
                         <div class="form-group">
                             <label>Tình trạng</label>

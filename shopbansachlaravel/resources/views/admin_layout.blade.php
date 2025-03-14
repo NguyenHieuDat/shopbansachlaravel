@@ -485,6 +485,68 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     CKEDITOR.replace('ckeditor_banner_edit');
 
 </script>
+<script type="text/javascript">
+	$('.order_detail_status').change(function(){
+		var order_status = $(this).val();
+		var order_id = $(this).children(":selected").attr("id");
+		var _token = $('meta[name="csrf-token"]').attr('content');
 
+		quantity = [];
+		$("input[name='book_sales_qty']").each(function(){
+			quantity.push($(this).val());
+		});
+		order_book_id = [];
+		$("input[name='order_book_id']").each(function(){
+			order_book_id.push($(this).val());
+		});
+		j = 0;
+		for(i=0;i<order_book_id.length;i++){
+			var order_qty = $('.order_qty_'+order_book_id[i]).val();
+			var order_storage_qty = $('.order_storage_qty_'+order_book_id[i]).val();
+			if(parseInt(order_qty) > parseInt(order_storage_qty)){
+				j = j + 1;
+				if(j === 1){
+					alert('Số lượng trong kho không đủ');
+				}
+				$('.colormark_qty_'+order_book_id[i]).css('background','#FF0000');
+			} else {
+				$('.colormark_qty_' + order_book_id[i]).css('background', ''); // Reset màu nếu hợp lệ
+			}
+		}
+		if(j === 0){
+			$.ajax({
+				url:"{{url('/update_order_quantity')}}",
+				method:"POST",
+				data:{_token:_token, order_status:order_status, 
+					order_id:order_id, quantity:quantity, 
+					order_book_id:order_book_id},
+				success:function(data){
+					alert('Cập nhật trạng thái thành công');
+					location.reload();
+				}
+			});
+		}
+
+	});
+
+	$('.update_quantity_order').click(function(){
+		var order_book_id = $(this).data('book_id');
+		var order_qty = $('.order_qty_'+order_book_id).val();
+		var order_sale_id = $('.order_sale_id').val();
+		var _token = $('meta[name="csrf-token"]').attr('content');
+
+		$.ajax({
+			url:"{{url('/update_qty')}}",
+			method:"POST",
+			data:{_token:_token, order_book_id:order_book_id, 
+				order_qty:order_qty, order_sale_id:order_sale_id
+			},
+			success:function(data){
+				alert('Cập nhật số lượng thành công');
+				location.reload();
+			}
+		});
+	});
+</script>
 </body>
 </html>

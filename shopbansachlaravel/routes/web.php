@@ -106,6 +106,8 @@ Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_
 Route::get('/all_order', 'App\Http\Controllers\OrderController@all_order');
 Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\OrderController@view_order_detail');
 Route::get('/print_order/{orders_id}', 'App\Http\Controllers\OrderController@print_order');
+Route::post('/update_order_quantity', 'App\Http\Controllers\OrderController@update_order_quantity');
+Route::post('/update_qty', 'App\Http\Controllers\OrderController@update_qty');
 
 //Banner
 Route::get('/all_banner', 'App\Http\Controllers\BannerController@all_banner');

@@ -11,6 +11,7 @@ use App\Models\OrderDetail;
 use App\Models\Customer;
 use App\Models\Shipping;
 use App\Models\Coupon;
+use App\Models\Book;
 use Session;
 use Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -19,6 +20,8 @@ session_start();
 
 class OrderController extends Controller
 {
+    //Ham admin
+
     public function check_login(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -65,7 +68,7 @@ class OrderController extends Controller
         $feeship = Feeship::where('fee_price',$order_feeship)->first();
 
         return view('admin.order.view_order_detail', compact('order_details','customer','shipping','payment',
-        'coupon_condition','coupon_code','coupon_price','feeship','order_status','orders_id','order_date'));
+        'coupon_condition','coupon_code','coupon_price','feeship','order_status','orders_id','order_date','order'));
     }
 
     // public function print_order($orders_id){
@@ -152,5 +155,41 @@ class OrderController extends Controller
         return $pdf->download('chi_tiet_don_hang_' . $orders_id . '.pdf');
     }
     
-        
+    public function update_order_quantity(Request $request){
+        $data = $request->all();
+        $order = Order::find($data['order_id']);
+        $order_status_before = $order->order_status;
+        $order->order_status = $data['order_status'];
+        $order->save();
+
+        foreach($data['order_book_id'] as $key => $book_id){
+            $book = Book::find($book_id);
+            $qty = $data['quantity'][$key];
+            
+            if ($order_status_before == 1 && $order->order_status == 2) {
+                // Từ Đang xử lý (1) -> Đã xử lý (2): Trừ số lượng mua khỏi kho
+                $book->book_quantity -= $qty;
+                $book->book_sold += $qty;
+            } 
+            elseif ($order_status_before == 2 && ($order->order_status == 1 || $order->order_status == 3)) {
+                // Từ Đã xử lý (2) -> Hủy đơn (3) hoặc Đang xử lý (1): Cộng lại số lượng vào kho
+                $book->book_quantity += $qty;
+                $book->book_sold -= $qty;
+            }
+            elseif ($order_status_before == 3 && $order->order_status == 2) {
+                // Từ Hủy đơn (3) -> Đã xử lý (2)
+                $book->book_quantity -= $qty;
+                $book->book_sold += $qty;
+            }
+            $book->save();
+        }
+    }
+
+    public function update_qty(Request $request){
+        $data = $request->all();
+        $order_details = OrderDetail::where('book_id',$data['order_book_id'])
+        ->where('order_id',$data['order_sale_id'])->first();
+        $order_details->book_sale_quantity = $data['order_qty'];
+        $order_details->save();
+    }
 }

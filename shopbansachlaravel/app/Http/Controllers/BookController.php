@@ -53,6 +53,7 @@ class BookController extends Controller
         $data['book_language'] = $request->book_language;
         $data['book_year'] = $request->book_year;
         $data['book_page'] = $request->book_page;
+        $data['book_quantity'] = $request->book_quantity;
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
@@ -119,6 +120,7 @@ class BookController extends Controller
         $data['book_language'] = $request->book_language;
         $data['book_year'] = $request->book_year;
         $data['book_page'] = $request->book_page;
+        $data['book_quantity'] = $request->book_quantity;
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
@@ -146,15 +148,10 @@ class BookController extends Controller
 
     public function delete_book($books_id){
         $this->check_login();
-        // Lấy thông tin từ database
         $book = DB::table('tbl_book')->where('book_id', $books_id)->first();
 
-        // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
         if ($book) {
-        // Đường dẫn trực tiếp từ thư mục public
             $image_path = base_path('public/upload/book/' .($book->book_image));
-
-        // Kiểm tra nếu file tồn tại thì xóa
             if (file_exists($image_path)) {
             unlink($image_path);
             }

@@ -51,19 +51,23 @@
                         </div>
                         <div class="form-group">
                             <label>Ngôn ngữ</label>
-                            <input type="text" name="book_language" class="form-control" id="exampleInputEmail1" placeholder="Nhập ngôn ngữ của sách">
+                            <input type="text" name="book_language" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Năm xuất bản</label>
-                            <input type="text" name="book_year" class="form-control" id="exampleInputEmail1" placeholder="Nhập năm xuất bản">
+                            <input type="text" name="book_year" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Số trang</label>
-                            <input type="text" name="book_page" class="form-control" id="exampleInputEmail1" placeholder="Nhập số trang">
+                            <input type="text" name="book_page" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng kho</label>
+                            <input type="text" name="book_quantity" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Giá tiền</label>
-                            <input type="text" name="book_price" class="form-control" id="exampleInputEmail1" placeholder="Nhập giá tiền">
+                            <input type="text" name="book_price" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Tình trạng</label>
@@ -74,11 +78,11 @@
                         </div>
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="ckeditor_book_add" placeholder="Nhập mô tả"></textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="book_description" class="form-control" id="ckeditor_book_add"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Từ khóa</label>
-                            <input type="text" name="book_keywords" class="form-control" placeholder="Nhập từ khóa">
+                            <input type="text" name="book_keywords" class="form-control">
                         </div>
                         <button type="submit" name="add_book" class="btn btn-info">Thêm sách</button>
                     </form>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2025 at 09:55 AM
+-- Generation Time: Mar 14, 2025 at 10:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -255,6 +255,8 @@ CREATE TABLE `tbl_book` (
   `book_year` int(11) NOT NULL,
   `book_page` int(11) NOT NULL,
   `book_price` varchar(255) NOT NULL,
+  `book_quantity` varchar(255) NOT NULL,
+  `book_sold` int(11) NOT NULL,
   `book_status` int(11) NOT NULL,
   `book_description` text NOT NULL,
   `book_keywords` text NOT NULL,
@@ -266,14 +268,14 @@ CREATE TABLE `tbl_book` (
 -- Dumping data for table `tbl_book`
 --
 
-INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_status`, `book_description`, `book_keywords`, `created_at`, `updated_at`) VALUES
-(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', 0, '<p>123</p>', 'ke dien ben trai', NULL, NULL),
-(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '160000', 1, '<p>1234</p>', 'lao hac,lão hạc', NULL, NULL),
-(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', 1, '<p>123</p>', 'tu duy,tư duy', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', 1, '<p>123456</p>', 'kinh di', NULL, NULL),
-(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 5, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', 1, '<p>mmm</p>', 'cay cam,cây cam,ngot,ngọt', NULL, NULL),
-(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', 'goth', NULL, NULL),
-(20, 'Sau muoi chin', 6, 19, 5, '1741598360_goth_bia2.jpg', 'Tiếng Việt', 2003, 123, '10000', 1, '<p>okokok</p>', 'sau,chin', NULL, NULL);
+INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_quantity`, `book_sold`, `book_status`, `book_description`, `book_keywords`, `created_at`, `updated_at`) VALUES
+(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', '50', 0, 0, '<p>123</p>', 'ke dien ben trai', NULL, NULL),
+(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '160000', '60', 0, 1, '<p>1234</p>', 'lao hac,lão hạc', NULL, NULL),
+(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', '50', 0, 1, '<p>123</p>', 'tu duy,tư duy', NULL, NULL),
+(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', '70', 0, 1, '<p>123456</p>', 'kinh di', NULL, NULL),
+(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 5, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', '100', 0, 1, '<p>mmm</p>', 'cay cam,cây cam,ngot,ngọt', NULL, NULL),
+(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', '100', 0, 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', 'goth', NULL, NULL),
+(20, 'Sau muoi chin', 6, 19, 5, '1741598360_goth_bia2.jpg', 'Tiếng Việt', 2003, 123, '10000', '10', 0, 1, '<p>okokok</p>', 'sau,chin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -410,7 +412,8 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (20, '1741424285_goth2.jpg', '1741424285_goth2.jpg', 19, NULL, NULL),
 (21, '1741424285_goth3.jpg', '1741424285_goth3.jpg', 19, NULL, NULL),
 (22, '1741424285_goth4.jpg', '1741424285_goth4.jpg', 19, NULL, NULL),
-(23, '1741598360_goth_bia2.jpg', '1741598360_goth_bia2.jpg', 20, NULL, NULL);
+(23, '1741598360_goth_bia2.jpg', '1741598360_goth_bia2.jpg', 20, NULL, NULL),
+(24, '1741922585_goth4.jpg', '1741922585_goth4.jpg', 21, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -438,9 +441,10 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(29, 4, 9, 2, '138000', 'Không có', '0', '60000', '198000', 2, '2025-03-12 02:24:15', NULL),
+(29, 4, 9, 2, '138000', 'Không có', '0', '60000', '198000', 1, '2025-03-12 02:24:15', NULL),
 (31, 4, 9, 2, '10000', 'SSS69', '69000', '150000', '91000', 1, '2025-03-12 02:56:41', NULL),
-(32, 4, 9, 2, '10000', 'SSS69', '69000', '20000', '0', 1, '2025-03-12 02:57:42', NULL);
+(32, 4, 9, 2, '10000', 'SSS69', '69000', '20000', '0', 1, '2025-03-12 02:57:42', NULL),
+(33, 4, 9, 2, '338000', 'SSS69', '69000', '20000', '289000', 1, '2025-03-14 07:40:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -466,7 +470,9 @@ CREATE TABLE `tbl_order_detail` (
 INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
 (36, 29, 19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', '138000', 1, '2025-03-12 02:24:15', NULL),
 (38, 31, 20, 'Sau muoi chin', '10000', 1, '2025-03-12 02:56:41', NULL),
-(39, 32, 20, 'Sau muoi chin', '10000', 1, '2025-03-12 02:57:42', NULL);
+(39, 32, 20, 'Sau muoi chin', '10000', 1, '2025-03-12 02:57:42', NULL),
+(40, 33, 19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', '138000', 2, '2025-03-14 07:40:13', NULL),
+(41, 33, 18, 'Cây Cam Ngọt Của Tôi', '100000', 3, '2025-03-14 07:40:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -1272,7 +1278,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', '9', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'ok', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12781,7 +12787,7 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
@@ -12811,19 +12817,19 @@ ALTER TABLE `tbl_feeship`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`

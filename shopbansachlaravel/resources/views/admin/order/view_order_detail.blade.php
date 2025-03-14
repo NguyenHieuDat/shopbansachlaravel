@@ -26,7 +26,6 @@
                                 <p><strong>Ghi chú:</strong> {{$shipping->shipping_note}}</p>
                                 <br>
                                 <h4>Phương thức thanh toán:
-                                
                                     @if ($payment->payment_id == 1)
                                         Chuyển khoản
                                     @else
@@ -35,11 +34,36 @@
                                   </h4>
                                 <br>
                                 <h4>Trạng thái đơn hàng:
-                                  @if($order_status == 1)
-                                      Đang chờ xử lý
-                                  @elseif($order_status == 2)
-                                      Đã hoàn thành
-                                  @endif
+                                    @foreach ($order as $key => $or)
+                                    @if($or->order_status == 1)
+                                    <form>
+                                        @csrf
+                                        <select class="form-control order_detail_status">
+                                            <option id="{{$or->order_id}}" selected value="1">Đang xử lý</option>
+                                            <option id="{{$or->order_id}}" value="2">Đã xử lý</option>
+                                            <option id="{{$or->order_id}}" value="3">Hủy đơn</option>
+                                        </select>
+                                    </form>
+                                    @elseif($or->order_status == 2)
+                                    <form>
+                                        @csrf
+                                        <select class="form-control order_detail_status">
+                                            <option id="{{$or->order_id}}" value="1">Đang xử lý</option>
+                                            <option id="{{$or->order_id}}" selected value="2">Đã xử lý</option>
+                                            <option id="{{$or->order_id}}" value="3">Hủy đơn</option>
+                                        </select>
+                                    </form>
+                                    @else
+                                    <form>
+                                        @csrf
+                                        <select class="form-control order_detail_status">
+                                            <option id="{{$or->order_id}}" value="1">Đang xử lý</option>
+                                            <option id="{{$or->order_id}}" value="2">Đã xử lý</option>
+                                            <option id="{{$or->order_id}}" selected value="3">Hủy đơn</option>
+                                        </select>
+                                    </form>
+                                    @endif
+                                    @endforeach
                                 </h4>
                                 <br>
                                 <h4>Thời gian thực hiện đơn hàng: {{$order_date}}</h4>
@@ -66,11 +90,19 @@
                                                 $subtotal = $order_dt->book_price * $order_dt->book_sale_quantity;
                                                 $total += $subtotal;
                                             @endphp
-                                            <tr>
+                                            <tr class="colormark_qty_{{$order_dt->book_id}}">
                                                 <td>{{$order_dt->book_name}}</td>
                                                 <td>{{number_format($order_dt->book_price, 0, ',', '.')}} đ</td>
-                                                <td>{{$order_dt->book_sale_quantity}}</td>
-                                                <td></td>
+                                                <td>
+                                                    <input type="number" min="1" {{$order_status==2 ? 'disabled' : ''}} class="order_qty_{{$order_dt->book_id}}" value="{{$order_dt->book_sale_quantity}}" name="book_sales_qty">
+                                                    <input type="hidden" name="order_storage_qty" class="order_storage_qty_{{$order_dt->book_id}}" value="{{$order_dt->book->book_quantity}}">
+                                                    <input type="hidden" name="order_sale_id" class="order_sale_id" value="{{$order_dt->order_id}}">
+                                                    <input type="hidden" name="order_book_id" class="order_book_id" value="{{$order_dt->book_id}}">
+                                                    @if($order_status!=2)
+                                                    <button class="btn btn-default update_quantity_order" data-book_id="{{$order_dt->book_id}}" name="update_quantity_order">Cập nhật</button>
+                                                    @endif
+                                                </td>
+                                                <td>{{$order_dt->book->book_quantity}}</td>
                                                 <td>{{number_format($subtotal, 0, ',', '.')}}đ</td>
                                             </tr>
                                         @endforeach

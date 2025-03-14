@@ -52,6 +52,7 @@
               <th>Ngôn ngữ</th>
               <th>Năm xuất bản</th>
               <th>Số trang</th>
+              <th>Số lượng kho</th>
               <th>Trạng thái</th>
               <th>Hình ảnh</th>
               <th>Mô tả</th>
@@ -73,6 +74,7 @@
               <td>{{$book->book_language}}</td>
               <td>{{$book->book_year}}</td>
               <td>{{$book->book_page}}</td>
+              <td>{{$book->book_quantity}}</td>
               <td><span class="text-ellipsis">  <!-- 1 là Còn, 0 là Hết -->
                 <?php
                 if($book->book_status==0){
