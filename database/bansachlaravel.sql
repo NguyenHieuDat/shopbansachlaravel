@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 10:19 AM
+-- Generation Time: Mar 14, 2025 at 10:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -256,7 +256,7 @@ CREATE TABLE `tbl_book` (
   `book_page` int(11) NOT NULL,
   `book_price` varchar(255) NOT NULL,
   `book_quantity` varchar(255) NOT NULL,
-  `book_sold` int(11) NOT NULL,
+  `book_sold` int(11) NOT NULL DEFAULT 0,
   `book_status` int(11) NOT NULL,
   `book_description` text NOT NULL,
   `book_keywords` text NOT NULL,
@@ -12787,7 +12787,7 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
@@ -12817,7 +12817,7 @@ ALTER TABLE `tbl_feeship`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`

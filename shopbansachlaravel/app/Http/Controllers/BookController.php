@@ -154,7 +154,19 @@ class BookController extends Controller
             $image_path = base_path('public/upload/book/' .($book->book_image));
             if (file_exists($image_path)) {
             unlink($image_path);
+        }
+        // Lấy tất cả các ảnh gallery liên quan đến sách này
+        $gallery_images = GalleryModel::where('book_id', $books_id)->get();
+
+        // Xóa từng ảnh trong gallery nếu tồn tại
+        foreach ($gallery_images as $gallery) {
+            $gallery_image_path = base_path('public/upload/gallery/' . ($gallery->gallery_image));
+            if (file_exists($gallery_image_path)) {
+                unlink($gallery_image_path);
             }
+            $gallery->delete();
+        }
+
         DB::table('tbl_book')->where('book_id',$books_id)->delete();
         Session::put('message','Xóa sách thành công!');
         return Redirect::to('all_book');
