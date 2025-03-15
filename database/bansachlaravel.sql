@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 10:43 AM
+-- Generation Time: Mar 15, 2025 at 10:34 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -210,10 +210,7 @@ CREATE TABLE `tbl_author` (
 --
 
 INSERT INTO `tbl_author` (`author_id`, `author_name`, `author_image`, `author_description`, `author_keywords`, `created_at`, `updated_at`) VALUES
-(16, 'Nam cao', '1739437636_Portrait_of_Nam_Cao.jpg', '<p>12namcao</p>', 'nam cao, Nam Cao', NULL, NULL),
-(17, 'to huu', '1739437646_To_Huu.jpg', '<p>123</p>', 'Tố hữu,to huu', NULL, NULL),
-(18, 'William Shakespeare', '1741416702_Shakespeare.jpg', '<p>Wiliam shakepere l&agrave; một nh&agrave; văn <strong>đại t&agrave;i&nbsp;<img alt=\"broken heart\" src=\"http://localhost/shopbansachlaravel/public/backend/ckeditor/plugins/smiley/images/broken_heart.png\" style=\"height:23px; width:23px\" title=\"broken heart\" /></strong></p>', 'William Shakespeare.William,Shakespeare', NULL, NULL),
-(19, 'Otsuichi', '1741423870_otsuichi.jpeg', '<p>T&aacute;c giả&nbsp;Otsuichi</p>', 'Otsuichi', NULL, NULL);
+(1, 'José Mauro de Vasconcelos', '1742028468_José Mauro de Vasconcelos.jpg', '<p>Sinh&nbsp;(1920-1984) l&agrave; nh&agrave; văn người Brazil. Sinh ra trong một gia đ&igrave;nh ngh&egrave;o ở ngoại &ocirc; Rio de Janeiro, lớn l&ecirc;n &ocirc;ng phải l&agrave;m đủ nghề để kiếm sống. Nhưng với t&agrave;i kể chuyện thi&ecirc;n bẩm, tr&iacute; nhớ phi thường, tr&iacute; tưởng tượng tuyệt vời c&ugrave;ng vốn sống phong ph&uacute;, Jos&eacute; cảm thấy trong m&igrave;nh th&ocirc;i th&uacute;c phải trở th&agrave;nh nh&agrave; văn n&ecirc;n đ&atilde; bắt đầu s&aacute;ng t&aacute;c năm 22 tuổi. T&aacute;c phẩm nổi tiếng nhất của &ocirc;ng l&agrave; tiểu thuyết mang m&agrave;u sắc tự truyện C&acirc;y cam ngọt của t&ocirc;i.</p>\r\n\r\n<p>Cuốn s&aacute;ch được đưa v&agrave;o chương tr&igrave;nh tiểu học của Brazil, được b&aacute;n bản quyền cho hai mươi quốc gia v&agrave; chuyển thể th&agrave;nh phim điện ảnh. Ngo&agrave;i ra, Jos&eacute; c&ograve;n rất th&agrave;nh c&ocirc;ng trong vai tr&ograve; diễn vi&ecirc;n điện ảnh v&agrave; bi&ecirc;n kịch.</p>', 'José Mauro de Vasconcelos, Jose, José, Mauro, Vasconcelos', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,9 +244,9 @@ INSERT INTO `tbl_banner` (`banner_id`, `banner_name`, `banner_image`, `banner_st
 CREATE TABLE `tbl_book` (
   `book_id` int(10) UNSIGNED NOT NULL,
   `book_name` varchar(255) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `publisher_id` int(11) NOT NULL,
+  `category_id` int(11) UNSIGNED NOT NULL,
+  `author_id` int(11) UNSIGNED NOT NULL,
+  `publisher_id` int(11) UNSIGNED NOT NULL,
   `book_image` varchar(255) NOT NULL,
   `book_language` varchar(255) NOT NULL,
   `book_year` int(11) NOT NULL,
@@ -269,13 +266,7 @@ CREATE TABLE `tbl_book` (
 --
 
 INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_quantity`, `book_sold`, `book_status`, `book_description`, `book_keywords`, `created_at`, `updated_at`) VALUES
-(9, 'Thiên Tài Bên Trái, Kẻ Điên Bên Phải', 4, 17, 3, '1739516968_thientaibentrai.jpg', 'Tiếng Việt', 2020, 500, '125000', '50', 0, 0, '<p>123</p>', 'ke dien ben trai', NULL, NULL),
-(10, 'Lao Hac', 4, 16, 2, '1739520403_laohac.jpg', 'Tiếng Việt', 2003, 200, '160000', '60', 0, 1, '<p>1234</p>', 'lao hac,lão hạc', NULL, NULL),
-(11, 'Ta tu duy', 2, 17, 3, '1739520432_tatuduy.jpg', 'Tiếng Anh', 2016, 200, '200000', '50', 0, 1, '<p>123</p>', 'tu duy,tư duy', NULL, NULL),
-(12, 'Kinh di', 4, 16, 3, '1739520470_giaitridenchet.jpg', 'Tiếng Việt', 2019, 500, '120000', '70', 0, 1, '<p>123456</p>', 'kinh di', NULL, NULL),
-(18, 'Cây Cam Ngọt Của Tôi', 4, 16, 5, '1739782323_caycamngot1.jpg', 'Tiếng Việt', 2016, 300, '100000', '100', 0, 1, '<p>mmm</p>', 'cay cam,cây cam,ngot,ngọt', NULL, NULL),
-(19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', 5, 19, 4, '1741424454_goth_bia.jpg', 'Tiếng Việt', 2024, 360, '138000', '100', 0, 1, '<p><strong>Goth Những Kẻ Hắc &Aacute;m</strong></p>\r\n\r\n<p>Một cuốn sổ ghi ch&eacute;p qu&aacute; tr&igrave;nh giết người.Chiếc tủ lạnh chứa đầy b&agrave;n tay. Lũ ch&oacute; bị bắt c&oacute;c.Vụ treo cổ kỳ qu&aacute;i.Đứa trẻ bị ch&ocirc;n sống. Cuốn băng thu &acirc;m giọng n&oacute;i của người chết&hellip;</p>\r\n\r\n<p>Hai học sinh cấp ba c&ugrave;ng nhau điều tra những vụ &aacute;n kỳ lạ ở địa phương. Nhưng thay v&igrave; cố gắng ngăn chặn tội &aacute;c, nỗi &aacute;m ảnh với c&aacute;i chết v&agrave; sự giết ch&oacute;c đ&atilde; dẫn dắt ch&uacute;ng tiến v&agrave;o b&oacute;ng tối đi&ecirc;n cuồng, nơi những cơn &aacute;c mộng trở th&agrave;nh sự thực.</p>\r\n\r\n<p>Kh&ocirc;ng chỉ l&agrave; một cuốn tiểu thuyết kinh dị r&ugrave;ng rợn, GOTH c&ograve;n ẩn chứa nỗi buồn v&agrave; những chi&ecirc;m nghiệm về cuộc sống, về bản chất con người v&agrave; sự gi&aacute;c ngộ. T&aacute;c phẩm đ&atilde; mang về cho Otsuichi giải thưởng Honkaku Mystery, được chuyển thể th&agrave;nh manga v&agrave; phim điện ảnh.</p>', 'goth', NULL, NULL),
-(20, 'Sau muoi chin', 6, 19, 5, '1741598360_goth_bia2.jpg', 'Tiếng Việt', 2003, 123, '10000', '10', 0, 1, '<p>okokok</p>', 'sau,chin', NULL, NULL);
+(1, 'Cây Cam Ngọt Của Tôi', 1, 1, 1, '1742028851_caycamngotbia.jpg', 'Tiếng Việt', 2020, 244, '108000', '100', 0, 1, '<p>C&Acirc;Y CAM NGỌT CỦA T&Ocirc;I - MỘT TUỔI THƠ BỊ L&Atilde;NG QU&Ecirc;N.</p>\r\n\r\n<p>Với một đứa trẻ, thế giới kh&ocirc;ng giới hạn trong một bữa ăn, m&agrave; thế giới cần c&oacute; h&agrave;o quang của t&igrave;nh thương. Bạn c&oacute; bao giờ cảm thấy bị lạc l&otilde;ng trong ch&iacute;nh ng&ocirc;i nh&agrave; của m&igrave;nh? Một c&acirc;u chuyện chạm đến tận c&ugrave;ng cảm x&uacute;c</p>', 'Cây cam, cay cam, cây cam ngọt của tôi, cây cam ngọt, cay cam ngot, cay cam ngot cua toi', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -297,11 +288,7 @@ CREATE TABLE `tbl_category_product` (
 --
 
 INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
-(1, 'Sách tranh', '<p>okokkkk</p>', 'sach tranh,sách tranh', NULL, NULL),
-(2, 'Truyện dài', '<p>hellolo</p>', 'dai,dài,truyen dai,truyện dài', NULL, NULL),
-(4, 'Văn học', 'văn học là thể loại được ưa chuộng', 'van hoc,văn học,văn,van,ngu van,ngữ văn', NULL, NULL),
-(5, 'Kinh dị', '<p>Kinh dị l&agrave; thể loại rất được <span style=\"color:#c0392b\"><strong>ưa chuộng</strong></span></p>', 'kinh di,kinh dị,horror', NULL, NULL),
-(6, 'Truyện tranh', '<p>Truyện tranh cho trẻ con</p>', 'truyen tranh,truyện tranh', NULL, NULL);
+(1, 'Văn học', '<p>Văn học l&agrave; một loại h&igrave;nh nghệ thuật được tạo ra bằng ng&ocirc;n từ, nhằm phản &aacute;nh cuộc sống, thể hiện tư tưởng, t&igrave;nh cảm, cảm x&uacute;c v&agrave; gi&aacute; trị thẩm mỹ của con người. Văn học kh&ocirc;ng chỉ ghi lại những hiện thực x&atilde; hội m&agrave; c&ograve;n mang t&iacute;nh s&aacute;ng tạo, tưởng tượng, truyền tải những th&ocirc;ng điệp, triết l&yacute; v&agrave; kh&aacute;t vọng của con người qua từng thời kỳ lịch sử.</p>', 'Văn, văn, van, van hoc, văn học', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -359,9 +346,9 @@ INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `c
 
 CREATE TABLE `tbl_feeship` (
   `fee_id` int(10) UNSIGNED NOT NULL,
-  `fee_matp` int(11) NOT NULL,
-  `fee_maqh` int(11) NOT NULL,
-  `fee_xaid` int(11) NOT NULL,
+  `fee_matp` int(11) UNSIGNED NOT NULL,
+  `fee_maqh` int(11) UNSIGNED NOT NULL,
+  `fee_xaid` int(11) UNSIGNED NOT NULL,
   `fee_price` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -389,7 +376,7 @@ CREATE TABLE `tbl_gallerry` (
   `gallery_id` int(10) UNSIGNED NOT NULL,
   `gallery_name` varchar(255) NOT NULL,
   `gallery_image` varchar(255) NOT NULL,
-  `book_id` int(11) NOT NULL,
+  `book_id` int(11) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -399,21 +386,11 @@ CREATE TABLE `tbl_gallerry` (
 --
 
 INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book_id`, `created_at`, `updated_at`) VALUES
-(7, '1739760620_tatuduy.jpg', '1739776610_laohac.jpg', 12, NULL, NULL),
-(8, '1739760620_giaitridenchet.jpg', '1739776618_giaitridenchet.jpg', 12, NULL, NULL),
-(9, '1739760620_thientaibentrai.jpg', '1739776625_thientaibentrai.jpg', 12, NULL, NULL),
-(10, '1739776639_tatuduy.jpg', '1739776639_tatuduy.jpg', 12, NULL, NULL),
-(11, '1739782323_caycamngot1.jpg', '1739783445_giaitridenchet.jpg', 18, NULL, NULL),
-(15, '1739782825_caycamngot2.jpg', '1739782825_caycamngot2.jpg', 18, NULL, NULL),
-(16, '1739782825_caycamngot3.jpg', '1739782825_caycamngot3.jpg', 18, NULL, NULL),
-(17, '1739782825_caycamngot4.jpg', '1739782825_caycamngot4.jpg', 18, NULL, NULL),
-(18, '1741424261_goth_bia2.jpg', '1741424521_goth_bia.jpg', 19, NULL, NULL),
-(19, '1741424285_goth1.jpg', '1741424285_goth1.jpg', 19, NULL, NULL),
-(20, '1741424285_goth2.jpg', '1741424285_goth2.jpg', 19, NULL, NULL),
-(21, '1741424285_goth3.jpg', '1741424285_goth3.jpg', 19, NULL, NULL),
-(22, '1741424285_goth4.jpg', '1741424285_goth4.jpg', 19, NULL, NULL),
-(23, '1741598360_goth_bia2.jpg', '1741598360_goth_bia2.jpg', 20, NULL, NULL),
-(24, '1741922585_goth4.jpg', '1741922585_goth4.jpg', 21, NULL, NULL);
+(62, '1742031244_caycamngot1.jpg', '1742031244_caycamngot1.jpg', 1, NULL, NULL),
+(63, '1742031244_caycamngot2.jpg', '1742031244_caycamngot2.jpg', 1, NULL, NULL),
+(64, '1742031244_caycamngot3.jpg', '1742031244_caycamngot3.jpg', 1, NULL, NULL),
+(65, '1742031244_caycamngot4.jpg', '1742031244_caycamngot4.jpg', 1, NULL, NULL),
+(66, '1742031244_caycamngot5.jpg', '1742031244_caycamngot5.jpg', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -423,9 +400,9 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 
 CREATE TABLE `tbl_order` (
   `order_id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `shipping_id` int(11) NOT NULL,
-  `payment_id` int(11) NOT NULL,
+  `customer_id` int(11) UNSIGNED NOT NULL,
+  `shipping_id` int(11) UNSIGNED NOT NULL,
+  `payment_id` int(11) UNSIGNED NOT NULL,
   `total_bf` varchar(255) NOT NULL,
   `coupon_code` varchar(255) NOT NULL,
   `coupon_price` varchar(255) NOT NULL,
@@ -436,16 +413,6 @@ CREATE TABLE `tbl_order` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `tbl_order`
---
-
-INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(29, 4, 9, 2, '138000', 'Không có', '0', '60000', '198000', 1, '2025-03-12 02:24:15', NULL),
-(31, 4, 9, 2, '10000', 'SSS69', '69000', '150000', '91000', 1, '2025-03-12 02:56:41', NULL),
-(32, 4, 9, 2, '10000', 'SSS69', '69000', '20000', '0', 1, '2025-03-12 02:57:42', NULL),
-(33, 4, 9, 2, '338000', 'SSS69', '69000', '20000', '289000', 1, '2025-03-14 07:40:13', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -454,25 +421,14 @@ INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`,
 
 CREATE TABLE `tbl_order_detail` (
   `order_detail_id` int(10) UNSIGNED NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
+  `order_id` int(11) UNSIGNED NOT NULL,
+  `book_id` int(11) UNSIGNED NOT NULL,
   `book_name` varchar(255) NOT NULL,
   `book_price` varchar(50) NOT NULL,
   `book_sale_quantity` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tbl_order_detail`
---
-
-INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
-(36, 29, 19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', '138000', 1, '2025-03-12 02:24:15', NULL),
-(38, 31, 20, 'Sau muoi chin', '10000', 1, '2025-03-12 02:56:41', NULL),
-(39, 32, 20, 'Sau muoi chin', '10000', 1, '2025-03-12 02:57:42', NULL),
-(40, 33, 19, 'Goth - Những Kẻ Hắc Ám (Tái Bản 2024)', '138000', 2, '2025-03-14 07:40:13', NULL),
-(41, 33, 18, 'Cây Cam Ngọt Của Tôi', '100000', 3, '2025-03-14 07:40:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -516,11 +472,7 @@ CREATE TABLE `tbl_publisher` (
 --
 
 INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_description`, `publisher_keywords`, `created_at`, `updated_at`) VALUES
-(2, 'NXB Kim Đồng', '<p>123456</p>', 'kim dong,kim đồng', NULL, NULL),
-(3, 'NXB ABC', '<p>12sss</p>', 'abc', NULL, NULL),
-(4, 'Hà Nội', '<p>Nh&agrave; xuất bản&nbsp;H&agrave; Nội l&agrave; nh&agrave; xuất bản c&oacute; trụ sở tại&nbsp;H&agrave; Nội</p>', 'ha noi,hà nội', NULL, NULL),
-(5, 'Hải Phòng', '<p>nxb hải ph&ograve;ng lala</p>', 'hai phong,hải phòng', NULL, NULL),
-(6, 'B69', '<p>nh&agrave; xuất bản số 69 đầy hứa hẹn</p>', '69,sau,chin', NULL, NULL);
+(1, 'NXB Hội Nhà Văn', '<p>NXB Hội Nh&agrave; Văn (Nh&agrave; xuất bản Hội Nh&agrave; Văn) l&agrave; một nh&agrave; xuất bản thuộc Hội Nh&agrave; Văn Việt Nam, được th&agrave;nh lập nhằm mục đ&iacute;ch xuất bản, ph&aacute;t h&agrave;nh c&aacute;c t&aacute;c phẩm văn học nghệ thuật, bao gồm thơ, truyện ngắn, tiểu thuyết, ph&ecirc; b&igrave;nh văn học, l&yacute; luận văn học v&agrave; c&aacute;c c&ocirc;ng tr&igrave;nh nghi&ecirc;n cứu văn học kh&aacute;c.</p>\r\n\r\n<p>Được th&agrave;nh lập từ năm 1957, nh&agrave; xuất bản n&agrave;y kh&ocirc;ng chỉ tạo điều kiện cho c&aacute;c nh&agrave; văn, nh&agrave; thơ khẳng định t&agrave;i năng m&agrave; c&ograve;n g&oacute;p phần bảo tồn v&agrave; ph&aacute;t huy c&aacute;c gi&aacute; trị văn h&oacute;a truyền thống. B&ecirc;n cạnh đ&oacute;, NXB Hội Nh&agrave; Văn c&ograve;n đ&oacute;ng vai tr&ograve; quan trọng trong việc giới thiệu c&aacute;c t&aacute;c phẩm văn học Việt Nam ra thế giới th&ocirc;ng qua hoạt động dịch thuật v&agrave; xuất bản.</p>', 'hoi nha van, hội nhà văn, nxb hội nhà văn', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -529,10 +481,10 @@ INSERT INTO `tbl_publisher` (`publisher_id`, `publisher_name`, `publisher_descri
 --
 
 CREATE TABLE `tbl_quanhuyen` (
-  `maqh` int(10) NOT NULL,
+  `maqh` int(10) UNSIGNED NOT NULL,
   `tenqh` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `matp` int(10) NOT NULL
+  `matp` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -1262,7 +1214,7 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `tenqh`, `type`, `matp`) VALUES
 
 CREATE TABLE `tbl_shipping` (
   `shipping_id` int(10) UNSIGNED NOT NULL,
-  `customer_id` int(10) NOT NULL,
+  `customer_id` int(10) UNSIGNED NOT NULL,
   `shipping_name` varchar(255) NOT NULL,
   `shipping_email` varchar(255) NOT NULL,
   `shipping_phone` varchar(255) NOT NULL,
@@ -1300,7 +1252,7 @@ CREATE TABLE `tbl_social` (
 --
 
 CREATE TABLE `tbl_tinhthanhpho` (
-  `matp` int(10) NOT NULL,
+  `matp` int(10) UNSIGNED NOT NULL,
   `tentp` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=COMPACT;
@@ -1381,10 +1333,10 @@ INSERT INTO `tbl_tinhthanhpho` (`matp`, `tentp`, `type`) VALUES
 --
 
 CREATE TABLE `tbl_xaphuongthitran` (
-  `xaid` int(10) NOT NULL,
+  `xaid` int(10) UNSIGNED NOT NULL,
   `tenxp` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `maqh` int(10) NOT NULL
+  `maqh` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -12651,7 +12603,10 @@ ALTER TABLE `tbl_banner`
 -- Indexes for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  ADD PRIMARY KEY (`book_id`);
+  ADD PRIMARY KEY (`book_id`),
+  ADD KEY `category_id` (`category_id`,`author_id`,`publisher_id`),
+  ADD KEY `publisher_id` (`publisher_id`),
+  ADD KEY `author_id` (`author_id`);
 
 --
 -- Indexes for table `tbl_category_product`
@@ -12675,25 +12630,34 @@ ALTER TABLE `tbl_customer`
 -- Indexes for table `tbl_feeship`
 --
 ALTER TABLE `tbl_feeship`
-  ADD PRIMARY KEY (`fee_id`);
+  ADD PRIMARY KEY (`fee_id`),
+  ADD KEY `fee_matp` (`fee_matp`,`fee_maqh`,`fee_xaid`),
+  ADD KEY `fee_maqh` (`fee_maqh`),
+  ADD KEY `fee_xaid` (`fee_xaid`);
 
 --
 -- Indexes for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  ADD PRIMARY KEY (`gallery_id`);
+  ADD PRIMARY KEY (`gallery_id`),
+  ADD KEY `book_id` (`book_id`);
 
 --
 -- Indexes for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  ADD PRIMARY KEY (`order_id`);
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `customer_id` (`customer_id`,`shipping_id`,`payment_id`),
+  ADD KEY `payment_id` (`payment_id`),
+  ADD KEY `shipping_id` (`shipping_id`);
 
 --
 -- Indexes for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  ADD PRIMARY KEY (`order_detail_id`);
+  ADD PRIMARY KEY (`order_detail_id`),
+  ADD KEY `order_id` (`order_id`,`book_id`),
+  ADD KEY `book_id` (`book_id`);
 
 --
 -- Indexes for table `tbl_payment`
@@ -12711,13 +12675,15 @@ ALTER TABLE `tbl_publisher`
 -- Indexes for table `tbl_quanhuyen`
 --
 ALTER TABLE `tbl_quanhuyen`
-  ADD PRIMARY KEY (`maqh`);
+  ADD PRIMARY KEY (`maqh`),
+  ADD KEY `matp` (`matp`);
 
 --
 -- Indexes for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  ADD PRIMARY KEY (`shipping_id`);
+  ADD PRIMARY KEY (`shipping_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `tbl_social`
@@ -12735,7 +12701,8 @@ ALTER TABLE `tbl_tinhthanhpho`
 -- Indexes for table `tbl_xaphuongthitran`
 --
 ALTER TABLE `tbl_xaphuongthitran`
-  ADD PRIMARY KEY (`xaid`);
+  ADD PRIMARY KEY (`xaid`),
+  ADD KEY `maqh` (`maqh`);
 
 --
 -- Indexes for table `users`
@@ -12775,7 +12742,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_banner`
@@ -12787,13 +12754,13 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -12817,19 +12784,19 @@ ALTER TABLE `tbl_feeship`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -12841,7 +12808,7 @@ ALTER TABLE `tbl_payment`
 -- AUTO_INCREMENT for table `tbl_publisher`
 --
 ALTER TABLE `tbl_publisher`
-  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping`
@@ -12860,6 +12827,65 @@ ALTER TABLE `tbl_social`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_book`
+--
+ALTER TABLE `tbl_book`
+  ADD CONSTRAINT `tbl_book_ibfk_1` FOREIGN KEY (`publisher_id`) REFERENCES `tbl_publisher` (`publisher_id`),
+  ADD CONSTRAINT `tbl_book_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `tbl_category_product` (`category_id`),
+  ADD CONSTRAINT `tbl_book_ibfk_3` FOREIGN KEY (`author_id`) REFERENCES `tbl_author` (`author_id`);
+
+--
+-- Constraints for table `tbl_feeship`
+--
+ALTER TABLE `tbl_feeship`
+  ADD CONSTRAINT `tbl_feeship_ibfk_1` FOREIGN KEY (`fee_matp`) REFERENCES `tbl_tinhthanhpho` (`matp`),
+  ADD CONSTRAINT `tbl_feeship_ibfk_2` FOREIGN KEY (`fee_maqh`) REFERENCES `tbl_quanhuyen` (`maqh`),
+  ADD CONSTRAINT `tbl_feeship_ibfk_3` FOREIGN KEY (`fee_xaid`) REFERENCES `tbl_xaphuongthitran` (`xaid`);
+
+--
+-- Constraints for table `tbl_gallerry`
+--
+ALTER TABLE `tbl_gallerry`
+  ADD CONSTRAINT `tbl_gallerry_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`);
+
+--
+-- Constraints for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  ADD CONSTRAINT `tbl_order_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `tbl_payment` (`payment_id`),
+  ADD CONSTRAINT `tbl_order_ibfk_2` FOREIGN KEY (`shipping_id`) REFERENCES `tbl_shipping` (`shipping_id`),
+  ADD CONSTRAINT `tbl_order_ibfk_3` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customer` (`customer_id`);
+
+--
+-- Constraints for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  ADD CONSTRAINT `tbl_order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `tbl_order` (`order_id`),
+  ADD CONSTRAINT `tbl_order_detail_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `tbl_book` (`book_id`);
+
+--
+-- Constraints for table `tbl_quanhuyen`
+--
+ALTER TABLE `tbl_quanhuyen`
+  ADD CONSTRAINT `tbl_quanhuyen_ibfk_1` FOREIGN KEY (`matp`) REFERENCES `tbl_tinhthanhpho` (`matp`);
+
+--
+-- Constraints for table `tbl_shipping`
+--
+ALTER TABLE `tbl_shipping`
+  ADD CONSTRAINT `tbl_shipping_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customer` (`customer_id`);
+
+--
+-- Constraints for table `tbl_xaphuongthitran`
+--
+ALTER TABLE `tbl_xaphuongthitran`
+  ADD CONSTRAINT `tbl_xaphuongthitran_ibfk_1` FOREIGN KEY (`maqh`) REFERENCES `tbl_quanhuyen` (`maqh`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

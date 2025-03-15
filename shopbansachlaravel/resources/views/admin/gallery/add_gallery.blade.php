@@ -17,7 +17,6 @@
             @csrf
         <div class="row">
             <div class="col-md-3" style="text-align: right;">
-        
             </div>
             <div class="col-md-6">
                 <input type="file" class="form-control" id="file" name="file[]" accept="image/*" multiple>

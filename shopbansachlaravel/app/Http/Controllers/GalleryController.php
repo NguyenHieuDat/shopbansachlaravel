@@ -84,19 +84,24 @@ class GalleryController extends Controller
 
         public function insert_gallery(Request $request,$gal_id){
             $get_image = $request->file('file');
+            
+            
             if($get_image){
+              $get_image = array_reverse($get_image); // Đảo ngược thứ tự ảnh
                 foreach($get_image as $image){
                     $getimageName = $image->getClientOriginalName();
                     $nameimage = current(explode('.',$getimageName));
                     $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-                    // Di chuyển ảnh vào thư mục public/upload/book/
+                    
                     $image->move('public/upload/gallery',$imageName);
+
                     $gallery = new GalleryModel();
                     $gallery->gallery_name = $imageName;
                     $gallery->gallery_image = $imageName;
                     $gallery->book_id = $gal_id;
                     $gallery->save();
                 }
+                
             }
             Session::put('message','Thêm ảnh vào thư viện thành công!');
             return redirect()->back();   
