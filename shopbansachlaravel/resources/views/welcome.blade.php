@@ -658,6 +658,50 @@
 </script>
 
 <script>
+    const customerId = "{{ Session::get('customer_id') }}";
+
+    document.querySelector('.btn-checkstore').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        fetch("{{ url('/check_storage') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'error') {
+                const errorMessages = data.messages.map(item => {
+                    return `<li style="list-style-type: none; margin-bottom: 8px; color: #d9534f;">
+                                Sản phẩm <strong><em>${item.book_name}</em></strong> chỉ còn <strong><em>${item.book_qty}</em></strong> cuốn trong kho.
+                            </li>`;
+                }).join('');
+
+                Swal.fire({
+                    title: '<h3 style="color: #d33;">Lỗi!</h3>',
+                    html: `<div style="text-align: left;"><ul style="margin: 0; padding: 0;">${errorMessages}</ul></div>`,
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33'
+                });
+            } else {
+                // Kiểm tra customer_id để chuyển hướng đúng trang
+                if (customerId) {
+                    window.location.href = '{{ URL::to("/checkout") }}';
+                } else {
+                    window.location.href = '{{ URL::to("/login_checkout") }}';
+                }
+            }
+        })
+        .catch(error => console.error('Lỗi:', error));
+    });
+</script>
+
+
+<script>
     $(document).ready(function () {
         var previousUrl = document.referrer; // Lấy URL trước khi vào trang login
     

@@ -30,7 +30,7 @@
             <ul id="imageGallery">
                 @foreach ($gallery as $key => $gall)
                 <li data-thumb="{{asset('public/upload/gallery/'.$gall->gallery_image)}}" data-src="{{asset('public/upload/gallery/'.$gall->gallery_image)}}">
-                  <img width="100%" height="600px" alt="{{$gall->gallery_name}}" src="{{asset('public/upload/gallery/'.$gall->gallery_image)}}">
+                  <img style="width: 100%; height: 600px; object-fit: contain;" alt="{{$gall->gallery_name}}" src="{{asset('public/upload/gallery/'.$gall->gallery_image)}}">
                 </li>
                 @endforeach
               </ul>

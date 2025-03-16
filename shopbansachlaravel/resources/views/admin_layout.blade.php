@@ -64,8 +64,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     		for (var i = 0; i < files.length; i++) {
         	totalSize += files[i].size; // Tính tổng kích thước của các tệp
     		}
-    		if (totalSize > 2000000) { // 2 MB = 2,000,000 bytes
-        		error += '<p>Ảnh không được lớn hơn 2 MB!</p>';
+    		if (totalSize > 10000000) { // 10 MB = 10,000,000 bytes
+        		error += '<p>Ảnh không được lớn hơn 10 MB!</p>';
     		}
 			if(error==''){
 

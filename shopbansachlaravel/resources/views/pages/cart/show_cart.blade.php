@@ -119,14 +119,7 @@
                         <h5>Tổng Tiền:</h5>
                         <h4>{{ number_format($total, 0, ',', '.') }}đ</h4>
                     </div>
-                    @php
-                        $customer_id = Session::get('customer_id');
-                    @endphp
-                    @if($customer_id != null)
-                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/checkout') }}'">Thanh Toán</button>
-                    @else
-                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3" onclick="window.location.href='{{ URL::to('/login_checkout') }}'">Thanh Toán</button>
-                    @endif
+                    <button type="submit" class="btn btn-block btn-danger font-weight-bold my-3 py-3 btn-checkstore">Đi đến thanh Toán</button>
                 </div>
             </div>
         </div>

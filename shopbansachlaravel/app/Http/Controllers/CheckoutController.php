@@ -340,4 +340,41 @@ class CheckoutController extends Controller
         ]);
     }
 
+    public function check_storage(Request $request){
+        $cart = Session::get('cart', []);
+        $errorMessages = [];
+
+        if (!$cart || count($cart) == 0) {
+            return response()->json([
+                'status' => 'error',
+                'messages' => ['Giỏ hàng của bạn đang trống!']
+            ]);
+        }
+
+        foreach ($cart as $key => $cartItem) {
+            $book = DB::table('tbl_book')->where('book_id', $cartItem['book_id'])->first();
+            
+            if ($book) {
+                if ($cartItem['book_qty'] > $book->book_quantity) {
+                    $errorMessages[] = [
+                        'book_name' => $cartItem['book_name'],
+                        'book_qty' => $book->book_quantity
+                    ];
+                }
+            }
+        }
+
+        if (!empty($errorMessages)) {
+            return response()->json([
+                'status' => 'error',
+                'messages' => $errorMessages
+            ]);
+        }
+
+        // Nếu không có lỗi
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
 }
