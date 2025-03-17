@@ -9869,3 +9869,8 @@ a.text-dark:hover, a.text-dark:focus {
 .dropdown-account button:hover {
   background: #b52b3a;
 }
+
+.book-name {
+  word-wrap: break-word; /* Tự động xuống dòng khi chạm tới rìa */
+  white-space: normal;    /* Cho phép xuống dòng nếu quá dài */
+}

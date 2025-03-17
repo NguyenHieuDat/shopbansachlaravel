@@ -10,12 +10,14 @@ use App\Models\SocialModel;
 use Socialite;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Hash;
 session_start();
 
 class AdminController extends Controller
 {
     public function check_login(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }
@@ -36,7 +38,7 @@ class AdminController extends Controller
     public function dashboard(Request $request){
         $data = $request->all();
         $admin_email = $data['admin_email'];
-        $admin_password = $data['admin_password'];
+        $admin_password = bcrypt($data['admin_password']);
 
         $login = Login::where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
         if($login){
@@ -49,7 +51,22 @@ class AdminController extends Controller
             return Redirect::to('/admin');
             }
         }
+    // public function dashboard(Request $request){
+    //     $data = $request->all();
+    //     $admin_email = $data['admin_email'];
+    //     $admin_password = $data['admin_password'];
 
+    //     $login = Login::where('admin_email', $admin_email)->first();
+
+    //     if ($login && Hash::check($admin_password, $login->admin_password)) {
+    //         Session::put('admin_name', $login->admin_name);
+    //         Session::put('admin_id', $login->admin_id);
+    //         return Redirect::to('/dashboard');
+    //     } else {
+    //         Session::put('fail_message', 'Sai email hoặc mật khẩu!');
+    //         return Redirect::to('/admin');
+    //     }
+    // }
     public function logout(){
         $this->check_login();
         Session::put('admin_name',null);

@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate">{{$book->book_name}}</a>
+                    <a class="h6 text-decoration-none text-truncate book-name" style="max-width: 150px; margin: 0 auto;">{{$book->book_name}}</a>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5>{{number_format($book->book_price).' '.'đ'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($book->book_price).' '.'VND'}}</del></h6>
                     </div>
@@ -106,7 +106,7 @@
 <!-- Products End -->
 
 
-<!-- Vendor Start -->
+{{-- <!-- Vendor Start -->
 <div class="container-fluid py-5">
     <div class="row px-xl-5">
         <div class="col">
@@ -139,5 +139,5 @@
         </div>
     </div>
 </div>
-<!-- Vendor End -->
+<!-- Vendor End --> --}}
 @endsection

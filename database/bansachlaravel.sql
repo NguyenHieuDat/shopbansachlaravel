@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2025 at 09:48 AM
+-- Generation Time: Mar 17, 2025 at 10:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -188,7 +188,8 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
-(1, 'datnguyen@gmail.com', '123456', 'datnguyen', '0123456789', '2025-02-11 03:42:07', NULL);
+(1, 'datnguyen@gmail.com', '$2y$12$ssd97QsyrT2Axj0AwvKNY.Ij69UwcfTf42BuJ4T.oeaeufwUFvccG', 'Dat Nguyen Hieu', '0123456789', NULL, NULL),
+(2, 'datnguyen2@gmail.com', '$2y$12$Nj4IkEcj6X7fIReM7La3TO8LyVQPpR0DA5Becsm1vADPQgGpNAJsK', 'Dat nguyen', '0123456788', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1224,6 +1225,17 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `tenqh`, `type`, `matp`) VALUES
 (971, 'Huyện Năm Căn', 'Huyện', 96),
 (972, 'Huyện Phú Tân', 'Huyện', 96),
 (973, 'Huyện Ngọc Hiển', 'Huyện', 96);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_roles`
+--
+
+CREATE TABLE `tbl_roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -12698,6 +12710,12 @@ ALTER TABLE `tbl_quanhuyen`
   ADD KEY `matp` (`matp`);
 
 --
+-- Indexes for table `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  ADD PRIMARY KEY (`role_id`);
+
+--
 -- Indexes for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
@@ -12755,7 +12773,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_author`
@@ -12828,6 +12846,12 @@ ALTER TABLE `tbl_payment`
 --
 ALTER TABLE `tbl_publisher`
   MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping`

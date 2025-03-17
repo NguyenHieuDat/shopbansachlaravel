@@ -236,12 +236,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="">
                 <span class="username">
-				<?php
-					$name = Session::get('admin_name');
-					if($name){
-						echo $name;
-					}
-				?>
+					{{ Auth::user()->admin_name ?? 'Tài khoản khách' }}
 				</span>
                 <b class="caret"></b>
             </a>

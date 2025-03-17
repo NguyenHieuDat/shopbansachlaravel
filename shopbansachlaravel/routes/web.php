@@ -1,122 +1,153 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryProduct;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\AuthController;
 
 //Home
-Route::get('/', 'App\Http\Controllers\HomeController@index');
-Route::get('/trang_chu', 'App\Http\Controllers\HomeController@index');
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/trang_chu', 'index');
+    Route::post('/tim_kiem', 'tim_kiem');
+    Route::get('/user_account', 'view_account');
+    Route::post('/update_user_account', 'update_user_account');
+    Route::post('/update_user_shipping', 'update_user_shipping');
+});
 
-Route::get('/danh_muc_sach/{category_id}', 'App\Http\Controllers\CategoryProduct@category_home');
-Route::get('/danh_muc_tac_gia/{author_id}', 'App\Http\Controllers\AuthorController@author_home');
-Route::get('/danh_muc_nha_xb/{publisher_id}', 'App\Http\Controllers\PublisherController@publisher_home');
-Route::get('/chi_tiet_sach/{books_id}', 'App\Http\Controllers\BookController@book_detail');
+Route::controller(CategoryProduct::class)->group(function () {
+    Route::get('/danh_muc_sach/{category_id}', 'category_home');
+    Route::get('/add_category_product', 'add_category_product');
+    Route::get('/all_category_product', 'all_category_product');
+    Route::post('/save_category_product', 'save_category_product');
+    Route::get('/edit_category_product/{category_product_id}', 'edit_category_product');
+    Route::get('/delete_category_product/{category_product_id}', 'delete_category_product');
+    Route::post('/update_category_product/{category_product_id}', 'update_category_product');
+});
 
-Route::post('/tim_kiem', 'App\Http\Controllers\HomeController@tim_kiem');
-Route::get('/user_account', 'App\Http\Controllers\HomeController@view_account');
-Route::post('/update_user_account', 'App\Http\Controllers\HomeController@update_user_account');
-Route::post('/update_user_shipping', 'App\Http\Controllers\HomeController@update_user_shipping');
+Route::controller(AuthorController::class)->group(function () {
+    Route::get('/danh_muc_tac_gia/{author_id}', 'author_home');
+    Route::get('/add_author', 'add_author');
+    Route::get('/all_author', 'all_author');
+    Route::post('/save_author', 'save_author');
+    Route::get('/edit_author/{aut_id}', 'edit_author');
+    Route::get('/delete_author/{aut_id}', 'delete_author');
+    Route::post('/update_author/{aut_id}', 'update_author');
+});
 
-//Admin
-Route::get('/admin', 'App\Http\Controllers\AdminController@index');
-Route::get('/dashboard', 'App\Http\Controllers\AdminController@dashboard_layout');
-Route::match(['get', 'post'], '/admin_dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin_dashboard');
-Route::get('/logout', 'App\Http\Controllers\AdminController@logout');
+Route::controller(PublisherController::class)->group(function () {
+    Route::get('/danh_muc_nha_xb/{publisher_id}', 'publisher_home');
+    Route::get('/add_publisher', 'add_publisher');
+    Route::get('/all_publisher', 'all_publisher');
+    Route::post('/save_publisher', 'save_publisher');
+    Route::get('/edit_publisher/{publish_id}', 'edit_publisher');
+    Route::get('/delete_publisher/{publish_id}', 'delete_publisher');
+    Route::post('/update_publisher/{publish_id}', 'update_publisher');
+});
 
-Route::get('/login_facebook', 'App\Http\Controllers\AdminController@login_fb');
-Route::get('/admin/callback', 'App\Http\Controllers\AdminController@callback_fb');
+Route::controller(BookController::class)->group(function () {
+    Route::get('/chi_tiet_sach/{books_id}', 'book_detail');
+    Route::get('/add_book', 'add_book');
+    Route::get('/all_book', 'all_book');
+    Route::post('/save_book', 'save_book');
+    Route::get('/edit_book/{books_id}', 'edit_book');
+    Route::get('/delete_book/{books_id}', 'delete_book');
+    Route::post('/update_book/{books_id}', 'update_book');
+    Route::get('/unactive_book/{books_id}', 'unactive_book');
+    Route::get('/active_book/{books_id}', 'active_book');
+});
 
+Route::controller(GalleryController::class)->group(function () {
+    Route::get('/add_gallery/{book_id}', 'add_gallery');
+    Route::match(['get', 'post'], '/select_gallery', 'select_gallery');
+    Route::post('/insert_gallery/{gal_id}', 'insert_gallery');
+    Route::post('/update_gallery', 'update_gallery');
+    Route::post('/delete_gallery', 'delete_gallery');
+    Route::post('/update_gallery_name', 'update_gallery_name');
+});
 
-//Danh muc sach
-Route::get('/add_category_product', 'App\Http\Controllers\CategoryProduct@add_category_product');
-Route::get('/all_category_product', 'App\Http\Controllers\CategoryProduct@all_category_product');
-Route::post('/save_category_product', 'App\Http\Controllers\CategoryProduct@save_category_product');
-Route::get('/edit_category_product/{category_product_id}', 'App\Http\Controllers\CategoryProduct@edit_category_product');
-Route::get('/delete_category_product/{category_product_id}', 'App\Http\Controllers\CategoryProduct@delete_category_product');
-Route::post('/update_category_product/{category_product_id}', 'App\Http\Controllers\CategoryProduct@update_category_product');
+Route::controller(CartController::class)->group(function () {
+    Route::get('/gio_hang', 'show_cart_ajax');
+    Route::post('/update_cart', 'update_cart_ajax');
+    Route::post('/remove_cart', 'remove_cart_ajax');
+    Route::match(['get', 'post'], '/add_cart', 'add_cart_ajax');
+    Route::post('/check_coupon', 'check_coupon');
+});
 
-//Tac gia
-Route::get('/add_author', 'App\Http\Controllers\AuthorController@add_author');
-Route::get('/all_author', 'App\Http\Controllers\AuthorController@all_author');
-Route::post('/save_author', 'App\Http\Controllers\AuthorController@save_author');
-Route::get('/edit_author/{aut_id}', 'App\Http\Controllers\AuthorController@edit_author');
-Route::get('/delete_author/{aut_id}', 'App\Http\Controllers\AuthorController@delete_author');
-Route::post('/update_author/{aut_id}', 'App\Http\Controllers\AuthorController@update_author');
+Route::controller(CouponController::class)->group(function () {
+    Route::get('/add_coupon', 'add_coupon');
+    Route::post('/save_coupon', 'save_coupon');
+    Route::get('/all_coupon', 'all_coupon');
+    Route::get('/delete_coupon/{coupon_id}', 'delete_coupon');
+});
 
-//Nha xuat ban
-Route::get('/add_publisher', 'App\Http\Controllers\PublisherController@add_publisher');
-Route::get('/all_publisher', 'App\Http\Controllers\PublisherController@all_publisher');
-Route::post('/save_publisher', 'App\Http\Controllers\PublisherController@save_publisher');
-Route::get('/edit_publisher/{publish_id}', 'App\Http\Controllers\PublisherController@edit_publisher');
-Route::get('/delete_publisher/{publish_id}', 'App\Http\Controllers\PublisherController@delete_publisher');
-Route::post('/update_publisher/{publish_id}', 'App\Http\Controllers\PublisherController@update_publisher');
+Route::controller(CheckoutController::class)->group(function () {
+    Route::get('/login_checkout', 'login_checkout');
+    Route::get('/logout_checkout', 'logout_checkout');
+    Route::post('/add_customer', 'add_customer');
+    Route::post('/login_customer', 'login_customer');
+    Route::get('/checkout', 'checkout');
+    Route::post('/save_checkout_customer', 'save_checkout_customer');
+    Route::post('/checkout_delivery', 'checkout_delivery');
+    Route::get('/payment', 'payment');
+    Route::post('/calculate_feeship', 'calculate_feeship');
+    Route::post('/save_previous_url', 'save_previous_url');
+    Route::post('/order_place', 'order_place');
+    Route::post('/check_storage', 'check_storage');
+});
 
-//Sach
-Route::get('/add_book', 'App\Http\Controllers\BookController@add_book');
-Route::get('/all_book', 'App\Http\Controllers\BookController@all_book');
-Route::post('/save_book', 'App\Http\Controllers\BookController@save_book');
-Route::get('/edit_book/{books_id}', 'App\Http\Controllers\BookController@edit_book');
-Route::get('/delete_book/{books_id}', 'App\Http\Controllers\BookController@delete_book');
-Route::post('/update_book/{books_id}', 'App\Http\Controllers\BookController@update_book');
-Route::get('/unactive_book/{books_id}', 'App\Http\Controllers\BookController@unactive_book');
-Route::get('/active_book/{books_id}', 'App\Http\Controllers\BookController@active_book');
+Route::controller(DeliveryController::class)->group(function () {
+    Route::match(['get', 'post'], '/delivery', 'delivery');
+    Route::post('/select_delivery', 'select_delivery');
+    Route::post('/insert_delivery', 'insert_delivery');
+    Route::post('/select_feeship', 'select_feeship');
+    Route::post('/update_delivery', 'update_delivery');
+});
 
-//Thu vien anh
-Route::get('/add_gallery/{book_id}', 'App\Http\Controllers\GalleryController@add_gallery');
-Route::match(['get', 'post'], '/select_gallery', [App\Http\Controllers\GalleryController::class, 'select_gallery']);
-Route::post('/insert_gallery/{gal_id}', 'App\Http\Controllers\GalleryController@insert_gallery');
-Route::post('/update_gallery', 'App\Http\Controllers\GalleryController@update_gallery');
-Route::post('/delete_gallery', 'App\Http\Controllers\GalleryController@delete_gallery');
-Route::post('/update_gallery_name', 'App\Http\Controllers\GalleryController@update_gallery_name');
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/all_order', 'all_order');
+    Route::get('/view_order_detail/{orders_id}', 'view_order_detail');
+    Route::get('/print_order/{orders_id}', 'print_order');
+    Route::post('/update_order_quantity', 'update_order_quantity');
+    Route::post('/update_qty', 'update_qty');
+});
 
-//Gio hang
-Route::get('/gio_hang', 'App\Http\Controllers\CartController@show_cart_ajax');
-Route::post('/update_cart', 'App\Http\Controllers\CartController@update_cart_ajax');
-Route::post('/remove_cart', 'App\Http\Controllers\CartController@remove_cart_ajax');
-Route::match(['get', 'post'], '/add_cart', [App\Http\Controllers\CartController::class, 'add_cart_ajax']);
+Route::controller(BannerController::class)->group(function () {
+    Route::get('/all_banner', 'all_banner');
+    Route::get('/add_banner', 'add_banner');
+    Route::post('/save_banner', 'save_banner');
+    Route::get('/edit_banner/{banner_id}', 'edit_banner');
+    Route::get('/delete_banner/{banner_id}', 'delete_banner');
+    Route::post('/update_banner/{banner_id}', 'update_banner');
+    Route::get('/unactive_banner/{banner_id}', 'unactive_banner');
+    Route::get('/active_banner/{banner_id}', 'active_banner');
+});
 
+Route::controller(AdminController::class)->group(function () {
+    Route::get('/admin', 'index');
+    Route::get('/dashboard', 'dashboard_layout');
+    Route::match(['get', 'post'], '/admin_dashboard', 'dashboard')->name('admin_dashboard');
+    Route::get('/logout', 'logout');
+    Route::get('/login_facebook', 'login_fb');
+    Route::get('/admin/callback', 'callback_fb');
+});
 
-//Ma giam gia
-Route::post('/check_coupon', 'App\Http\Controllers\CartController@check_coupon');
-Route::get('/add_coupon', 'App\Http\Controllers\CouponController@add_coupon');
-Route::post('/save_coupon', 'App\Http\Controllers\CouponController@save_coupon');
-Route::get('/all_coupon', 'App\Http\Controllers\CouponController@all_coupon');
-Route::get('/delete_coupon/{coupon_id}', 'App\Http\Controllers\CouponController@delete_coupon');
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/auth_register', 'auth_register');
+    Route::post('/admin_authregister', 'admin_authregister');
+    Route::get('/auth_login', 'auth_login');
+    Route::post('/admin_authlogin', 'admin_authlogin');
+    Route::get('/auth_logout', 'auth_logout');
 
-//Thanh toan
-Route::get('/login_checkout', 'App\Http\Controllers\CheckoutController@login_checkout');
-Route::get('/logout_checkout', 'App\Http\Controllers\CheckoutController@logout_checkout');
-Route::post('/add_customer', 'App\Http\Controllers\CheckoutController@add_customer');
-Route::post('/login_customer', 'App\Http\Controllers\CheckoutController@login_customer');
-Route::get('/checkout', 'App\Http\Controllers\CheckoutController@checkout');
-Route::post('/save_checkout_customer', 'App\Http\Controllers\CheckoutController@save_checkout_customer');
-Route::post('/checkout_delivery', 'App\Http\Controllers\CheckoutController@checkout_delivery');
-Route::get('/payment', 'App\Http\Controllers\CheckoutController@payment');
-Route::post('/calculate_feeship', 'App\Http\Controllers\CheckoutController@calculate_feeship');
-Route::post('/save_previous_url', 'App\Http\Controllers\CheckoutController@save_previous_url');
-Route::post('/order_place', 'App\Http\Controllers\CheckoutController@order_place');
-Route::post('/check_storage', 'App\Http\Controllers\CheckoutController@check_storage');
-
-//Van chuyen
-Route::match(['get', 'post'], '/delivery', [App\Http\Controllers\DeliveryController::class, 'delivery']);
-Route::post('/select_delivery', 'App\Http\Controllers\DeliveryController@select_delivery');
-Route::post('/insert_delivery', 'App\Http\Controllers\DeliveryController@insert_delivery');
-Route::post('/select_feeship', 'App\Http\Controllers\DeliveryController@select_feeship');
-Route::post('/update_delivery', 'App\Http\Controllers\DeliveryController@update_delivery');
-
-//Don hang
-Route::get('/all_order', 'App\Http\Controllers\OrderController@all_order');
-Route::get('/view_order_detail/{orders_id}', 'App\Http\Controllers\OrderController@view_order_detail');
-Route::get('/print_order/{orders_id}', 'App\Http\Controllers\OrderController@print_order');
-Route::post('/update_order_quantity', 'App\Http\Controllers\OrderController@update_order_quantity');
-Route::post('/update_qty', 'App\Http\Controllers\OrderController@update_qty');
-
-//Banner
-Route::get('/all_banner', 'App\Http\Controllers\BannerController@all_banner');
-Route::get('/add_banner', 'App\Http\Controllers\BannerController@add_banner');
-Route::post('/save_banner', 'App\Http\Controllers\BannerController@save_banner');
-Route::get('/edit_banner/{banner_id}', 'App\Http\Controllers\BannerController@edit_banner');
-Route::get('/delete_banner/{banner_id}', 'App\Http\Controllers\BannerController@delete_banner');
-Route::post('/update_banner/{banner_id}', 'App\Http\Controllers\BannerController@update_banner');
-Route::get('/unactive_banner/{banner_id}', 'App\Http\Controllers\BannerController@unactive_banner');
-Route::get('/active_banner/{banner_id}', 'App\Http\Controllers\BannerController@active_banner');
-
+});

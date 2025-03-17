@@ -10,17 +10,25 @@
             @foreach ($author_by_id as $key => $book_aut)
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
+                    <form>
+                        @csrf
+                        <input type="hidden" class="cart_book_id_{{$book_aut->book_id}}" value="{{$book_aut->book_id}}">
+                        <input type="hidden" class="cart_book_name_{{$book_aut->book_id}}" value="{{$book_aut->book_name}}">
+                        <input type="hidden" class="cart_book_image_{{$book_aut->book_id}}" value="{{$book_aut->book_image}}">
+                        <input type="hidden" class="cart_book_price_{{$book_aut->book_id}}" value="{{$book_aut->book_price}}">
+                        <input type="hidden" class="cart_book_qty_{{$book_aut->book_id}}" value="1">
+                        
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{URL::to('/public/upload/book/'.$book_aut->book_image)}}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-danger btn-square add-to-cart" name="add-to-cart" data-id_book="{{$book_aut->book_id}}"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-danger btn-square" href=""><i class="far fa-heart"></i></a>
                             <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                             <a class="btn btn-outline-danger btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">{{$book_aut->book_name}}</a>
+                        <a class="h6 text-decoration-none text-truncate book-name" style="max-width: 150px; margin: 0 auto;" href="">{{$book_aut->book_name}}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>{{number_format($book_aut->book_price).' '.'VND'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($book_aut->book_price).' '.'VND'}}</del></h6>
                         </div>
@@ -34,6 +42,7 @@
                         </div>
                         <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book_aut->book_id)}}">Xem Chi Tiết</a>
                     </div>
+                    </form>
                 </div>
             </div>
             @endforeach
@@ -42,38 +51,5 @@
     <!-- Products End -->
 
 
-    <!-- Vendor Start -->
-    <div class="container-fluid py-5">
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="owl-carousel vendor-carousel">
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-1.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-2.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-3.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-4.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-5.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-6.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-7.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="public/frontend/img/vendor-8.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Vendor End -->
+
 @endsection

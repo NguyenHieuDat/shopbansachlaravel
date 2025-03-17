@@ -1,12 +1,6 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <head>
-<title>Admin</title>
+<title>Trang Admin</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -29,26 +23,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <div class="log-w3">
 <div class="w3layouts-main">
-	<h2>Đăng nhập</h2>
+	<h2>Đăng nhập phân quyền</h2>
 		<?php
-			$message = Session::get('fail_message');
+			$message = Session::get('message');
 			if($message){
-				echo "<span class='text-alert'>{$message}</span>";
-				Session::put('fail_message',null);
+				echo "<span class='text-success'>{$message}</span>";
+				Session::put('message',null);
 			}
 		?>
-		<form action="{{URL::to('/admin_dashboard')}}" method="post">
-			{{ csrf_field() }}
-			<input type="text" class="ggg" name="admin_email" placeholder="E-Mail" required="">
-			<input type="password" class="ggg" name="admin_password" placeholder="Mật khẩu" required="">
-			<span><input type="checkbox" />Nhớ tài khoản</span>
+		<form action="{{URL::to('/admin_authlogin')}}" method="post">
+			{{ csrf_field() }}	
+			@error('admin_email')
+                <div style="color: red;">{{ $message }}</div>
+            @enderror
+			<input type="text" class="ggg" name="admin_email" placeholder="E-Mail" value="{{ old('admin_email') }}">
+            @error('admin_password')
+                <div style="color: red;">{{ $message }}</div>
+            @enderror
+			<input type="password" class="ggg" name="admin_password" placeholder="Mật khẩu" >
+            <span><input type="checkbox" />Nhớ tài khoản</span>
 			<h6><a href="#">Quên mật khẩu?</a></h6>
-				<div class="clearfix"></div>
-				<input type="submit" value="Đăng nhập" name="login">
+			<div class="clearfix"></div>
+			<input type="submit" value="Đăng nhập" name="authlogin">
 		</form>
 		<!--  <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p>  -->
-		<a href="{{URL::to('/auth_login')}}">Đăng nhập phân quyền</a> | 
-		<a href="{{URL::to('/auth_register')}}">Đăng ký phân quyền</a>
+		<a href="{{URL::to('/admin')}}">Quay trở lại đăng nhập</a>
 </div>
 </div>
 <script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
