@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 10:08 AM
+-- Generation Time: Mar 18, 2025 at 10:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `bansachlaravel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_roles`
+--
+
+CREATE TABLE `admin_roles` (
+  `admin_roles_id` int(11) NOT NULL,
+  `admin_admin_id` int(10) UNSIGNED NOT NULL,
+  `roles_role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_roles`
+--
+
+INSERT INTO `admin_roles` (`admin_roles_id`, `admin_admin_id`, `roles_role_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 2),
+(4, 4, 2),
+(5, 5, 2),
+(6, 6, 2),
+(7, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -188,8 +213,13 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_phone`, `created_at`, `updated_at`) VALUES
-(1, 'datnguyen@gmail.com', '$2y$12$ssd97QsyrT2Axj0AwvKNY.Ij69UwcfTf42BuJ4T.oeaeufwUFvccG', 'Dat Nguyen Hieu', '0123456789', NULL, NULL),
-(2, 'datnguyen2@gmail.com', '$2y$12$Nj4IkEcj6X7fIReM7La3TO8LyVQPpR0DA5Becsm1vADPQgGpNAJsK', 'Dat nguyen', '0123456788', NULL, NULL);
+(1, 'datnguyenadmin@gmail.com', '$2y$12$4H958uu7b78OfCVldnYgHOcNKIELULNWDacYTc3bLRTbfRyY1dtei', 'datnguyenadmin', '0123456789', NULL, NULL),
+(2, 'datnguyenuser@gmail.com', '$2y$12$IHkBPXBaeANdCm5Xg3KMbeJz22OYsbHvoKXZ9FH3.vrr2FAj0IoJO', 'datnguyenuser', '0123456789', NULL, NULL),
+(3, 'ladarius.bosco@example.net', '$2y$12$3fZJ8bjD6cMczF.KqvZLm.0ZMNdSaN08NcMvdD7XXpFSUIrqmPyDa', 'Dr. Katharina Hill PhD', '1-615-424-2252', NULL, NULL),
+(4, 'curt.kertzmann@example.com', '$2y$12$d9ODEfKeSKyAl2NeOOeBu.ET.nfwHRdPOBVHRIYh4HPJIPJ.20Vvu', 'Ms. Lera Lesch', '1-445-481-4301', NULL, NULL),
+(5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL),
+(6, 'cathryn.wilkinson@example.org', '$2y$12$wa/lHEk2fnKfkYpDqfhaZOYQXTbRG26I30SriW6t0d7PL0AESJcXq', 'Gail Klocko', '1-559-503-8796', NULL, NULL),
+(7, 'okeefe.vena@example.org', '$2y$12$PTZWMXqx4jUUzzMlaB2pmuXcdCpwKKEcdll/G/F5uFSeoT7/y6rQG', 'Mr. Bernardo Rodriguez', '+1.720.828.5919', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1236,6 +1266,14 @@ CREATE TABLE `tbl_roles` (
   `role_id` int(11) NOT NULL,
   `role_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_roles`
+--
+
+INSERT INTO `tbl_roles` (`role_id`, `role_name`) VALUES
+(1, 'admin'),
+(2, 'user');
 
 -- --------------------------------------------------------
 
@@ -12567,6 +12605,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  ADD PRIMARY KEY (`admin_roles_id`);
+
+--
 -- Indexes for table `cache`
 --
 ALTER TABLE `cache`
@@ -12752,6 +12796,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_roles`
+--
+ALTER TABLE `admin_roles`
+  MODIFY `admin_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -12773,7 +12823,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_author`
@@ -12851,7 +12901,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_shipping`

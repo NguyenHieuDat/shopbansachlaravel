@@ -349,6 +349,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </ul>
                 </li>
 
+				<li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý user</span>
+                    </a>
+                    <ul class="sub">
+						<li><a href="{{URL::to('/add_users')}}">Thêm user</a></li>
+						<li><a href="{{URL::to('/users')}}">Liệt kê user</a></li>
+                    </ul>
+                </li>
+
+
             </ul>            
         </div>
         <!-- sidebar menu end-->

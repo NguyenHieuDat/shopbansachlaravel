@@ -15,6 +15,8 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 
 //Home
 Route::controller(HomeController::class)->group(function () {
@@ -149,5 +151,13 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/auth_login', 'auth_login');
     Route::post('/admin_authlogin', 'admin_authlogin');
     Route::get('/auth_logout', 'auth_logout');
+
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/users', 'index');
+    Route::get('/add_users', 'add_users');
+    Route::post('/store_users', 'store_users');
+    Route::post('/assign_roles', 'assign_roles');   
 
 });
