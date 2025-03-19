@@ -12,7 +12,7 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Hash;
-session_start();
+
 
 class AdminController extends Controller
 {

@@ -7,7 +7,7 @@ use DB;
 use App\Http\Requests;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 
 class CategoryProduct extends Controller
 {

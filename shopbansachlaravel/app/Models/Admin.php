@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Roles;
 
 class Admin extends Authenticatable
 {
@@ -18,7 +19,7 @@ class Admin extends Authenticatable
  	protected $table = 'tbl_admin';
 
  	public function roles(){
- 		return $this->belongsToMany('App\Models\Roles');
+ 		return $this->belongsToMany(Roles::class, 'admin_roles', 'admin_admin_id', 'roles_role_id');
  	}
 
 	public function getAuthPassword(){

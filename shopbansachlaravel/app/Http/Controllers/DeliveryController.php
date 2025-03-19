@@ -10,7 +10,7 @@ use App\Models\Ward;
 use App\Models\Feeship;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 
 class DeliveryController extends Controller
 {

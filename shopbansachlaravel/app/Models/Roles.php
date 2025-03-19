@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin;
 
 class Roles extends Model
 {
@@ -14,6 +15,6 @@ class Roles extends Model
  	protected $table = 'tbl_roles';
 
  	public function admin(){
- 		return $this->belongsToMany('App\Models\Admin');
+ 		return $this->belongsToMany(Admin::class, 'admin_roles', 'roles_role_id', 'admin_admin_id');
  	}
 }

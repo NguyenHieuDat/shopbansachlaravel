@@ -348,7 +348,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('/all_banner')}}">Liệt kê banner</a></li>
                     </ul>
                 </li>
-
+				@hasrole('admin')
 				<li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
@@ -359,7 +359,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('/users')}}">Liệt kê user</a></li>
                     </ul>
                 </li>
-
+				@endhasrole
 
             </ul>            
         </div>

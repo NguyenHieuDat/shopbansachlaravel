@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Models\GalleryModel;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 
 class GalleryController extends Controller
 {

@@ -9,14 +9,15 @@ use App\Models\GalleryModel;
 use Session;
 use File;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+use Illuminate\Support\Facades\Auth;
+
 
 class BookController extends Controller
 {
     //Ham admin
 
     public function check_login(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }

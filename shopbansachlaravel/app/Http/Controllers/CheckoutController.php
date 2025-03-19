@@ -16,7 +16,7 @@ use Session;
 use App\Rules\Captcha;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 
 class CheckoutController extends Controller
 {

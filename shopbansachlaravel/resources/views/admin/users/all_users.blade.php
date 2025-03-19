@@ -60,7 +60,7 @@
                 <td>{{ $user->admin_name }}</td>
                 <td>{{ $user->admin_email }} <input type="hidden" name="admin_email" value="{{ $user->admin_email }}"></td>
                 <td>{{ $user->admin_phone }}</td>
-                <td>{{ $user->admin_password }}</td>
+                <td>{{ \Illuminate\Support\Str::limit($user->admin_password, 15, '...') }}</td>
                 <td><input type="checkbox" name="admin_role"  {{$user->hasRole('admin') ? 'checked' : ''}}></td>
                 <td><input type="checkbox" name="user_role"  {{$user->hasRole('user') ? 'checked' : ''}}></td>
               <td>  

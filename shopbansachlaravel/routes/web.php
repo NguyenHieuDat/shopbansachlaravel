@@ -60,14 +60,17 @@ Route::controller(PublisherController::class)->group(function () {
 
 Route::controller(BookController::class)->group(function () {
     Route::get('/chi_tiet_sach/{books_id}', 'book_detail');
-    Route::get('/add_book', 'add_book');
     Route::get('/all_book', 'all_book');
     Route::post('/save_book', 'save_book');
-    Route::get('/edit_book/{books_id}', 'edit_book');
     Route::get('/delete_book/{books_id}', 'delete_book');
     Route::post('/update_book/{books_id}', 'update_book');
     Route::get('/unactive_book/{books_id}', 'unactive_book');
     Route::get('/active_book/{books_id}', 'active_book');
+});
+
+Route::controller(BookController::class)->middleware(['auth', 'auth.roles:admin'])->group(function () {
+    Route::get('/add_book', 'add_book');
+    Route::get('/edit_book/{books_id}', 'edit_book');
 });
 
 Route::controller(GalleryController::class)->group(function () {
@@ -155,9 +158,12 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/users', 'index');
-    Route::get('/add_users', 'add_users');
     Route::post('/store_users', 'store_users');
-    Route::post('/assign_roles', 'assign_roles');   
-
+});
+Route::group(['middleware' => ['auth.roles']], function () {
+Route::controller(UserController::class)->group(function () {
+    Route::get('/users', 'index');
+    Route::post('/assign_roles', 'assign_roles');
+    Route::get('/add_users', 'add_users');
+});
 });

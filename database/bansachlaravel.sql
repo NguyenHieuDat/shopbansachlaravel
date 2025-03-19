@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2025 at 10:04 AM
+-- Generation Time: Mar 19, 2025 at 10:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,12 +39,12 @@ CREATE TABLE `admin_roles` (
 
 INSERT INTO `admin_roles` (`admin_roles_id`, `admin_admin_id`, `roles_role_id`) VALUES
 (1, 1, 1),
-(2, 2, 2),
 (3, 3, 2),
 (4, 4, 2),
 (5, 5, 2),
 (6, 6, 2),
-(7, 7, 2);
+(7, 7, 2),
+(10, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -12799,7 +12799,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_roles`
 --
 ALTER TABLE `admin_roles`
-  MODIFY `admin_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `admin_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

@@ -16,7 +16,7 @@ use Session;
 use Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 
 class OrderController extends Controller
 {

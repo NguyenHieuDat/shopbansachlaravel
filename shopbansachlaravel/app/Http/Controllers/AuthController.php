@@ -43,7 +43,12 @@ class AuthController extends Controller
             'admin_password' => 'required|max:255',
         ]);
 
-        if(Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password])){
+        $credentials = [
+            'admin_email' => $request->admin_email,
+            'password' => $request->admin_password, // Laravel sẽ tự động gọi `getAuthPassword()`
+        ];
+
+        if(Auth::guard('web')->attempt($credentials)){
             return redirect('/dashboard')->with('message', 'Đăng nhập thành công!');
         } else {
             return redirect('/auth_login')->with('error', 'Email hoặc mật khẩu không chính xác!');
