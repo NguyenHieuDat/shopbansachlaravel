@@ -160,10 +160,10 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::post('/store_users', 'store_users');
 });
-Route::group(['middleware' => ['auth.roles']], function () {
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->middleware(['auth', 'auth.roles'])->group(function () {
     Route::get('/users', 'index');
     Route::post('/assign_roles', 'assign_roles');
     Route::get('/add_users', 'add_users');
+    Route::get('/delete_user_roles/{admin_id}', 'delete_user_roles');
 });
-});
+

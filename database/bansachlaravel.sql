@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2025 at 10:11 AM
+-- Generation Time: Mar 20, 2025 at 09:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,8 +42,6 @@ INSERT INTO `admin_roles` (`admin_roles_id`, `admin_admin_id`, `roles_role_id`) 
 (3, 3, 2),
 (4, 4, 2),
 (5, 5, 2),
-(6, 6, 2),
-(7, 7, 2),
 (10, 2, 2);
 
 -- --------------------------------------------------------
@@ -190,6 +188,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('6k1CiPXJX73c8aXZNJRdTQZM3zNS6OZi9ERs77lZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoidklCdHdQdDREeDFrRUlQRmZGOGFCdDBPQVpkWHR1czVQV2EwOEd1RCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741424440),
 ('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154),
 ('EVB5gyVWtOIL2e2jzEh31aYgxNlJuSZhCkKuQg4h', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiVDNOekFvd1JaenJDUUVmT3RFSUpHQVJsbHZZNUFldzZNb2x1aTJmUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742111021),
+('GbLkJXrvOXOOVKzVUWPXzur80F00QPt9NH41B6jZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiQllEV3p5OFBUY2NOV05yQmduN3pEbXFwREpSZ016NnVSa1VXVDhHeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742458250),
 ('ZyGioOQeaXRasPXAwuwM8xJrIO7We2AJovntMOFp', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiZktjOXRnNGhNRlVaVzVXY09tN3BHUmpoT2JITDUwNFRkNG9JNG1xVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741765705);
 
 -- --------------------------------------------------------
@@ -217,9 +216,7 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 (2, 'datnguyenuser@gmail.com', '$2y$12$IHkBPXBaeANdCm5Xg3KMbeJz22OYsbHvoKXZ9FH3.vrr2FAj0IoJO', 'datnguyenuser', '0123456789', NULL, NULL),
 (3, 'ladarius.bosco@example.net', '$2y$12$3fZJ8bjD6cMczF.KqvZLm.0ZMNdSaN08NcMvdD7XXpFSUIrqmPyDa', 'Dr. Katharina Hill PhD', '1-615-424-2252', NULL, NULL),
 (4, 'curt.kertzmann@example.com', '$2y$12$d9ODEfKeSKyAl2NeOOeBu.ET.nfwHRdPOBVHRIYh4HPJIPJ.20Vvu', 'Ms. Lera Lesch', '1-445-481-4301', NULL, NULL),
-(5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL),
-(6, 'cathryn.wilkinson@example.org', '$2y$12$wa/lHEk2fnKfkYpDqfhaZOYQXTbRG26I30SriW6t0d7PL0AESJcXq', 'Gail Klocko', '1-559-503-8796', NULL, NULL),
-(7, 'okeefe.vena@example.org', '$2y$12$PTZWMXqx4jUUzzMlaB2pmuXcdCpwKKEcdll/G/F5uFSeoT7/y6rQG', 'Mr. Bernardo Rodriguez', '+1.720.828.5919', NULL, NULL);
+(5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL);
 
 -- --------------------------------------------------------
 

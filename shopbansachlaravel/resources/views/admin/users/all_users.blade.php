@@ -58,14 +58,16 @@
               <tr>
                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                 <td>{{ $user->admin_name }}</td>
-                <td>{{ $user->admin_email }} <input type="hidden" name="admin_email" value="{{ $user->admin_email }}"></td>
+                <td>{{ $user->admin_email }} <input type="hidden" name="admin_email" value="{{ $user->admin_email }}">
+                  <input type="hidden" name="admin_id" value="{{ $user->admin_id }}"></td>
                 <td>{{ $user->admin_phone }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($user->admin_password, 15, '...') }}</td>
                 <td><input type="checkbox" name="admin_role"  {{$user->hasRole('admin') ? 'checked' : ''}}></td>
                 <td><input type="checkbox" name="user_role"  {{$user->hasRole('user') ? 'checked' : ''}}></td>
               <td>  
-                <input type="submit" value="Phân quyền" class="btn btn-sm btn-default">
-              </td> 
+                <p><input type="submit" value="Phân quyền" class="btn btn-sm btn-default"></p>
+                <p><a class="btn btn-sm btn-danger" style="margin:10px 0;" href="{{url('/delete_user_roles/'.$user->admin_id)}}">Xóa người dùng</a></p>
+              </td>
               </tr>
             </form>
           @endforeach

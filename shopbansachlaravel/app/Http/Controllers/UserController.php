@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 use App\Models\Roles;
+use Illuminate\Support\Facades\Auth;
 use Session;
 class UserController extends Controller
 {
@@ -20,10 +21,15 @@ class UserController extends Controller
         $admin = Admin::with('roles')->orderBy('admin_id','DESC')->paginate(5);
         return view('admin.users.all_users')->with(compact('admin'));
     }
+
     public function add_users(){
         return view('admin.users.add_users');
     }
+
     public function assign_roles(Request $request){
+        if(Auth::id()==$request->admin_id){
+            return redirect()->back()->with('message','Bạn không được tự phân quyền chính mình!');
+        }
         $user = Admin::where('admin_email',$request['admin_email'])->first();
         $user->roles()->detach();
 
@@ -35,6 +41,19 @@ class UserController extends Controller
         }
         return redirect()->back()->with('message','Phân quyền thành công');
     }
+
+    public function delete_user_roles($admin_id){
+        if(Auth::id()==$admin_id){
+            return redirect()->back()->with('message','Bạn không được tự xóa quyền của mình!');
+        }
+        $admin = Admin::find($admin_id);
+        if($admin){
+            $admin->roles()->detach();
+            $admin->delete();
+        }
+        return redirect()->back()->with('message','Xóa thành công');
+    }
+
     public function store_users(Request $request){
         $data = $request->all();
         $admin = new Admin();
