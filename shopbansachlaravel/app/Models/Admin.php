@@ -7,10 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Roles;
+use Lab404\Impersonate\Models\Impersonate;
 
 class Admin extends Authenticatable
 {
-	use HasFactory;
+	use HasFactory, Notifiable, Impersonate;
     public $timestamps = false;
     protected $fillable = [
     	'admin_email', 'admin_password', 'admin_name','admin_phone'
@@ -32,7 +33,7 @@ class Admin extends Authenticatable
  				if($this->hasRole($role)){
  					return true;
  				}
- 			}
+ 			}	
  		}else{
  			if($this->hasRole($roles)){
  				return true;

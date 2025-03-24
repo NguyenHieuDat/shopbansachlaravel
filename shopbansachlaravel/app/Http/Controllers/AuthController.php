@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         $credentials = [
             'admin_email' => $request->admin_email,
-            'password' => $request->admin_password, // Laravel sẽ tự động gọi `getAuthPassword()`
+            'password' => $request->admin_password,
         ];
 
         if(Auth::guard('web')->attempt($credentials)){

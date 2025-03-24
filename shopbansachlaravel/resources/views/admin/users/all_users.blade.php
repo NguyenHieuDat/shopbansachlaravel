@@ -34,6 +34,11 @@
                 Session::put('message',null);
             }
         ?>
+        @if(session()->has('error'))
+          <span class="text-error">
+            {{ session('error') }}
+          </span>
+        @endif
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
@@ -67,6 +72,9 @@
               <td>  
                 <p><input type="submit" value="Phân quyền" class="btn btn-sm btn-default"></p>
                 <p><a class="btn btn-sm btn-danger" style="margin:10px 0;" href="{{url('/delete_user_roles/'.$user->admin_id)}}">Xóa người dùng</a></p>
+                @if(Auth::user()->canImpersonate())
+                    <p><a class="btn btn-sm btn-success" style="margin:10px 0;" href="{{ route('impersonate', $user->admin_id) }}">Mạo danh người dùng</a></p>
+                @endif
               </td>
               </tr>
             </form>
@@ -82,7 +90,17 @@
         </div>
         <div class="col-sm-7 text-right text-center-xs">                
           <ul class="pagination pagination-sm m-t-none m-b-none">
-            {{ $admin->appends(request()->all())->links('pagination::bootstrap-4') }}
+            <li class="page-item {{ $admin->onFirstPage() ? 'disabled' : '' }}">
+              <a class="page-link" href="{{ $admin->previousPageUrl() }}" @if($admin->onFirstPage()) class="disabled" @endif>« Prev</a>
+          </li>
+          @foreach ($admin->getUrlRange(1, $admin->lastPage()) as $page => $url)
+              <li class="page-item {{ ($page == $admin->currentPage()) ? 'active' : '' }}">
+                  <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+              </li>
+          @endforeach
+          <li class="page-item {{ $admin->hasMorePages() ? '' : 'disabled' }}">
+              <a class="page-link" href="{{ $admin->nextPageUrl() }}" @if(!$admin->hasMorePages()) class="disabled" @endif>Next »</a>
+          </li>
           </ul>
         </div>
       </div>

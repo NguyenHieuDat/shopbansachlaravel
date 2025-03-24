@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2025 at 09:37 AM
+-- Generation Time: Mar 24, 2025 at 11:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,10 +39,12 @@ CREATE TABLE `admin_roles` (
 
 INSERT INTO `admin_roles` (`admin_roles_id`, `admin_admin_id`, `roles_role_id`) VALUES
 (1, 1, 1),
-(3, 3, 2),
 (4, 4, 2),
-(5, 5, 2),
-(10, 2, 2);
+(10, 2, 2),
+(11, 3, 2),
+(12, 3, 1),
+(14, 5, 2),
+(16, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -151,7 +153,32 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2025_02_24_030613_create_tbl_shipping', 9),
 (14, '2025_02_27_071458_create_tbl_payment', 10),
 (15, '2025_02_27_071524_create_tbl_order', 10),
-(16, '2025_02_27_071626_create_tbl_order_detail', 10);
+(16, '2025_02_27_071626_create_tbl_order_detail', 10),
+(17, '2025_03_24_042019_create_permission_tables', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -163,6 +190,45 @@ CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -186,6 +252,7 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 ('6k1CiPXJX73c8aXZNJRdTQZM3zNS6OZi9ERs77lZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoidklCdHdQdDREeDFrRUlQRmZGOGFCdDBPQVpkWHR1czVQV2EwOEd1RCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741424440),
+('ekGqvHp9D2m3jTwwxjYB0c63mpzsciM78xTLLqgv', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU1Qwemw4QnBycGJKdEc4bUtzMWRqYmJQWFJBOWwwWEtXVEx0ZHducSI7czoxMjoicHJldmlvdXNfdXJsIjtzOjUxOiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC9kYW5oX211Y19zYWNoLzYiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1742810412),
 ('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154),
 ('EVB5gyVWtOIL2e2jzEh31aYgxNlJuSZhCkKuQg4h', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiVDNOekFvd1JaenJDUUVmT3RFSUpHQVJsbHZZNUFldzZNb2x1aTJmUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742111021),
 ('GbLkJXrvOXOOVKzVUWPXzur80F00QPt9NH41B6jZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiQllEV3p5OFBUY2NOV05yQmduN3pEbXFwREpSZ016NnVSa1VXVDhHeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742458250),
@@ -216,7 +283,8 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 (2, 'datnguyenuser@gmail.com', '$2y$12$IHkBPXBaeANdCm5Xg3KMbeJz22OYsbHvoKXZ9FH3.vrr2FAj0IoJO', 'datnguyenuser', '0123456789', NULL, NULL),
 (3, 'ladarius.bosco@example.net', '$2y$12$3fZJ8bjD6cMczF.KqvZLm.0ZMNdSaN08NcMvdD7XXpFSUIrqmPyDa', 'Dr. Katharina Hill PhD', '1-615-424-2252', NULL, NULL),
 (4, 'curt.kertzmann@example.com', '$2y$12$d9ODEfKeSKyAl2NeOOeBu.ET.nfwHRdPOBVHRIYh4HPJIPJ.20Vvu', 'Ms. Lera Lesch', '1-445-481-4301', NULL, NULL),
-(5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL);
+(5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL),
+(9, 'hieudatuser@gmail.com', '$2y$12$785m6T7gXkWidELS8paYR.wqhNHzHfud7CC2Dzt6ekoMog088xnf6', 'hieudatuser', '0123456789', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -310,6 +378,7 @@ INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `pub
 CREATE TABLE `tbl_category_product` (
   `category_id` int(10) UNSIGNED NOT NULL,
   `category_name` varchar(255) NOT NULL,
+  `category_parent` int(11) NOT NULL DEFAULT 0,
   `category_description` text NOT NULL,
   `category_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -320,10 +389,12 @@ CREATE TABLE `tbl_category_product` (
 -- Dumping data for table `tbl_category_product`
 --
 
-INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
-(1, 'Văn học', '<p>Văn học l&agrave; một loại h&igrave;nh nghệ thuật được tạo ra bằng ng&ocirc;n từ, nhằm phản &aacute;nh cuộc sống, thể hiện tư tưởng, t&igrave;nh cảm, cảm x&uacute;c v&agrave; gi&aacute; trị thẩm mỹ của con người. Văn học kh&ocirc;ng chỉ ghi lại những hiện thực x&atilde; hội m&agrave; c&ograve;n mang t&iacute;nh s&aacute;ng tạo, tưởng tượng, truyền tải những th&ocirc;ng điệp, triết l&yacute; v&agrave; kh&aacute;t vọng của con người qua từng thời kỳ lịch sử.</p>', 'Văn, văn, van, van hoc, văn học', NULL, NULL),
-(2, 'Sách thiếu nhi', '<p>S&aacute;ch Thiếu Nhi mở ra một thế giới diệu kỳ, nơi m&agrave; tr&iacute; tưởng tượng được bay cao, sự t&ograve; m&ograve; được khuyến kh&iacute;ch, v&agrave; những b&agrave;i học qu&yacute; gi&aacute; được truyền tải một c&aacute;ch nhẹ nh&agrave;ng, dễ hiểu. Từ những c&acirc;u chuyện cổ t&iacute;ch đầy ph&eacute;p m&agrave;u, truyện tranh vui nhộn đến c&aacute;c s&aacute;ch kỹ năng sống đơn giản, tất cả đều g&oacute;p phần nu&ocirc;i dưỡng t&acirc;m hồn v&agrave; ph&aacute;t triển tư duy của trẻ.</p>\r\n\r\n<p>Những cuốn s&aacute;ch Thiếu Nhi kh&ocirc;ng chỉ l&agrave; nguồn giải tr&iacute; m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh th&acirc;n thiết, gi&uacute;p trẻ em học c&aacute;ch y&ecirc;u thương, chia sẻ, s&aacute;ng tạo v&agrave; tự tin bước v&agrave;o cuộc sống. Với h&igrave;nh ảnh minh họa sinh động v&agrave; nội dung phong ph&uacute;, thể loại s&aacute;ch n&agrave;y lu&ocirc;n được y&ecirc;u th&iacute;ch bởi cả trẻ nhỏ lẫn c&aacute;c bậc phụ huynh.</p>', 'sach thieu nhi, sách thiếu nhi, trẻ em, tre em, tre con, trẻ con', NULL, NULL),
-(3, 'Kỹ năng sống', '<p>S&aacute;ch Kỹ Năng Sống l&agrave; những cuốn s&aacute;ch mang đến cho bạn những <strong>b&agrave;i học qu&yacute; gi&aacute; về tư duy, giao tiếp, quản l&yacute; cảm x&uacute;c, ph&aacute;t triển bản th&acirc;n v&agrave; x&acirc;y dựng c&aacute;c mối quan hệ x&atilde; hội.</strong> Đ&acirc;y l&agrave; h&agrave;nh trang cần thiết gi&uacute;p mọi người, đặc biệt l&agrave; giới trẻ, r&egrave;n luyện c&aacute;c kỹ năng mềm quan trọng để đối mặt với những thử th&aacute;ch trong cuộc sống v&agrave; c&ocirc;ng việc.</p>', 'ky nang, kỹ năng, ky nang song, kỹ năng sống, sống', NULL, NULL);
+INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_parent`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Văn học', 0, '<p>Văn học l&agrave; một loại h&igrave;nh nghệ thuật được tạo ra bằng ng&ocirc;n từ, nhằm phản &aacute;nh cuộc sống, thể hiện tư tưởng, t&igrave;nh cảm, cảm x&uacute;c v&agrave; gi&aacute; trị thẩm mỹ của con người. Văn học kh&ocirc;ng chỉ ghi lại những hiện thực x&atilde; hội m&agrave; c&ograve;n mang t&iacute;nh s&aacute;ng tạo, tưởng tượng, truyền tải những th&ocirc;ng điệp, triết l&yacute; v&agrave; kh&aacute;t vọng của con người qua từng thời kỳ lịch sử.</p>', 'Văn, văn, van, van hoc, văn học', NULL, NULL),
+(2, 'Sách thiếu nhi', 0, '<p>S&aacute;ch Thiếu Nhi mở ra một thế giới diệu kỳ, nơi m&agrave; tr&iacute; tưởng tượng được bay cao, sự t&ograve; m&ograve; được khuyến kh&iacute;ch, v&agrave; những b&agrave;i học qu&yacute; gi&aacute; được truyền tải một c&aacute;ch nhẹ nh&agrave;ng, dễ hiểu. Từ những c&acirc;u chuyện cổ t&iacute;ch đầy ph&eacute;p m&agrave;u, truyện tranh vui nhộn đến c&aacute;c s&aacute;ch kỹ năng sống đơn giản, tất cả đều g&oacute;p phần nu&ocirc;i dưỡng t&acirc;m hồn v&agrave; ph&aacute;t triển tư duy của trẻ.</p>\r\n\r\n<p>Những cuốn s&aacute;ch Thiếu Nhi kh&ocirc;ng chỉ l&agrave; nguồn giải tr&iacute; m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh th&acirc;n thiết, gi&uacute;p trẻ em học c&aacute;ch y&ecirc;u thương, chia sẻ, s&aacute;ng tạo v&agrave; tự tin bước v&agrave;o cuộc sống. Với h&igrave;nh ảnh minh họa sinh động v&agrave; nội dung phong ph&uacute;, thể loại s&aacute;ch n&agrave;y lu&ocirc;n được y&ecirc;u th&iacute;ch bởi cả trẻ nhỏ lẫn c&aacute;c bậc phụ huynh.</p>', 'sach thieu nhi, sách thiếu nhi, trẻ em, tre em, tre con, trẻ con', NULL, NULL),
+(3, 'Kỹ năng sống', 0, '<p>S&aacute;ch Kỹ Năng Sống l&agrave; những cuốn s&aacute;ch mang đến cho bạn những <strong>b&agrave;i học qu&yacute; gi&aacute; về tư duy, giao tiếp, quản l&yacute; cảm x&uacute;c, ph&aacute;t triển bản th&acirc;n v&agrave; x&acirc;y dựng c&aacute;c mối quan hệ x&atilde; hội.</strong> Đ&acirc;y l&agrave; h&agrave;nh trang cần thiết gi&uacute;p mọi người, đặc biệt l&agrave; giới trẻ, r&egrave;n luyện c&aacute;c kỹ năng mềm quan trọng để đối mặt với những thử th&aacute;ch trong cuộc sống v&agrave; c&ocirc;ng việc.</p>', 'ky nang, kỹ năng, ky nang song, kỹ năng sống, sống', NULL, NULL),
+(5, 'Truyện tranh', 6, '<p>Truyện tranh l&agrave; một loại h&igrave;nh nghệ thuật kết hợp giữa h&igrave;nh ảnh v&agrave; văn bản để kể một c&acirc;u chuyện. N&oacute; thường được thể hiện dưới dạng c&aacute;c bảng vẽ, với những bức tranh minh họa diễn tả h&agrave;nh động v&agrave; cảm x&uacute;c, k&egrave;m theo c&aacute;c lời thoại hoặc m&ocirc; tả. Truyện tranh c&oacute; thể c&oacute; nhiều thể loại, từ h&agrave;nh động, phi&ecirc;u lưu, kỳ ảo, đến h&agrave;i hước, t&igrave;nh cảm hoặc ch&iacute;nh trị, khoa học...</p>', 'truyen tranh,truyện tranh,tranh truyen,tranh truyện', NULL, NULL),
+(6, 'Sách tranh', 0, '<p>S&aacute;ch tranh l&agrave; một loại s&aacute;ch c&oacute; sự kết hợp giữa văn bản v&agrave; h&igrave;nh ảnh, nơi h&igrave;nh ảnh đ&oacute;ng vai tr&ograve; quan trọng trong việc truyền tải nội dung c&acirc;u chuyện hoặc th&ocirc;ng tin. C&aacute;c s&aacute;ch tranh thường được thiết kế để trẻ em hoặc những người mới học đọc dễ d&agrave;ng tiếp cận v&agrave; hiểu, th&ocirc;ng qua h&igrave;nh ảnh minh họa sinh động.</p>', 'sach tranh,sách tranh,tranh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12646,6 +12717,41 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -12796,7 +12902,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_roles`
 --
 ALTER TABLE `admin_roles`
-  MODIFY `admin_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `admin_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -12814,13 +12920,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_author`
@@ -12844,7 +12962,7 @@ ALTER TABLE `tbl_book`
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -12921,6 +13039,25 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_book`

@@ -148,22 +148,23 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/callback', 'callback_fb');
 });
 
-Route::controller(AuthController::class)->group(function () {
+Route::middleware(['web'])->controller(AuthController::class)->group(function () {
     Route::get('/auth_register', 'auth_register');
     Route::post('/admin_authregister', 'admin_authregister');
     Route::get('/auth_login', 'auth_login');
     Route::post('/admin_authlogin', 'admin_authlogin');
     Route::get('/auth_logout', 'auth_logout');
-
 });
 
-Route::controller(UserController::class)->group(function () {
-    Route::post('/store_users', 'store_users');
-});
 Route::controller(UserController::class)->middleware(['auth', 'auth.roles'])->group(function () {
     Route::get('/users', 'index');
     Route::post('/assign_roles', 'assign_roles');
     Route::get('/add_users', 'add_users');
     Route::get('/delete_user_roles/{admin_id}', 'delete_user_roles');
+    Route::post('/store_users', 'store_users');
+});
+Route::middleware(['web', 'impersonate'])->group(function () {
+    Route::get('/impersonate/{admin_id}', [UserController::class, 'impersonate'])->name('impersonate');
+    Route::get('/stop_impersonate', [UserController::class, 'stop_impersonate'])->name('stop_impersonate');
 });
 

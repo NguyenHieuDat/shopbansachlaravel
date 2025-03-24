@@ -9874,3 +9874,69 @@ a.text-dark:hover, a.text-dark:focus {
   word-wrap: break-word; /* Tự động xuống dòng khi chạm tới rìa */
   white-space: normal;    /* Cho phép xuống dòng nếu quá dài */
 }
+
+/* Đảm bảo dropdown con mở ra bên phải */
+.nav-item.dropdown.dropright .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 100%; /* Đảm bảo nó mở ra bên phải */
+  top: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  min-width: 200px; /* Điều chỉnh chiều rộng menu con */
+  z-index: 100; /* Đảm bảo menu con không bị chồng lên các phần tử khác */
+}
+
+/* Hiển thị dropdown khi hover vào mục danh mục */
+.nav-item.dropdown.dropright:hover .dropdown-menu {
+  display: block;
+}
+
+/* Đảm bảo không hiển thị trùng lặp */
+.dropdown-menu.sub-category-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+
+.nav-item.dropdown.dropright:hover .dropdown-menu.sub-category-menu {
+  display: block;
+}
+
+/* Ngăn không cho hiển thị thừa danh mục con */
+.nav-item .dropdown-menu .dropdown-item {
+  display: block;
+}
+
+/* Chỉnh sửa màu nền khi nhấn vào liên kết */
+.nav-item .nav-link:active {
+  background-color: #dc3545 !important; /* Màu nền khi nhấn */
+  color: #fff !important; /* Màu chữ khi nhấn */
+}
+@keyframes flash {
+  0% {
+      background-color: #dc3545; /* Màu đỏ (danger) */
+  }
+  50% {
+      background-color: transparent;
+  }
+  100% {
+      background-color: #dc3545; /* Màu đỏ (danger) */
+  }
+}
+
+.flash-effect {
+  background-color: #dc3545 !important; /* Màu nền danger */
+  color: white !important; /* Màu chữ trắng */
+  animation: flash 0.5s ease; /* Thời gian nháy là 0.5s */
+}
+.dropdown-item:active, .dropdown-item:focus {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+.dropdown-item.flash-effect {
+  animation: flash 0.5s ease !important;
+  background-color: #dc3545 !important;
+}

@@ -20,7 +20,7 @@ class HomeController extends Controller
 
         $banner = Banner::orderby('banner_id','desc')->where('banner_status','1')->take(4)->get();
 
-        $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 

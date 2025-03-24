@@ -34,7 +34,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		load_gallery();
@@ -361,7 +360,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
 				@endhasrole
 
-            </ul>            
+				@impersonate
+				@if(session()->has('impersonate'))
+				<li>
+                    <a href="{{ route('stop_impersonate') }}">
+                        <i class="fa fa-book"></i>
+                        <span>Dừng mạo danh</span>
+                    </a>
+                </li>
+				@endif
+				@endimpersonate
+
+				
+            </ul>
         </div>
         <!-- sidebar menu end-->
     </div>
@@ -553,6 +564,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				location.reload();
 			}
 		});
+	});
+
+	document.querySelectorAll('.page-item.disabled a').forEach(function(link) {
+    	link.addEventListener('click', function(event) {
+        	event.preventDefault(); // Ngăn chặn hành động click
+    	});
 	});
 </script>
 

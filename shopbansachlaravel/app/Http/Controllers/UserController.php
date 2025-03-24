@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Auth;
-use Session;
+use Illuminate\Support\Facades\Session;
+
 class UserController extends Controller
 {
     /**
@@ -39,7 +40,7 @@ class UserController extends Controller
         if($request['admin_role']){
            $user->roles()->attach(Roles::where('role_name','admin')->first());     
         }
-        return redirect()->back()->with('message','Phân quyền thành công');
+        return redirect()->back()->with('message','Phân quyền thành công!');
     }
 
     public function delete_user_roles($admin_id){
@@ -51,20 +52,49 @@ class UserController extends Controller
             $admin->roles()->detach();
             $admin->delete();
         }
-        return redirect()->back()->with('message','Xóa thành công');
+        return redirect()->back()->with('message','Xóa người dùng thành công!');
     }
 
     public function store_users(Request $request){
         $data = $request->all();
+
         $admin = new Admin();
         $admin->admin_name = $data['admin_name'];
         $admin->admin_phone = $data['admin_phone'];
         $admin->admin_email = $data['admin_email'];
-        $admin->admin_password = md5($data['admin_password']);
+        $admin->admin_password = bcrypt($data['admin_password']);
         $admin->save();
         $admin->roles()->attach(Roles::where('role_name','user')->first());
-        Session::put('message','Thêm users thành công');
+        Session::put('message','Thêm người dùng thành công!');
         return Redirect::to('users');
+    }
+
+    public function impersonate($admin_id){
+        $admin = Admin::find($admin_id);
+
+        if ($admin) {
+            if (Auth::id() == $admin->admin_id) {
+                session()->flash('error', 'Bạn không thể mạo danh chính mình!');
+                return redirect()->back();
+            }
+            Auth::user()->impersonate($admin);
+            session()->put('impersonate', true);
+            session()->flash('message', 'Đang mạo danh người dùng: ' . $admin->admin_name);
+            return redirect('/users');
+        }
+
+        return redirect()->back()->with('error', 'Người dùng không tồn tại.');
+    }
+
+    public function stop_impersonate(){
+        if (session()->has('impersonate')) {
+            Auth::user()->leaveImpersonation();
+            session()->forget('impersonate');
+            session()->flash('message', 'Đã dừng mạo danh!');
+            return redirect('/users');
+        }
+
+        return redirect('/users')->with('error', 'Bạn không đang mạo danh ai!');
     }
     /**
      * Show the form for editing the specified resource.

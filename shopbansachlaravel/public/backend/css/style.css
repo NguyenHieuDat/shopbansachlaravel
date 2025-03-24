@@ -3175,3 +3175,20 @@ span.text-success {
     display: inline-block;
 }
 
+span.text-error {
+    color: red;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffcccc;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.page-item.disabled:hover {
+    cursor: not-allowed; /* Đảm bảo hình cấm xuất hiện khi hover */
+    opacity: 0.5;
+}

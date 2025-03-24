@@ -87,86 +87,107 @@
     </div>
     <!-- Topbar End -->
 
+<!-- Navbar Start -->
+<div class="container-fluid bg-danger mb-30">
+    <div class="row px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a class="btn d-flex align-items-center justify-content-between bg-light w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Danh Mục</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <div class="navbar-nav w-100">
+                    @foreach ($category as $key => $cate)
+                    @if($cate->category_parent == 0)
+                    <div class="nav-item dropdown dropright">
+                        <a href="{{ URL::to('/danh_muc_sach/'.$cate->category_id) }}" class="nav-link">{{ $cate->category_name }}<i class="fa fa-angle-right float-right mt-1"></i></a>
+                
+                        @php
+                            // Truy vấn danh mục con từ DB
+                            $sub_categories = DB::table('tbl_category_product')
+                                                ->where('category_parent', $cate->category_id)
+                                                ->get();
+                        @endphp
+                
+                        @if($sub_categories->isNotEmpty())
+                        <!-- Dropdown con (bên phải) -->
+                        <div class="dropdown-menu sub-category-menu">
+                            @foreach($sub_categories as $sub_cate)
+                                <a href="{{ URL::to('/danh_muc_sach/'.$sub_cate->category_id) }}" class="dropdown-item">
+                                    {{ $sub_cate->category_name }}
+                                </a>
+                            @endforeach
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+                    @endforeach
 
-    <!-- Navbar Start -->
-    <div class="container-fluid bg-danger mb-30">
-        <div class="row px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-light w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Danh Mục</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                    <div class="navbar-nav w-100">
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Thể loại<i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                @foreach ($category as $key => $cate)
-                                <a href="{{URL::to('/danh_muc_sach/'.$cate->category_id)}}" class="dropdown-item">{{$cate->category_name}}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                            <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tác giả<i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                @foreach ($author as $key => $aut)
-                                <a href="{{URL::to('/danh_muc_tac_gia/'.$aut->author_id)}}" class="dropdown-item">{{$aut->author_name}}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown dropright">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nhà xuất bản<i class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                @foreach ($publisher as $key => $pub)
-                                <a href="{{URL::to('/danh_muc_nha_xb/'.$pub->publisher_id)}}" class="dropdown-item">{{$pub->publisher_name}}</a>
-                                @endforeach
-                            </div>
+                    <!-- Tác giả -->
+                    <div class="nav-item dropdown dropright">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tác giả<i class="fa fa-angle-right float-right mt-1"></i></a>
+                        <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                            @foreach ($author as $key => $aut)
+                                <a href="{{ URL::to('/danh_muc_tac_gia/'.$aut->author_id) }}" class="dropdown-item">{{ $aut->author_name }}</a>
+                            @endforeach
                         </div>
                     </div>
-                </nav>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-danger navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
-                        
-                    </a>
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="{{URL::to('/trang_chu')}}" class="nav-item nav-link text-light active">Trang Chủ</a>
-                            <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
-                            <a href="{{URL::to('/gio_hang')}}" class="nav-item nav-link text-light">Giỏ Hàng</a>
-                            @php
+
+                    <!-- Nhà xuất bản -->
+                    <div class="nav-item dropdown dropright">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nhà xuất bản<i class="fa fa-angle-right float-right mt-1"></i></a>
+                        <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                            @foreach ($publisher as $key => $pub)
+                                <a href="{{ URL::to('/danh_muc_nha_xb/'.$pub->publisher_id) }}" class="dropdown-item">{{ $pub->publisher_name }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Navbar chính -->
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-danger navbar-dark py-3 py-lg-0 px-0">
+                <a href="" class="text-decoration-none d-block d-lg-none"></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="{{ URL::to('/trang_chu') }}" class="nav-item nav-link text-light active">Trang Chủ</a>
+                        <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
+                        <a href="{{ URL::to('/gio_hang') }}" class="nav-item nav-link text-light">Giỏ Hàng</a>
+                        @php
                             $customer_id = Session::get('customer_id');
                             $shipping_id = Session::get('shipping_id');
-                            @endphp
-                            @if($customer_id != null && $shipping_id == null)
-                            <a href="{{URL::to('/checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
-                            @elseif($customer_id != null && $shipping_id != null)
-                            <a href="{{URL::to('/payment')}}" class="nav-item nav-link text-light">Thanh Toán</a>
-                            @else
-                            <a href="{{URL::to('/login_checkout')}}" class="nav-item nav-link text-light">Thanh Toán</a>
-                            @endif
-                            <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
-                        </div>
-                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
-                                <i class="fas fa-heart text-light"></i>
-                                <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                            <a href="{{URL::to('/gio_hang')}}" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-light"></i>
-                                <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                        </div>
+                        @endphp
+                        @if($customer_id != null && $shipping_id == null)
+                        <a href="{{ URL::to('/checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                        @elseif($customer_id != null && $shipping_id != null)
+                        <a href="{{ URL::to('/payment') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                        @else
+                        <a href="{{ URL::to('/login_checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                        @endif
+                        <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
                     </div>
-                </nav>
-            </div>
+                    <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                        <a href="" class="btn px-0">
+                            <i class="fas fa-heart text-light"></i>
+                            <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
+                        </a>
+                        <a href="{{ URL::to('/gio_hang') }}" class="btn px-0 ml-3">
+                            <i class="fas fa-shopping-cart text-light"></i>
+                            <span class="badge text-light border border-light rounded-circle" style="padding-bottom: 2px;">0</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
         </div>
     </div>
-    <!-- Navbar End -->
+</div>
+<!-- Navbar End -->
+
 
     <!-- Home -->
     <div>
@@ -820,7 +841,7 @@
 <script>
     $('#loginForm').on('submit', function(e) {
         e.preventDefault();
-        $('#error-message').html(''); // Xóa thông báo lỗi cũ
+        $('#error-message').html('');
 
         $.ajax({
             url: "{{ url('/login_customer') }}",
@@ -830,7 +851,7 @@
                 if(response.success) {
                     window.location.href = response.redirect_url; // Chuyển hướng khi đăng nhập thành công
                 } else {
-                    $('#error-message').html(response.error); // Hiện lỗi nếu có
+                    $('#error-message').html(response.error);
                 }
             },
             error: function(xhr) {
@@ -848,6 +869,50 @@
         });
     });
 </script>
-</body>
+<script>
+    $(document).ready(function() {
+        $('.dropdown').hover(function() {
+            $(this).children('.dropdown-menu').stop(true, true).slideDown(200);
+        }, function() {
+            $(this).children('.dropdown-menu').stop(true, true).slideUp(200);
+        });
+    });
 
+    $(document).ready(function() {
+    // Đối với các mục trong menu chính (nav-link)
+    $('.nav-item .nav-link').click(function(e) {
+        var link = $(this);
+        
+        console.log('Nav link clicked'); // Kiểm tra xem sự kiện có chạy không
+        
+        // Thêm lớp nháy màu danger
+        link.addClass('flash-effect');
+        
+        // Chờ khi hiệu ứng nháy hoàn thành (0.5s), rồi chuyển trang
+        setTimeout(function() {
+            window.location.href = link.attr('href'); // Chuyển sang trang khác
+        }, 500); // 500ms trùng với thời gian nháy
+    });
+
+    // Đối với các mục trong dropdown (dropdown-item)
+    $(document).on('click', '.dropdown-item', function(e) {
+        var item = $(this);
+
+        console.log('Dropdown item clicked'); // Kiểm tra xem sự kiện có chạy không
+
+        // Thêm lớp nháy màu danger khi click vào mục dropdown
+        item.addClass('flash-effect');
+
+        // Sau khi hiệu ứng hoàn thành (0.5s), tiếp tục thực hiện hành động khác (chuyển trang hoặc xử lý)
+        setTimeout(function() {
+            // Chuyển trang khi nhấn vào mục dropdown
+            window.location.href = item.attr('href');
+        }, 500); // Thời gian đồng bộ với thời gian nháy
+    });
+});
+
+
+</script>
+
+</body>
 </html>

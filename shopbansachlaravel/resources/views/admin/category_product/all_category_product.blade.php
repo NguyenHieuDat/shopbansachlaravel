@@ -44,6 +44,7 @@
                 </label>
               </th>
               <th>Tên danh mục</th>
+              <th>Thuộc danh mục</th>
               <th>Mô tả</th>
               <th>Từ khóa</th>
               <th>Quản lý</th>
@@ -55,6 +56,17 @@
             <tr>
               <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
               <td>{{$cate_pro->category_name}}</td>
+              <td>
+                @if($cate_pro->category_parent==0)
+                  <span>Danh mục cha</span>
+                @else
+                  @foreach ($category_product as $key => $sub_cate)
+                      @if($sub_cate->category_id==$cate_pro->category_parent)
+                        <span>{{$sub_cate->category_name}}</span>
+                      @endif
+                  @endforeach
+                @endif
+              </td>
               <td><span class="text-ellipsis">{!! $cate_pro->category_description !!}</span></td>
               <td><span class="text-ellipsis">{{$cate_pro->category_keywords}}</span></td>
               <td>
@@ -70,16 +82,22 @@
         <div class="row">
           
           <div class="col-sm-5 text-center">
-            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+            <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $all_category_product->firstItem() }} - {{ $all_category_product->lastItem() }} của {{ $all_category_product->total() }} mục</small>
           </div>
+
           <div class="col-sm-7 text-right text-center-xs">                
             <ul class="pagination pagination-sm m-t-none m-b-none">
-              <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-              <li><a href="">1</a></li>
-              <li><a href="">2</a></li>
-              <li><a href="">3</a></li>
-              <li><a href="">4</a></li>
-              <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+              <li class="page-item {{ $all_category_product->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" href="{{ $all_category_product->previousPageUrl() }}" @if($all_category_product->onFirstPage()) class="disabled" @endif>« Prev</a>
+              </li>
+              @foreach ($all_category_product->getUrlRange(1, $all_category_product->lastPage()) as $page => $url)
+                  <li class="page-item {{ ($page == $all_category_product->currentPage()) ? 'active' : '' }}">
+                      <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                  </li>
+              @endforeach
+              <li class="page-item {{ $all_category_product->hasMorePages() ? '' : 'disabled' }}">
+                  <a class="page-link" href="{{ $all_category_product->nextPageUrl() }}" @if(!$all_category_product->hasMorePages()) class="disabled" @endif>Next »</a>
+              </li>
             </ul>
           </div>
         </div>

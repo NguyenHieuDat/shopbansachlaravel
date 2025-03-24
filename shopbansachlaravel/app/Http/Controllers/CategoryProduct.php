@@ -7,14 +7,15 @@ use DB;
 use App\Http\Requests;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class CategoryProduct extends Controller
 {
     //Ham Admin 
 
     public function check_login(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }
@@ -25,20 +26,22 @@ class CategoryProduct extends Controller
 
     public function add_category_product(){
         $this->check_login();
-        return view('admin.category_product.add_category_product');
+        $category_product = Category::where('category_parent',0)->orderBy('category_id','DESC')->get();
+        return view('admin.category_product.add_category_product', compact('category_product'));
     }
 
     public function all_category_product(){
         $this->check_login();
-        $all_category_product = DB::table('tbl_category_product')->get();
-        $manager_category_product = view('admin.category_product.all_category_product')->with('all_category_product',$all_category_product);
-        return view('admin_layout')->with('admin.category_product.all_category_product',$manager_category_product);
+        $all_category_product = DB::table('tbl_category_product')->orderBy('category_id','DESC')->paginate(10);
+        $category_product = Category::where('category_parent',0)->orderBy('category_id','DESC')->get();
+        return view('admin.category_product.all_category_product', compact('all_category_product','category_product'));
     }
 
     public function save_category_product(Request $request){
         $this->check_login();
         $data = array();
         $data['category_name'] = $request->category_product_name;
+        $data['category_parent'] = $request->category_parent;
         $data['category_description'] = $request->category_product_description;
         $data['category_keywords'] = $request->category_product_keywords;
 
@@ -49,9 +52,10 @@ class CategoryProduct extends Controller
 
     public function edit_category_product($category_product_id){
         $this->check_login();
-        $edit_category_product = DB::table('tbl_category_product')->where('category_id',$category_product_id)->get();
-        $manager_category_product = view('admin.category_product.edit_category_product')->with('edit_category_product',$edit_category_product);
-        return view('admin_layout')->with('admin.category_product.edit_category_product',$manager_category_product);
+        $edit_category_product = DB::table('tbl_category_product')->where('category_id', $category_product_id)->first();
+        $all_category_product = DB::table('tbl_category_product')->get();
+
+        return view('admin.category_product.edit_category_product', compact('edit_category_product', 'all_category_product'));
     }
 
     public function update_category_product(Request $request,$category_product_id){
@@ -59,6 +63,7 @@ class CategoryProduct extends Controller
 
         $data = array();
         $data['category_name'] = $request->category_product_name;
+        $data['category_parent'] = $request->category_parent ? $request->category_parent : 0;
         $data['category_description'] = $request->category_product_description;
         $data['category_keywords'] = $request->category_product_keywords;
 
