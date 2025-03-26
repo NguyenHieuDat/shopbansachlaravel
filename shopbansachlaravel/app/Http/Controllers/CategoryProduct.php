@@ -32,7 +32,7 @@ class CategoryProduct extends Controller
 
     public function all_category_product(){
         $this->check_login();
-        $all_category_product = DB::table('tbl_category_product')->orderBy('category_id','DESC')->paginate(10);
+        $all_category_product = DB::table('tbl_category_product')->orderBy('category_parent','DESC')->paginate(10);
         $category_product = Category::where('category_parent',0)->orderBy('category_id','DESC')->get();
         return view('admin.category_product.all_category_product', compact('all_category_product','category_product'));
     }

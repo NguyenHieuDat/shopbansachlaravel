@@ -28,11 +28,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}">
 <!-- //calendar -->
+
+<link rel="stylesheet" href="//cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+
 <!-- //font-awesome icons -->
 <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
 <script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -571,6 +575,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         	event.preventDefault(); // Ngăn chặn hành động click
     	});
 	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		let table = new DataTable("#dbTable", {
+			"language": {
+				"search": "Tìm kiếm:",
+				"zeroRecords": "Không tìm thấy kết quả phù hợp",
+				"lengthMenu": "Hiển thị _MENU_ mục",
+				"info": "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
+				"infoEmpty": "Không có dữ liệu",
+				"infoFiltered": "(lọc từ tổng _MAX_ mục)",
+				"paginate": {
+					"first": "<<",
+					"last": ">>",
+					"next": ">",
+					"previous": "<"
+				}
+			},
+			"paging": true,
+			"searching": true
+		});
+	});
+
 </script>
 
 </body>

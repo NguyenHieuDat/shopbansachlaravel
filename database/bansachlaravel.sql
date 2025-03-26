@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2025 at 11:32 AM
+-- Generation Time: Mar 26, 2025 at 11:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -284,7 +284,8 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 (3, 'ladarius.bosco@example.net', '$2y$12$3fZJ8bjD6cMczF.KqvZLm.0ZMNdSaN08NcMvdD7XXpFSUIrqmPyDa', 'Dr. Katharina Hill PhD', '1-615-424-2252', NULL, NULL),
 (4, 'curt.kertzmann@example.com', '$2y$12$d9ODEfKeSKyAl2NeOOeBu.ET.nfwHRdPOBVHRIYh4HPJIPJ.20Vvu', 'Ms. Lera Lesch', '1-445-481-4301', NULL, NULL),
 (5, 'gunnar02@example.net', '$2y$12$ccQJ5q4OeGlkaTvZo4olhOjPq5cc5YLK4Y3ZxY3iL0BqGMaPymety', 'Gustave Lemke', '1-970-280-0728', NULL, NULL),
-(9, 'hieudatuser@gmail.com', '$2y$12$785m6T7gXkWidELS8paYR.wqhNHzHfud7CC2Dzt6ekoMog088xnf6', 'hieudatuser', '0123456789', NULL, NULL);
+(9, 'hieudatuser@gmail.com', '$2y$12$785m6T7gXkWidELS8paYR.wqhNHzHfud7CC2Dzt6ekoMog088xnf6', 'hieudatuser', '0123456789', NULL, NULL),
+(10, 'datuser12@gmail.com', '$2y$12$29JnOCStAsrCUkyyJOFcl.MKl5m6c43wdASY3wBLxCm9zoIt2k65m', 'dat', '0123456788', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12938,7 +12939,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_author`

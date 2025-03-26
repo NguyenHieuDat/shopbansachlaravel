@@ -14,7 +14,6 @@
                 }
             ?>
             <div class="panel-body">
-                <!-- Chỉ cần không dùng vòng lặp vì edit_category_product là một đối tượng duy nhất -->
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/update_category_product/'.$edit_category_product->category_id)}}" method="POST">
                         {{ csrf_field() }}
@@ -23,14 +22,25 @@
                             <input type="text" value="{{$edit_category_product->category_name}}" name="category_product_name" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="form-group">
-                            <label for="category_parent">Danh mục cha</label>
+                            <label for="category_parent">Loại danh mục</label>
                             <select name="category_parent" class="form-control">
-                                <option value="0">Chọn danh mục cha</option>
+                                <option value="0">Danh mục cha</option>
                                 @foreach ($all_category_product as $cate)
-                                    <option value="{{ $cate->category_id }}" 
-                                        {{ $edit_category_product->category_parent == $cate->category_id ? 'selected' : '' }}>
-                                        {{ $cate->category_name }}
-                                    </option>
+                                    @if($cate->category_parent==0)
+                                        <option value="{{ $cate->category_id }}"
+                                            {{ $edit_category_product->category_id == $cate->category_id ? 'selected' : '' }}>
+                                            {{ $cate->category_name }}
+                                        </option>
+                                    
+                                    @foreach ($all_category_product as $cate2)
+                                        @if($cate2->category_parent == $cate->category_id)
+                                        <option value="{{ $cate2->category_id }}"
+                                            {{ $edit_category_product->category_id == $cate2->category_id ? 'selected' : '' }}>
+                                            ---{{ $cate2->category_name }}
+                                        </option>
+                                        @endif
+                                    @endforeach
+                                    @endif  
                                 @endforeach
                             </select>
                         </div>
