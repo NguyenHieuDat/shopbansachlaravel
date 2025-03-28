@@ -11,7 +11,6 @@ use File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
-
 class BookController extends Controller
 {
     //Ham admin
@@ -188,6 +187,11 @@ class BookController extends Controller
 
         foreach($book_detail as $key => $details){
             $category_id = $details->category_id;
+            $product_cate = $details->category_name;
+            $author_id = $details->author_id;
+            $author_name = $details->author_name;
+            $publisher_id = $details->publisher_id;
+            $publisher_name = $details->publisher_name;
         }
         
         $book_related = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
@@ -215,6 +219,8 @@ class BookController extends Controller
         return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery)
         ->with('related',$book_related)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
-        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('product_cate',$product_cate)
+        ->with('category_id',$category_id)->with('publisher_id',$publisher_id)->with('publisher_name',$publisher_name)
+        ->with('author_name',$author_name)->with('author_id',$author_id);
     }
 }

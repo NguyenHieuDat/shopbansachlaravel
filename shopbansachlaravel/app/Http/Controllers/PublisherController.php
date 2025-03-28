@@ -7,14 +7,14 @@ use DB;
 use App\Http\Requests;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Auth;
 
 class PublisherController extends Controller
 {
     //Ham admin
 
     public function check_login(){
-        $admin_id = Session::get('admin_id');
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }

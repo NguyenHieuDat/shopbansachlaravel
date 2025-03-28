@@ -1,5 +1,24 @@
 @extends('welcome')
 @section('content')
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="{{url('/')}}">Trang chủ</a><span class="breadcrumb-separator">/</span>
+                @if(request()->get('source') == 'author')
+                    <a class="breadcrumb-item text-dark" href="{{ url('/danh_muc_tac_gia/'.$author_id) }}">{{ $author_name }}</a><span class="breadcrumb-separator">/</span>
+                @elseif(request()->get('source') == 'publisher')
+                    <a class="breadcrumb-item text-dark" href="{{ url('/danh_muc_nha_xb/'.$publisher_id) }}">{{ $publisher_name }}</a><span class="breadcrumb-separator">/</span>
+                @else
+                    <a class="breadcrumb-item text-dark" href="{{ url('/danh_muc_sach/'.$category_id) }}">{{ $product_cate }}</a><span class="breadcrumb-separator">/</span>
+                @endif
+                <span class="breadcrumb-item active">{{$meta_title}}</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
 
 <!-- Shop Detail Start -->
 <div class="container-fluid pb-5">

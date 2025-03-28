@@ -39,7 +39,7 @@
                             <small class="fa fa-star text-danger mr-1"></small>
                             <small>(99)</small>
                         </div>
-                        <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book_cate->book_id)}}">Xem Chi Tiết</a>
+                        <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book_cate->book_id.'?source=category')}}">Xem Chi Tiết</a>
                     </div>
                     </form>
                 </div>

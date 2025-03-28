@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2025 at 11:52 AM
+-- Generation Time: Mar 28, 2025 at 10:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -530,6 +530,13 @@ CREATE TABLE `tbl_order` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `tbl_order`
+--
+
+INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
+(1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -546,6 +553,13 @@ CREATE TABLE `tbl_order_detail` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tbl_order_detail`
+--
+
+INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', '95000', 1, '2025-03-28 01:16:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -1368,7 +1382,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'ok', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'Giao trong ngày', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -12993,13 +13007,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
