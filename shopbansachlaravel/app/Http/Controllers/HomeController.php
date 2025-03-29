@@ -8,7 +8,8 @@ use App\Http\Requests;
 use App\Models\Banner;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Models\Book;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -46,6 +47,36 @@ class HomeController extends Controller
         return view('pages.book.search_book')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('search_book',$search_book)->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+    
+    public function autocomplete_search(Request $request){
+    if ($request->ajax()) {
+        $query = $request->input('query');
+
+        if ($query) {
+            $books = Book::where('book_status', 1)
+                ->where('book_name', 'LIKE', '%' . $query . '%')
+                ->limit(10)
+                ->get();
+
+            $html = '<ul class="dropdown-menu" style="display:block; position:absolute; z-index:1000; width:100%;">';
+
+            if ($books->isEmpty()) {
+                $html .= '<li class="dropdown-item text-danger">Không tìm thấy sách</li>';
+            } else {
+                foreach ($books as $book) {
+                    $shortName = Str::limit(e($book->book_name), 40, '...');
+                    $html .= '<li class="dropdown-item search-item" data-fullname="'. e($book->book_name) .'">' 
+                             . $shortName . 
+                             '</li>';
+                }
+            }
+            $html .= '</ul>';
+
+            return response()->json(['html' => $html]);
+            }
+        }
+        return response()->json(['error' => 'Invalid request'], 400);
     }
 
     public function view_account(Request $request){

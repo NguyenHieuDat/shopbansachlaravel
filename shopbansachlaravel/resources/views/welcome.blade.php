@@ -34,7 +34,6 @@
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/lightslider.css')}}">
     <link type="text/css" rel="stylesheet" href="{{asset('public/frontend/css/sweetalert.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -42,15 +41,16 @@
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="{{url('/')}}" class="text-decoration-none">
                     <img src="{{asset('public/frontend/img/fahasa-logo.jpeg')}}" alt="Logo" style="height: 50px; max-width: 100%; object-fit: contain;">
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
                 <form id="searchForm" action="{{URL::to('/tim_kiem')}}" method="POST">
                     @csrf
-                    <div class="input-group">
-                        <input type="text" name="keywords_submit" id="searchInput" class="form-control" placeholder="Tìm Kiếm Sách">
+                    <div class="input-group" style="position: relative;">
+                        <input type="text" name="keywords_submit" id="searchInput" class="form-control" placeholder="Nhập Để Tìm Kiếm Sản Phẩm" autocomplete="off">
+                        <div id="search_ajax" style="position: absolute; top: 100%; left: 0; width: 100%;"></div>
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-danger" id="searchIcon">
                                 <i class="fa fa-search"></i>
@@ -271,7 +271,9 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('public/frontend/lib/easing/easing.min.js')}}"></script>
     <script src="{{asset('public/frontend/lib/owlcarousel/owl.carousel.min.js')}}"></script>
@@ -283,7 +285,6 @@
     <!-- Template Javascript -->
     <script src="{{asset('public/frontend/js/main.js')}}"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{asset('public/frontend/js/lightslider.js')}}"></script>
     <script src="{{asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
@@ -721,7 +722,6 @@
     });
 </script>
 
-
 <script>
     $(document).ready(function () {
         var previousUrl = document.referrer; // Lấy URL trước khi vào trang login
@@ -869,7 +869,7 @@
         });
     });
 </script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('.dropdown').hover(function() {
             $(this).children('.dropdown-menu').stop(true, true).slideDown(200);
@@ -910,9 +910,59 @@
         }, 500); // Thời gian đồng bộ với thời gian nháy
     });
 });
+</script> --}}
+<script>
+$(document).ready(function() {
+    let searchInput = $('#searchInput');
 
+    searchInput.keyup(function(){
+        var query = $(this).val().trim();
+        var _token = $('meta[name="csrf-token"]').attr('content');
 
+        if(query.length >= 2) { // Chỉ tìm kiếm khi có ít nhất 2 ký tự
+            $.ajax({
+                url: "{{ route('autocomplete.search') }}",
+                type: "POST",
+                data: { 
+                    query: query, 
+                    _token: _token 
+                },
+                success: function(data) {
+                    if (data.html) {
+                        $('#search_ajax').html(data.html).fadeIn();
+                    } else {
+                        $('#search_ajax').html('<ul><li class="text-danger">Không tìm thấy kết quả</li></ul>').fadeIn();
+                    }
+                },
+                error: function(xhr) {
+                    console.error("Lỗi AJAX:", xhr.responseText);
+                    $('#search_ajax').html('<ul><li class="text-danger">Lỗi tải dữ liệu</li></ul>').fadeIn();
+                }
+            });
+        } else {
+            $('#search_ajax').fadeOut();
+        }
+    });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest("#searchInput, #search_ajax").length) {
+            $('#search_ajax').fadeOut();
+        }
+    });
+
+    $(document).on('click', '.search-item', function(){
+        let fullName = $(this).data('fullname');
+        searchInput.val(fullName);
+        $('#search_ajax').fadeOut();
+        $('#searchForm').submit();
+    });
+});
+    $(document).on("mouseenter", ".search-item", function() {
+        $(this).css({"background-color": "#dc3545", "color": "white", "cursor": "pointer"});
+});
+    $(document).on("mouseleave", ".search-item", function() {
+        $(this).css({"background-color": "", "color": ""});
+});
 </script>
-
 </body>
 </html>

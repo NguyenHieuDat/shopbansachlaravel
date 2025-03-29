@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate">{{$sbook->book_name}}</a>
+                        <a class="h6 text-decoration-none text-truncate book-name" style="max-width: 150px; margin: 0 auto;">{{$sbook->book_name}}</a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>{{number_format($sbook->book_price).' '.'đ'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($sbook->book_price).' '.'VND'}}</del></h6>
                         </div>
