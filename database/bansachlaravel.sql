@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2025 at 11:03 AM
+-- Generation Time: Mar 30, 2025 at 11:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -251,6 +251,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('54PPWGv17bjYFY6ioWLGGoU7bKdoAYtS8B8a4m7o', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiam1Yc2NsZVVtQkJmNXZpdlZPbkptYlFiZmR1eXNnVUZ6RW10TjdjaSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743321334),
 ('6k1CiPXJX73c8aXZNJRdTQZM3zNS6OZi9ERs77lZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoidklCdHdQdDREeDFrRUlQRmZGOGFCdDBPQVpkWHR1czVQV2EwOEd1RCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741424440),
 ('ekGqvHp9D2m3jTwwxjYB0c63mpzsciM78xTLLqgv', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU1Qwemw4QnBycGJKdEc4bUtzMWRqYmJQWFJBOWwwWEtXVEx0ZHducSI7czoxMjoicHJldmlvdXNfdXJsIjtzOjUxOiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC9kYW5oX211Y19zYWNoLzYiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1742810412),
 ('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154),
@@ -397,6 +398,38 @@ INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_pa
 (3, 'Kỹ năng sống', 0, '<p>S&aacute;ch Kỹ Năng Sống l&agrave; những cuốn s&aacute;ch mang đến cho bạn những <strong>b&agrave;i học qu&yacute; gi&aacute; về tư duy, giao tiếp, quản l&yacute; cảm x&uacute;c, ph&aacute;t triển bản th&acirc;n v&agrave; x&acirc;y dựng c&aacute;c mối quan hệ x&atilde; hội.</strong> Đ&acirc;y l&agrave; h&agrave;nh trang cần thiết gi&uacute;p mọi người, đặc biệt l&agrave; giới trẻ, r&egrave;n luyện c&aacute;c kỹ năng mềm quan trọng để đối mặt với những thử th&aacute;ch trong cuộc sống v&agrave; c&ocirc;ng việc.</p>', 'ky nang, kỹ năng, ky nang song, kỹ năng sống, sống', NULL, NULL),
 (5, 'Truyện tranh', 6, '<p>Truyện tranh l&agrave; một loại h&igrave;nh nghệ thuật kết hợp giữa h&igrave;nh ảnh v&agrave; văn bản để kể một c&acirc;u chuyện. N&oacute; thường được thể hiện dưới dạng c&aacute;c bảng vẽ, với những bức tranh minh họa diễn tả h&agrave;nh động v&agrave; cảm x&uacute;c, k&egrave;m theo c&aacute;c lời thoại hoặc m&ocirc; tả. Truyện tranh c&oacute; thể c&oacute; nhiều thể loại, từ h&agrave;nh động, phi&ecirc;u lưu, kỳ ảo, đến h&agrave;i hước, t&igrave;nh cảm hoặc ch&iacute;nh trị, khoa học...</p>', 'truyen tranh,truyện tranh,tranh truyen,tranh truyện', NULL, NULL),
 (6, 'Sách tranh', 0, '<p>S&aacute;ch tranh l&agrave; một loại s&aacute;ch c&oacute; sự kết hợp giữa văn bản v&agrave; h&igrave;nh ảnh, nơi h&igrave;nh ảnh đ&oacute;ng vai tr&ograve; quan trọng trong việc truyền tải nội dung c&acirc;u chuyện hoặc th&ocirc;ng tin. C&aacute;c s&aacute;ch tranh thường được thiết kế để trẻ em hoặc những người mới học đọc dễ d&agrave;ng tiếp cận v&agrave; hiểu, th&ocirc;ng qua h&igrave;nh ảnh minh họa sinh động.</p>', 'sach tranh,sách tranh,tranh', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_comment`
+--
+
+CREATE TABLE `tbl_comment` (
+  `comment_id` int(11) NOT NULL,
+  `comment_name` varchar(255) NOT NULL,
+  `comment_info` varchar(255) NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `comment_book_id` int(10) NOT NULL,
+  `comment_parent_comment` int(10) DEFAULT NULL,
+  `comment_status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_comment`
+--
+
+INSERT INTO `tbl_comment` (`comment_id`, `comment_name`, `comment_info`, `comment_date`, `comment_book_id`, `comment_parent_comment`, `comment_status`) VALUES
+(1, 'Nguyen', 'Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.', '2025-03-30 09:27:44', 3, NULL, 0),
+(2, 'Dat Nguyen', 'Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.', '2025-03-30 09:18:56', 3, NULL, 1),
+(3, 'Dat', 'rất hay kkk', '2025-03-30 09:22:01', 3, NULL, 1),
+(7, 'Tôi là am', 'good job', '2025-03-30 09:27:40', 3, NULL, 1),
+(8, 'jjj', 'very nice', '2025-03-30 07:47:20', 3, NULL, 0),
+(9, 'ok', 'hahaha', '2025-03-30 07:55:45', 3, NULL, 0),
+(10, 'Cửa hàng sách Fahasa', 'thanks bạn', '2025-03-30 09:49:17', 3, 3, 1),
+(11, 'Cửa hàng sách Fahasa', 'tuyệt vời', '2025-03-30 09:53:34', 3, 7, 1),
+(12, 'Dat', 'Sách quá hay', '2025-03-30 09:54:33', 2, NULL, 1),
+(13, 'Cửa hàng sách Fahasa', 'Tôi đồng ý với bạn', '2025-03-30 09:54:57', 2, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -12809,6 +12842,12 @@ ALTER TABLE `tbl_category_product`
   ADD PRIMARY KEY (`category_id`);
 
 --
+-- Indexes for table `tbl_comment`
+--
+ALTER TABLE `tbl_comment`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
 -- Indexes for table `tbl_coupon`
 --
 ALTER TABLE `tbl_coupon`
@@ -12979,6 +13018,12 @@ ALTER TABLE `tbl_book`
 --
 ALTER TABLE `tbl_category_product`
   MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbl_comment`
+--
+ALTER TABLE `tbl_comment`
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`

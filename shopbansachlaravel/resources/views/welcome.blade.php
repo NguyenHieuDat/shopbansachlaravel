@@ -919,7 +919,7 @@ $(document).ready(function() {
         var query = $(this).val().trim();
         var _token = $('meta[name="csrf-token"]').attr('content');
 
-        if(query.length >= 2) { // Chỉ tìm kiếm khi có ít nhất 2 ký tự
+        if(query.length >= 2) {
             $.ajax({
                 url: "{{ route('autocomplete.search') }}",
                 type: "POST",
@@ -963,6 +963,68 @@ $(document).ready(function() {
     $(document).on("mouseleave", ".search-item", function() {
         $(this).css({"background-color": "", "color": ""});
 });
+</script>
+<script>
+    $(document).ready(function() {
+        load_comment();
+        function load_comment(){
+            var book_id = $('.comment_book_id').val();
+            var _token = $('meta[name="csrf-token"]').attr('content');
+            
+            $.ajax({
+                url: "{{ url('/load_comment') }}",
+                type: "POST",
+                data: { 
+                    book_id: book_id, 
+                    _token: _token 
+                },
+                success: function(data) {
+                    $('#show_comment').html(data);
+                }
+            });
+        }
+
+        $('.send_comment').click(function(){
+            var book_id = $('.comment_book_id').val();
+            var comment_name = $('.comment_name').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "{{ url('/send_comment') }}",
+                type: "POST",
+                data: { 
+                    book_id: book_id, 
+                    comment_name: comment_name, 
+                    comment_content: comment_content, 
+                    _token: _token 
+                },
+                success: function(data) {
+                    Swal.fire({
+                    title: "Thành công!",
+                    text: "Bình luận của bạn đã được gửi và đang chờ duyệt!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            load_comment();
+                            $('.comment_content').val('');
+                            $('.comment_name').val('');
+                        }
+                    });
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        title: "Lỗi!",
+                        text: "Có lỗi xảy ra, vui lòng thử lại.",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            });
+        });
+    });
+
 </script>
 </body>
 </html>

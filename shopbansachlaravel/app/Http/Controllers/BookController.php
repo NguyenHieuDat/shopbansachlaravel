@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Models\GalleryModel;
+use App\Models\Comment;
 use Session;
 use File;
 use Illuminate\Support\Facades\Redirect;
@@ -222,5 +223,66 @@ class BookController extends Controller
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('product_cate',$product_cate)
         ->with('category_id',$category_id)->with('publisher_id',$publisher_id)->with('publisher_name',$publisher_name)
         ->with('author_name',$author_name)->with('author_id',$author_id);
+    }
+
+    public function load_comment(Request $request){
+        $book_id = $request->book_id;
+        $comment = Comment::where('comment_book_id',$book_id)->where('comment_status', 1)->get();
+        $output = '';
+
+        foreach($comment as $key => $comm){
+        $output .= '<div class="media mb-4">
+                        <img src="'.url('/public/frontend/img/avatar-icon.png').'" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                        <div class="media-body">
+                            <h6>'.$comm->comment_name.'<small> - <i>'.$comm->comment_date.'</i></small></h6>
+                            <div class="text-primary mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <p>'.$comm->comment_info.'</p>
+                        </div>
+                    </div>';
+        }
+        echo $output;
+    }
+
+    public function send_comment(Request $request){
+        $book_id = $request->book_id;
+        $comment_name = $request->comment_name;
+        $comment_content = $request->comment_content;
+
+        $comment = new Comment();
+        $comment->comment_info = $comment_content;
+        $comment->comment_name = $comment_name;
+        $comment->comment_book_id = $book_id;
+        $comment->save();
+    }
+
+    public function list_comment(){
+        $comment = Comment::with('book')->orderBy('comment_status', 'ASC')->get();
+        return view('admin.comment.list_comment')->with(compact('comment'));
+    }
+
+    public function allow_comment(Request $request){
+        $data = $request->all();
+        $comment = Comment::find($data['comment_id']);
+        $comment->comment_status = $data['comment_status'];
+        $comment->save();
+    }
+
+    public function reply_comment(Request $request){
+        $data = $request->all();
+        $comment = new Comment;
+
+        $comment->comment_info = $data['comment'];
+        $comment->comment_book_id = $data['comment_book_id'];
+        $comment->comment_parent_comment = $data['comment_id'];
+        $comment->comment_status = 1;
+        $comment->comment_name = 'Cửa hàng sách Fahasa';
+        $comment->save();
+        
     }
 }

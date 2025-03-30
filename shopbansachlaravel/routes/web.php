@@ -60,13 +60,18 @@ Route::controller(PublisherController::class)->group(function () {
 });
 
 Route::controller(BookController::class)->group(function () {
-    Route::get('/chi_tiet_sach/{books_id}', 'book_detail');
+    Route::match(['get', 'post'], '/chi_tiet_sach/{books_id}', 'book_detail');
     Route::get('/all_book', 'all_book');
     Route::post('/save_book', 'save_book');
     Route::get('/delete_book/{books_id}', 'delete_book');
     Route::post('/update_book/{books_id}', 'update_book');
     Route::get('/unactive_book/{books_id}', 'unactive_book');
     Route::get('/active_book/{books_id}', 'active_book');
+    Route::post('/load_comment', 'load_comment');
+    Route::post('/send_comment', 'send_comment');
+    Route::get('/list_comment', 'list_comment');
+    Route::post('/allow_comment', 'allow_comment');
+    Route::post('/reply_comment', 'reply_comment');
 });
 
 Route::controller(BookController::class)->middleware(['auth', 'auth.roles:admin'])->group(function () {

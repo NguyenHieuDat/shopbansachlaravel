@@ -125,56 +125,45 @@
                         <p>{!! $detail->book_description !!}</p>
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">* đánh giá cho {{$detail->book_name}}</h4>
-                                <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
+                        <form method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="hidden" class="comment_book_id" name="comment_book_id" value="{{$detail->book_id}}">
+                                    <h4 class="mb-4">Đánh giá cho: {{$detail->book_name}}</h4>
+                                    <div id="show_comment">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Để lại đánh giá và bình luận</h4>
+                                    <small>Các ô được đánh dấu * là bắt buộc.</small>
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Đánh giá của bạn: </p>
+                                        <div class="text-primary">
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
                                             <i class="far fa-star"></i>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
                                     </div>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="message">Bình luận của bạn: *</label>
+                                            <textarea id="message" cols="30" rows="5" name="comment" class="form-control comment_content" placeholder="Nhập bình luận"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Họ và tên: *</label>
+                                            <input type="text" class="form-control comment_name" id="name" placeholder="Nhập tên của bạn" autocomplete="off">
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <input type="button" value="Gửi bình luận" class="btn btn-danger px-3 send_comment">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

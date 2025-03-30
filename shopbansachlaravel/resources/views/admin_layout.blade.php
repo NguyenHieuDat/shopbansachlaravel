@@ -351,6 +351,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('/all_banner')}}">Liệt kê banner</a></li>
                     </ul>
                 </li>
+
+				<li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý bình luận</span>
+                    </a>
+                    <ul class="sub">
+						
+						<li><a href="{{URL::to('/list_comment')}}">Liệt kê bình luận</a></li>
+                    </ul>
+                </li>
+
 				@hasrole('admin')
 				<li class="sub-menu">
                     <a href="javascript:;">
@@ -572,7 +584,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	document.querySelectorAll('.page-item.disabled a').forEach(function(link) {
     	link.addEventListener('click', function(event) {
-        	event.preventDefault(); // Ngăn chặn hành động click
+        	event.preventDefault();
     	});
 	});
 </script>
@@ -600,6 +612,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 
 </script>
+<script>
+	$('.duyet_comment_btn').click(function(){
+		var comment_status = $(this).data('comment_status');
+		var comment_id = $(this).data('comment_id');
+		var comment_book_id = $(this).attr('id');
+		if(comment_status == 1){
+			var alertmes = 'Duyệt thành công!';
+		}else{
+			var alertmes = 'Bỏ duyệt thành công!';
+		}
 
+		$.ajax({
+			url:"{{url('/allow_comment')}}",
+			method:"POST",
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data:{comment_status:comment_status, comment_id:comment_id, 
+				comment_book_id:comment_book_id
+			},
+			success:function(data){
+				alert(alertmes);
+				location.reload();
+			}
+		});
+	});
+
+	$('.reply_comment_btn').click(function(){
+		var comment_id = $(this).data('comment_id');
+		var comment = $('.reply_comment_'+comment_id).val();
+		var comment_book_id = $(this).data('book_id');
+
+		$.ajax({
+			url:"{{url('/reply_comment')}}",
+			method:"POST",
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data:{comment:comment, comment_id:comment_id, 
+				comment_book_id:comment_book_id
+			},
+			success:function(data){
+				alert('Trả lời bình luận thành công!');
+				location.reload();
+			}
+		});
+	});
+</script>
 </body>
 </html>
