@@ -20,6 +20,7 @@
                 <th>Trạng thái</th>
                 <th>Tên người gửi</th>
                 <th>Nội dung bình luận</th>
+                <th>Trả lời bình luận</th>
                 <th>Sản phẩm</th>
                 <th>Ngày gửi bình luận</th>
                 <th>Quản lý</th>
@@ -45,11 +46,19 @@
                         data-book_id="{{$comm->comment_book_id}}">Trả lời bình luận</button>
                     @endif
                 </td>
+                <td>
+                  <ul> Trả lời: 
+                    @foreach ($comment_rep as $key => $comm_rep)
+                      @if($comm_rep->comment_parent_comment == $comm->comment_id)
+                        <li style="color: blue; margin:5px 20px"><a href="{{url('/list_reply_comment/'.$comm->comment_id)}}">{{$comm_rep->comment_info}}</a></li>
+                      @endif
+                    @endforeach
+                  </ul>
+                </td>
                 <td><a href="{{url('/chi_tiet_sach/'.$comm->book->book_id)}}" target="_blank">{{$comm->book->book_name}}</a></td>
                 <td>{{$comm->comment_date}}</td>
                 <td>
-                    <a href="{{URL::to('/edit_comment/'.$comm->comment_id)}}" class="active style-edit" ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
-                    <a href="{{URL::to('/delete_comment/'.$comm->comment_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>
+                  <a href="{{URL::to('/delete_comment/'.$comm->comment_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa bình luận này chứ?')" class="active style-delete" ui-toggle-class=""><i class="fa fa-trash-o text-danger text"></i></a>
                 </td>
             </tr>
             @endforeach

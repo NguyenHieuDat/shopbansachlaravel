@@ -7,6 +7,7 @@ use DB;
 use App\Http\Requests;
 use App\Models\GalleryModel;
 use App\Models\Comment;
+use App\Models\Rating;
 use Session;
 use File;
 use Illuminate\Support\Facades\Redirect;
@@ -217,34 +218,62 @@ class BookController extends Controller
                 break;
             }
         }
+
+        $comments = Comment::where('comment_parent_comment',null)->where('comment_book_id', $book_id)->get();
+        $avgRating = Rating::where('book_id', $book_id)->avg('rating');
+        $avgRating = round($avgRating, 1);
+        $totalreview = Rating::where('book_id', $book_id)->count();
+
         return view('pages.book.show_book_detail')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('book_detail',$book_detail)->with('gallery',$gallery)
         ->with('related',$book_related)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('product_cate',$product_cate)
         ->with('category_id',$category_id)->with('publisher_id',$publisher_id)->with('publisher_name',$publisher_name)
-        ->with('author_name',$author_name)->with('author_id',$author_id);
+        ->with('author_name',$author_name)->with('author_id',$author_id)->with('comments',$comments)->with('avgRating',$avgRating)
+        ->with('totalreview',$totalreview);
     }
 
     public function load_comment(Request $request){
         $book_id = $request->book_id;
-        $comment = Comment::where('comment_book_id',$book_id)->where('comment_status', 1)->get();
+        $comment = Comment::where('comment_book_id',$book_id)->where('comment_parent_comment',null)->where('comment_status', 1)
+        ->leftJoin('tbl_rating', 'tbl_rating.comment_id', '=', 'tbl_comment.comment_id')->get();
+        $comment_rep = Comment::with('book')->whereNotNull('comment_parent_comment')->get();
         $output = '';
 
         foreach($comment as $key => $comm){
-        $output .= '<div class="media mb-4">
-                        <img src="'.url('/public/frontend/img/avatar-icon.png').'" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                        <div class="media-body">
-                            <h6>'.$comm->comment_name.'<small> - <i>'.$comm->comment_date.'</i></small></h6>
-                            <div class="text-primary mb-2">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <p>'.$comm->comment_info.'</p>
+            $rating = $comm->rating;
+            
+                $output .= '<div class="media mb-4">
+                            <img src="'.url('/public/frontend/img/avatar-icon.png').'" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                            <div class="media-body">
+                                <h6>'.$comm->comment_name.'<small> - <i>'.$comm->comment_date.'</i></small></h6>';
+                        if (!is_null($rating)) {
+                            $fullStars = floor($rating);
+                            $emptyStars = 5 - $fullStars;
+                $output .= '<div class="text-danger mb-2">';
+                            for ($i = 0; $i < $fullStars; $i++) {
+                                $output .= '<i class="fas fa-star"></i>';
+                            }
+                            for ($i = 0; $i < $emptyStars; $i++) {
+                                $output .= '<i class="far fa-star"></i>';
+                            }   
+                $output .= '</div>';
+            }
+            $output .= ' <p>'.$comm->comment_info.'</p>
                         </div>
                     </div>';
+                foreach($comment_rep as $key => $rep_comm){
+                    if($rep_comm->comment_parent_comment == $comm->comment_id){
+                        $output .= '<div class="media mb-4" style="margin:5px 60px">
+                            <img src="'.url('/public/frontend/img/logo_mascot.jpg').'" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                            <div class="media-body">
+                                <h6 style="color: blue;">'.$rep_comm->comment_name.'<small> - <i>'.$rep_comm->comment_date.'</i></small></h6>
+                                <p>'.$rep_comm->comment_info.'</p>
+                            </div>
+                        </div>
+                    ';
+                }
+            }
         }
         echo $output;
     }
@@ -253,17 +282,27 @@ class BookController extends Controller
         $book_id = $request->book_id;
         $comment_name = $request->comment_name;
         $comment_content = $request->comment_content;
+        $rating = $request->rating;
 
         $comment = new Comment();
         $comment->comment_info = $comment_content;
         $comment->comment_name = $comment_name;
         $comment->comment_book_id = $book_id;
         $comment->save();
+
+        if ($rating) {
+            $new_rating = new Rating();
+            $new_rating->book_id = $book_id;
+            $new_rating->comment_id = $comment->comment_id;
+            $new_rating->rating = $rating;
+            $new_rating->save();
+        }
     }
 
     public function list_comment(){
-        $comment = Comment::with('book')->orderBy('comment_status', 'ASC')->get();
-        return view('admin.comment.list_comment')->with(compact('comment'));
+        $comment = Comment::with('book')->where('comment_parent_comment',null)->orderBy('comment_status', 'ASC')->get();
+        $comment_rep = Comment::with('book')->whereNotNull('comment_parent_comment')->get();
+        return view('admin.comment.list_comment')->with(compact('comment','comment_rep'));
     }
 
     public function allow_comment(Request $request){
@@ -283,6 +322,27 @@ class BookController extends Controller
         $comment->comment_status = 1;
         $comment->comment_name = 'Cửa hàng sách Fahasa';
         $comment->save();
-        
     }
+
+    public function list_reply_comment($comment_id){
+        $comment = Comment::with('book')->where('comment_id', $comment_id)->first();
+        $comment_rep = Comment::with('book')->where('comment_parent_comment',$comment_id)->get();
+        return view('admin.comment.comment_rep')->with(compact('comment', 'comment_rep', 'comment_id'));
+    }
+
+    public function delete_comment($comment_id){
+        $comment = Comment::find($comment_id);
+
+        if ($comment) {
+            if ($comment->comment_parent_comment == null) {
+                Comment::where('comment_parent_comment', $comment_id)->delete();
+            }
+            $comment->delete();
+
+            return redirect()->back()->with('message', 'Xóa bình luận thành công!');
+        } else {
+            return redirect()->back()->with('error', 'Bình luận không tồn tại!');
+        }
+    }
+
 }

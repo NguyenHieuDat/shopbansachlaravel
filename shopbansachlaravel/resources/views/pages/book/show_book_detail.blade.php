@@ -58,14 +58,29 @@
             <div class="h-100 bg-light p-30">
                 <h3>{{$detail->book_name}}</h3>
                 <div class="d-flex mb-3">
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
+                    <div class="text-danger mr-2">
+                        @php
+                            $fullStars = floor($avgRating);
+                            $halfStar = ($avgRating - $fullStars) >= 0.5 ? 1 : 0;
+                            $emptyStars = 5 - ($fullStars + $halfStar);
+                        @endphp
+                
+                        {{-- Hiển thị sao đầy --}}
+                        @for ($i = 0; $i < $fullStars; $i++)
+                            <small class="fas fa-star"></small>
+                        @endfor
+                
+                        {{-- Hiển thị nửa sao nếu có --}}
+                        @if ($halfStar)
+                            <small class="fas fa-star-half-alt"></small>
+                        @endif
+                
+                        {{-- Hiển thị sao rỗng --}}
+                        @for ($i = 0; $i < $emptyStars; $i++)
+                            <small class="far fa-star"></small>
+                        @endfor
                     </div>
-                    <small class="pt-1">(99 Reviews)</small>
+                    <small class="pt-1">({{number_format($avgRating, 1)}} / 5 từ {{$totalreview}} đánh giá)</small>
                 </div>
                 
                 <h3 class="font-weight-semi-bold mb-4 book-price" data-price="{{$detail->book_price}}">Giá tiền: {{number_format($detail->book_price).' '.'đ'}}</h3>
@@ -140,13 +155,14 @@
                                     <small>Các ô được đánh dấu * là bắt buộc.</small>
                                     <div class="d-flex my-3">
                                         <p class="mb-0 mr-2">Đánh giá của bạn: </p>
-                                        <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
+                                        <div class="text-danger rating-stars">
+                                            <i class="far fa-star star" data-value="1"></i>
+                                            <i class="far fa-star star" data-value="2"></i>
+                                            <i class="far fa-star star" data-value="3"></i>
+                                            <i class="far fa-star star" data-value="4"></i>
+                                            <i class="far fa-star star" data-value="5"></i>
                                         </div>
+                                        <input type="hidden" id="rating" class="rating_value" value="0">
                                     </div>
                                     <form>
                                         <div class="form-group">

@@ -33,12 +33,21 @@
                             <h5>{{number_format($book_aut->book_price).' '.'VND'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($book_aut->book_price).' '.'VND'}}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small>(99)</small>
+                            @php
+                                $fullStars = floor($book_aut->avgRating);
+                                $halfStar = ($book_aut->avgRating - $fullStars) >= 0.5 ? 1 : 0;
+                                $emptyStars = 5 - ($fullStars + $halfStar);
+                            @endphp
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <small class="fa fa-star text-danger mr-1"></small>
+                            @endfor
+                            @if ($halfStar)
+                                <small class="fa fa-star-half-alt text-danger mr-1"></small>
+                            @endif
+                            @for ($i = 0; $i < $emptyStars; $i++)
+                                <small class="fa fa-star text-muted mr-1"></small>
+                            @endfor
+                            <small>({{ $book_aut->totalreview }})</small>
                         </div>
                         <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book_aut->book_id.'?source=author')}}">Xem Chi Tiết</a>
                     </div>

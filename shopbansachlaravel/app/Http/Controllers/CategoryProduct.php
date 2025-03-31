@@ -9,6 +9,7 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use App\Models\Rating;
 
 class CategoryProduct extends Controller
 {
@@ -102,6 +103,11 @@ class CategoryProduct extends Controller
                 $meta_title = $seo_value->category_name ?? '';
                 break;
             }
+        }
+        foreach ($category_by_id as $book) {
+            $rating = Rating::where('book_id', $book->book_id)->avg('rating');
+            $book->avgRating = $rating !== null ? round($rating, 1) : 0;
+            $book->totalreview = Rating::where('book_id', $book->book_id)->count();
         }
         return view('pages.category.show_category')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('category_by_id',$category_by_id)->with('category_name_show',$category_name_show)

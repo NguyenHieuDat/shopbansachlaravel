@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2025 at 11:56 AM
+-- Generation Time: Mar 31, 2025 at 01:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -258,6 +258,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('EVB5gyVWtOIL2e2jzEh31aYgxNlJuSZhCkKuQg4h', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiVDNOekFvd1JaenJDUUVmT3RFSUpHQVJsbHZZNUFldzZNb2x1aTJmUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742111021),
 ('GbLkJXrvOXOOVKzVUWPXzur80F00QPt9NH41B6jZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiQllEV3p5OFBUY2NOV05yQmduN3pEbXFwREpSZ016NnVSa1VXVDhHeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742458250),
 ('lZRVw6uWFRUqhntYTpmTdF4OGazYH4gGycvY9oGy', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiYWd0eVVOcWFjWUxvUEdMTVVrenRMUjNsREQyYzA3Qk44czhmdGE4eiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743242404),
+('MHTdeB1UZ9uoE105SZ4deRdWTBc7DwUN6YH2HrFa', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicjZBMWkzT3lkc3VtSEtNbGNDOG5rRFR5eDZYbWlRNFFuZmk3RGZDeCI7czoxMjoicHJldmlvdXNfdXJsIjtzOjU0OiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC9kYW5oX211Y190YWNfZ2lhLzMiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1743415075),
 ('ZyGioOQeaXRasPXAwuwM8xJrIO7We2AJovntMOFp', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiZktjOXRnNGhNRlVaVzVXY09tN3BHUmpoT2JITDUwNFRkNG9JNG1xVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741765705);
 
 -- --------------------------------------------------------
@@ -428,8 +429,11 @@ INSERT INTO `tbl_comment` (`comment_id`, `comment_name`, `comment_info`, `commen
 (9, 'ok', 'hahaha', '2025-03-30 07:55:45', 3, NULL, 0),
 (10, 'Cửa hàng sách Fahasa', 'thanks bạn', '2025-03-30 09:49:17', 3, 3, 1),
 (11, 'Cửa hàng sách Fahasa', 'tuyệt vời', '2025-03-30 09:53:34', 3, 7, 1),
-(12, 'Dat', 'Sách quá hay', '2025-03-30 09:54:33', 2, NULL, 1),
-(13, 'Cửa hàng sách Fahasa', 'Tôi đồng ý với bạn', '2025-03-30 09:54:57', 2, 12, 1);
+(16, 'Nguyen Hieu', 'hay', '2025-03-31 09:22:54', 2, NULL, 1),
+(17, 'sigma', 'ko hay', '2025-03-31 09:28:46', 2, NULL, 1),
+(18, 'ok', 'ok', '2025-03-31 10:24:18', 2, NULL, 1),
+(19, 'nguoc', 'quá hay shop ơi', '2025-03-31 10:39:25', 2, NULL, 1),
+(20, 'sâs', 'okok', '2025-03-31 10:38:01', 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1372,6 +1376,28 @@ INSERT INTO `tbl_quanhuyen` (`maqh`, `tenqh`, `type`, `matp`) VALUES
 (971, 'Huyện Năm Căn', 'Huyện', 96),
 (972, 'Huyện Phú Tân', 'Huyện', 96),
 (973, 'Huyện Ngọc Hiển', 'Huyện', 96);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_rating`
+--
+
+CREATE TABLE `tbl_rating` (
+  `rating_id` int(11) NOT NULL,
+  `book_id` int(10) NOT NULL,
+  `comment_id` int(10) NOT NULL,
+  `rating` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_rating`
+--
+
+INSERT INTO `tbl_rating` (`rating_id`, `book_id`, `comment_id`, `rating`) VALUES
+(1, 2, 16, 5),
+(2, 2, 17, 1),
+(3, 2, 18, 3);
 
 -- --------------------------------------------------------
 
@@ -12912,6 +12938,12 @@ ALTER TABLE `tbl_quanhuyen`
   ADD KEY `matp` (`matp`);
 
 --
+-- Indexes for table `tbl_rating`
+--
+ALTER TABLE `tbl_rating`
+  ADD PRIMARY KEY (`rating_id`);
+
+--
 -- Indexes for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
@@ -13023,7 +13055,7 @@ ALTER TABLE `tbl_category_product`
 -- AUTO_INCREMENT for table `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -13072,6 +13104,12 @@ ALTER TABLE `tbl_payment`
 --
 ALTER TABLE `tbl_publisher`
   MODIFY `publisher_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_rating`
+--
+ALTER TABLE `tbl_rating`
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`

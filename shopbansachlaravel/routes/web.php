@@ -72,6 +72,8 @@ Route::controller(BookController::class)->group(function () {
     Route::get('/list_comment', 'list_comment');
     Route::post('/allow_comment', 'allow_comment');
     Route::post('/reply_comment', 'reply_comment');
+    Route::get('/list_reply_comment/{comment_id}', 'list_reply_comment');
+    Route::get('/delete_comment/{comment_id}', 'delete_comment');
 });
 
 Route::controller(BookController::class)->middleware(['auth', 'auth.roles:admin'])->group(function () {

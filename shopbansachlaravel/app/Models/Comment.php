@@ -17,4 +17,8 @@ class Comment extends Model
     public function book(){
         return $this->belongsTo('App\Models\Book','comment_book_id');
     }
+
+    public function rating(){
+        return $this->hasOne('App\Models\Rating','comment_id');
+    }
 }

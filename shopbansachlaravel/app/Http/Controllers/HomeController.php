@@ -9,6 +9,7 @@ use App\Models\Banner;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Book;
+use App\Models\Rating;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -44,6 +45,12 @@ class HomeController extends Controller
         $meta_keywords = "tim kiem,tìm kiếm,tim kiem sach,tìm kiếm sách,fahasa";
         $meta_title = "Tìm kiếm sản phẩm";
         $url_canonical = $request->url();
+        foreach ($search_book as $book) {
+            $rating = Rating::where('book_id', $book->book_id)->avg('rating');
+            $book->avgRating = $rating !== null ? round($rating, 1) : 0;
+            $book->totalreview = Rating::where('book_id', $book->book_id)->count();
+        }
+
         return view('pages.book.search_book')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('search_book',$search_book)->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);

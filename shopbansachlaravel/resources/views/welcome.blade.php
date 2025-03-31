@@ -983,11 +983,49 @@ $(document).ready(function() {
                 }
             });
         }
+        
+        let selectedRating = $("#rating").val() || 0; // Mặc định là 0 nếu chưa có rating
 
+        function updateStars(rating) {
+            $(".star").each(function() {
+                $(this).toggleClass("fas", $(this).data("value") <= rating && rating > 0);
+                $(this).toggleClass("far", $(this).data("value") > rating || rating == 0);
+            });
+        }
+
+        // Cập nhật sao theo giá trị rating đã lưu
+        updateStars(selectedRating);
+
+        // Khi hover vào sao
+        $(".star").on("mouseenter", function() {
+            let rating = $(this).data("value");
+            updateStars(rating);
+        });
+
+        // Khi rời chuột
+        $(".star").on("mouseleave", function() {
+            updateStars(selectedRating);
+        });
+
+        // Khi click để chọn hoặc bỏ chọn sao
+        $(".star").on("click", function() {
+            let clickedValue = $(this).data("value");
+
+            if (clickedValue == selectedRating) {
+                selectedRating = 0; // Nếu click vào sao đã chọn, reset về 0
+            } else {
+                selectedRating = clickedValue; // Cập nhật giá trị rating mới
+            }
+
+            $("#rating").val(selectedRating); // Gán vào input ẩn
+            updateStars(selectedRating); // Cập nhật giao diện
+        });
+        
         $('.send_comment').click(function(){
             var book_id = $('.comment_book_id').val();
             var comment_name = $('.comment_name').val();
             var comment_content = $('.comment_content').val();
+            var rating = $(".rating_value").val();
             var _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
@@ -997,7 +1035,7 @@ $(document).ready(function() {
                     book_id: book_id, 
                     comment_name: comment_name, 
                     comment_content: comment_content, 
-                    _token: _token 
+                    rating: rating, _token: _token 
                 },
                 success: function(data) {
                     Swal.fire({
@@ -1025,6 +1063,7 @@ $(document).ready(function() {
         });
     });
 
+    
 </script>
 </body>
 </html>

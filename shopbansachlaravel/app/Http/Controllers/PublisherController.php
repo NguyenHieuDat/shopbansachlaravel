@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Rating;
 
 class PublisherController extends Controller
 {
@@ -99,6 +100,12 @@ class PublisherController extends Controller
                 break;
             }
         }
+        foreach ($publisher_by_id as $book) {
+            $rating = Rating::where('book_id', $book->book_id)->avg('rating');
+            $book->avgRating = $rating !== null ? round($rating, 1) : 0;
+            $book->totalreview = Rating::where('book_id', $book->book_id)->count();
+        }
+
         return view('pages.publisher.show_publisher')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('publisher_by_id',$publisher_by_id)->with('publisher_name_show',$publisher_name_show)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)

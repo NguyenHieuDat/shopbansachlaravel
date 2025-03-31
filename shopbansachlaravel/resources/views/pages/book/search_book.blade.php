@@ -30,12 +30,21 @@
                             <h5>{{number_format($sbook->book_price).' '.'đ'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($sbook->book_price).' '.'VND'}}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small class="fa fa-star text-danger mr-1"></small>
-                            <small>(99)</small>
+                            @php
+                                $fullStars = floor($sbook->avgRating);
+                                $halfStar = ($sbook->avgRating - $fullStars) >= 0.5 ? 1 : 0;
+                                $emptyStars = 5 - ($fullStars + $halfStar);
+                            @endphp
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <small class="fa fa-star text-danger mr-1"></small>
+                            @endfor
+                            @if ($halfStar)
+                                <small class="fa fa-star-half-alt text-danger mr-1"></small>
+                            @endif
+                            @for ($i = 0; $i < $emptyStars; $i++)
+                                <small class="fa fa-star text-muted mr-1"></small>
+                            @endfor
+                            <small>({{ $sbook->totalreview }})</small>
                         </div>
                     </div>
                     <div style="text-align: center">
