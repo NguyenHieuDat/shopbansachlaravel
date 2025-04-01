@@ -16,7 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ContactController;
 
 //Home
 Route::controller(HomeController::class)->group(function () {
@@ -176,3 +176,7 @@ Route::middleware(['web', 'impersonate'])->group(function () {
     Route::get('/stop_impersonate', [UserController::class, 'stop_impersonate'])->name('stop_impersonate');
 });
 
+Route::controller(ContactController::class)->group(function () {
+    Route::get('/lien_he', 'view_contact');
+    Route::post('/send_contact', 'send_contact');
+});

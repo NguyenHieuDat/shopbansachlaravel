@@ -169,7 +169,7 @@
                         @else
                         <a href="{{ URL::to('/login_checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
                         @endif
-                        <a href="contact.html" class="nav-item nav-link text-light">Liên Hệ</a>
+                        <a href="{{ URL::to('/lien_he') }}" class="nav-item nav-link text-light">Liên Hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="" class="btn px-0">
