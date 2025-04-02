@@ -134,6 +134,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('/print_order/{orders_id}', 'print_order');
     Route::post('/update_order_quantity', 'update_order_quantity');
     Route::post('/update_qty', 'update_qty');
+    Route::get('/xem_don_hang/{customer_id}', 'customer_order');
 });
 
 Route::controller(BannerController::class)->group(function () {

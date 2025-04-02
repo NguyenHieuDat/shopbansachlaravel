@@ -15,7 +15,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update_category_product/'.$edit_category_product->category_id)}}" method="POST">
+                    <form role="form" action="{{URL::to('/update_category_product/'.$edit_category_product->category_id)}}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên danh mục</label>
@@ -43,6 +43,11 @@
                                     @endif  
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" name="category_image" class="form-control">
+                            <img src="{{URL::to('public/upload/category/'.$edit_category_product->category_image)}}" height="150" width="120">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mô tả</label>

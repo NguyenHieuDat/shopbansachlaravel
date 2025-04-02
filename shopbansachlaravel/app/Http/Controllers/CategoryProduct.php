@@ -45,7 +45,15 @@ class CategoryProduct extends Controller
         $data['category_parent'] = $request->category_parent;
         $data['category_description'] = $request->category_product_description;
         $data['category_keywords'] = $request->category_product_keywords;
-
+        $image = $request->file('category_image');
+        if ($request->hasFile('category_image')) {
+            $image = $request->file('category_image');
+            $getimageName = $image->getClientOriginalName();
+            $nameimage = current(explode('.',$getimageName));
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
+            $image->move('public/upload/category',$imageName);
+            $data['category_image'] = $imageName;
+        }
         DB::table('tbl_category_product')->insert($data);
         Session::put('message','Thêm danh mục sách thành công!');
         return Redirect::to('add_category_product');
@@ -67,6 +75,15 @@ class CategoryProduct extends Controller
         $data['category_parent'] = $request->category_parent ? $request->category_parent : 0;
         $data['category_description'] = $request->category_product_description;
         $data['category_keywords'] = $request->category_product_keywords;
+        $image = $request->file('category_image');
+        if ($request->hasFile('category_image')) {
+            $image = $request->file('category_image');
+            $getimageName = $image->getClientOriginalName();
+            $nameimage = current(explode('.',$getimageName));
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
+            $image->move('public/upload/category',$imageName);
+            $data['category_image'] = $imageName;
+        }
 
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->update($data);
         Session::put('message','Sửa danh mục sách thành công!');
@@ -75,9 +92,17 @@ class CategoryProduct extends Controller
 
     public function delete_category_product($category_product_id){
         $this->check_login();
+        $category = DB::table('tbl_category_product')->where('category_id',$category_product_id)->first();
+        if ($category) {
+            $image_path = 'public/upload/category/' .($category->category_image);
+
+            if (file_exists($image_path)) {
+            unlink($image_path);
+            }
         DB::table('tbl_category_product')->where('category_id',$category_product_id)->delete();
         Session::put('message','Xóa danh mục sách thành công!');
         return Redirect::to('all_category_product');
+        }
     }
 
     //Ham User

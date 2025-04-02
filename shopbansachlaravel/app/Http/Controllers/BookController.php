@@ -46,7 +46,6 @@ class BookController extends Controller
 
     public function save_book(Request $request){
         $this->check_login();
-
         $data = array();
         $data['book_name'] = $request->book_name;
         $data['category_id'] = $request->category;
@@ -66,13 +65,10 @@ class BookController extends Controller
         if ($request->hasFile('book_image')) {
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
-            $newimage = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-            // Di chuyển ảnh vào thư mục public/upload/book/
+            $newimage = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
             $image->move($path,$newimage);
             File::copy($path.$newimage,$path_gallery.$newimage);
-            // Lưu đường dẫn ảnh vào database
             $data['book_image'] = $newimage;
-            
         }
         $book_id = DB::table('tbl_book')->insertGetId($data);
         $gallery = new GalleryModel;
@@ -132,17 +128,10 @@ class BookController extends Controller
             $image = $request->file('book_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
-            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-            // Di chuyển ảnh vào thư mục public/upload/book/
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
             $image->move('public/upload/book',$imageName);
-            
-            // Lưu đường dẫn ảnh vào database
             $data['book_image'] = $imageName;
-            DB::table('tbl_book')->where('book_id',$books_id)->update($data);
-            Session::put('message','Sửa sách thành công!');
-            return Redirect::to('all_book');
         }
-
         DB::table('tbl_book')->where('book_id',$books_id)->update($data);
         Session::put('message','Sửa sách thành công!');
         return Redirect::to('all_book');

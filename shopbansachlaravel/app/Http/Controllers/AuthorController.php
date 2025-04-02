@@ -12,7 +12,7 @@ use App\Models\Rating;
 
 class AuthorController extends Controller
 {
-    //Ham admin
+    //Hàm admin
 
     public function check_login(){
         $admin_id = Auth::id();
@@ -48,17 +48,10 @@ class AuthorController extends Controller
             $image = $request->file('author_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
-            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-            // Di chuyển ảnh vào thư mục public/upload/author/
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
             $image->move('public/upload/author',$imageName);
-            // Lưu đường dẫn ảnh vào database
             $data['author_image'] = $imageName;
-            DB::table('tbl_author')->insert($data);
-            Session::put('message','Thêm tác giả thành công!');
-            return Redirect::to('add_author');
         }
-
-        $data['author_image'] = '';
         DB::table('tbl_author')->insert($data);
         Session::put('message','Thêm tác giả thành công!');
         return Redirect::to('add_author');
@@ -83,16 +76,10 @@ class AuthorController extends Controller
             $image = $request->file('author_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
-            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-            // Di chuyển ảnh vào thư mục public/upload/author/
+            $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
             $image->move('public/upload/author',$imageName);
-            // Lưu đường dẫn ảnh vào database
             $data['author_image'] = $imageName;
-            DB::table('tbl_author')->where('author_id',$aut_id)->update($data);
-            Session::put('message','Sửa tác giả thành công!');
-            return Redirect::to('all_author');
         }
-        
         DB::table('tbl_author')->where('author_id',$aut_id)->update($data);
         Session::put('message','Sửa tác giả thành công!');
         return Redirect::to('all_author');
@@ -100,26 +87,22 @@ class AuthorController extends Controller
 
     public function delete_author($aut_id){
         $this->check_login();
-        // Lấy thông tin tác giả từ database
         $author = DB::table('tbl_author')->where('author_id', $aut_id)->first();
 
-        // Kiểm tra xem ảnh có tồn tại không, nếu có thì xóa
         if ($author) {
-            // Đường dẫn trực tiếp từ thư mục public
             $image_path = 'public/upload/author/' .($author->author_image);
 
             // Kiểm tra nếu file tồn tại thì xóa
             if (file_exists($image_path)) {
             unlink($image_path);
-        }
-        // Xóa dữ liệu trong database
+            }
         DB::table('tbl_author')->where('author_id',$aut_id)->delete();
         Session::put('message','Xóa tác giả thành công!');
         return Redirect::to('all_author');
-    }
+        }
     }
 
-    //Ham user
+    //Hàm user
 
     public function author_home(Request $request,$author_id){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();

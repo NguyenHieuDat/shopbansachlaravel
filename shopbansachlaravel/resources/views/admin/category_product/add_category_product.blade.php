@@ -15,11 +15,11 @@
                 }
                 ?>
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save_category_product')}}" method="POST">
+                    <form role="form" action="{{URL::to('/save_category_product')}}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Tên danh mục</label>
-                            <input type="text" name="category_product_name" class="form-control" id="exampleInputEmail1" placeholder="Nhập danh mục sách">
+                            <input type="text" name="category_product_name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Loại danh mục</label>
@@ -31,12 +31,16 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <input type="file" name="category_image" class="form-control-file">
+                        </div>
+                        <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea type="text" style="resize: none" rows="7" name="category_product_description" class="form-control" id="ckeditor_cate_add" placeholder="Nhập mô tả"></textarea>
+                            <textarea type="text" style="resize: none" rows="7" name="category_product_description" class="form-control" id="ckeditor_cate_add"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Từ khóa</label>
-                            <input type="text" name="category_product_keywords" class="form-control" placeholder="Nhập từ khóa">
+                            <input type="text" name="category_product_keywords" class="form-control">
                         </div>
                         <button type="submit" name="add_category_product" class="btn btn-info">Thêm danh mục</button>
                     </form>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 11:44 AM
+-- Generation Time: Apr 02, 2025 at 11:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -259,6 +259,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('GbLkJXrvOXOOVKzVUWPXzur80F00QPt9NH41B6jZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiQllEV3p5OFBUY2NOV05yQmduN3pEbXFwREpSZ016NnVSa1VXVDhHeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742458250),
 ('lZRVw6uWFRUqhntYTpmTdF4OGazYH4gGycvY9oGy', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiYWd0eVVOcWFjWUxvUEdMTVVrenRMUjNsREQyYzA3Qk44czhmdGE4eiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743242404),
 ('MHTdeB1UZ9uoE105SZ4deRdWTBc7DwUN6YH2HrFa', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicjZBMWkzT3lkc3VtSEtNbGNDOG5rRFR5eDZYbWlRNFFuZmk3RGZDeCI7czoxMjoicHJldmlvdXNfdXJsIjtzOjU0OiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC9kYW5oX211Y190YWNfZ2lhLzMiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1743415075),
+('o8wBkc12JdwerIemIuCRpTrEozYoBlItnuTqe6ie', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTlhtN0VWcWVYSkZUd1ZHaGpoeWRlSWhiSWVaTWRrQ2dwQ0FGVGRuZCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoxMjoicHJldmlvdXNfdXJsIjtzOjQ1OiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC90cmFuZ19jaHUiO30=', 1743583157),
 ('ZyGioOQeaXRasPXAwuwM8xJrIO7We2AJovntMOFp', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiZktjOXRnNGhNRlVaVzVXY09tN3BHUmpoT2JITDUwNFRkNG9JNG1xVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1741765705);
 
 -- --------------------------------------------------------
@@ -383,6 +384,7 @@ CREATE TABLE `tbl_category_product` (
   `category_id` int(10) UNSIGNED NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `category_parent` int(11) NOT NULL DEFAULT 0,
+  `category_image` varchar(255) NOT NULL,
   `category_description` text NOT NULL,
   `category_keywords` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -393,12 +395,12 @@ CREATE TABLE `tbl_category_product` (
 -- Dumping data for table `tbl_category_product`
 --
 
-INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_parent`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
-(1, 'Văn học', 0, '<p>Văn học l&agrave; một loại h&igrave;nh nghệ thuật được tạo ra bằng ng&ocirc;n từ, nhằm phản &aacute;nh cuộc sống, thể hiện tư tưởng, t&igrave;nh cảm, cảm x&uacute;c v&agrave; gi&aacute; trị thẩm mỹ của con người. Văn học kh&ocirc;ng chỉ ghi lại những hiện thực x&atilde; hội m&agrave; c&ograve;n mang t&iacute;nh s&aacute;ng tạo, tưởng tượng, truyền tải những th&ocirc;ng điệp, triết l&yacute; v&agrave; kh&aacute;t vọng của con người qua từng thời kỳ lịch sử.</p>', 'Văn, văn, van, van hoc, văn học', NULL, NULL),
-(2, 'Sách thiếu nhi', 0, '<p>S&aacute;ch Thiếu Nhi mở ra một thế giới diệu kỳ, nơi m&agrave; tr&iacute; tưởng tượng được bay cao, sự t&ograve; m&ograve; được khuyến kh&iacute;ch, v&agrave; những b&agrave;i học qu&yacute; gi&aacute; được truyền tải một c&aacute;ch nhẹ nh&agrave;ng, dễ hiểu. Từ những c&acirc;u chuyện cổ t&iacute;ch đầy ph&eacute;p m&agrave;u, truyện tranh vui nhộn đến c&aacute;c s&aacute;ch kỹ năng sống đơn giản, tất cả đều g&oacute;p phần nu&ocirc;i dưỡng t&acirc;m hồn v&agrave; ph&aacute;t triển tư duy của trẻ.</p>\r\n\r\n<p>Những cuốn s&aacute;ch Thiếu Nhi kh&ocirc;ng chỉ l&agrave; nguồn giải tr&iacute; m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh th&acirc;n thiết, gi&uacute;p trẻ em học c&aacute;ch y&ecirc;u thương, chia sẻ, s&aacute;ng tạo v&agrave; tự tin bước v&agrave;o cuộc sống. Với h&igrave;nh ảnh minh họa sinh động v&agrave; nội dung phong ph&uacute;, thể loại s&aacute;ch n&agrave;y lu&ocirc;n được y&ecirc;u th&iacute;ch bởi cả trẻ nhỏ lẫn c&aacute;c bậc phụ huynh.</p>', 'sach thieu nhi, sách thiếu nhi, trẻ em, tre em, tre con, trẻ con', NULL, NULL),
-(3, 'Kỹ năng sống', 0, '<p>S&aacute;ch Kỹ Năng Sống l&agrave; những cuốn s&aacute;ch mang đến cho bạn những <strong>b&agrave;i học qu&yacute; gi&aacute; về tư duy, giao tiếp, quản l&yacute; cảm x&uacute;c, ph&aacute;t triển bản th&acirc;n v&agrave; x&acirc;y dựng c&aacute;c mối quan hệ x&atilde; hội.</strong> Đ&acirc;y l&agrave; h&agrave;nh trang cần thiết gi&uacute;p mọi người, đặc biệt l&agrave; giới trẻ, r&egrave;n luyện c&aacute;c kỹ năng mềm quan trọng để đối mặt với những thử th&aacute;ch trong cuộc sống v&agrave; c&ocirc;ng việc.</p>', 'ky nang, kỹ năng, ky nang song, kỹ năng sống, sống', NULL, NULL),
-(5, 'Truyện tranh', 6, '<p>Truyện tranh l&agrave; một loại h&igrave;nh nghệ thuật kết hợp giữa h&igrave;nh ảnh v&agrave; văn bản để kể một c&acirc;u chuyện. N&oacute; thường được thể hiện dưới dạng c&aacute;c bảng vẽ, với những bức tranh minh họa diễn tả h&agrave;nh động v&agrave; cảm x&uacute;c, k&egrave;m theo c&aacute;c lời thoại hoặc m&ocirc; tả. Truyện tranh c&oacute; thể c&oacute; nhiều thể loại, từ h&agrave;nh động, phi&ecirc;u lưu, kỳ ảo, đến h&agrave;i hước, t&igrave;nh cảm hoặc ch&iacute;nh trị, khoa học...</p>', 'truyen tranh,truyện tranh,tranh truyen,tranh truyện', NULL, NULL),
-(6, 'Sách tranh', 0, '<p>S&aacute;ch tranh l&agrave; một loại s&aacute;ch c&oacute; sự kết hợp giữa văn bản v&agrave; h&igrave;nh ảnh, nơi h&igrave;nh ảnh đ&oacute;ng vai tr&ograve; quan trọng trong việc truyền tải nội dung c&acirc;u chuyện hoặc th&ocirc;ng tin. C&aacute;c s&aacute;ch tranh thường được thiết kế để trẻ em hoặc những người mới học đọc dễ d&agrave;ng tiếp cận v&agrave; hiểu, th&ocirc;ng qua h&igrave;nh ảnh minh họa sinh động.</p>', 'sach tranh,sách tranh,tranh', NULL, NULL);
+INSERT INTO `tbl_category_product` (`category_id`, `category_name`, `category_parent`, `category_image`, `category_description`, `category_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Văn học', 1, '1743578521_van-hoc-vn.png', '<p>Văn học l&agrave; một loại h&igrave;nh nghệ thuật được tạo ra bằng ng&ocirc;n từ, nhằm phản &aacute;nh cuộc sống, thể hiện tư tưởng, t&igrave;nh cảm, cảm x&uacute;c v&agrave; gi&aacute; trị thẩm mỹ của con người. Văn học kh&ocirc;ng chỉ ghi lại những hiện thực x&atilde; hội m&agrave; c&ograve;n mang t&iacute;nh s&aacute;ng tạo, tưởng tượng, truyền tải những th&ocirc;ng điệp, triết l&yacute; v&agrave; kh&aacute;t vọng của con người qua từng thời kỳ lịch sử.</p>', 'Văn, văn, van, van hoc, văn học', NULL, NULL),
+(2, 'Sách thiếu nhi', 2, '1743579754_thieu-nhi-co-tich.jpg', '<p>S&aacute;ch Thiếu Nhi mở ra một thế giới diệu kỳ, nơi m&agrave; tr&iacute; tưởng tượng được bay cao, sự t&ograve; m&ograve; được khuyến kh&iacute;ch, v&agrave; những b&agrave;i học qu&yacute; gi&aacute; được truyền tải một c&aacute;ch nhẹ nh&agrave;ng, dễ hiểu. Từ những c&acirc;u chuyện cổ t&iacute;ch đầy ph&eacute;p m&agrave;u, truyện tranh vui nhộn đến c&aacute;c s&aacute;ch kỹ năng sống đơn giản, tất cả đều g&oacute;p phần nu&ocirc;i dưỡng t&acirc;m hồn v&agrave; ph&aacute;t triển tư duy của trẻ.</p>\r\n\r\n<p>Những cuốn s&aacute;ch Thiếu Nhi kh&ocirc;ng chỉ l&agrave; nguồn giải tr&iacute; m&agrave; c&ograve;n l&agrave; người bạn đồng h&agrave;nh th&acirc;n thiết, gi&uacute;p trẻ em học c&aacute;ch y&ecirc;u thương, chia sẻ, s&aacute;ng tạo v&agrave; tự tin bước v&agrave;o cuộc sống. Với h&igrave;nh ảnh minh họa sinh động v&agrave; nội dung phong ph&uacute;, thể loại s&aacute;ch n&agrave;y lu&ocirc;n được y&ecirc;u th&iacute;ch bởi cả trẻ nhỏ lẫn c&aacute;c bậc phụ huynh.</p>', 'sach thieu nhi, sách thiếu nhi, trẻ em, tre em, tre con, trẻ con', NULL, NULL),
+(3, 'Kỹ năng sống', 0, '1743578327_atomichabit100x100.jpg', '<p>S&aacute;ch Kỹ Năng Sống l&agrave; những cuốn s&aacute;ch mang đến cho bạn những <strong>b&agrave;i học qu&yacute; gi&aacute; về tư duy, giao tiếp, quản l&yacute; cảm x&uacute;c, ph&aacute;t triển bản th&acirc;n v&agrave; x&acirc;y dựng c&aacute;c mối quan hệ x&atilde; hội.</strong> Đ&acirc;y l&agrave; h&agrave;nh trang cần thiết gi&uacute;p mọi người, đặc biệt l&agrave; giới trẻ, r&egrave;n luyện c&aacute;c kỹ năng mềm quan trọng để đối mặt với những thử th&aacute;ch trong cuộc sống v&agrave; c&ocirc;ng việc.</p>', 'ky nang, kỹ năng, ky nang song, kỹ năng sống, sống', NULL, NULL),
+(5, 'Truyện tranh', 5, '1743578422_bo-truyen-tranh-doremon.jpg', '<p>Truyện tranh l&agrave; một loại h&igrave;nh nghệ thuật kết hợp giữa h&igrave;nh ảnh v&agrave; văn bản để kể một c&acirc;u chuyện. N&oacute; thường được thể hiện dưới dạng c&aacute;c bảng vẽ, với những bức tranh minh họa diễn tả h&agrave;nh động v&agrave; cảm x&uacute;c, k&egrave;m theo c&aacute;c lời thoại hoặc m&ocirc; tả. Truyện tranh c&oacute; thể c&oacute; nhiều thể loại, từ h&agrave;nh động, phi&ecirc;u lưu, kỳ ảo, đến h&agrave;i hước, t&igrave;nh cảm hoặc ch&iacute;nh trị, khoa học...</p>', 'truyen tranh,truyện tranh,tranh truyen,tranh truyện', NULL, NULL),
+(6, 'Sách tranh', 6, '1743578473_sach-tranh-minh-hoa-lan-gio-_631625762379.jpg', '<p>S&aacute;ch tranh l&agrave; một loại s&aacute;ch c&oacute; sự kết hợp giữa văn bản v&agrave; h&igrave;nh ảnh, nơi h&igrave;nh ảnh đ&oacute;ng vai tr&ograve; quan trọng trong việc truyền tải nội dung c&acirc;u chuyện hoặc th&ocirc;ng tin. C&aacute;c s&aacute;ch tranh thường được thiết kế để trẻ em hoặc những người mới học đọc dễ d&agrave;ng tiếp cận v&agrave; hiểu, th&ocirc;ng qua h&igrave;nh ảnh minh họa sinh động.</p>', 'sach tranh,sách tranh,tranh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -573,7 +575,8 @@ CREATE TABLE `tbl_order` (
 --
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL);
+(1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL),
+(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 1, '2025-04-02 09:07:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -597,7 +600,8 @@ CREATE TABLE `tbl_order_detail` (
 --
 
 INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', '95000', 1, '2025-03-28 01:16:25', NULL);
+(1, 1, 3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', '95000', 1, '2025-03-28 01:16:25', NULL),
+(2, 2, 2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', '80000', 3, '2025-04-02 09:07:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -1442,7 +1446,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'Giao trong ngày', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'Giao ngay trong ngày!', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13031,7 +13035,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_author`
 --
 ALTER TABLE `tbl_author`
-  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `author_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_banner`
@@ -13049,7 +13053,7 @@ ALTER TABLE `tbl_book`
 -- AUTO_INCREMENT for table `tbl_category_product`
 --
 ALTER TABLE `tbl_category_product`
-  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_comment`
@@ -13085,13 +13089,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`

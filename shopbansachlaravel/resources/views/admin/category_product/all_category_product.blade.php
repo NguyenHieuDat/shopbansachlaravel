@@ -40,6 +40,7 @@
             <tr>
               <th>Tên danh mục</th>
               <th>Thuộc danh mục</th>
+              <th>Hình ảnh</th>
               <th>Mô tả</th>
               <th>Từ khóa</th>
               <th>Quản lý</th>
@@ -60,6 +61,9 @@
                       @endif
                   @endforeach
                 @endif
+              </td>
+              <td>
+                <img src="public/upload/category/{{$cate_pro->category_image}}" height="150" width="120">
               </td>
               <td><span class="text-ellipsis">{!! $cate_pro->category_description !!}</span></td>
               <td><span class="text-ellipsis">{{$cate_pro->category_keywords}}</span></td>

@@ -36,21 +36,23 @@
 
 <!-- Categories Start -->
 <div class="container-fluid pt-5">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Danh mục sách</span></h2>
     <div class="row px-xl-5 pb-3">
+        @foreach($categories as $cate_show)
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
+            <a class="text-decoration-none" href="{{ URL::to('/danh_muc_sach/'.$cate_show->category_id) }}">
                 <div class="cat-item d-flex align-items-center mb-4">
                     <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                        <img class="img-fluid" src="public/frontend/img/cat-1.jpg" alt="">
+                        <img class="img-fluid" src="{{ asset('public/upload/category/'.$cate_show->category_image) }}" alt="{{ $cate_show->category_name }}">
                     </div>
                     <div class="flex-fill pl-3">
-                        <h6>Category Name</h6>
-                        <small class="text-body">100 Products</small>
+                        <h6>{{ $cate_show->category_name }}</h6>
+                        <small class="text-body">{{ $cate_show->total_quantity ?? 0 }} Sản phẩm</small>
                     </div>
                 </div>
             </a>
         </div>
+        @endforeach
     </div>
 </div>
 <!-- Categories End -->
@@ -85,12 +87,21 @@
                         <h5>{{number_format($book->book_price).' '.'đ'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($book->book_price).' '.'VND'}}</del></h6>
                     </div>
                     <div class="d-flex align-items-center justify-content-center mb-1">
-                        <small class="fa fa-star text-danger mr-1"></small>
-                        <small class="fa fa-star text-danger mr-1"></small>
-                        <small class="fa fa-star text-danger mr-1"></small>
-                        <small class="fa fa-star text-danger mr-1"></small>
-                        <small class="fa fa-star text-danger mr-1"></small>
-                        <small>(99)</small>
+                        @php
+                            $fullStars = floor($book->avgRating);
+                            $halfStar = ($book->avgRating - $fullStars) >= 0.5 ? 1 : 0;
+                            $emptyStars = 5 - ($fullStars + $halfStar);
+                        @endphp
+                        @for ($i = 0; $i < $fullStars; $i++)
+                            <small class="fa fa-star text-danger mr-1"></small>
+                        @endfor
+                        @if ($halfStar)
+                            <small class="fa fa-star-half-alt text-danger mr-1"></small>
+                        @endif
+                        @for ($i = 0; $i < $emptyStars; $i++)
+                            <small class="fa fa-star text-muted mr-1"></small>
+                        @endfor
+                        <small>({{ $book->totalreview }})</small>
                     </div>
                 </div>
                 <div style="text-align: center">

@@ -13,6 +13,7 @@ use App\Models\Shipping;
 use App\Models\Coupon;
 use App\Models\Book;
 use Session;
+use DB;
 use Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Redirect;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    //Ham admin
+    //Hàm admin
 
     public function check_login(){
         $admin_id = Auth::id();
@@ -191,5 +192,27 @@ class OrderController extends Controller
         ->where('order_id',$data['order_sale_id'])->first();
         $order_details->book_sale_quantity = $data['order_qty'];
         $order_details->save();
+    }
+
+    //Hàm user
+
+    public function customer_order(Request $request,$customer_id){
+        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        // Lấy tất cả đơn hàng của khách hàng cùng với chi tiết đơn hàng
+        $orders = Order::with('orderdetail.book') // Lấy thông tin chi tiết đơn hàng và sách
+            ->where('customer_id', $customer_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+            $meta_desc = "Đơn hàng của bạn";
+            $meta_keywords = "don hang,đơn hàng";
+            $meta_title = "Đơn hàng của bạn";
+            $url_canonical = $request->url();
+            
+        return view('pages.orders.customer_order', compact('orders','meta_desc','meta_title','meta_keywords','url_canonical',
+        'category','author','publisher'));
     }
 }

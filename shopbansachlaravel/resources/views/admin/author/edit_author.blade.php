@@ -20,11 +20,11 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Tên tác giả</label>
-                            <input type="text" value="{{$edit_value->author_name}}" name="author_name" class="form-control" id="exampleInputEmail1">
+                            <input type="text" value="{{$edit_value->author_name}}" name="author_name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Hình ảnh</label>
-                            <input type="file" name="author_image" class="form-control" id="exampleInputEmail1">
+                            <input type="file" name="author_image" class="form-control">
                             <img src="{{URL::to('public/upload/author/'.$edit_value->author_image)}}" height="150" width="120">
                         </div>
                         <div class="form-group">

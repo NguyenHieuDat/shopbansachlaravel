@@ -156,19 +156,27 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{{ URL::to('/trang_chu') }}" class="nav-item nav-link text-light active">Trang Chủ</a>
-                        <a href="shop.html" class="nav-item nav-link text-light">Cửa Hàng</a>
+                        {{-- Xem giỏ hàng --}}
                         <a href="{{ URL::to('/gio_hang') }}" class="nav-item nav-link text-light">Giỏ Hàng</a>
                         @php
                             $customer_id = Session::get('customer_id');
                             $shipping_id = Session::get('shipping_id');
                         @endphp
+                        {{-- Xem thanh toán --}}
                         @if($customer_id != null && $shipping_id == null)
-                        <a href="{{ URL::to('/checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            <a href="{{ URL::to('/checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
                         @elseif($customer_id != null && $shipping_id != null)
-                        <a href="{{ URL::to('/payment') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            <a href="{{ URL::to('/payment') }}" class="nav-item nav-link text-light">Thanh Toán</a>
                         @else
-                        <a href="{{ URL::to('/login_checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
+                            <a href="{{ URL::to('/login_checkout') }}" class="nav-item nav-link text-light">Thanh Toán</a>
                         @endif
+                        {{-- Xem đơn hàng --}}
+                        @if($customer_id != null)
+                            <a href="{{ URL::to('/xem_don_hang/'.$customer_id) }}" class="nav-item nav-link text-light">Đơn hàng</a>
+                        @else
+                            <a href="{{ URL::to('/login_checkout') }}" class="nav-item nav-link text-light">Đơn hàng</a>
+                        @endif
+                        {{-- Xem liên hệ --}}
                         <a href="{{ URL::to('/lien_he') }}" class="nav-item nav-link text-light">Liên Hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">

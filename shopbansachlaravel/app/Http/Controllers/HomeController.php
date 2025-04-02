@@ -22,15 +22,31 @@ class HomeController extends Controller
 
         $banner = Banner::orderby('banner_id','desc')->where('banner_status','1')->take(4)->get();
 
+        $categories = DB::table('tbl_category_product')->leftJoin('tbl_book', 'tbl_category_product.category_id', '=', 'tbl_book.category_id')
+        ->select(
+            'tbl_category_product.category_id',
+            'tbl_category_product.category_name',
+            'tbl_category_product.category_image',
+            DB::raw('COALESCE(SUM(tbl_book.book_quantity), 0) as total_quantity') // Tính tổng book_quantity, nếu null thì mặc định 0
+        )
+        ->groupBy('tbl_category_product.category_id', 'tbl_category_product.category_name', 'tbl_category_product.category_image')
+        ->limit(8)->get();
+
         $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
         $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(8)->get();
+
+        foreach ($all_book as $book) {
+            $rating = Rating::where('book_id', $book->book_id)->avg('rating');
+            $book->avgRating = $rating !== null ? round($rating, 1) : 0;
+            $book->totalreview = Rating::where('book_id', $book->book_id)->count();
+        }
         return view('pages.home')->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)
-        ->with('all_book',$all_book)->with('banner',$banner);
+        ->with('all_book',$all_book)->with('banner',$banner)->with('categories',$categories);
     }
 
     public function tim_kiem(Request $request){
@@ -137,4 +153,5 @@ class HomeController extends Controller
             ]);
         return redirect()->back()->with('message', 'Cập nhật thông tin vận chuyển thành công!');
     }
+
 }
