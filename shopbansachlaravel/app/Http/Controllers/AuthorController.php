@@ -71,12 +71,20 @@ class AuthorController extends Controller
         $data['author_name'] = $request->author_name;
         $data['author_description'] = $request->author_description;
         $data['author_keywords'] = $request->author_keywords;
+
+        $author = DB::table('tbl_author')->where('author_id', $aut_id)->first();
+        $old_image = $author->author_image;
         $image = $request->file('author_image');
         if ($request->hasFile('author_image')) {
             $image = $request->file('author_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
+
+            $old_image_path = 'public/upload/author/' . $old_image;
+            if (file_exists($old_image_path) && !empty($old_image)){
+                unlink($old_image_path);
+            }
             $image->move('public/upload/author',$imageName);
             $data['author_image'] = $imageName;
         }

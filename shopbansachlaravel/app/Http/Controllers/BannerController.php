@@ -92,14 +92,17 @@ class BannerController extends Controller
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.', $getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
-            $image->move('public/upload/banner', $imageName);
-            if ($banner->banner_image && file_exists(public_path('upload/banner/' . $banner->banner_image))) {
-                unlink(public_path('upload/banner/' . $banner->banner_image));
+
+            if (!empty($banner->banner_image)) {
+                $old_image_path = 'public/upload/banner/' . $banner->banner_image;
+                if (file_exists($old_image_path)){
+                    unlink($old_image_path);
+                }
             }
+            $image->move('public/upload/banner', $imageName);
             $banner->banner_image = $imageName;
         }
         $banner->save();
-
         Session::put('message', 'Cập nhật banner thành công!');
         return Redirect::to('all_banner');
     }

@@ -75,12 +75,19 @@ class CategoryProduct extends Controller
         $data['category_parent'] = $request->category_parent ? $request->category_parent : 0;
         $data['category_description'] = $request->category_product_description;
         $data['category_keywords'] = $request->category_product_keywords;
+
+        $category = DB::table('tbl_category_product')->where('category_id', $category_product_id)->first();
+        $old_image = $category->category_image;
         $image = $request->file('category_image');
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
+            $old_image_path = 'public/upload/category/' . $old_image;
+            if (file_exists($old_image_path) && !empty($old_image)){
+                unlink($old_image_path);
+            }
             $image->move('public/upload/category',$imageName);
             $data['category_image'] = $imageName;
         }

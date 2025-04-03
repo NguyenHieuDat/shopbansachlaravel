@@ -123,12 +123,20 @@ class BookController extends Controller
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
         $data['book_keywords'] = $request->book_keywords;
+
+        $book = DB::table('tbl_book')->where('book_id', $books_id)->first();
+        $old_image = $book->book_image;
         $image = $request->file('book_image');
         if ($request->hasFile('book_image')) {
             $image = $request->file('book_image');
             $getimageName = $image->getClientOriginalName();
             $nameimage = current(explode('.',$getimageName));
             $imageName = time() . '_' . $nameimage . '.' . $image->getClientOriginalExtension();
+
+            $old_image_path = 'public/upload/book/' . $old_image;
+            if (file_exists($old_image_path) && !empty($old_image)){
+                unlink($old_image_path);
+            }
             $image->move('public/upload/book',$imageName);
             $data['book_image'] = $imageName;
         }

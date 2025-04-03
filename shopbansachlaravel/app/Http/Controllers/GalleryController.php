@@ -128,8 +128,7 @@ class GalleryController extends Controller
             if($get_image){
               $getimageName = $get_image->getClientOriginalName();
               $nameimage = current(explode('.',$getimageName));
-              $imageName = time() . '_' . $nameimage . '.' . $get_image->getClientOriginalExtension();  //tránh trường hợp ghi đè ảnh do trùng tên file
-              // Di chuyển ảnh vào thư mục public/upload/book/
+              $imageName = time() . '_' . $nameimage . '.' . $get_image->getClientOriginalExtension();
               $get_image->move('public/upload/gallery',$imageName);
               $gallery = GalleryModel::find($gal_id);
               unlink('public/upload/gallery/'.$gallery->gallery_image);

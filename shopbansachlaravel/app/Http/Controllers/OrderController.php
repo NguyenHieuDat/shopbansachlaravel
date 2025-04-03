@@ -201,16 +201,12 @@ class OrderController extends Controller
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
-        // Lấy tất cả đơn hàng của khách hàng cùng với chi tiết đơn hàng
-        $orders = Order::with('orderdetail.book') // Lấy thông tin chi tiết đơn hàng và sách
-            ->where('customer_id', $customer_id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $orders = Order::with('orderdetail.book')->where('customer_id', $customer_id)->orderBy('created_at', 'desc')->get();
 
-            $meta_desc = "Đơn hàng của bạn";
-            $meta_keywords = "don hang,đơn hàng";
-            $meta_title = "Đơn hàng của bạn";
-            $url_canonical = $request->url();
+        $meta_desc = "Đơn hàng của bạn";
+        $meta_keywords = "don hang,đơn hàng";
+        $meta_title = "Đơn hàng của bạn";
+        $url_canonical = $request->url();
             
         return view('pages.orders.customer_order', compact('orders','meta_desc','meta_title','meta_keywords','url_canonical',
         'category','author','publisher'));
