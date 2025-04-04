@@ -9884,8 +9884,16 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .book-name {
-  word-wrap: break-word; /* Tự động xuống dòng khi chạm tới rìa */
-  white-space: normal;    /* Cho phép xuống dòng nếu quá dài */
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.book-name:hover {
+  color: #dc3545 !important;
+  text-decoration: none !important;
 }
 
 /* Đảm bảo dropdown con mở ra bên phải */
@@ -9930,13 +9938,13 @@ a.text-dark:hover, a.text-dark:focus {
 }
 @keyframes flash {
   0% {
-      background-color: #dc3545; /* Màu đỏ (danger) */
+      background-color: #dc3545;
   }
   50% {
       background-color: transparent;
   }
   100% {
-      background-color: #dc3545; /* Màu đỏ (danger) */
+      background-color: #dc3545;
   }
 }
 
@@ -10000,4 +10008,60 @@ hr.custom-hr {
 
 .order-info .order-details p {
   margin-left: 30px; /* Lùi các dòng vào bên phải */
+}
+
+/* Thay đổi màu nền tooltip */
+.tooltip-inner {
+  background-color: #dc3545 !important; /* Màu đỏ danger */
+  color: #fff !important; /* Màu chữ trắng */
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+/* Thay đổi màu mũi tên tooltip */
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #dc3545 !important;
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #dc3545 !important;
+}
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #dc3545 !important;
+}
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #dc3545 !important;
+}
+
+@media (min-width: 992px) { /* Màn hình lớn (LG) trở lên */
+  .col-lg-2-4 {
+      flex: 0 0 20%; /* 100% / 5 = 20% mỗi sản phẩm */
+      max-width: 20%;
+  }
+}
+
+.pagination-container {
+  display: flex !important;
+  justify-content: flex-end !important;
+  width: 100% !important;
+  margin: 20px 0 !important;
+}
+
+.pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+  background-color: #dc3545 !important; /* Màu đỏ khi hover */
+  color: #fff !important; /* Chữ trắng */
+  border-color: #dc3545 !important;
+}
+
+.pagination .page-item:not(.active) .page-link {
+  color: #6c757d !important; /* Màu xám */
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
 }

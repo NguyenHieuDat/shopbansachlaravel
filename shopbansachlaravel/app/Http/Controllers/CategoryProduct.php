@@ -122,7 +122,7 @@ class CategoryProduct extends Controller
         $category_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_book.category_id','=','tbl_category_product.category_id')
         ->where('tbl_book.category_id',$category_id)->get();
 
-        $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->limit(1)->get();
+        $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->paginate(10);
         
         $meta_desc = "";
         $meta_keywords = "";
@@ -140,6 +140,13 @@ class CategoryProduct extends Controller
             $rating = Rating::where('book_id', $book->book_id)->avg('rating');
             $book->avgRating = $rating !== null ? round($rating, 1) : 0;
             $book->totalreview = Rating::where('book_id', $book->book_id)->count();
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'view' => view('pages.category.category_paginate', compact('category_name_show', 'cate_product', 'author', 'publisher', 'category_by_id'))->render(),
+                'pagination' => (string) $category_name_show->links('vendor.pagination.custom')
+            ]);
         }
         return view('pages.category.show_category')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('category_by_id',$category_by_id)->with('category_name_show',$category_name_show)

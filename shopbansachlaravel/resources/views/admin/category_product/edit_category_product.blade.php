@@ -22,26 +22,24 @@
                             <input type="text" value="{{$edit_category_product->category_name}}" name="category_product_name" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="form-group">
-                            <label for="category_parent">Loại danh mục</label>
+                            <label for="category_parent">Thuộc loại danh mục</label>
                             <select name="category_parent" class="form-control">
-                                <option value="0">Danh mục cha</option>
+                                <option value="0" {{ $edit_category_product->category_parent == 0 ? 'selected' : '' }}>Danh mục cha</option>
                                 @foreach ($all_category_product as $cate)
-                                    @if($cate->category_parent==0)
-                                        <option value="{{ $cate->category_id }}"
-                                            {{ $edit_category_product->category_id == $cate->category_id ? 'selected' : '' }}>
-                                            {{ $cate->category_name }}
-                                        </option>
-                                    
-                                    @foreach ($all_category_product as $cate2)
-                                        @if($cate2->category_parent == $cate->category_id)
-                                        <option value="{{ $cate2->category_id }}"
-                                            {{ $edit_category_product->category_id == $cate2->category_id ? 'selected' : '' }}>
-                                            ---{{ $cate2->category_name }}
-                                        </option>
-                                        @endif
-                                    @endforeach
-                                    @endif  
-                                @endforeach
+                                @if($edit_category_product->category_parent == 0)
+                                    <!-- Nếu đang sửa danh mục cha, chỉ hiển thị danh mục cha -->
+                                    <option value="{{ $cate->category_id }}"
+                                        {{ $edit_category_product->category_parent == $cate->category_id ? 'selected' : '' }}>
+                                        {{ $cate->category_name }}
+                                    </option>
+                                @else
+                                    <!-- Nếu danh mục con -->
+                                    @if($cate->category_id == $edit_category_product->category_parent)
+                                        <!-- Hiển thị danh mục cha của danh mục con -->
+                                        <option value="{{ $cate->category_id }}" selected>{{ $cate->category_name }}</option>
+                                    @endif
+                                @endif
+                            @endforeach
                             </select>
                         </div>
                         <div class="form-group">

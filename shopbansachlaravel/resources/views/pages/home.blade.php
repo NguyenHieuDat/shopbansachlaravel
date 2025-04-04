@@ -60,58 +60,15 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5 pb-3">
     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản Phẩm Mới Nhất</span></h2>
-    <div class="row px-xl-5">
-        @foreach ($all_book as $key => $book)
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-                <form>
-                    @csrf
-                    <input type="hidden" class="cart_book_id_{{$book->book_id}}" value="{{$book->book_id}}">
-                    <input type="hidden" class="cart_book_name_{{$book->book_id}}" value="{{$book->book_name}}">
-                    <input type="hidden" class="cart_book_image_{{$book->book_id}}" value="{{$book->book_image}}">
-                    <input type="hidden" class="cart_book_price_{{$book->book_id}}" value="{{$book->book_price}}">
-                    <input type="hidden" class="cart_book_qty_{{$book->book_id}}" value="1">
-
-                <div class="product-img position-relative overflow-hidden">
-                    <img class="img w-100" src="{{URL::to('/public/upload/book/'.$book->book_image)}}" alt="">
-                    <div class="product-action">
-                        <a class="btn btn-outline-danger btn-square add-to-cart" name="add-to-cart" data-id_book="{{$book->book_id}}"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-danger btn-square"><i class="far fa-heart"></i></a>
-                        <a class="btn btn-outline-danger btn-square"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-danger btn-square"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-                <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate book-name" style="max-width: 150px; margin: 0 auto;">{{$book->book_name}}</a>
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>{{number_format($book->book_price).' '.'đ'}}</h5><h6 class="text-muted ml-2"><del>{{number_format($book->book_price).' '.'VND'}}</del></h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
-                        @php
-                            $fullStars = floor($book->avgRating);
-                            $halfStar = ($book->avgRating - $fullStars) >= 0.5 ? 1 : 0;
-                            $emptyStars = 5 - ($fullStars + $halfStar);
-                        @endphp
-                        @for ($i = 0; $i < $fullStars; $i++)
-                            <small class="fa fa-star text-danger mr-1"></small>
-                        @endfor
-                        @if ($halfStar)
-                            <small class="fa fa-star-half-alt text-danger mr-1"></small>
-                        @endif
-                        @for ($i = 0; $i < $emptyStars; $i++)
-                            <small class="fa fa-star text-muted mr-1"></small>
-                        @endfor
-                        <small>({{ $book->totalreview }})</small>
-                    </div>
-                </div>
-                <div style="text-align: center">
-                    <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book->book_id)}}">Xem Chi Tiết</a>
-                </div>
-                </form>
-            </div>
-            
-        </div>
-        @endforeach
+    <div class="row px-xl-5" id="product-list">
+        @include('pages.book.book_paginate', ['all_book' => $all_book])
+    </div>
+    <div class="pagination-container" id="pagination-container">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {{ $all_book->links('vendor.pagination.custom') }}
+            </ul>
+        </nav>
     </div>
 </div>
 <!-- Products End -->

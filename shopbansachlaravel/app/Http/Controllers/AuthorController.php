@@ -120,7 +120,7 @@ class AuthorController extends Controller
         $author_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_author','tbl_book.author_id','=','tbl_author.author_id')
         ->where('tbl_book.author_id',$author_id)->get();
 
-        $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->limit(1)->get();
+        $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->paginate(10);
 
         $meta_desc = "";
         $meta_keywords = "";
@@ -141,6 +141,12 @@ class AuthorController extends Controller
             $book->totalreview = Rating::where('book_id', $book->book_id)->count();
         }
 
+        if ($request->ajax()) {
+            return response()->json([
+                'view' => view('pages.author.author_paginate', compact('author_name_show', 'cate_product', 'author', 'publisher', 'author_by_id'))->render(),
+                'pagination' => (string) $author_name_show->links('vendor.pagination.custom')
+            ]);
+        }
         return view('pages.author.show_author')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('author_by_id',$author_by_id)->with('author_name_show',$author_name_show)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)

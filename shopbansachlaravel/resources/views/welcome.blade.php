@@ -1071,7 +1071,35 @@ $(document).ready(function() {
         });
     });
 
-    
+    document.addEventListener("DOMContentLoaded", function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+$(document).ready(function() {
+    $(document).on('click', '.pagination a', function(event) {
+        event.preventDefault();
+        var page = $(this).attr('href').split('page=')[1];
+        loadMoreData(page);
+    });
+
+    function loadMoreData(page) {
+        $.ajax({
+            url: '?page=' + page,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Cập nhật danh sách sản phẩm
+                $('#product-list').html(response.view);
+                // Cập nhật phân trang
+                $('#pagination-container').html(response.pagination);
+            }
+        });
+    }
+});
+
 </script>
 </body>
 </html>
