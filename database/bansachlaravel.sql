@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 11:25 AM
+-- Generation Time: Apr 05, 2025 at 11:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -339,9 +339,9 @@ CREATE TABLE `tbl_banner` (
 INSERT INTO `tbl_banner` (`banner_id`, `banner_name`, `banner_image`, `banner_status`, `banner_description`) VALUES
 (2, 'Tặng sách đầu xuân, con học nhiều điều mới', '1741853521_banner-1.jpg', 1, '<p><em>Giảm gi&aacute; l&ecirc;n đến 38%</em></p>'),
 (3, 'Đón xuân sang, sale rộn ràng', '1741853581_banner-2.jpg', 1, '<p><em>Giảm gi&aacute; l&ecirc;n đến 35%</em></p>'),
-(4, 'Mua sắm không tiền mặt', '1741853624_banner-3.jpg', 1, '<p><em>Deal to kh&ocirc;ng lo với v&iacute; v&agrave; ng&acirc;n h&agrave;ng</em></p>'),
+(4, 'Mua sắm không tiền mặt', '1741853624_banner-3.jpg', 0, '<p><em>Deal to kh&ocirc;ng lo với v&iacute; v&agrave; ng&acirc;n h&agrave;ng</em></p>'),
 (5, 'Một trang sách, ngàn bài học', '1743666738_sbooksT4_840x320.png', 1, '<p><strong>Một trang s&aacute;ch, ng&agrave;n b&agrave;i học!</strong></p>\r\n\r\n<p>Tự h&agrave;o lịch sử, Vững bước tương lai. Giảm 50% s&aacute;ch nh&acirc;n ng&agrave;y brand day với sBooks.</p>'),
-(6, 'Siêu sale ngày đôi, deal sách ngập lối', '1743666886_SaleT4Banner_840x320_1.png', 0, '<p><strong>Si&ecirc;u sale ng&agrave;y đ&ocirc;i, deal s&aacute;ch ngập lối!</strong></p>\r\n\r\n<p>Vocher 40k, S&aacute;ch đồng gi&aacute; 4k/40k v&agrave; 100% free ship.</p>'),
+(6, 'Siêu sale ngày đôi, deal sách ngập lối', '1743666886_SaleT4Banner_840x320_1.png', 1, '<p><strong>Si&ecirc;u sale ng&agrave;y đ&ocirc;i, deal s&aacute;ch ngập lối!</strong></p>\r\n\r\n<p>Vocher 40k, S&aacute;ch đồng gi&aacute; 4k/40k v&agrave; 100% free ship.</p>'),
 (7, 'Tháng 4 rực rỡ, săn sale hết cỡ', '1743666948_mcbookT4_840x320.png', 0, '<p><strong>Th&aacute;ng 4 rực rỡ, săn sale hết cỡ!</strong></p>\r\n\r\n<p>Giảm gi&aacute; l&ecirc;n đến 40%.</p>');
 
 -- --------------------------------------------------------
@@ -555,12 +555,11 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (74, '1742112683_ithetthoi3.jpg', '1742112683_ithetthoi3.jpg', 3, NULL, NULL),
 (75, '1742112683_ithetthoi4.jpg', '1742112683_ithetthoi4.jpg', 3, NULL, NULL),
 (76, '1742112683_ithetthoi5.jpg', '1742112683_ithetthoi5.jpg', 3, NULL, NULL),
-(77, '1743666474_Img_fujiko.jpg', '1743666521_doremon do vui bia.jpg', 4, NULL, NULL),
+(77, '1743666474_doremon do vui bia.jpg', '1743844654_doremondovui1.jpg', 4, NULL, NULL),
 (78, '1743666535_doremon do vui 1.jpg', '1743666535_doremon do vui 1.jpg', 4, NULL, NULL),
 (79, '1743666535_doremon do vui 2.jpg', '1743666535_doremon do vui 2.jpg', 4, NULL, NULL),
 (80, '1743666535_doremon do vui 3.jpg', '1743666535_doremon do vui 3.jpg', 4, NULL, NULL),
 (81, '1743666535_doremon do vui 4.jpg', '1743666535_doremon do vui 4.jpg', 4, NULL, NULL),
-(82, '1743753696_conchutgidenho-bia.jpg', '1743753696_conchutgidenho-bia.jpg', 5, NULL, NULL),
 (83, '1743753716_conchutgidenho1.jpg', '1743753716_conchutgidenho1.jpg', 5, NULL, NULL),
 (84, '1743753716_conchutgidenho2.jpg', '1743753716_conchutgidenho2.jpg', 5, NULL, NULL),
 (85, '1743753716_conchutgidenho3.jpg', '1743753716_conchutgidenho3.jpg', 5, NULL, NULL),

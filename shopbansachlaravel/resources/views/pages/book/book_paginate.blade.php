@@ -13,7 +13,7 @@
                     <img class="img w-100" src="{{URL::to('/public/upload/book/'.$book->book_image)}}" alt="">
                     <div class="product-action">
                         <a class="btn btn-outline-danger btn-square add-to-cart" name="add-to-cart" data-id_book="{{$book->book_id}}"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-danger btn-square"><i class="far fa-heart"></i></a>
+                        <a class="btn btn-outline-danger btn-square button-wishlist" id="{{$book->book_id}}" onclick="add_wishlist(this.id);"><i class="far fa-heart"></i></a>
                         <a class="btn btn-outline-danger btn-square"><i class="fa fa-sync-alt"></i></a>
                         <a class="btn btn-outline-danger btn-square"><i class="fa fa-search"></i></a>
                     </div>
@@ -43,6 +43,8 @@
                         <small>({{ $book->totalreview }})</small>
                     </div>
                 </div>
+                <input type="hidden" class="cart_book_rating_{{$book->book_id}}" value="{{$book->avgRating}}">
+                <input type="hidden" class="cart_book_review_{{$book->book_id}}" value="{{$book->totalreview}}">
                 <div style="text-align: center">
                     <a class="btn btn-detail-book" href="{{URL::to('/chi_tiet_sach/'.$book->book_id)}}">Xem Chi Tiết</a>
                 </div>

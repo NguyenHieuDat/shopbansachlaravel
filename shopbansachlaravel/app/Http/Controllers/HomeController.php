@@ -167,4 +167,18 @@ class HomeController extends Controller
         return redirect()->back()->with('message', 'Cập nhật thông tin vận chuyển thành công!');
     }
 
+    public function wishlist(Request $request){
+        $meta_desc = "Danh sách yêu thích của bạn";
+        $meta_keywords = "yeu thich,yêu thích fahasa";
+        $meta_title = "Danh sách yêu thích";
+        $url_canonical = $request->url();
+
+        $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        return view('pages.book.wishlist')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
 }

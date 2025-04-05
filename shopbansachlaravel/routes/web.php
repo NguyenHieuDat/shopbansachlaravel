@@ -27,6 +27,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/update_user_account', 'update_user_account');
     Route::post('/update_user_shipping', 'update_user_shipping');
     Route::post('/autocomplete_search', 'autocomplete_search')->name('autocomplete.search');
+    Route::get('/yeu_thich', 'wishlist');
 });
 
 Route::controller(CategoryProduct::class)->group(function () {

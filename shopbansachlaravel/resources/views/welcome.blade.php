@@ -158,6 +158,8 @@
                         <a href="{{ URL::to('/trang_chu') }}" class="nav-item nav-link text-light active">Trang Chủ</a>
                         {{-- Xem giỏ hàng --}}
                         <a href="{{ URL::to('/gio_hang') }}" class="nav-item nav-link text-light">Giỏ Hàng</a>
+
+                        <a href="{{ URL::to('/yeu_thich') }}" class="nav-item nav-link text-light">Yêu thích</a>
                         @php
                             $customer_id = Session::get('customer_id');
                             $shipping_id = Session::get('shipping_id');
@@ -1100,6 +1102,157 @@ $(document).ready(function() {
     }
 });
 
+$(document).ready(function() {
+    window.add_wishlist = function(book_id) {
+        let book_name = $('.cart_book_name_' + book_id).val();
+        let book_image = $('.cart_book_image_' + book_id).val();
+        let book_price = $('.cart_book_price_' + book_id).val();
+        let avgRating = parseFloat($('.cart_book_rating_' + book_id).val()) || 0;
+        let totalreview = parseInt($('.cart_book_review_' + book_id).val()) || 0;
+
+        let newItem = {
+            id: book_id,
+            name: book_name,
+            image: book_image,
+            price: book_price,
+            avgRating: avgRating,
+            totalreview: totalreview
+        };
+        // Lấy wishlist từ localStorage, nếu không có thì khởi tạo mảng trống
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        // Kiểm tra xem sách đã có trong wishlist chưa
+        let exists = wishlist.some(item => item.id == book_id);
+        // Nếu chưa có, thêm sách vào wishlist
+        if (!exists) {
+            wishlist.push(newItem);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Đã thêm vào danh sách yêu thích!',
+                text: book_name,
+                showConfirmButton: true,
+                confirmButtonText: 'Đi đến yêu thích',
+                showCancelButton: true,
+                cancelButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ url('/yeu_thich') }}";
+                } else if (result.isDismissed) {
+                    
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Sách đã có trong danh sách yêu thích!',
+                text: book_name,
+                showConfirmButton: true,
+                confirmButtonText: 'Đi đến yêu thích',
+                showCancelButton: true,
+                cancelButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ url('/yeu_thich') }}"; 
+                } else if (result.isDismissed) {
+                
+                } 
+            });
+        }
+    }
+});
+
+$(document).ready(function() {
+    // Lấy dữ liệu từ localStorage
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    if (wishlist.length === 0) {
+        $('#wishlist-container').html('<div class="col-12 text-center"><h5>Bạn chưa thêm sách nào vào yêu thích.</h5></div>');
+        return;
+    }
+
+    // Duyệt qua từng sách trong wishlist và tạo HTML để hiển thị
+    wishlist.forEach((book) => {
+        let fullStars = 0;
+        let halfStar = 0;
+        let emptyStars = 5;
+
+        if (book.avgRating) {
+            fullStars = Math.floor(book.avgRating);
+            halfStar = (book.avgRating - fullStars) >= 0.5 ? 1 : 0;
+            emptyStars = 5 - (fullStars + halfStar);
+        }
+
+        let starHtml = '';
+        for (let i = 0; i < fullStars; i++) {
+            starHtml += '<small class="fa fa-star text-danger mr-1"></small>';
+        }
+        if (halfStar) {
+            starHtml += '<small class="fa fa-star-half-alt text-danger mr-1"></small>';
+        }
+        for (let i = 0; i < emptyStars; i++) {
+            starHtml += '<small class="fa fa-star text-muted mr-1"></small>';
+        }
+
+        let bookHtml = `
+        <div class="col-lg-2-4 col-md-4 col-sm-6 pb-1">
+            <div class="product-item bg-light mb-4">
+                <form>
+                    <input type="hidden" class="cart_book_id_${book.id}" value="${book.id}">
+                    <input type="hidden" class="cart_book_name_${book.id}" value="${book.name}">
+                    <input type="hidden" class="cart_book_image_${book.id}" value="${book.image}">
+                    <input type="hidden" class="cart_book_price_${book.id}" value="${book.price}">
+                    <input type="hidden" class="cart_book_qty_${book.id}" value="1">
+
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img w-100" src="public/upload/book/${book.image}" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-danger btn-square" onclick="remove_wishlist(${book.id})">
+                                <i class="fa fa-heart-broken"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate book-name" title="${book.name}" 
+                            style="max-width: 100%; margin: 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            ${book.name}
+                        </a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5 style="color: #dc3545">${Number(book.price).toLocaleString()} đ</h5>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            ${starHtml}
+                            <small>(${book.totalreview ?? 0})</small>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center">
+                        <a class="btn btn-detail-book" href="chi_tiet_sach/${book.id}">Xem Chi Tiết</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        `;
+
+        $('#wishlist-container').append(bookHtml);
+    });
+});
+
+function remove_wishlist(book_id) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = wishlist.filter(item => item.id != book_id);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Đã xóa khỏi danh sách yêu thích!',
+        showConfirmButton: false,
+        timer: 1000
+    }).then(() => {
+        location.reload();
+    });
+}
 </script>
 </body>
 </html>

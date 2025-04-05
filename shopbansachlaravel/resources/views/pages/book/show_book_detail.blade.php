@@ -29,7 +29,7 @@
             .lSSlideOuter .lSPager.lSGallery li img {
                 width: 100%;
                 height: 100px;
-                object-fit: cover; /* Ảnh sẽ được crop để phủ kín ô li */
+                object-fit: cover;
             }
             .book-container {
                 display: grid;
@@ -64,18 +64,12 @@
                             $halfStar = ($avgRating - $fullStars) >= 0.5 ? 1 : 0;
                             $emptyStars = 5 - ($fullStars + $halfStar);
                         @endphp
-                
-                        {{-- Hiển thị sao đầy --}}
                         @for ($i = 0; $i < $fullStars; $i++)
                             <small class="fas fa-star"></small>
                         @endfor
-                
-                        {{-- Hiển thị nửa sao nếu có --}}
                         @if ($halfStar)
                             <small class="fas fa-star-half-alt"></small>
                         @endif
-                
-                        {{-- Hiển thị sao rỗng --}}
                         @for ($i = 0; $i < $emptyStars; $i++)
                             <small class="far fa-star"></small>
                         @endfor
@@ -103,7 +97,7 @@
                         <input type="hidden" class="cart_book_name_{{$detail->book_id}}" value="{{$detail->book_name}}">
                         <input type="hidden" class="cart_book_image_{{$detail->book_id}}" value="{{$detail->book_image}}">
                         <input type="hidden" class="cart_book_price_{{$detail->book_id}}" value="{{$detail->book_price}}">
-                        <input type="hidden" class="cart_book_qty_{{$detail->book_id}}" value="1"> <!-- Mặc định số lượng là 1 -->
+                        <input type="hidden" class="cart_book_qty_{{$detail->book_id}}" value="1">
                     <button type="button" name="add-to-cart" data-id_book="{{$detail->book_id}}" class="btn btn-danger px-3 add-to-cart"><i class="fa fa-shopping-cart mr-1"></i> Thêm vào giỏ hàng</button>
                     </form>
                 </div>
