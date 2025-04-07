@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2025 at 11:48 AM
+-- Generation Time: Apr 07, 2025 at 11:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -360,7 +360,7 @@ CREATE TABLE `tbl_book` (
   `book_language` varchar(255) NOT NULL,
   `book_year` int(11) NOT NULL,
   `book_page` int(11) NOT NULL,
-  `book_price` varchar(255) NOT NULL,
+  `book_price` int(255) NOT NULL,
   `book_quantity` varchar(255) NOT NULL,
   `book_sold` int(11) NOT NULL DEFAULT 0,
   `book_status` int(11) NOT NULL,
@@ -375,11 +375,12 @@ CREATE TABLE `tbl_book` (
 --
 
 INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `publisher_id`, `book_image`, `book_language`, `book_year`, `book_page`, `book_price`, `book_quantity`, `book_sold`, `book_status`, `book_description`, `book_keywords`, `created_at`, `updated_at`) VALUES
-(1, 'Cây Cam Ngọt Của Tôi', 1, 1, 1, '1742028851_caycamngotbia.jpg', 'Tiếng Việt', 2020, 244, '108000', '100', 0, 1, '<p>C&Acirc;Y CAM NGỌT CỦA T&Ocirc;I - MỘT TUỔI THƠ BỊ L&Atilde;NG QU&Ecirc;N.</p>\r\n\r\n<p>Với một đứa trẻ, thế giới kh&ocirc;ng giới hạn trong một bữa ăn, m&agrave; thế giới cần c&oacute; h&agrave;o quang của t&igrave;nh thương. Bạn c&oacute; bao giờ cảm thấy bị lạc l&otilde;ng trong ch&iacute;nh ng&ocirc;i nh&agrave; của m&igrave;nh? Một c&acirc;u chuyện chạm đến tận c&ugrave;ng cảm x&uacute;c</p>', 'Cây cam, cay cam, cây cam ngọt của tôi, cây cam ngọt, cay cam ngot, cay cam ngot cua toi', NULL, NULL),
-(2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', 2, 2, 2, '1742111017_hoangtubebia.jpg', 'Song Ngữ Việt - Anh', 2023, 200, '80000', '60', 0, 1, '<p><strong>Ho&agrave;ng Tử B&eacute; (Song Ngữ Việt - Anh)</strong></p>\r\n\r\n<p><em>Ho&agrave;ng tử b&eacute;</em>&nbsp;được xuất bản lần đầu năm 1943 của nh&agrave; văn, phi c&ocirc;ng người Ph&aacute;p Antoine de Saint-exup&eacute;ry l&agrave; một trong những cuốn tiểu thuyết kinh điển nổi tiếng nhất mọi thời đại. C&acirc;u chuyện ngắn gọn về cuộc gặp gỡ diệu kỳ giữa vi&ecirc;n phi c&ocirc;ng bị rơi m&aacute;y bay v&agrave; Ho&agrave;ng tử b&eacute; giữa sa mạc Sa-ha-ra hoang vu. H&agrave;nh tinh qu&ecirc; hương v&agrave; c&aacute;c mối quan hệ của ho&agrave;ng tử b&eacute; dần h&eacute; lộ: T&igrave;nh bạn, t&igrave;nh y&ecirc;u thương của Ho&agrave;ng tử b&eacute; d&agrave;nh cho b&ocirc;ng hồng duy nhất, t&igrave;nh cảm s&acirc;u sắc d&agrave;nh cho ch&uacute; c&aacute;o.</p>\r\n\r\n<p>Kh&ocirc;ng những vậy, th&ocirc;ng qua c&aacute;c cuộc gặp gỡ trong chuyến du ngoạn tới c&aacute;c h&agrave;nh tinh kh&aacute;c nhau của ho&agrave;ng tử b&eacute; cũng chứa đựng triết l&yacute; nh&acirc;n sinh s&acirc;u sắc về c&aacute;c kiểu người trong x&atilde; hội hiện đại.</p>\r\n\r\n<p>Thật kh&ocirc;ng ngoa khi khẳng định, mỗi c&acirc;u chữ trong cuốn s&aacute;ch n&agrave;y đều đầy triết l&yacute; v&agrave; mỗi người, mỗi lứa tuổi v&agrave; mỗi ho&agrave;n cảnh khi đọc sẽ c&oacute; những cảm nhận ri&ecirc;ng.</p>\r\n\r\n<p><strong>Th&agrave;nh t&iacute;ch</strong></p>\r\n\r\n<p>T&iacute;nh đến nay, t&aacute;c phẩm Ho&agrave;ng tử b&eacute; (Le Petit Prince) đ&atilde; được dịch sang 300 ng&ocirc;n ngữ, trở th&agrave;nh cuốn s&aacute;ch được chuyển thể ra nhiều ng&ocirc;n ngữ nhất tr&ecirc;n thế giới chỉ sau Kinh Th&aacute;nh. Với h&agrave;ng trăm triệu bản in tr&ecirc;n to&agrave;n thế giới, Ho&agrave;ng tử b&eacute; được coi l&agrave; một trong những t&aacute;c phẩm b&aacute;n chạy nhất của nh&acirc;n loại v&agrave; vẫn tiếp tục được xuất bản hằng năm với rất nhiều phi&ecirc;n bản kh&aacute;c nhau.</p>\r\n\r\n<p>Cuốn s&aacute;ch thiếu nhi c&oacute; k&egrave;m truyện tranh độc đ&aacute;o với phi&ecirc;n bản truyện song ngữ Anh Việt gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng, r&egrave;n luyện EQ, IQ. C&oacute; thể coi đ&acirc;y l&agrave; cuốn s&aacute;ch vượt xa c&aacute;c cuốn s&aacute;ch đương thời như: Harry Potter, Nh&oacute;c Nicolas, K&iacute;nh vạn hoa, Lũ trẻ hư nhất quả đất, Chuyện con m&egrave;o dạy hải &acirc;u bay...</p>\r\n\r\n<p>Cuốn s&aacute;ch được xếp v&agrave;o top 100 cuốn s&aacute;ch hay nhất thế kỷ XX.</p>\r\n\r\n<p><strong>Điểm kh&aacute;c biệt của phi&ecirc;n bản song ngữ Việt-Anh n&agrave;y so với c&aacute;c phi&ecirc;n bản kh&aacute;c c&oacute; tr&ecirc;n thị trường:</strong></p>\r\n\r\n<p>Phần tiếng Anh l&agrave; bản dịch của Katherine Wood &ndash; một bản dịch v&ocirc; c&ugrave;ng được y&ecirc;u th&iacute;ch bởi những người n&oacute;i tiếng Anh tr&ecirc;n khắp thế giới.</p>\r\n\r\n<p>Đ&acirc;y l&agrave; phi&ecirc;n bản Ho&agrave;ng tử b&eacute; song ngữ Anh-Việt duy nhất c&oacute; kết hợp chọn từ vựng tiếng Anh gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng với những đoạn hội thoại đậm chất văn học, nu&ocirc;i dưỡng v&agrave; r&egrave;n luyện tr&iacute; th&ocirc;ng m&igrave;nh cảm x&uacute;c (EQ) v&agrave; cảm nhận t&aacute;c phẩm kinh điển n&agrave;y bằng cả hai thứ tiếng.</p>\r\n\r\n<p>Tr&igrave;nh b&agrave;y song song hai ng&ocirc;n ngữ gi&uacute;p học tiếng Anh (hoặc người nước ngo&agrave;i học tiếng Việt) một c&aacute;ch dễ d&agrave;ng c&ugrave;ng phần ghi ch&uacute; từ vựng v&ocirc; c&ugrave;ng s&aacute;ng tạo, độc đ&aacute;o.</p>\r\n\r\n<p>S&aacute;ch song ngữ nhưng gi&aacute; b&igrave;a kh&ocirc;ng hề cao hơn s&aacute;ch tiếng Việt, c&ograve;n được tặng k&egrave;m link download phi&ecirc;n bản audio cho c&aacute;c độc giả muốn nghe truyện bằng tiếng Anh.</p>', 'hoang tu be, hoàng tử bé, little prince, prince, hoàng tử, hoang tu', NULL, NULL),
-(3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', 3, 3, 3, '1742112658_ithetthoibia.jpg', 'Tiếng Việt', 2023, 182, '95000', '50', 0, 1, '<p><strong>Khoa Học V&agrave; Kh&aacute;m Ph&aacute; - Liệu IT Đ&atilde; Hết Thời (T&aacute;i Bản 2023)</strong> l&agrave; cuốn s&aacute;ch nổi tiếng của <strong>Nicholas G. Carr</strong>, t&aacute;c giả được biết đến qua những nghi&ecirc;n cứu s&acirc;u sắc về t&aacute;c động của c&ocirc;ng nghệ đến kinh doanh v&agrave; x&atilde; hội.</p>\r\n\r\n<p>Trong cuốn s&aacute;ch n&agrave;y, Carr đưa ra những lập luận sắc b&eacute;n về việc <strong>c&ocirc;ng nghệ th&ocirc;ng tin đang dần trở th&agrave;nh một tiện &iacute;ch phổ th&ocirc;ng</strong>, kh&ocirc;ng c&ograve;n l&agrave; lợi thế cạnh tranh bền vững cho doanh nghiệp. Bản t&aacute;i bản 2023 cập nhật th&ecirc;m nhiều nghi&ecirc;n cứu v&agrave; v&iacute; dụ thực tiễn, gi&uacute;p độc giả hiểu r&otilde; hơn về sự thay đổi kh&ocirc;ng ngừng của thế giới c&ocirc;ng nghệ.</p>\r\n\r\n<p>Cuốn s&aacute;ch n&agrave;y đặc biệt ph&ugrave; hợp cho những ai muốn <strong>hiểu s&acirc;u hơn về vai tr&ograve; của IT trong kinh doanh hiện đại</strong> v&agrave; <strong>dự đo&aacute;n xu hướng ph&aacute;t triển của c&ocirc;ng nghệ trong tương lai</strong>.</p>', 'Khoa Học Và Khám Phá, khoa hoc va kham pha, Liệu IT Đã hết Thời, lieu it da het thoi, it, IT, Tái Bản 2023, tai ban 2023', NULL, NULL),
-(4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', 5, 5, 4, '1743666501_doremon do vui bia.jpg', 'Tiếng Việt', 2021, 256, '30000', '100', 0, 1, '<p>Những b&agrave;i học nhẹ nh&agrave;ng từ c&acirc;u chuyện kinh điển về c&aacute;c bạn nhỏ trong series truyện Doraemon nay đ&atilde; được mở rộng ra bằng Doraemon Đố Vui. Chắc chắn những c&acirc;u đố vui đầy bất ngờ th&uacute; vị đến từ những người bạn vốn th&acirc;n thiết bấy l&acirc;u n&agrave;y sẽ đem lại niềm vui cho c&aacute;c độc giả nh&iacute;.</p>', 'Doraemon,doraemon,Doremon,doremon,đô rê mon, đố vui, do vui, nobita', NULL, NULL),
-(5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', 1, 6, 3, '1743753696_conchutgidenho-bia.jpg', 'Tiếng Việt', 2022, 220, '43000', '100', 0, 1, '<p><strong>C&ograve;n Ch&uacute;t G&igrave; Để Nhớ</strong></p>\r\n\r\n<p>Đ&oacute; l&agrave; những kỷ niệm thời đi học của Chương, l&uacute;c mới bước ch&acirc;n v&agrave;o S&agrave;i G&ograve;n v&agrave; l&agrave;m quen với cuộc sống đ&ocirc; thị.</p>\r\n\r\n<p>L&agrave; những mối quan hệ bạn b&egrave; tưởng chừng hời hợt thoảng qua nhưng gắn b&oacute; suốt cuộc đời.</p>\r\n\r\n<p>Cuộc sống đầy biến động đ&atilde; x&ocirc; dạt mỗi người mỗi nơi, nhưng trải qua h&agrave;ng mấy chục năm, những kỷ niệm ấy vẫn lu&ocirc;n n&iacute;u k&eacute;o Chương về với một thời để nhớ.</p>', 'Con chut gi de nho, còn chút gì để nhớ,Còn Chút Gì Để Nhớ,chút gì để nhớ,chut gi de nho', NULL, NULL);
+(1, 'Cây Cam Ngọt Của Tôi', 1, 1, 1, '1742028851_caycamngotbia.jpg', 'Tiếng Việt', 2020, 244, 108000, '100', 0, 1, '<p>C&Acirc;Y CAM NGỌT CỦA T&Ocirc;I - MỘT TUỔI THƠ BỊ L&Atilde;NG QU&Ecirc;N.</p>\r\n\r\n<p>Với một đứa trẻ, thế giới kh&ocirc;ng giới hạn trong một bữa ăn, m&agrave; thế giới cần c&oacute; h&agrave;o quang của t&igrave;nh thương. Bạn c&oacute; bao giờ cảm thấy bị lạc l&otilde;ng trong ch&iacute;nh ng&ocirc;i nh&agrave; của m&igrave;nh? Một c&acirc;u chuyện chạm đến tận c&ugrave;ng cảm x&uacute;c</p>', 'Cây cam, cay cam, cây cam ngọt của tôi, cây cam ngọt, cay cam ngot, cay cam ngot cua toi', NULL, NULL),
+(2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', 2, 2, 2, '1742111017_hoangtubebia.jpg', 'Song Ngữ Việt - Anh', 2023, 200, 80000, '60', 0, 1, '<p><strong>Ho&agrave;ng Tử B&eacute; (Song Ngữ Việt - Anh)</strong></p>\r\n\r\n<p><em>Ho&agrave;ng tử b&eacute;</em>&nbsp;được xuất bản lần đầu năm 1943 của nh&agrave; văn, phi c&ocirc;ng người Ph&aacute;p Antoine de Saint-exup&eacute;ry l&agrave; một trong những cuốn tiểu thuyết kinh điển nổi tiếng nhất mọi thời đại. C&acirc;u chuyện ngắn gọn về cuộc gặp gỡ diệu kỳ giữa vi&ecirc;n phi c&ocirc;ng bị rơi m&aacute;y bay v&agrave; Ho&agrave;ng tử b&eacute; giữa sa mạc Sa-ha-ra hoang vu. H&agrave;nh tinh qu&ecirc; hương v&agrave; c&aacute;c mối quan hệ của ho&agrave;ng tử b&eacute; dần h&eacute; lộ: T&igrave;nh bạn, t&igrave;nh y&ecirc;u thương của Ho&agrave;ng tử b&eacute; d&agrave;nh cho b&ocirc;ng hồng duy nhất, t&igrave;nh cảm s&acirc;u sắc d&agrave;nh cho ch&uacute; c&aacute;o.</p>\r\n\r\n<p>Kh&ocirc;ng những vậy, th&ocirc;ng qua c&aacute;c cuộc gặp gỡ trong chuyến du ngoạn tới c&aacute;c h&agrave;nh tinh kh&aacute;c nhau của ho&agrave;ng tử b&eacute; cũng chứa đựng triết l&yacute; nh&acirc;n sinh s&acirc;u sắc về c&aacute;c kiểu người trong x&atilde; hội hiện đại.</p>\r\n\r\n<p>Thật kh&ocirc;ng ngoa khi khẳng định, mỗi c&acirc;u chữ trong cuốn s&aacute;ch n&agrave;y đều đầy triết l&yacute; v&agrave; mỗi người, mỗi lứa tuổi v&agrave; mỗi ho&agrave;n cảnh khi đọc sẽ c&oacute; những cảm nhận ri&ecirc;ng.</p>\r\n\r\n<p><strong>Th&agrave;nh t&iacute;ch</strong></p>\r\n\r\n<p>T&iacute;nh đến nay, t&aacute;c phẩm Ho&agrave;ng tử b&eacute; (Le Petit Prince) đ&atilde; được dịch sang 300 ng&ocirc;n ngữ, trở th&agrave;nh cuốn s&aacute;ch được chuyển thể ra nhiều ng&ocirc;n ngữ nhất tr&ecirc;n thế giới chỉ sau Kinh Th&aacute;nh. Với h&agrave;ng trăm triệu bản in tr&ecirc;n to&agrave;n thế giới, Ho&agrave;ng tử b&eacute; được coi l&agrave; một trong những t&aacute;c phẩm b&aacute;n chạy nhất của nh&acirc;n loại v&agrave; vẫn tiếp tục được xuất bản hằng năm với rất nhiều phi&ecirc;n bản kh&aacute;c nhau.</p>\r\n\r\n<p>Cuốn s&aacute;ch thiếu nhi c&oacute; k&egrave;m truyện tranh độc đ&aacute;o với phi&ecirc;n bản truyện song ngữ Anh Việt gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng, r&egrave;n luyện EQ, IQ. C&oacute; thể coi đ&acirc;y l&agrave; cuốn s&aacute;ch vượt xa c&aacute;c cuốn s&aacute;ch đương thời như: Harry Potter, Nh&oacute;c Nicolas, K&iacute;nh vạn hoa, Lũ trẻ hư nhất quả đất, Chuyện con m&egrave;o dạy hải &acirc;u bay...</p>\r\n\r\n<p>Cuốn s&aacute;ch được xếp v&agrave;o top 100 cuốn s&aacute;ch hay nhất thế kỷ XX.</p>\r\n\r\n<p><strong>Điểm kh&aacute;c biệt của phi&ecirc;n bản song ngữ Việt-Anh n&agrave;y so với c&aacute;c phi&ecirc;n bản kh&aacute;c c&oacute; tr&ecirc;n thị trường:</strong></p>\r\n\r\n<p>Phần tiếng Anh l&agrave; bản dịch của Katherine Wood &ndash; một bản dịch v&ocirc; c&ugrave;ng được y&ecirc;u th&iacute;ch bởi những người n&oacute;i tiếng Anh tr&ecirc;n khắp thế giới.</p>\r\n\r\n<p>Đ&acirc;y l&agrave; phi&ecirc;n bản Ho&agrave;ng tử b&eacute; song ngữ Anh-Việt duy nhất c&oacute; kết hợp chọn từ vựng tiếng Anh gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng với những đoạn hội thoại đậm chất văn học, nu&ocirc;i dưỡng v&agrave; r&egrave;n luyện tr&iacute; th&ocirc;ng m&igrave;nh cảm x&uacute;c (EQ) v&agrave; cảm nhận t&aacute;c phẩm kinh điển n&agrave;y bằng cả hai thứ tiếng.</p>\r\n\r\n<p>Tr&igrave;nh b&agrave;y song song hai ng&ocirc;n ngữ gi&uacute;p học tiếng Anh (hoặc người nước ngo&agrave;i học tiếng Việt) một c&aacute;ch dễ d&agrave;ng c&ugrave;ng phần ghi ch&uacute; từ vựng v&ocirc; c&ugrave;ng s&aacute;ng tạo, độc đ&aacute;o.</p>\r\n\r\n<p>S&aacute;ch song ngữ nhưng gi&aacute; b&igrave;a kh&ocirc;ng hề cao hơn s&aacute;ch tiếng Việt, c&ograve;n được tặng k&egrave;m link download phi&ecirc;n bản audio cho c&aacute;c độc giả muốn nghe truyện bằng tiếng Anh.</p>', 'hoang tu be, hoàng tử bé, little prince, prince, hoàng tử, hoang tu', NULL, NULL),
+(3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', 3, 3, 3, '1742112658_ithetthoibia.jpg', 'Tiếng Việt', 2023, 182, 95000, '50', 0, 1, '<p><strong>Khoa Học V&agrave; Kh&aacute;m Ph&aacute; - Liệu IT Đ&atilde; Hết Thời (T&aacute;i Bản 2023)</strong> l&agrave; cuốn s&aacute;ch nổi tiếng của <strong>Nicholas G. Carr</strong>, t&aacute;c giả được biết đến qua những nghi&ecirc;n cứu s&acirc;u sắc về t&aacute;c động của c&ocirc;ng nghệ đến kinh doanh v&agrave; x&atilde; hội.</p>\r\n\r\n<p>Trong cuốn s&aacute;ch n&agrave;y, Carr đưa ra những lập luận sắc b&eacute;n về việc <strong>c&ocirc;ng nghệ th&ocirc;ng tin đang dần trở th&agrave;nh một tiện &iacute;ch phổ th&ocirc;ng</strong>, kh&ocirc;ng c&ograve;n l&agrave; lợi thế cạnh tranh bền vững cho doanh nghiệp. Bản t&aacute;i bản 2023 cập nhật th&ecirc;m nhiều nghi&ecirc;n cứu v&agrave; v&iacute; dụ thực tiễn, gi&uacute;p độc giả hiểu r&otilde; hơn về sự thay đổi kh&ocirc;ng ngừng của thế giới c&ocirc;ng nghệ.</p>\r\n\r\n<p>Cuốn s&aacute;ch n&agrave;y đặc biệt ph&ugrave; hợp cho những ai muốn <strong>hiểu s&acirc;u hơn về vai tr&ograve; của IT trong kinh doanh hiện đại</strong> v&agrave; <strong>dự đo&aacute;n xu hướng ph&aacute;t triển của c&ocirc;ng nghệ trong tương lai</strong>.</p>', 'Khoa Học Và Khám Phá, khoa hoc va kham pha, Liệu IT Đã hết Thời, lieu it da het thoi, it, IT, Tái Bản 2023, tai ban 2023', NULL, NULL),
+(4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', 5, 5, 4, '1743666501_doremon do vui bia.jpg', 'Tiếng Việt', 2021, 256, 30000, '100', 0, 1, '<p>Những b&agrave;i học nhẹ nh&agrave;ng từ c&acirc;u chuyện kinh điển về c&aacute;c bạn nhỏ trong series truyện Doraemon nay đ&atilde; được mở rộng ra bằng Doraemon Đố Vui. Chắc chắn những c&acirc;u đố vui đầy bất ngờ th&uacute; vị đến từ những người bạn vốn th&acirc;n thiết bấy l&acirc;u n&agrave;y sẽ đem lại niềm vui cho c&aacute;c độc giả nh&iacute;.</p>', 'Doraemon,doraemon,Doremon,doremon,đô rê mon, đố vui, do vui, nobita', NULL, NULL),
+(5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', 1, 6, 3, '1743753696_conchutgidenho-bia.jpg', 'Tiếng Việt', 2022, 220, 43000, '100', 0, 1, '<p><strong>C&ograve;n Ch&uacute;t G&igrave; Để Nhớ</strong></p>\r\n\r\n<p>Đ&oacute; l&agrave; những kỷ niệm thời đi học của Chương, l&uacute;c mới bước ch&acirc;n v&agrave;o S&agrave;i G&ograve;n v&agrave; l&agrave;m quen với cuộc sống đ&ocirc; thị.</p>\r\n\r\n<p>L&agrave; những mối quan hệ bạn b&egrave; tưởng chừng hời hợt thoảng qua nhưng gắn b&oacute; suốt cuộc đời.</p>\r\n\r\n<p>Cuộc sống đầy biến động đ&atilde; x&ocirc; dạt mỗi người mỗi nơi, nhưng trải qua h&agrave;ng mấy chục năm, những kỷ niệm ấy vẫn lu&ocirc;n n&iacute;u k&eacute;o Chương về với một thời để nhớ.</p>', 'Con chut gi de nho, còn chút gì để nhớ,Còn Chút Gì Để Nhớ,chút gì để nhớ,chut gi de nho', NULL, NULL),
+(6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', 5, 5, 4, '1744015084_doremon_tauluatochanh-bia.jpg', 'Tiếng Việt', 2023, 96, 25000, '200', 0, 1, '<p><strong>Doraemon Tranh Truyện M&agrave;u - Đội Qu&acirc;n Doraemon - Chuyến T&agrave;u Lửa Tốc H&agrave;nh</strong></p>\r\n\r\n<p>Vi&ecirc;n nhộng năng lượng đột nhi&ecirc;n bị đ&aacute;nh cắp khỏi Trung t&acirc;m năng lượng khiến mọi hoạt động của th&agrave;nh phố tương lai đều bị ngưng trệ. Đội qu&acirc;n Doraemon nhận nhiệm vụ &aacute;p tải vi&ecirc;n nhộng dự bị đến Trung t&acirc;m năng lượng tr&ecirc;n một chiếc t&agrave;u hỏa cổ lỗ c&oacute; t&ecirc;n l&agrave; &quot;Roko&quot;. Suốt cuộc h&agrave;nh tr&igrave;nh, nh&agrave; khoa học xấu xa Achimov đ&atilde; d&ugrave;ng mọi thủ đoạn ph&aacute; hoại... Liệu Đội qu&acirc;n Doraemon c&oacute; ho&agrave;n th&agrave;nh nhiệm vụ hay kh&ocirc;ng, ch&uacute;ng ta h&atilde;y c&ugrave;ng theo d&otilde;i nh&eacute;! Đ&acirc;y l&agrave; phi&ecirc;n bản tranh truyện m&agrave;u được vẽ lại từ tập phim hoạt h&igrave;nh c&ugrave;ng t&ecirc;n của t&aacute;c giả Fujiko.F.Fujio.</p>', 'Doraemon,doremon,tranh truyen mau,Tranh Truyện Màu,doi quan doraemon,Đội Quân Doraemon,chuyen tau lua toc hanh,Chuyến Tàu Lửa Tốc Hành', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -442,7 +443,8 @@ INSERT INTO `tbl_comment` (`comment_id`, `comment_name`, `comment_info`, `commen
 (17, 'sigma', 'ko hay', '2025-03-31 09:28:46', 2, NULL, 1),
 (18, 'ok', 'ok', '2025-03-31 10:24:18', 2, NULL, 1),
 (19, 'nguoc', 'quá hay shop ơi', '2025-03-31 10:39:25', 2, NULL, 1),
-(20, 'sâs', 'okok', '2025-03-31 10:38:01', 2, NULL, 1);
+(20, 'sâs', 'okok', '2025-03-31 10:38:01', 2, NULL, 1),
+(21, 'Tuoitho', 'quá tuổi thơ', '2025-04-07 09:34:37', 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -565,7 +567,12 @@ INSERT INTO `tbl_gallerry` (`gallery_id`, `gallery_name`, `gallery_image`, `book
 (85, '1743753716_conchutgidenho3.jpg', '1743753716_conchutgidenho3.jpg', 5, NULL, NULL),
 (86, '1743753716_conchutgidenho4.jpg', '1743753716_conchutgidenho4.jpg', 5, NULL, NULL),
 (87, '1743753716_conchutgidenho5.jpg', '1743753716_conchutgidenho5.jpg', 5, NULL, NULL),
-(88, '1743753725_conchutgidenho6.jpg', '1743753725_conchutgidenho6.jpg', 5, NULL, NULL);
+(88, '1743753725_conchutgidenho6.jpg', '1743753725_conchutgidenho6.jpg', 5, NULL, NULL),
+(90, '1744015103_doremon_tauluatochanh-1.jpg', '1744015103_doremon_tauluatochanh-1.jpg', 6, NULL, NULL),
+(91, '1744015103_doremon_tauluatochanh-2.jpg', '1744015103_doremon_tauluatochanh-2.jpg', 6, NULL, NULL),
+(92, '1744015103_doremon_tauluatochanh-3.jpg', '1744015103_doremon_tauluatochanh-3.jpg', 6, NULL, NULL),
+(93, '1744015103_doremon_tauluatochanh-4.jpg', '1744015103_doremon_tauluatochanh-4.jpg', 6, NULL, NULL),
+(94, '1744015103_doremon_tauluatochanh-5.jpg', '1744015103_doremon_tauluatochanh-5.jpg', 6, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1420,7 +1427,8 @@ CREATE TABLE `tbl_rating` (
 INSERT INTO `tbl_rating` (`rating_id`, `book_id`, `comment_id`, `rating`) VALUES
 (1, 2, 16, 5),
 (2, 2, 17, 1),
-(3, 2, 18, 3);
+(3, 2, 18, 3),
+(4, 4, 21, 5);
 
 -- --------------------------------------------------------
 
@@ -13066,7 +13074,7 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_book`
 --
 ALTER TABLE `tbl_book`
-  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `book_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_category_product`
@@ -13078,7 +13086,7 @@ ALTER TABLE `tbl_category_product`
 -- AUTO_INCREMENT for table `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -13102,7 +13110,7 @@ ALTER TABLE `tbl_feeship`
 -- AUTO_INCREMENT for table `tbl_gallerry`
 --
 ALTER TABLE `tbl_gallerry`
-  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `gallery_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
@@ -13132,7 +13140,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_rating`
 --
 ALTER TABLE `tbl_rating`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`

@@ -118,9 +118,21 @@ class AuthorController extends Controller
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
         $author_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_author','tbl_book.author_id','=','tbl_author.author_id')
-        ->where('tbl_book.author_id',$author_id)->get();
-
-        $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->paginate(10);
+        ->where('tbl_book.author_id',$author_id);
+        $sort_by = $request->get('sort_by');
+        $page = $request->input('page', 1);
+        if ($sort_by == 'tang') {
+            $author_by_id->orderBy('book_price', 'asc');
+        } elseif ($sort_by == 'giam') {
+            $author_by_id->orderBy('book_price', 'desc');
+        } elseif ($sort_by == 'a_z') {
+            $author_by_id->orderBy('book_name', 'asc');
+        } elseif ($sort_by == 'z_a') {
+            $author_by_id->orderBy('book_name', 'desc');
+        }
+        $author_by_id = $author_by_id->paginate(15)->appends(request()->query());
+        
+        $author_name_show = DB::table('tbl_author')->where('tbl_author.author_id',$author_id)->get();
 
         $meta_desc = "";
         $meta_keywords = "";
@@ -144,7 +156,7 @@ class AuthorController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'view' => view('pages.author.author_paginate', compact('author_name_show', 'cate_product', 'author', 'publisher', 'author_by_id'))->render(),
-                'pagination' => (string) $author_name_show->links('vendor.pagination.custom')
+                'pagination' => (string) $author_by_id->links('vendor.pagination.custom')
             ]);
         }
         return view('pages.author.show_author')->with('category',$cate_product)->with('author',$author)

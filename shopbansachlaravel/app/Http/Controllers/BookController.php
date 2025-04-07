@@ -192,11 +192,18 @@ class BookController extends Controller
             $publisher_id = $details->publisher_id;
             $publisher_name = $details->publisher_name;
         }
-        
-        $book_related = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_category_product.category_id','=','tbl_book.category_id')
-        ->join('tbl_author','tbl_author.author_id','=','tbl_book.author_id')
-        ->join('tbl_publisher','tbl_publisher.publisher_id','=','tbl_book.publisher_id')
-        ->where('tbl_category_product.category_id',$category_id)->whereNotIn('tbl_book.book_id',[$books_id])->get();
+        $book_related = DB::table('tbl_book')->where('book_status','1')
+    ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_book.category_id')
+    ->join('tbl_author', 'tbl_author.author_id', '=', 'tbl_book.author_id')
+    ->join('tbl_publisher', 'tbl_publisher.publisher_id', '=', 'tbl_book.publisher_id')
+    ->leftJoin('tbl_rating', 'tbl_book.book_id', '=', 'tbl_rating.book_id')
+    ->where('tbl_category_product.category_id', $category_id)
+    ->where('tbl_book.book_status', 1)
+    ->whereNotIn('tbl_book.book_id', [$books_id])
+    ->select('tbl_book.book_id', 'tbl_book.book_name', 'tbl_book.book_image', 'tbl_book.book_price', DB::raw('AVG(tbl_rating.rating) as avgRating'), DB::raw('COUNT(tbl_rating.rating) as totalreview'))
+    ->groupBy('tbl_book.book_id', 'tbl_book.book_name', 'tbl_book.book_image', 'tbl_book.book_price')
+    ->get();
+
 
         foreach($book_detail as $key => $value){
             $book_id = $value->book_id;

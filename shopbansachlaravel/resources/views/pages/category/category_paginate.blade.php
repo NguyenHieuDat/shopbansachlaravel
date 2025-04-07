@@ -18,7 +18,8 @@
             </div>
         </div>
         <div class="text-center py-4">
-            <a class="h6 text-decoration-none text-truncate book-name" style="max-width: 150px; margin: 0 auto;">{{$book_cate->book_name}}</a>
+            <a class="h6 text-decoration-none text-truncate book-name" title="{{$book_cate->book_name}}" data-bs-toggle="tooltip" 
+                style="max-width: 100%; margin: 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$book_cate->book_name}}</a>
             <div class="d-flex align-items-center justify-content-center mt-2">
                 <h5 style="color: #dc3545">{{number_format($book_cate->book_price).' '.'đ'}}</h5>
             </div>

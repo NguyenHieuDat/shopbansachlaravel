@@ -36,7 +36,21 @@ class HomeController extends Controller
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
-        $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->paginate(15);
+        $all_book = DB::table('tbl_book')->where('book_status','1');
+        $sort_by = $request->get('sort_by');
+        $page = $request->input('page', 1);
+        if ($sort_by == 'giam') {
+            $all_book = $all_book->orderBy('book_price', 'desc');
+        } elseif ($sort_by == 'tang') {
+            $all_book = $all_book->orderBy('book_price', 'asc');
+        } elseif ($sort_by == 'z_a') {
+            $all_book = $all_book->orderBy('book_name', 'desc');
+        } elseif ($sort_by == 'a_z') {
+            $all_book = $all_book->orderBy('book_name', 'asc');
+        } else {
+            $all_book = $all_book->orderBy('book_id', 'desc');
+        }
+        $all_book = $all_book->paginate(15)->appends($request->query());
 
         foreach ($all_book as $book) {
             $rating = Rating::where('book_id', $book->book_id)->avg('rating');
@@ -50,6 +64,7 @@ class HomeController extends Controller
                 'pagination' => (string) $all_book->links('vendor.pagination.custom')
             ]);
         }
+        
         return view('pages.home')->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)

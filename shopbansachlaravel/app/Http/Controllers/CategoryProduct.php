@@ -120,9 +120,21 @@ class CategoryProduct extends Controller
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
         $category_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_category_product','tbl_book.category_id','=','tbl_category_product.category_id')
-        ->where('tbl_book.category_id',$category_id)->get();
+        ->where('tbl_book.category_id',$category_id);
+        $sort_by = $request->get('sort_by');
+        $page = $request->input('page', 1);
+        if ($sort_by == 'tang') {
+            $category_by_id->orderBy('book_price', 'asc');
+        } elseif ($sort_by == 'giam') {
+            $category_by_id->orderBy('book_price', 'desc');
+        } elseif ($sort_by == 'a_z') {
+            $category_by_id->orderBy('book_name', 'asc');
+        } elseif ($sort_by == 'z_a') {
+            $category_by_id->orderBy('book_name', 'desc');
+        }
+        $category_by_id = $category_by_id->paginate(15)->appends(request()->query());
 
-        $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->paginate(10);
+        $category_name_show = DB::table('tbl_category_product')->where('tbl_category_product.category_id',$category_id)->get();
         
         $meta_desc = "";
         $meta_keywords = "";
@@ -145,7 +157,7 @@ class CategoryProduct extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'view' => view('pages.category.category_paginate', compact('category_name_show', 'cate_product', 'author', 'publisher', 'category_by_id'))->render(),
-                'pagination' => (string) $category_name_show->links('vendor.pagination.custom')
+                'pagination' => (string) $category_by_id->links('vendor.pagination.custom')
             ]);
         }
         return view('pages.category.show_category')->with('category',$cate_product)->with('author',$author)

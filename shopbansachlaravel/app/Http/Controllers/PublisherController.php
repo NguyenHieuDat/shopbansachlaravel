@@ -84,9 +84,21 @@ class PublisherController extends Controller
         $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
 
         $publisher_by_id = DB::table('tbl_book')->where('book_status','1')->join('tbl_publisher','tbl_book.publisher_id','=','tbl_publisher.publisher_id')
-        ->where('tbl_book.publisher_id',$publisher_id)->get();
+        ->where('tbl_book.publisher_id',$publisher_id);
+        $sort_by = $request->get('sort_by');
+        $page = $request->input('page', 1);
+        if ($sort_by == 'tang') {
+            $publisher_by_id->orderBy('book_price', 'asc');
+        } elseif ($sort_by == 'giam') {
+            $publisher_by_id->orderBy('book_price', 'desc');
+        } elseif ($sort_by == 'a_z') {
+            $publisher_by_id->orderBy('book_name', 'asc');
+        } elseif ($sort_by == 'z_a') {
+            $publisher_by_id->orderBy('book_name', 'desc');
+        }
+        $publisher_by_id = $publisher_by_id->paginate(15)->appends(request()->query());
 
-        $publisher_name_show = DB::table('tbl_publisher')->where('tbl_publisher.publisher_id',$publisher_id)->paginate(10);
+        $publisher_name_show = DB::table('tbl_publisher')->where('tbl_publisher.publisher_id',$publisher_id)->get();
 
         $meta_desc = "";
         $meta_keywords = "";
@@ -109,7 +121,7 @@ class PublisherController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'view' => view('pages.publisher.publisher_paginate', compact('publisher_name_show', 'cate_product', 'author', 'publisher', 'publisher_by_id'))->render(),
-                'pagination' => (string) $publisher_name_show->links('vendor.pagination.custom')
+                'pagination' => (string) $publisher_by_id->links('vendor.pagination.custom')
             ]);
         }
         return view('pages.publisher.show_publisher')->with('category',$cate_product)->with('author',$author)

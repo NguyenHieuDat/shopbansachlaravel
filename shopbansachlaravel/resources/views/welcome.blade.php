@@ -1080,27 +1080,27 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $(document).on('click', '.pagination a', function(event) {
-        event.preventDefault();
-        var page = $(this).attr('href').split('page=')[1];
-        loadMoreData(page);
-    });
+// $(document).ready(function() {
+//     $(document).on('click', '.pagination a', function(event) {
+//         event.preventDefault();
+//         var page = $(this).attr('href').split('page=')[1];
+//         loadMoreData(page);
+//     });
 
-    function loadMoreData(page) {
-        $.ajax({
-            url: '?page=' + page,
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                // Cập nhật danh sách sản phẩm
-                $('#product-list').html(response.view);
-                // Cập nhật phân trang
-                $('#pagination-container').html(response.pagination);
-            }
-        });
-    }
-});
+//     function loadMoreData(page) {
+//         $.ajax({
+//             url: '?page=' + page,
+//             type: 'GET',
+//             dataType: 'json',
+//             success: function(response) {
+//                 // Cập nhật danh sách sản phẩm
+//                 $('#product-list').html(response.view);
+//                 // Cập nhật phân trang
+//                 $('#pagination-container').html(response.pagination);
+//             }
+//         });
+//     }
+// });
 
 $(document).ready(function() {
     window.add_wishlist = function(book_id) {
@@ -1203,7 +1203,6 @@ $(document).ready(function() {
                     <input type="hidden" class="cart_book_image_${book.id}" value="${book.image}">
                     <input type="hidden" class="cart_book_price_${book.id}" value="${book.price}">
                     <input type="hidden" class="cart_book_qty_${book.id}" value="1">
-
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img w-100" src="public/upload/book/${book.image}" alt="">
                         <div class="product-action">
@@ -1212,7 +1211,6 @@ $(document).ready(function() {
                             </a>
                         </div>
                     </div>
-
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate book-name" title="${book.name}" 
                             style="max-width: 100%; margin: 0 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -1226,7 +1224,6 @@ $(document).ready(function() {
                             <small>(${book.totalreview ?? 0})</small>
                         </div>
                     </div>
-
                     <div style="text-align: center">
                         <a class="btn btn-detail-book" href="chi_tiet_sach/${book.id}">Xem Chi Tiết</a>
                     </div>
@@ -1234,25 +1231,76 @@ $(document).ready(function() {
             </div>
         </div>
         `;
-
         $('#wishlist-container').append(bookHtml);
     });
 });
 
-function remove_wishlist(book_id) {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    wishlist = wishlist.filter(item => item.id != book_id);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    function remove_wishlist(book_id) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        wishlist = wishlist.filter(item => item.id != book_id);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
-    Swal.fire({
-        icon: 'success',
-        title: 'Đã xóa khỏi danh sách yêu thích!',
-        showConfirmButton: false,
-        timer: 1000
-    }).then(() => {
-        location.reload();
+        Swal.fire({
+            icon: 'success',
+            title: 'Đã xóa khỏi danh sách yêu thích!',
+            showConfirmButton: false,
+            timer: 1000
+        }).then(() => {
+            location.reload();
+        });
+    }
+
+    $(document).ready(function() {
+        let ajaxRequest = null;
+
+        $('#sort').on('change', function() {
+            var sort_by = $(this).val();
+            var currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+            var newUrl = window.location.pathname + "?page=" + currentPage + "&sort_by=" + sort_by;
+            history.pushState(null, null, newUrl);
+
+            if (ajaxRequest) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax({
+                url: newUrl,
+                method: "GET",
+                dataType: 'json',
+                success: function(data) {
+                    $('#product-list').html(data.view);
+                    $('#pagination-container').html(data.pagination);
+                },
+                error: function(xhr) {
+                    console.log('Lỗi lọc sản phẩm:', xhr);
+                }
+            });
+        });
+
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            var sort_by = $('#sort').val();
+            var newUrl = window.location.pathname + "?page=" + page + "&sort_by=" + sort_by;
+            history.pushState(null, null, newUrl);
+
+            if (ajaxRequest) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax({
+                url: newUrl,
+                method: "GET",
+                dataType: 'json',
+                success: function(data) {
+                    $('#product-list').html(data.view);
+                    $('#pagination-container').html(data.pagination);
+                },
+                error: function(xhr) {
+                    console.log('Lỗi phân trang:', xhr);
+                }
+            });
+        });
     });
-}
+
 </script>
 </body>
 </html>
