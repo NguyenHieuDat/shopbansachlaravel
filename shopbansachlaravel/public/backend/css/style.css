@@ -3189,6 +3189,23 @@ span.text-error {
 }
 
 .page-item.disabled:hover {
-    cursor: not-allowed; /* Đảm bảo hình cấm xuất hiện khi hover */
+    cursor: not-allowed;
     opacity: 0.5;
+}
+
+.thong_ke_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form-inline .form-group {
+    margin-right: 15px;
+}
+#myfirstchart {
+    min-height: 300px;
+    margin-top: 30px;
+}
+#btn-dashboard-filter {
+    margin-top: 22.5px;
 }

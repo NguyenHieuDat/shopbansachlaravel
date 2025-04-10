@@ -28,7 +28,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}">
 <!-- //calendar -->
-
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="//cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
 
 <!-- //font-awesome icons -->
@@ -37,6 +37,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/morris.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -194,14 +195,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		var fee_price = $(this).text();
 		var _token = $('meta[name="csrf-token"]').attr('content');
 
-		var fee_value = fee_price.replace('.', '');  // Xóa dấu chấm
-		fee_value = fee_value.replace(/\s?đ$/, '');  // Xóa khoảng trắng và chữ "đ"
+		var fee_value = fee_price.replace('.', '');
+		fee_value = fee_value.replace(/\s?đ$/, '');
 		$.ajaxSetup({
     	headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	}
-	});
-
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 		$.ajax({
 				url: "{{url('/update_delivery')}}",
 				type: "POST",
@@ -211,6 +211,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			});
 	});
+</script>
+<script type="text/javascript">
+	$(function() {
+      $("#datepicker_from").datepicker({
+		dateFormat:"yy-mm-dd",
+	  });
+    });
+
+	$(function() {
+      $("#datepicker_to").datepicker({
+		dateFormat:"yy-mm-dd",
+	  });
+    });
 </script>
 </head>
 <body>
@@ -656,6 +669,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			success:function(data){
 				alert('Trả lời bình luận thành công!');
 				location.reload();
+			}
+		});
+	});
+
+	$('#btn-dashboard-filter').click(function(){
+		var from_date = $('#datepicker_from').val();
+		var to_date = $('#datepicker_to').val();
+		var _token = $('meta[name="csrf-token"]').attr('content');
+		
+		$.ajax({
+			url : "{{url('/date_filter')}}",
+			method : "POST",
+			dataType : "JSON",
+			data : {
+				from_date:from_date, to_date:to_date, _token:_token
+			},
+			success:function(data){
+				// chart.setData(data);
 			}
 		});
 	});

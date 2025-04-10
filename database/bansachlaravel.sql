@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2025 at 11:38 AM
+-- Generation Time: Apr 10, 2025 at 10:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1487,6 +1487,33 @@ CREATE TABLE `tbl_social` (
   `provider` varchar(255) NOT NULL,
   `user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_statistical`
+--
+
+CREATE TABLE `tbl_statistical` (
+  `statistical_id` int(11) NOT NULL,
+  `order_date` varchar(255) NOT NULL,
+  `sales` varchar(255) NOT NULL,
+  `profit` varchar(255) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `total_order` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_statistical`
+--
+
+INSERT INTO `tbl_statistical` (`statistical_id`, `order_date`, `sales`, `profit`, `quantity`, `total_order`) VALUES
+(1, '2025-03-28', '2000000000', '2000000', 200, 120),
+(2, '2025-03-29', '1000000000', '100000000', 10, 10),
+(3, '2025-03-30', '5000000', '10000', 10, 5),
+(4, '2025-03-31', '123456', '12345', 123, 12),
+(5, '2025-04-01', '55555555', '55555', 55, 5),
+(6, '2025-04-02', '1111111111', '1000000', 11, 50);
 
 -- --------------------------------------------------------
 
@@ -12994,6 +13021,12 @@ ALTER TABLE `tbl_social`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `tbl_statistical`
+--
+ALTER TABLE `tbl_statistical`
+  ADD PRIMARY KEY (`statistical_id`);
+
+--
 -- Indexes for table `tbl_tinhthanhpho`
 --
 ALTER TABLE `tbl_tinhthanhpho`
@@ -13159,6 +13192,12 @@ ALTER TABLE `tbl_shipping`
 --
 ALTER TABLE `tbl_social`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_statistical`
+--
+ALTER TABLE `tbl_statistical`
+  MODIFY `statistical_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`

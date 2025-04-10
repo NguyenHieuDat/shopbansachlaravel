@@ -7,6 +7,7 @@ use DB;
 use App\Http\Requests;
 use App\Models\Login;
 use App\Models\SocialModel;
+use App\Models\Statistical;
 use Socialite;
 use Session;
 use Illuminate\Support\Facades\Redirect;
@@ -67,6 +68,7 @@ class AdminController extends Controller
     //         return Redirect::to('/admin');
     //     }
     // }
+
     public function logout(){
         $this->check_login();
         Session::put('admin_name',null);
@@ -114,5 +116,25 @@ class AdminController extends Controller
     //     } 
     // }
 
+    public function date_filter(Request $request){
+        $data = $request->all();
 
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+
+        $get = Statistical::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','asc')->get();
+
+        foreach($get as $key => $date){
+            $chart_data[] = array(
+                'period' => $date->order_date,
+                'order' => $date->total_order,
+                'sales' => $date->sales,
+                'profit' => $date->profit,
+                'quantity' => $date->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
+    }
+
+    
 }

@@ -12,6 +12,7 @@ class SocialModel extends Model
     ];
     protected $primaryKey = 'user_id';
     protected $table = 'tbl_social';
+    
     public function login(){
         return $this->belongsTo('App\Login', 'user');
     }
