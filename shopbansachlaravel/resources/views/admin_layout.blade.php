@@ -24,17 +24,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="{{asset('public/backend/css/font.css')}}" type="text/css"/>
 <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
-<link rel="stylesheet" href="{{asset('public/backend/css/morris.css')}}" type="text/css"/>
+{{-- <link rel="stylesheet" href="{{asset('public/backend/css/morris.css')}}" type="text/css"/> --}}
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('public/backend/css/monthly.css')}}">
 <!-- //calendar -->
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="//cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 <!-- //font-awesome icons -->
-<script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
-<script src="{{asset('public/backend/js/raphael-min.js')}}"></script>
-<script src="{{asset('public/backend/js/morris.js')}}"></script>
+{{-- <script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script> --}}
+{{-- <script src="{{asset('public/backend/js/raphael-min.js')}}"></script> --}}
+{{-- <script src="{{asset('public/backend/js/morris.js')}}"></script> --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -429,7 +431,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
-<!-- morris JavaScript -->	
+<!-- morris JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 {{-- <script>
 	$(document).ready(function() {
 		//BOX BUTTON SHOW AND CLOSE
@@ -686,10 +691,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				from_date:from_date, to_date:to_date, _token:_token
 			},
 			success:function(data){
-				// chart.setData(data);
+				chart.setData(data);
 			}
 		});
 	});
+
+	var chart = new Morris.Area({
+
+		element: 'orderchart',
+		lineColors: ['#819C79','#fc8710','#FF6541','#A4ADD3','#766B56'],
+		parseTime: false,
+		hideHover: 'auto',
+
+		xkey: 'period',
+		ykeys: ['order','sales','profit','quantity'],
+		labels: ['đơn hàng','doanh số','lợi nhuận','số lượng'],
+		data: [],
+	});
+
 </script>
 </body>
 </html>

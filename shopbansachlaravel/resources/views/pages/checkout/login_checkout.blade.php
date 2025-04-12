@@ -1,5 +1,4 @@
 @extends('welcome')
-
 @section('custom_css')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -71,8 +70,9 @@
                             <div class="mb-3">
                                 <input type="password" name="password_account" class="form-control" placeholder="Nhập mật khẩu">
                             </div>
-                            <div class="g-recaptcha" data-sitekey="{{env('CAPTCHA_KEY')}}"></div>
                             
+                            <div class="g-recaptcha" data-sitekey="6LcboRUrAAAAAJMAMnpnGASNIKnctuK6fP7ISxBE"></div>
+
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="keepSignedIn">
                                 <label class="form-check-label" for="keepSignedIn">Ghi nhớ đăng nhập</label>
@@ -104,6 +104,8 @@
                             <div class="mb-3">
                                 <input type="text" name="customer_phone" class="form-control" placeholder="Nhập số điện thoại">
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6LcboRUrAAAAAJMAMnpnGASNIKnctuK6fP7ISxBE"></div>
+
                             <button type="submit" class="btn btn-danger w-100">Đăng ký</button>
                         </form>
                     </div>

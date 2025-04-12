@@ -26,6 +26,7 @@
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Trạng thái</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +46,7 @@
                                 <span class="badge badge-danger">Đã hủy</span>
                             @endif
                         </td>
+                        <td><input type="button" class="btn btn-danger btn-sm" value="Hủy đơn"></td>
                     </tr>
                 @endforeach
             

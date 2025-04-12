@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2025 at 10:29 AM
+-- Generation Time: Apr 12, 2025 at 12:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -431,11 +431,8 @@ CREATE TABLE `tbl_comment` (
 --
 
 INSERT INTO `tbl_comment` (`comment_id`, `comment_name`, `comment_info`, `comment_date`, `comment_book_id`, `comment_parent_comment`, `comment_status`) VALUES
-(1, 'Nguyen', 'Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.', '2025-03-30 09:27:44', 3, NULL, 0),
-(2, 'Dat Nguyen', 'Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.', '2025-03-30 09:18:56', 3, NULL, 1),
 (3, 'Dat', 'rất hay kkk', '2025-03-30 09:22:01', 3, NULL, 1),
 (7, 'Tôi là am', 'good job', '2025-03-30 09:27:40', 3, NULL, 1),
-(8, 'jjj', 'very nice', '2025-03-30 07:47:20', 3, NULL, 0),
 (9, 'ok', 'hahaha', '2025-03-30 07:55:45', 3, NULL, 0),
 (10, 'Cửa hàng sách Fahasa', 'thanks bạn', '2025-03-30 09:49:17', 3, 3, 1),
 (11, 'Cửa hàng sách Fahasa', 'tuyệt vời', '2025-03-30 09:53:34', 3, 7, 1),
@@ -444,7 +441,8 @@ INSERT INTO `tbl_comment` (`comment_id`, `comment_name`, `comment_info`, `commen
 (18, 'ok', 'ok', '2025-03-31 10:24:18', 2, NULL, 1),
 (19, 'nguoc', 'quá hay shop ơi', '2025-03-31 10:39:25', 2, NULL, 1),
 (20, 'sâs', 'okok', '2025-03-31 10:38:01', 2, NULL, 1),
-(21, 'Tuoitho', 'quá tuổi thơ', '2025-04-07 09:34:37', 4, NULL, 1);
+(21, 'Tuoitho', 'quá tuổi thơ', '2025-04-07 09:34:37', 4, NULL, 1),
+(22, 'Đạt', 'Truyện này hay quá', '2025-04-12 08:35:37', 6, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -601,7 +599,8 @@ CREATE TABLE `tbl_order` (
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
 (1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL),
-(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 1, '2025-04-02 09:07:11', NULL);
+(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 1, '2025-04-02 09:07:11', NULL),
+(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 1, '2025-04-12 08:15:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -626,7 +625,9 @@ CREATE TABLE `tbl_order_detail` (
 
 INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_name`, `book_price`, `book_sale_quantity`, `created_at`, `updated_at`) VALUES
 (1, 1, 3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', '95000', 1, '2025-03-28 01:16:25', NULL),
-(2, 2, 2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', '80000', 3, '2025-04-02 09:07:11', NULL);
+(2, 2, 2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', '80000', 3, '2025-04-02 09:07:11', NULL),
+(3, 3, 5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', '43000', 3, '2025-04-12 08:15:13', NULL),
+(4, 3, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 1, '2025-04-12 08:15:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -1428,7 +1429,8 @@ INSERT INTO `tbl_rating` (`rating_id`, `book_id`, `comment_id`, `rating`) VALUES
 (1, 2, 16, 5),
 (2, 2, 17, 1),
 (3, 2, 18, 3),
-(4, 4, 21, 5);
+(4, 4, 21, 5),
+(5, 6, 22, 5);
 
 -- --------------------------------------------------------
 
@@ -1473,7 +1475,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'Giao ngay trong ngày!', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'ok', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1508,12 +1510,12 @@ CREATE TABLE `tbl_statistical` (
 --
 
 INSERT INTO `tbl_statistical` (`statistical_id`, `order_date`, `sales`, `profit`, `quantity`, `total_order`) VALUES
-(1, '2025-03-28', '2000000000', '2000000', 200, 120),
-(2, '2025-03-29', '1000000000', '100000000', 10, 10),
-(3, '2025-03-30', '5000000', '10000', 10, 5),
-(4, '2025-03-31', '123456', '12345', 123, 12),
-(5, '2025-04-01', '55555555', '55555', 55, 5),
-(6, '2025-04-02', '1111111111', '1000000', 11, 50);
+(1, '2025-03-28', '2000000', '220000', 200, 80),
+(2, '2025-03-29', '1000000', '500000', 100, 55),
+(3, '2025-03-30', '5000000', '550200', 90, 68),
+(4, '2025-03-31', '900000', '236000', 60, 50),
+(5, '2025-04-01', '1520000', '452000', 50, 25),
+(6, '2025-04-02', '2250000', '800000', 80, 42);
 
 -- --------------------------------------------------------
 
@@ -13119,7 +13121,7 @@ ALTER TABLE `tbl_category_product`
 -- AUTO_INCREMENT for table `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_coupon`
@@ -13149,13 +13151,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -13173,7 +13175,7 @@ ALTER TABLE `tbl_publisher`
 -- AUTO_INCREMENT for table `tbl_rating`
 --
 ALTER TABLE `tbl_rating`
-  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`

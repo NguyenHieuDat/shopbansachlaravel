@@ -37,8 +37,8 @@
             </select>
         </div>
     </form>
-    <div class="col-md-2">
-        <div id="myfirstchart">
+    <div class="col-md-12">
+        <div id="orderchart" class="chart" style="height: 250px;">
 
         </div>
     </div>

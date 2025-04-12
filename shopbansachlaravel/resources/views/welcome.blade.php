@@ -299,7 +299,6 @@
     <script src="{{asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script type="text/javascript">
     $(document).ready(function() {
         $('#imageGallery').lightSlider({
@@ -844,10 +843,8 @@
 
         });
     });
-
-
 </script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
     $('#loginForm').on('submit', function(e) {
         e.preventDefault();
