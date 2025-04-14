@@ -41,19 +41,19 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label>Họ và tên</label>
-                                <input class="form-control" type="text" name="shipping_name" value="{{$shipping->shipping_name}}" placeholder="Nhập họ và tên" required>
+                                <input class="form-control" type="text" name="shipping_name" value="{{$shipping->shipping_name ?? ''}}" placeholder="Nhập họ và tên" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Địa chỉ E-mail</label>
-                                <input class="form-control" type="text" name="shipping_email" value="{{$shipping->shipping_email}}" placeholder="Nhập địa chỉ Email" required>
+                                <input class="form-control" type="text" name="shipping_email" value="{{$shipping->shipping_email ?? ''}}" placeholder="Nhập địa chỉ Email" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Số điện thoại</label>
-                                <input class="form-control" type="text" name="shipping_phone" value="{{$shipping->shipping_phone}}" placeholder="Nhập số điện thoại" required>
+                                <input class="form-control" type="text" name="shipping_phone" value="{{$shipping->shipping_phone ?? ''}}" placeholder="Nhập số điện thoại" required>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Địa chỉ thường trú</label>
-                                <input class="form-control" type="text" name="shipping_address" value="{{$shipping->shipping_address}}" placeholder="Nhập địa chỉ thường trú" required>
+                                <input class="form-control" type="text" name="shipping_address" value="{{$shipping->shipping_address ?? ''}}" placeholder="Nhập địa chỉ thường trú" required>
                             </div>
                         </div>
                         <input type="submit" value="Lưu thông tin" class="btn btn-block btn-danger font-weight-bold py-3">

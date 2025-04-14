@@ -846,7 +846,7 @@
 </script>
 
 <script>
-    $('#loginForm').on('submit', function(e) {
+    $('#login-form').on('submit', function(e) {
         e.preventDefault();
         $('#error-message').html('');
 
@@ -856,7 +856,7 @@
             data: $(this).serialize(),
             success: function(response) {
                 if(response.success) {
-                    window.location.href = response.redirect_url; // Chuyển hướng khi đăng nhập thành công
+                    window.location.href = response.redirect_url;
                 } else {
                     $('#error-message').html(response.error);
                 }
@@ -871,6 +871,40 @@
                         }
                     }
                     $('#error-message').html(errorMessage);
+                }
+            }
+        });
+    });
+
+    $('#register-form').on('submit', function (e) {
+        e.preventDefault();
+        $('#error-message-2').html('');
+
+        $.ajax({
+            url: "{{ url('/add_customer') }}",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function (response) {
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đăng ký tài khoản thành công! Hãy đăng nhập bằng tài khoản bạn đã đăng ký.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = "{{ url('/login_checkout') }}";
+                });
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    const errors = xhr.responseJSON.errors;
+                    let errorHtml = '<ul>';
+                    $.each(errors, function (key, messages) {
+                        errorHtml += `<li>${messages[0]}</li>`;
+                    });
+                    errorHtml += '</ul>';
+                    $('#error-message-2').html(errorHtml);
+                } else {
+                    $('#error-message-2').html('Đã có lỗi xảy ra, vui lòng thử lại.');
                 }
             }
         });

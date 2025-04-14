@@ -61,11 +61,11 @@
                 <div class="col-md-5">
                     <div class="login-form">
                         <h2 class="text-danger text-center mb-4">Đăng nhập</h2>
-                        <form action="{{URL::to('/login_customer')}}" method="POST" id="loginForm">
+                        <form action="{{URL::to('/login_customer')}}" method="POST" id="login-form">
                             @csrf
                             <div id="error-message" style="color: red; margin-top: 10px;"></div>
                             <div class="mb-3">
-                                <input type="text" name="email_account" class="form-control" placeholder="Nhập tài khoản">
+                                <input type="text" name="email_account" class="form-control" placeholder="Nhập địa chỉ Email">
                             </div>
                             <div class="mb-3">
                                 <input type="password" name="password_account" class="form-control" placeholder="Nhập mật khẩu">
@@ -73,10 +73,13 @@
                             
                             <div class="g-recaptcha" data-sitekey="6LcboRUrAAAAAJMAMnpnGASNIKnctuK6fP7ISxBE"></div>
 
-                            <div class="mb-3 form-check">
+                            {{-- <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="keepSignedIn">
                                 <label class="form-check-label" for="keepSignedIn">Ghi nhớ đăng nhập</label>
-                            </div>
+                            </div> --}}
+                            <span>
+                                <a href="{{ url('/quen_mat_khau') }}" class="text-danger">Quên mật khẩu</a>
+                            </span>
                             <button type="submit" class="btn btn-danger w-100">Đăng nhập</button>
                         </form>
                     </div>
@@ -90,8 +93,9 @@
                 <div class="col-md-5">
                     <div class="signup-form">
                         <h2 class="text-danger text-center mb-4">Đăng ký</h2>
-                        <form action="{{URL::to('/add_customer')}}" method="POST">
+                        <form action="{{URL::to('/add_customer')}}" method="POST" id="register-form">
                             @csrf
+                            <div id="error-message-2" style="color: red; margin-top: 10px;"></div>
                             <div class="mb-3">
                                 <input type="text" name="customer_name" class="form-control" placeholder="Nhập tên tài khoản">
                             </div>

@@ -10,7 +10,10 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Book;
 use App\Models\Rating;
+use App\Models\Customer;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -166,19 +169,19 @@ class HomeController extends Controller
 
     public function update_user_shipping(Request $request){
         $customer_id = Session::get('customer_id');
-        $shipping_name = $request->input('shipping_name');
-        $shipping_email = $request->input('shipping_email');
-        $shipping_phone = $request->input('shipping_phone');
-        $shipping_address = $request->input('shipping_address');
-
-        DB::table('tbl_shipping')
-            ->where('customer_id', $customer_id)
-            ->update([
-                'shipping_name' => $shipping_name,
-                'shipping_email' => $shipping_email,
-                'shipping_phone' => $shipping_phone,
-                'shipping_address' => $shipping_address
-            ]);
+        $data = [
+            'customer_id' => $customer_id,
+            'shipping_name' => $request->input('shipping_name'),
+            'shipping_email' => $request->input('shipping_email'),
+            'shipping_phone' => $request->input('shipping_phone'),
+            'shipping_address' => $request->input('shipping_address'),
+        ];
+        $existing = DB::table('tbl_shipping')->where('customer_id', $customer_id)->first();
+        if ($existing) {
+            DB::table('tbl_shipping')->where('customer_id', $customer_id)->update($data);
+        } else {
+            DB::table('tbl_shipping')->insert($data);
+        }
         return redirect()->back()->with('message', 'Cập nhật thông tin vận chuyển thành công!');
     }
 
@@ -195,5 +198,86 @@ class HomeController extends Controller
         return view('pages.book.wishlist')->with('category',$cate_product)->with('author',$author)
         ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+
+    public function forgot_password(Request $request){
+        $meta_desc = "Quên mật khẩu";
+        $meta_keywords = "mat khau,quen,quen mat khau,quên mật khẩu,mật khẩu,quên";
+        $meta_title = "Quên mật khẩu";
+        $url_canonical = $request->url();
+
+        $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        return view('pages.account.forgot_password')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+
+    public function send_password(Request $request){
+        $data = $request->all();
+        $time_now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
+        $mail_title = "Khôi phục mật khẩu cho tài khoản khách hàng trên website Cửa hàng sách Fahasa".' '.$time_now;
+
+        $customer = Customer::where('customer_email','=',$data['email_account'])->get();
+        foreach($customer as $value){
+            $customer_id = $value->customer_id;
+        }
+            if($customer){
+                $count_customer = $customer->count();
+                if($count_customer == 0){
+                    return redirect()->back()->with('error', 'Email chưa được đăng ký để khôi phục mật khẩu');
+                }else{
+                    $token = Str::random();
+                    $customer = Customer::find($customer_id);
+                    $customer->customer_token = $token;
+                    $customer->save();
+
+                    $to_email = $data['email_account'];
+                    $link_reset_password = url('/update_password?email='.$to_email.'&token='.$token);
+                    $data = array("name"=>$mail_title, "body"=>$link_reset_password, 'email' => $data['email_account']);
+
+                    Mail::send('pages.account.password_notify', ['data' => $data], function($message) use ($mail_title, $data)
+                    {
+                    $message->to ($data['email'])->subject($mail_title);
+                    $message->from ($data['email'],$mail_title);
+                });
+                return redirect()->back() ->with('message', 'Gửi mail khôi phục thành công, vui lòng vào email của bạn để khôi phục mật khẩu (kiểm tra trong mục thư rác nếu không thấy)');
+            }
+        }
+    }
+
+    public function update_password(Request $request){
+        $meta_desc = "Khôi phục mật khẩu";
+        $meta_keywords = "mat khau,khoi phuc,khoi phuc mat khau,khôi phục mật khẩu,mật khẩu,khôi phục";
+        $meta_title = "Khôi phục mật khẩu";
+        $url_canonical = $request->url();
+
+        $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        return view('pages.account.new_password')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+
+    public function reset_password(Request $request){
+        $data = $request->all();
+        $customer = Customer::where('customer_email','=',$data['email'])->where('customer_token','=',$data['token'])->get();
+        $count = $customer->count();
+        if($count > 0){
+            foreach($customer as $val){
+                $customer_id = $val->customer_id;
+            }
+            $reset = Customer::find($customer_id);
+            $reset->customer_password = md5($data['password_account']);
+            $reset->customer_token = null;
+            $reset->save();
+            return view('pages.account.reset_success')->with('message', 'Mật khẩu đã được cập nhật thành công!');
+        } else {
+            return view('pages.account.reset_success')->with('error', 'Link đã hết hạn hoặc không hợp lệ. Vui lòng thử lại.');
+        }
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2025 at 12:10 PM
+-- Generation Time: Apr 14, 2025 at 11:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -481,6 +481,7 @@ CREATE TABLE `tbl_customer` (
   `customer_email` varchar(255) NOT NULL,
   `customer_password` varchar(255) NOT NULL,
   `customer_phone` varchar(255) NOT NULL,
+  `customer_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -489,8 +490,13 @@ CREATE TABLE `tbl_customer` (
 -- Dumping data for table `tbl_customer`
 --
 
-INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `created_at`, `updated_at`) VALUES
-(4, 'DatNguyen', 'datnguyen@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL);
+INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_token`, `created_at`, `updated_at`) VALUES
+(4, 'DatNguyen', 'datnguyen@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
+(5, 'Hiếu Đạt', 'hieudat26@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
+(6, 'donaldtrump', 'donaldtrump1@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456777', NULL, NULL, NULL),
+(7, 'abccba', 'abc123@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL, NULL),
+(8, 'Dat HN', 'nguyendat263069@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL, NULL),
+(9, 'DatNguyen1', 'letran12@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13133,7 +13139,7 @@ ALTER TABLE `tbl_coupon`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_feeship`

@@ -28,6 +28,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/update_user_shipping', 'update_user_shipping');
     Route::post('/autocomplete_search', 'autocomplete_search')->name('autocomplete.search');
     Route::get('/yeu_thich', 'wishlist');
+    Route::get('/quen_mat_khau', 'forgot_password');
+    Route::post('/send_password', 'send_password');
+    Route::get('/update_password', 'update_password');
+    Route::post('/reset_password', 'reset_password');
 });
 
 Route::controller(CategoryProduct::class)->group(function () {

@@ -17,10 +17,11 @@ use App\Rules\Captcha;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    //Ham admin
+    //Hàm admin
     public function check_login(){
         $admin_id = Auth::id();
         if($admin_id){
@@ -31,8 +32,7 @@ class CheckoutController extends Controller
         }
     }
 
-    //Ham user
-
+    //Hàm user
     public function login_checkout(Request $request){
         $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
         $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
@@ -52,6 +52,18 @@ class CheckoutController extends Controller
     }
 
     public function add_customer(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'customer_name' => 'required|string',
+            'customer_email' => 'required|email',
+            'customer_phone' => 'required',
+            'customer_password' => 'required',
+            'g-recaptcha-response' => ['required', new Captcha()],
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         $data = array();
         $data['customer_name'] = $request->customer_name;
         $data['customer_email'] = $request->customer_email;
@@ -61,7 +73,11 @@ class CheckoutController extends Controller
         $customer_id = DB::table('tbl_customer')->insertGetId($data);
         Session::put('customer_id',$customer_id);
         Session::put('customer_name',$request->customer_name);
-        return Redirect::to('/checkout');
+        
+        return response()->json([
+            'message' => 'Đăng ký thành công',
+            'redirect' => url('/login_checkout')
+        ]);
     }
 
     public function checkout(Request $request){
@@ -210,13 +226,22 @@ class CheckoutController extends Controller
             if ($shipping) {
                 Session::put('shipping_id', $shipping->shipping_id);
             }
-
             $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
             $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
             $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
             $all_book = DB::table('tbl_book')->where('book_status','1')->orderby('book_id','desc')->limit(8)->get();
             $previous_url = Session::get('previous_url', '/');
+            $previous_path = parse_url($previous_url, PHP_URL_PATH);
+            if (Str::contains($previous_path, [
+                'login_checkout',
+                'reset_password',
+                'update_password',
+                'quen_mat_khau'
+            ])) {
+                $previous_url = url('/trang_chu');
+            }
             Session::forget('previous_url');
+
             return response()->json([
                 'success' => true,
                 'redirect_url' => $previous_url,
