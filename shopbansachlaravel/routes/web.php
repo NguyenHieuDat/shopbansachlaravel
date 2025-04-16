@@ -32,6 +32,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/send_password', 'send_password');
     Route::get('/update_password', 'update_password');
     Route::post('/reset_password', 'reset_password');
+    Route::get('/doi_mat_khau', 'show_change_password');
+    Route::post('/change_password', 'change_password');
 });
 
 Route::controller(CategoryProduct::class)->group(function () {
@@ -140,6 +142,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/update_order_quantity', 'update_order_quantity');
     Route::post('/update_qty', 'update_qty');
     Route::get('/xem_don_hang/{customer_id}', 'customer_order');
+    Route::post('/cancel_order/{order_id}', 'cancel_order');
 });
 
 Route::controller(BannerController::class)->group(function () {

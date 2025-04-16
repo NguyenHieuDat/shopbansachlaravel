@@ -28,6 +28,12 @@
                                 <label>Số điện thoại</label>
                                 <input class="form-control" type="text" name="customer_phone" value="{{$customer->customer_phone}}" placeholder="Nhập số điện thoại" required>
                             </div>
+                            <div class="col-md-6 form-group">
+                                <label></label><br>
+                                <span>
+                                    <a style="color: #dc3545;" href="{{url('/doi_mat_khau')}}">Đổi mật khẩu</a>
+                                </span>
+                            </div>
                             <input type="submit" value="Lưu thông tin" class="btn btn-block btn-danger font-weight-bold py-3">
                         </div>
                     </form>

@@ -16,6 +16,9 @@
             <p>Mã giảm giá: <strong>{{ $order->coupon_code }}</strong></p>
             <p>Phí vận chuyển: <strong>{{ number_format($order->feeship_price) }} đ</strong></p>
             <p>Ngày đặt: <strong>{{ $order->created_at }}</strong></p>
+            @if($order->order_status != 2 && $order->order_status != 3)
+                <input type="button" class="btn btn-danger cancel-order" data-order_id="{{ $order->order_id }}" value="Hủy đơn">
+            @endif
         </div>
     </div>
     <table class="table table-bordered">
@@ -26,30 +29,26 @@
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Trạng thái</th>
-                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
             @foreach($order->orderdetail as $orderDetail)
-                    <tr>
-                        <td><img src="{{ asset('public/upload/book/'.$orderDetail->book->book_image) }}" width="50"></td>
-                        <td>{{ $orderDetail->book->book_name }}</td>
-                        <td>{{ number_format($orderDetail->book->book_price) }} đ</td>
-                        <td>{{ $orderDetail->book_sale_quantity }}</td>
-                        
-                        <td>
-                            @if($order->order_status == 1)
-                                <span class="badge badge-warning">Đang giao hàng</span>
-                            @elseif($order->order_status == 2)
-                                <span class="badge badge-success">Đã giao</span>
-                            @else
-                                <span class="badge badge-danger">Đã hủy</span>
-                            @endif
-                        </td>
-                        <td><input type="button" class="btn btn-danger btn-sm" value="Hủy đơn"></td>
-                    </tr>
-                @endforeach
-            
+                <tr>
+                    <td><img src="{{ asset('public/upload/book/'.$orderDetail->book->book_image) }}" width="50"></td>
+                    <td>{{ $orderDetail->book->book_name }}</td>
+                    <td>{{ number_format($orderDetail->book->book_price) }} đ</td>
+                    <td>{{ $orderDetail->book_sale_quantity }}</td>
+                    <td>
+                        @if($order->order_status == 1)
+                            <span class="badge badge-warning">Đang giao hàng</span>
+                        @elseif($order->order_status == 2)
+                            <span class="badge badge-success">Đã giao</span>
+                        @else
+                            <span class="badge badge-danger">Đã hủy</span>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
     <hr class="custom-hr">

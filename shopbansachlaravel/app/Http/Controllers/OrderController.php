@@ -211,4 +211,17 @@ class OrderController extends Controller
         return view('pages.orders.customer_order', compact('orders','meta_desc','meta_title','meta_keywords','url_canonical',
         'category','author','publisher'));
     }
+
+    public function cancel_order($order_id){
+        $order = Order::find($order_id);
+        if (!$order) {
+            return response()->json(['status' => 'error', 'message' => 'Đơn hàng không tồn tại']);
+        }
+        if ($order->order_status != 2 && $order->order_status != 3) {
+            $order->order_status = 3;
+            $order->save();
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error']);
+    }
 }

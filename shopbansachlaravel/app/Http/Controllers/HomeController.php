@@ -243,7 +243,7 @@ class HomeController extends Controller
                     $message->to ($data['email'])->subject($mail_title);
                     $message->from ($data['email'],$mail_title);
                 });
-                return redirect()->back() ->with('message', 'Gửi mail khôi phục thành công, vui lòng vào email của bạn để khôi phục mật khẩu (kiểm tra trong mục thư rác nếu không thấy)');
+                return redirect()->back()->with('message', 'Gửi mail khôi phục thành công, vui lòng vào email của bạn để khôi phục mật khẩu (kiểm tra trong mục thư rác nếu không thấy)');
             }
         }
     }
@@ -279,5 +279,48 @@ class HomeController extends Controller
         } else {
             return view('pages.account.reset_success')->with('error', 'Link đã hết hạn hoặc không hợp lệ. Vui lòng thử lại.');
         }
+    }
+
+    public function show_change_password(Request $request){
+        $meta_desc = "Đổi mật khẩu";
+        $meta_keywords = "mat khau,doi mat khau,đổi mật khẩu,mật khẩu";
+        $meta_title = "Đổi mật khẩu";
+        $url_canonical = $request->url();
+
+        $cate_product = DB::table('tbl_category_product')->where('category_parent', 0)->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+
+        return view('pages.account.change_password')->with('category',$cate_product)->with('author',$author)
+        ->with('publisher',$publisher)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
+        ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+    }
+
+    public function change_password(Request $request){
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:5|confirmed',
+        ], [
+            'current_password.required' => 'Vui lòng nhập mật khẩu hiện tại.',
+            'new_password.required' => 'Vui lòng nhập mật khẩu mới.',
+            'new_password.min' => 'Mật khẩu mới phải ít nhất 5 ký tự.',
+            'new_password.confirmed' => 'Mật khẩu xác nhận không khớp.',
+        ]);
+
+        $customer_id = Session::get('customer_id');
+        if(!$customer_id){
+            return redirect('/login_checkout')->with('error', 'Bạn chưa đăng nhập.');
+        }
+        $customer = DB::table('tbl_customer')->where('customer_id', $customer_id)->first();
+    
+        if(!$customer){
+            return back()->with('error', 'Không tìm thấy tài khoản.');
+        }
+        if(md5($request->current_password) !== $customer->customer_password){
+            return back()->with('error', 'Mật khẩu hiện tại không đúng.');
+        }
+        DB::table('tbl_customer')->where('customer_id', $customer_id)->update(['customer_password' => md5($request->new_password)]);
+    
+        return back()->with('success', 'Đổi mật khẩu thành công!');
     }
 }

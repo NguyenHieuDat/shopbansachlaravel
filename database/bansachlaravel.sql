@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 11:33 AM
+-- Generation Time: Apr 16, 2025 at 09:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -257,6 +257,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 ('Eqs5Wv39HSzAlhKf7QFJw09OTO4QOp4lJ4bklcs2', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoic2F0S0NHbDFKVXZTbFYwdHdXQlppUFdGUHJaVDVjRkdpT05NMnpSUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1740479154),
 ('EVB5gyVWtOIL2e2jzEh31aYgxNlJuSZhCkKuQg4h', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiVDNOekFvd1JaenJDUUVmT3RFSUpHQVJsbHZZNUFldzZNb2x1aTJmUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742111021),
 ('GbLkJXrvOXOOVKzVUWPXzur80F00QPt9NH41B6jZ', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiQllEV3p5OFBUY2NOV05yQmduN3pEbXFwREpSZ016NnVSa1VXVDhHeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1742458250),
+('itzIxetzwnSuZ4I92YA7fE4eKjDOxz4rZ6DfZ3Po', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiWVoxZ2piM0lNd245WHI4VUdPOWZhd1pJemV1WUJmWHZ6Nk5raThxTyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1744786263),
 ('lZRVw6uWFRUqhntYTpmTdF4OGazYH4gGycvY9oGy', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiYWd0eVVOcWFjWUxvUEdMTVVrenRMUjNsREQyYzA3Qk44czhmdGE4eiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1743242404),
 ('MHTdeB1UZ9uoE105SZ4deRdWTBc7DwUN6YH2HrFa', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicjZBMWkzT3lkc3VtSEtNbGNDOG5rRFR5eDZYbWlRNFFuZmk3RGZDeCI7czoxMjoicHJldmlvdXNfdXJsIjtzOjU0OiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC9kYW5oX211Y190YWNfZ2lhLzMiO3M6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1743415075),
 ('o8wBkc12JdwerIemIuCRpTrEozYoBlItnuTqe6ie', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTlhtN0VWcWVYSkZUd1ZHaGpoeWRlSWhiSWVaTWRrQ2dwQ0FGVGRuZCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoxMjoicHJldmlvdXNfdXJsIjtzOjQ1OiJodHRwOi8vbG9jYWxob3N0L3Nob3BiYW5zYWNobGFyYXZlbC90cmFuZ19jaHUiO30=', 1743583157),
@@ -491,7 +492,7 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_token`, `created_at`, `updated_at`) VALUES
-(4, 'DatNguyen', 'datnguyen@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
+(4, 'DatNguyen', 'datnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0123456788', NULL, NULL, NULL),
 (5, 'Hiếu Đạt', 'hieudat26@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
 (6, 'donaldtrump', 'donaldtrump1@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456777', NULL, NULL, NULL),
 (7, 'abccba', 'abc123@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL, NULL),
@@ -605,8 +606,8 @@ CREATE TABLE `tbl_order` (
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
 (1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL),
-(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 1, '2025-04-02 09:07:11', NULL),
-(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 1, '2025-04-12 08:15:13', NULL);
+(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 3, '2025-04-02 09:07:11', NULL),
+(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 3, '2025-04-12 08:15:13', NULL);
 
 -- --------------------------------------------------------
 

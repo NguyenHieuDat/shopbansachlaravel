@@ -57,10 +57,16 @@
     <div class="container">
         <div class="login-container">
             <div class="row align-items-center">
-                <!-- Đăng nhập -->
+        <!-- Đăng nhập -->
                 <div class="col-md-5">
                     <div class="login-form">
                         <h2 class="text-danger text-center mb-4">Đăng nhập</h2>
+                        @if (session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
                         <form action="{{URL::to('/login_customer')}}" method="POST" id="login-form">
                             @csrf
                             <div id="error-message" style="color: red; margin-top: 10px;"></div>
@@ -89,7 +95,7 @@
                         HOẶC
                     </div>
                 </div>
-                <!-- Đăng ký -->
+    <!-- Đăng ký -->
                 <div class="col-md-5">
                     <div class="signup-form">
                         <h2 class="text-danger text-center mb-4">Đăng ký</h2>

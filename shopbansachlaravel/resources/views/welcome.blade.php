@@ -277,7 +277,7 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-danger back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
     <!-- JavaScript Libraries -->
@@ -299,7 +299,8 @@
     <script src="{{asset('public/frontend/js/lightgallery-all.min.js')}}"></script>
     <script src="{{asset('public/frontend/js/prettify.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
+
+<script type="text/javascript">
     $(document).ready(function() {
         $('#imageGallery').lightSlider({
             gallery:true,
@@ -1332,6 +1333,55 @@ $(document).ready(function() {
         });
     });
 
+</script>
+<script>
+$(document).ready(function() {
+    $('.cancel-order').click(function() {
+        var orderId = $(this).data('order_id');
+        var _token = $('meta[name="csrf-token"]').attr('content');
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn hủy đơn này?',
+            text: "Bạn sẽ không thể hoàn tác hành động này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, hủy đơn!',
+            cancelButtonText: 'Không hủy nữa'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ url("/cancel_order/") }}/' + orderId,
+                    method: 'POST',
+                    data: {
+                        _token: _token,
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire(
+                                'Đã hủy!',
+                                'Đơn hàng đã được hủy.',
+                                'success'
+                            ).then(function() {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                'Lỗi!',
+                                'Đã xảy ra lỗi khi hủy đơn.',
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
