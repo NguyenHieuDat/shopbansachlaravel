@@ -23,17 +23,16 @@
             <input type="text" id="datepicker_to" class="form-control">
         </div>
         <div class="form-group col-md-2">
-            
             <input type="button" id="btn-dashboard-filter" class="btn btn-primary" value="Lọc">
         </div>
         <div class="form-group col-md-3">
-            <label for="filter_time">Lọc theo:</label>
-            <select class="form-control" id="">
+            <label>Lọc theo:</label>
+            <select class="form-control dashboard-filter" id="">
                 <option>--Chọn--</option>
-                <option>Một tuần</option>
-                <option>Tháng trước</option>
-                <option>Tháng này</option>
-                <option>Một năm</option>
+                <option value="mot-tuan">Một tuần</option>
+                <option value="thang-truoc">Tháng trước</option>
+                <option value="thang-nay">Tháng này</option>
+                <option value="mot-nam">Một năm</option>
             </select>
         </div>
     </form>

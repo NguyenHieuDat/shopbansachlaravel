@@ -164,6 +164,7 @@ Route::controller(AdminController::class)->group(function () {
     // Route::get('/login_facebook', 'login_fb');
     // Route::get('/admin/callback', 'callback_fb');
     Route::post('/date_filter', 'date_filter');
+    Route::post('/dashboard_filter', 'dashboard_filter');
 });
 
 Route::middleware(['web'])->controller(AuthController::class)->group(function () {

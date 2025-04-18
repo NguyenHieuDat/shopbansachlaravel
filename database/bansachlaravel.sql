@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2025 at 09:27 AM
+-- Generation Time: Apr 18, 2025 at 10:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -458,6 +458,9 @@ CREATE TABLE `tbl_coupon` (
   `coupon_time` int(50) NOT NULL,
   `coupon_condition` int(11) NOT NULL,
   `coupon_price` int(11) NOT NULL,
+  `coupon_start` varchar(100) NOT NULL,
+  `coupon_end` varchar(100) NOT NULL,
+  `coupon_status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -466,9 +469,11 @@ CREATE TABLE `tbl_coupon` (
 -- Dumping data for table `tbl_coupon`
 --
 
-INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_time`, `coupon_condition`, `coupon_price`, `created_at`, `updated_at`) VALUES
-(1, 'Giảm giá 14/2', 'VALEN142', 10, 1, 20, NULL, NULL),
-(2, 'Giảm giá 6/9', 'SSS69', 69, 2, 69000, NULL, NULL);
+INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_time`, `coupon_condition`, `coupon_price`, `coupon_start`, `coupon_end`, `coupon_status`, `created_at`, `updated_at`) VALUES
+(1, 'Giảm giá 14/2', 'VALEN142', 10, 1, 20, '2025-02-14', '2025-03-14', 0, NULL, NULL),
+(2, 'Giảm giá 6/9', 'SSS69', 69, 2, 69000, '2025-04-01', '2025-09-06', 1, NULL, NULL),
+(4, 'Mã ngày 4/4', 'TIEN44', 44, 2, 44000, '2025-04-04', '2025-05-30', 1, NULL, NULL),
+(5, 'Giảm giá 18/4', '184', 20, 2, 184000, '2025-04-08', '2025-04-17', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -492,7 +497,7 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_phone`, `customer_token`, `created_at`, `updated_at`) VALUES
-(4, 'DatNguyen', 'datnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0123456788', NULL, NULL, NULL),
+(4, 'DatNguyen', 'datnguyen@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
 (5, 'Hiếu Đạt', 'hieudat26@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456788', NULL, NULL, NULL),
 (6, 'donaldtrump', 'donaldtrump1@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456777', NULL, NULL, NULL),
 (7, 'abccba', 'abc123@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '0123456789', NULL, NULL, NULL),
@@ -13134,7 +13139,7 @@ ALTER TABLE `tbl_comment`
 -- AUTO_INCREMENT for table `tbl_coupon`
 --
 ALTER TABLE `tbl_coupon`
-  MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `coupon_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`

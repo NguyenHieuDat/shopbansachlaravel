@@ -226,6 +226,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		dateFormat:"yy-mm-dd",
 	  });
     });
+
+	$(function() {
+      $("#coupon_date_start").datepicker({
+		dateFormat:"yy-mm-dd",
+	  });
+    });
+
+	$(function() {
+      $("#coupon_date_end").datepicker({
+		dateFormat:"yy-mm-dd",
+	  });
+    });
 </script>
 </head>
 <body>
@@ -606,7 +618,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     	});
 	});
 </script>
-
 <script>
 	$(document).ready(function () {
 		let table = new DataTable("#dbTable", {
@@ -628,7 +639,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			"searching": true
 		});
 	});
-
 </script>
 <script>
 	$('.duyet_comment_btn').click(function(){
@@ -677,7 +687,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			}
 		});
 	});
-
+</script>
+<script>
+$(document).ready(function(){
 	$('#btn-dashboard-filter').click(function(){
 		var from_date = $('#datepicker_from').val();
 		var to_date = $('#datepicker_to').val();
@@ -709,6 +721,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		data: [],
 	});
 
+	$('.dashboard-filter').change(function(){
+		var dashboard_value = $(this).val();
+		var _token = $('meta[name="csrf-token"]').attr('content');
+
+		$.ajax({
+			url : "{{url('/dashboard_filter')}}",
+			method : "POST",
+			dataType : "JSON",
+			data : {
+				dashboard_value:dashboard_value, _token:_token
+			},
+			success:function(data){
+				chart.setData(data);
+			}
+		});
+	});
+});
 </script>
 </body>
 </html>

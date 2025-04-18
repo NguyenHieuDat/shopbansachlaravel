@@ -19,15 +19,15 @@
                         @csrf
                         <div class="form-group">
                             <label>Tên mã giảm giá</label>
-                            <input type="text" name="coupon_name" class="form-control" id="exampleInputEmail1">
+                            <input type="text" name="coupon_name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Mã giảm giá</label>
-                            <input type="text" name="coupon_code" class="form-control" id="exampleInputEmail1">
+                            <input type="text" name="coupon_code" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Số lượng</label>
-                            <input type="text" name="coupon_time" class="form-control" id="exampleInputEmail1">
+                            <input type="text" name="coupon_time" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Tính năng</label>
@@ -39,7 +39,14 @@
                         </div>
                         <div class="form-group">
                             <label>Số % hoặc tiền giảm</label>
-                            <input type="text" name="coupon_price" class="form-control" id="exampleInputEmail1">
+                            <input type="text" name="coupon_price" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày bắt đầu</label>
+                            <input type="text" name="coupon_start" id="coupon_date_start" class="form-control">
+                        </div><div class="form-group">
+                            <label>Ngày kết thúc</label>
+                            <input type="text" name="coupon_end" id="coupon_date_end" class="form-control">
                         </div>
                         <button type="submit" name="add_coupon" class="btn btn-info">Thêm mã giảm giá</button>
                     </form>

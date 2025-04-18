@@ -11,9 +11,9 @@ use App\Models\Statistical;
 use Socialite;
 use Session;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Hash;
-
 
 class AdminController extends Controller
 {
@@ -136,5 +136,34 @@ class AdminController extends Controller
         echo $data = json_encode($chart_data);
     }
 
-    
+    public function dashboard_filter(Request $request){
+        $data = $request->all();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $mot_tuan = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $mot_nam = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+        $dau_thang_nay = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $dau_thang_truoc = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $cuoi_thang_truoc = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+        
+        if($data['dashboard_value']=='mot-tuan'){
+            $get = Statistical::whereBetween('order_date',[$mot_tuan,$now])->orderBy('order_date','asc')->get();
+        }elseif($data['dashboard_value']=='thang-truoc'){
+            $get = Statistical::whereBetween('order_date',[$dau_thang_truoc,$cuoi_thang_truoc])->orderBy('order_date','asc')->get();
+        }elseif($data['dashboard_value']=='thang-nay'){
+            $get = Statistical::whereBetween('order_date',[$dau_thang_nay,$now])->orderBy('order_date','asc')->get();
+        }else{
+            $get = Statistical::whereBetween('order_date',[$mot_nam,$now])->orderBy('order_date','asc')->get();
+        }
+
+        foreach($get as $key => $date){
+            $chart_data[] = array(
+                'period' => $date->order_date,
+                'order' => $date->total_order,
+                'sales' => $date->sales,
+                'profit' => $date->profit,
+                'quantity' => $date->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
+    }
 }
