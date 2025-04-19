@@ -57,7 +57,7 @@
                     @else
                     <tr>
                         <td colspan="5" class="text-center">Giỏ hàng của bạn đang trống! Đi đến 
-                            <a class="text-danger" href="{{URL::to('/cua_hang')}}">Cửa Hàng</a>?
+                            <a class="text-danger" href="{{URL::to('/trang_chu')}}">Trang chủ</a>?
                         </td>
                     </tr>
                     @endif
@@ -72,7 +72,7 @@
                 <div class="input-group">
                     <input type="text" id="coupon_code" name="coupon" class="form-control border-0 p-4" placeholder="Nhập mã giảm giá" autocomplete="off">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-danger check_coupon" name="check_coupon">Tính Mã Giảm Giá</button>
+                        <button type="button" class="btn btn-danger check_coupon" name="check_coupon">Áp Dụng Mã Giảm Giá</button>
                     </div>
                 </div>
             </form>
@@ -88,16 +88,16 @@
                         <h6>Mã giảm:</h6>
                         <h6 id="coupon_value" class="font-weight-medium coupon_amount">
                             @if(Session::get('coupon'))
-                        @foreach (Session::get('coupon') as $key => $cou)
-                            @if($cou['coupon_condition'] == 1)
-                            {{$cou['coupon_price']}}% {{-- Hiển thị đúng phần trăm --}}
-                        @elseif($cou['coupon_condition'] == 2)
-                            {{ number_format($cou['coupon_price'], 0, ',', '.') }}đ
-                        @endif
-                        @endforeach
-                        @else
-                            <em>Không có mã</em>
-                        @endif  
+                                @foreach (Session::get('coupon') as $key => $cou)
+                                    @if($cou['coupon_condition'] == 1)
+                                        {{$cou['coupon_price']}}%
+                                    @elseif($cou['coupon_condition'] == 2)
+                                        {{ number_format($cou['coupon_price'], 0, ',', '.') }}đ
+                                    @endif
+                                @endforeach
+                            @else
+                                <em>Không có mã</em>
+                            @endif  
                         </h6>
                     </div>
                     <div class="d-flex justify-content-between mb-3">

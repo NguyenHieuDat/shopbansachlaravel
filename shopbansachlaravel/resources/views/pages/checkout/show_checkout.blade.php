@@ -110,16 +110,16 @@
                             <h6>Mã giảm:</h6>
                             <h6 id="coupon_value" class="font-weight-medium coupon_amount">
                                 @if(Session::get('coupon'))
-                            @foreach (Session::get('coupon') as $key => $cou)
-                                @if($cou['coupon_condition'] == 1)
-                                {{$cou['coupon_price']}}% {{-- Hiển thị đúng phần trăm --}}
-                            @elseif($cou['coupon_condition'] == 2)
-                                {{ number_format($cou['coupon_price'], 0, ',', '.') }}đ
-                            @endif
-                            @endforeach
-                            @else
-                                <em>Không có mã</em>
-                            @endif  
+                                    @foreach (Session::get('coupon') as $key => $cou)
+                                        @if($cou['coupon_condition'] == 1)
+                                            {{$cou['coupon_price']}}% {{-- Hiển thị đúng phần trăm --}}
+                                        @elseif($cou['coupon_condition'] == 2)
+                                            {{ number_format($cou['coupon_price'], 0, ',', '.') }}đ
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <em>Không có mã</em>
+                                @endif
                             </h6>
                         </div>
                         <div class="d-flex justify-content-between mb-3">

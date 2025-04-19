@@ -320,7 +320,7 @@
 
     $(document).ready(function() {
         $('.add-to-cart').click(function(e){
-            e.preventDefault(); // Ngăn hành động mặc định
+            e.preventDefault();
             var id = $(this).data('id_book');
             var cart_book_id = $('.cart_book_id_'+id).val();
             var cart_book_name = $('.cart_book_name_'+id).val();
@@ -329,62 +329,57 @@
             var cart_book_qty = $('.cart_book_qty_'+id).val();
             var _token = $('input[name="_token"]').val();
 
-            // Hiển thị hộp thoại xác nhận với SweetAlert2
-        Swal.fire({
-            title: "Thêm vào giỏ hàng",
-            text: "Bạn có muốn thêm vào giỏ hàng?",
-            imageUrl: "{{ asset('public/frontend/img/cart-icon-gif.gif') }}", // Đường dẫn ảnh giỏ hàng
-            imageWidth: 120, // Độ rộng ảnh (có thể chỉnh)
-            imageHeight: 120, // Độ cao ảnh
-            showCancelButton: true,
-            confirmButtonText: "Đồng ý",
-            cancelButtonText: "Hủy",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Nếu người dùng nhấn Đồng ý, gọi Ajax để thêm sản phẩm
-                $.ajax({
-                    url: "{{ url('/add_cart') }}",
-                    method: "POST",
-                    data: {
-                        cart_book_id: cart_book_id,
-                        cart_book_name: cart_book_name,
-                        cart_book_image: cart_book_image,
-                        cart_book_price: cart_book_price,
-                        cart_book_qty: cart_book_qty,
-                        _token: _token
-                    },
-                    success: function(data) {
-                    // Sau khi thêm thành công, hiển thị thông báo
-                    Swal.fire({
-                        title: "Đã thêm vào giỏ hàng!",
-                        text: "Sản phẩm đã được thêm thành công",
-                        icon: "success",
-                        confirmButtonText: "Đi đến giỏ hàng",
-                        cancelButtonText: "OK",
-                        showCancelButton: true, // Hiển thị nút Hủy
-                        customClass: {
-                            popup: 'swal-danger'
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Nếu người dùng nhấn "Đi đến giỏ hàng"
-                            window.location.href = "{{ url('/gio_hang') }}";
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            // Không làm gì cả, SweetAlert sẽ tự đóng
+            Swal.fire({
+                title: "Thêm vào giỏ hàng",
+                text: "Bạn có muốn thêm vào giỏ hàng?",
+                imageUrl: "{{ asset('public/frontend/img/cart-icon-gif.gif') }}",
+                imageWidth: 120,
+                imageHeight: 120,
+                showCancelButton: true,
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: "Hủy",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('/add_cart') }}",
+                        method: "POST",
+                        data: {
+                            cart_book_id: cart_book_id,
+                            cart_book_name: cart_book_name,
+                            cart_book_image: cart_book_image,
+                            cart_book_price: cart_book_price,
+                            cart_book_qty: cart_book_qty,
+                            _token: _token
+                        },
+                        success: function(data){
+                            Swal.fire({
+                                title: "Đã thêm vào giỏ hàng!",
+                                text: "Sản phẩm đã được thêm thành công",
+                                icon: "success",
+                                confirmButtonText: "Đi đến giỏ hàng",
+                                cancelButtonText: "OK",
+                                showCancelButton: true,
+                                customClass: {
+                                    popup: 'swal-danger'
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ url('/gio_hang') }}";
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+                                }
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire("Có lỗi xảy ra: " + error);
                         }
                     });
-                },
-                    error: function(xhr, status, error) {
-                        Swal.fire("Có lỗi xảy ra: " + error);
-                    }
-                });
-            } 
+                }
             });
         });
     });
 
-        $(document).ready(function() {
-        // Sử dụng event delegation để gán sự kiện cho nút plus
+    $(document).ready(function() {
         $(document).on('click', '.btn-plus', function(e) {
             e.preventDefault();
             var row = $(this).closest('tr');
@@ -398,7 +393,7 @@
             // Cập nhật cả giá trị hiển thị và data-initial
             input.val(newQty);
             input.data('initial', newQty);
-            // Gọi hàm updateCart nếu cần cập nhật vào server
+
             var rowid = row.data('rowid');
             updateCart(rowid, newQty, row);
         });
@@ -427,7 +422,7 @@
             // Cập nhật lại input và data-initial
             input.val(newQty);
             input.data('initial', newQty);
-            // Đảm bảo đồng bộ với thuộc tính DOM (nếu cần)
+            // Đảm bảo đồng bộ với thuộc tính DOM
             input.attr('data-initial', newQty);
 
             var rowid = row.data('rowid');
@@ -457,7 +452,7 @@
 
         function updateCart(rowid, qty, row) {
             $.ajax({
-                url: "{{ url('/update_cart') }}", // Đường dẫn cập nhật giỏ hàng
+                url: "{{ url('/update_cart') }}",
                 method: 'POST',
                 data: {
                     rowid: rowid,
@@ -466,10 +461,13 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Cập nhật subtotal và các thông tin khác nếu cần
                         row.find('.subtotal').text(response.new_subtotal);
                         $('#total').text(response.total);
-                        $('.total_include h4').text(response.total_final);
+                        $('.total_after_discount').text(response.total_after_discount);
+                        $('.total_include').html(`
+                            <h5>Tổng Tiền:</h5>
+                            <h5>${response.total_final}</h5>
+                        `);
                     } else {
                         alert('Cập nhật giỏ hàng thất bại!');
                     }
@@ -481,12 +479,12 @@
         }
     });
 
-            $(document).on('click', '.cart-remove', function(e) {
-            e.preventDefault();
-            var row = $(this).closest('tr');
-            var rowid = row.data('rowid');
+    $(document).on('click', '.cart-remove', function(e) {
+        e.preventDefault();
+        var row = $(this).closest('tr');
+        var rowid = row.data('rowid');
 
-            Swal.fire({
+        Swal.fire({
             title: 'Bạn chắc chắn?',
             text: "Bạn chắc chắn muốn bỏ sản phẩm này khỏi giỏ hàng chứ?",
             icon: 'warning',
@@ -498,31 +496,45 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ url('/remove_cart') }}", // Đường dẫn xử lý xóa sản phẩm khỏi giỏ hàng ở controller
+                        url: "{{ url('/remove_cart') }}",
                         method: 'POST',
                         data: {
                             rowid: rowid,
                             _token: '{{ csrf_token() }}'
                         },
-                    success: function(response) {
-                        if (response.success) {
-                            // Xóa dòng sản phẩm khỏi giao diện
+                    success: function(response){
+                        if (response.success){
                             row.remove();
-                            // Cập nhật lại tổng giỏ hàng nếu cần
+
                             $('#total').text(response.total);
+                            $('.total_after_discount').text(response.total_after_discount);
+                            $('.total_include').html(`
+                                <h5>Tổng Tiền:</h5>
+                                <h5>${response.total_final}</h5>
+                            `);
+                            if (response.cart_empty) {
+                                Swal.fire(
+                                    'Giỏ hàng trống!',
+                                    'Giỏ hàng của bạn hiện không có sản phẩm nào. Trang sẽ được tải lại',
+                                    'info'
+                                ).then(() => {
+                                window.location.reload();
+                            });
+                        }else{
                             Swal.fire(
                                 'Đã xóa!',
                                 'Sản phẩm đã được xóa khỏi giỏ hàng.',
                                 'success'
                             );
-                        } else {
-                            Swal.fire(
-                                'Thất bại!',
-                                'Xóa sản phẩm thất bại!',
-                                'error'
-                            );
                         }
-                    },
+                            }else{
+                                Swal.fire(
+                                    'Thất bại!',
+                                    'Xóa sản phẩm thất bại!',
+                                    'error'
+                                );
+                            }
+                        },
                         error: function() {
                             Swal.fire(
                             'Có lỗi!',
@@ -537,69 +549,68 @@
     
     $(document).ready(function(){
         $('#coupon_code').keypress(function(e) {
-            if (e.which === 13) { // 13 là mã phím Enter
-                e.preventDefault(); // Ngăn reload trang
-                $('.check_coupon').click(); // Gọi sự kiện click của nút check_coupon
+            if (e.which === 13) { //mã phím Enter
+                e.preventDefault();
+                $('.check_coupon').click();
             }
         });
 
         $('.check_coupon').click(function(e){
-            e.preventDefault(); // Ngăn trang reload
-            var coupon_code = $('#coupon_code').val().trim(); // Lấy giá trị mã giảm giá
-            if(coupon_code === '') {
+            e.preventDefault();
+            var coupon_code = $('#coupon_code').val().trim();
+            if(coupon_code === ''){
                 showMessage('<div class="alert alert-warning">Vui lòng nhập mã giảm giá!</div>');
                 return;
             }
 
             $.ajax({
-                url: "{{ url('/check_coupon') }}", // Đường dẫn tới route xử lý
+                url: "{{ url('/check_coupon') }}",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     coupon: coupon_code
                 },
-                beforeSend: function() {
+                beforeSend: function(){
                     $('.check_coupon').prop('disabled', true).text('Đang kiểm tra...'); // Vô hiệu hóa nút khi đang gửi request
                 },
-                success: function(response) {
+                success: function(response){
                     if(response.status === 'success') {
                         showMessage('<div class="alert alert-success">'+ response.message +'</div>');
-                        // Cập nhật Mã giảm (hiển thị % hoặc số tiền)
                         $('#coupon_value').text(response.coupon_value);
-                        // Cập nhật tổng tiền sau giảm giá
                         $('.total_after_discount').text(response.total_after_discount + 'đ');
-                        // Cập nhật tổng tiền bao gồm giảm giá
-                        $('.total_include h4').text(response.total_after_discount + 'đ');
-                        
-                    } else {
+                        $('.total_include').html(`
+                            <h5>Tổng Tiền:</h5>
+                            <h5>${response.total_after_discount}đ</h5>
+                        `);
+                    }else{
                         showMessage('<div class="alert alert-danger">'+ response.message +'</div>');
-                        $("#discount_value").html("<em>Không có mã</em>");
-                        $("#total_after_discount").html("<em>Chưa áp dụng</em>");
+                        $("#coupon_value").html("<em>Không có mã</em>");
+                        $(".total_after_discount").html("<em>Chưa áp dụng</em>");
                         $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
                         <h5>${response.total}đ</h5>
                         `);
                     }
                 },
-                error: function() {
+                error: function(){
                     showMessage('<div class="alert alert-danger">Có lỗi xảy ra!</div>');
-                    $("#discount_value").html("<em>Không có mã</em>");
-                    $("#total_after_discount").html("<em>Chưa áp dụng</em>");
+                    $("#coupon_value").html("<em>Không có mã</em>");
+                    $(".total_after_discount").html("<em>Chưa áp dụng</em>");
                     $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
                         <h5>${response.total}đ</h5>
                         `);
                 },
-                complete: function() {
-                    $('.check_coupon').prop('disabled', false).text('Tính Mã Giảm Giá'); // Bật lại nút sau khi xử lý xong
+                complete: function(){
+                    $('.check_coupon').prop('disabled', false).text('Áp Dụng Mã Giảm Giá'); // Bật lại nút sau khi xử lý
                 }
             });
         });
-        function showMessage(message) {
+        function showMessage(message){
             $('#coupon_message').stop(true, true).html(message).fadeIn(); // Hiển thị lại nếu bị ẩn
             setTimeout(function() {
                 $('#coupon_message').fadeOut();
-            }, 5000);
+            }, 6000);
         }
     });
     

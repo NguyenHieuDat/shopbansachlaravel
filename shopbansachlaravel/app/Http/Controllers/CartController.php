@@ -62,41 +62,40 @@ class CartController extends Controller
     public function update_cart_ajax(Request $request){
         $rowid = $request->input('rowid');
         $qty = $request->input('qty');
-        // Lấy giỏ hàng từ session
+
         $cart = Session::get('cart', []);
 
-        // Kiểm tra nếu sản phẩm tồn tại trong giỏ hàng
         if(isset($cart[$rowid])){
             $cart[$rowid]['book_qty'] = $qty;
-            // Tính lại subtotal cho sản phẩm
             $bookPrice = $cart[$rowid]['book_price'];
             $newSubtotal = $bookPrice * $qty;
-            // Lưu lại giỏ hàng
+
             Session::put('cart', $cart);
-            // Nếu bạn cần tính tổng giỏ hàng
+
             $total = 0;
             foreach($cart as $item){
                 $total += $item['book_price'] * $item['book_qty'];
             }
 
-             // Tính tổng tiền sau giảm giá nếu có mã giảm giá
-             $total_coupon = 0;
-             if (Session::has('coupon')) {
-                 foreach (Session::get('coupon') as $coupon) {
-                     if ($coupon['coupon_condition'] == 1) { // Giảm theo %
-                         $total_coupon = ($total * $coupon['coupon_price']) / 100;
-                     } else { // Giảm theo số tiền
-                         $total_coupon = $coupon['coupon_price'];
-                     }
-                 }
-             }
-        // Tổng tiền sau giảm giá
-        $totalFinal = $total - $total_coupon;
+            $total_coupon = 0;
+            if(Session::has('coupon')){
+                foreach(Session::get('coupon') as $coupon){
+                    if($coupon['coupon_condition'] == 1){
+                        $total_coupon = ($total * $coupon['coupon_price']) / 100;
+                    }else{
+                        $total_coupon = $coupon['coupon_price'];
+                    }
+                }
+            }
+            $total_after_discount = max(0, $total - $total_coupon);
+            $total_final = number_format($total_after_discount, 0, ',', '.') . 'đ';
+
             return response()->json([
                 'success'      => true,
                 'new_subtotal' => number_format($newSubtotal, 0, ',', '.').'đ',
                 'total'        => number_format($total, 0, ',', '.').'đ',
-                'total_final'  => number_format($totalFinal, 0, ',', '.') . 'đ'
+                'total_after_discount' => number_format($total_after_discount, 0, ',', '.') . 'đ',
+                'total_final'  => $total_final
             ]);
         }
         return response()->json(['success' => false]);
@@ -105,87 +104,115 @@ class CartController extends Controller
     public function remove_cart_ajax(Request $request){
         $rowid = $request->input('rowid');
         $cart = Session::get('cart', []);
-        if (isset($cart[$rowid])) {
-            // Xóa sản phẩm khỏi giỏ hàng
+        if (isset($cart[$rowid])){
+
             unset($cart[$rowid]);
-            // Cập nhật lại session giỏ hàng
             Session::put('cart', $cart);
 
-            // Tính lại tổng giỏ hàng
             $total = 0;
-            foreach ($cart as $item) {
+            foreach($cart as $item){
                 $total += $item['book_price'] * $item['book_qty'];
             }
+            $total_coupon = 0;
+            if(Session::has('coupon')){
+                foreach(Session::get('coupon') as $coupon){
+                    if($coupon['coupon_condition'] == 1){
+                        $total_coupon = ($total * $coupon['coupon_price']) / 100;
+                    }else{
+                        $total_coupon = $coupon['coupon_price'];
+                    }
+                }
+            }
+            $total_after_discount = max(0, $total - $total_coupon);
+            $total_final = number_format($total_after_discount, 0, ',', '.') . 'đ';
+
             return response()->json([
                 'success' => true,
-                'total'   => number_format($total, 0, ',', '.') . 'đ'
+                'total'   => number_format($total, 0, ',', '.') . 'đ',
+                'total_after_discount' => number_format($total_after_discount, 0, ',', '.') . 'đ',
+                'total_final'  => $total_final,
+                'cart_empty'      => count($cart) === 0
             ]);
         }
         return response()->json(['success' => false]);
     }
 
-    public function check_coupon(Request $request){
+    public function check_coupon(Request $request) {
         $data = $request->all();
-        $coupon = Coupon::where('coupon_code',$data['coupon'])->first();
-        if($coupon){
-            $count_coupon = $coupon->count();
-            if($count_coupon>0){
-                $coupon_session = Session::get('coupon');
-                
-                $cart = Session::get('cart', []); // Lấy giỏ hàng từ session
-                $total = 0;
-                foreach($cart as $item){
-                    $total += $item['book_price'] * $item['book_qty'];
+        $coupon = Coupon::where('coupon_code', $data['coupon'])->where('coupon_status', 1)->first();
+    
+        $cart = Session::get('cart', []);
+
+        if(isset($data['book_id']) && isset($data['new_qty'])) {
+            foreach($cart as &$item) {
+                if($item['book_id'] == $data['book_id']) {
+                    $item['book_qty'] = $data['new_qty'];
                 }
-                $total_coupon = 0;
-                $cou = [];
-                if($coupon_session==true){
-                    $available = 0;
-                    if($available==0){
-                        $cou[] = array(
-                            'coupon_code' => $coupon->coupon_code,
-                            'coupon_condition' => $coupon->coupon_condition,
-                            'coupon_price' => $coupon->coupon_price,
-                            'total_coupon' => $total_coupon
-                        );
-                        Session::put('coupon',$cou);
-                    }
-                }else{
-                    $total_coupon = 0;
+            }
+        }
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['book_price'] * $item['book_qty'];
+        }
+    
+        if ($coupon) {
+            $total_coupon = 0;
+    
+            $cou = [];
+    
+            // if ($coupon_session) {
+            //     // Kiểm tra mã giảm giá đã được áp dụng chưa
+            //     $available = 0;
+            //     if ($available == 0) {
+
+            //         $cou[] = [
+            //             'coupon_code' => $coupon->coupon_code,
+            //             'coupon_condition' => $coupon->coupon_condition,
+            //             'coupon_price' => $coupon->coupon_price,
+            //             'total_coupon' => $total_coupon
+            //         ];
+            //         Session::put('coupon', $cou);
+            //     }
+            // } else {
                 if ($coupon->coupon_condition == 1) {
                     $total_coupon = ($total * $coupon->coupon_price) / 100;
                 } elseif ($coupon->coupon_condition == 2) {
                     $total_coupon = $coupon->coupon_price;
                 }
-                Session::put('total_coupon', $total_coupon); // Lưu tổng giảm giá vào Session
-                Session::save(); // Đảm bảo Session được lưu
+    
                 $total_after_discount = max(0, $total - $total_coupon);
-                    $cou[] = array(
-                        'coupon_code' => $coupon->coupon_code,
-                        'coupon_condition' => $coupon->coupon_condition,
-                        'coupon_price' => $coupon->coupon_price,
-                        'total_coupon' => $total_coupon
-                    );
-                    Session::put('coupon',$cou);
-                }
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Thêm mã giảm giá thành công!',
-                    'coupon' => $cou,
-                    'coupon_value' => $coupon->coupon_condition == 1 
-                    ? $coupon->coupon_price . '%' // Nếu là giảm theo %, hiển thị %
-                    : number_format($coupon->coupon_price, 0, ',', '.') . 'đ', // Nếu là số tiền, hiển thị đ
-                    'total_coupon' => number_format($total_coupon, 0, ',', '.'),
-                    'total_after_discount' => number_format($total_after_discount, 0, ',', '.'),
-                    'total' => number_format($total, 0, ',', '.')
-                ]);
-            }
-        }else{
+    
+                $cou[] = [
+                    'coupon_code' => $coupon->coupon_code,
+                    'coupon_condition' => $coupon->coupon_condition,
+                    'coupon_price' => $coupon->coupon_price,
+                    'total_coupon' => $total_coupon
+                ];
+                Session::put('coupon', $cou);
+                Session::put('total_coupon', $total_coupon);
+                Session::put('total_after_discount', $total_after_discount);
+                Session::put('cart', $cart);
+            // }
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Thêm mã giảm giá thành công!',
+                'coupon' => $cou,
+                'coupon_value' => $coupon->coupon_condition == 1 
+                    ? $coupon->coupon_price . '%'
+                    : number_format($coupon->coupon_price, 0, ',', '.') . 'đ',
+                'total_coupon' => number_format($total_coupon, 0, ',', '.'),
+                'total_after_discount' => number_format(max(0, $total - $total_coupon), 0, ',', '.'),
+                'total' => number_format($total, 0, ',', '.')
+            ]);
+        } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Mã giảm giá không đúng!'
+                'message' => 'Mã giảm giá không đúng hoặc đã hết hạn!',
+                'total' => number_format($total, 0, ',', '.')
             ]);
         }
     }
+    
 
 }

@@ -35,6 +35,16 @@ class CouponController extends Controller
     public function all_coupon(){
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $coupon = Coupon::orderby('coupon_id','desc')->get();
+
+        foreach($coupon as $cou){
+            if($cou->coupon_end < $now){
+                // Nếu đã hết hạn và vẫn đang hoạt động, thì cập nhật thành không hoạt động
+                if($cou->coupon_status != 0){
+                    $cou->coupon_status = 0;
+                    $cou->save();
+                }
+            }
+        }
         return view('admin.coupon.all_coupon')->with(compact('coupon','now'));
     }
 
