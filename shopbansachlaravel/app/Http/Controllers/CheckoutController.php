@@ -12,6 +12,7 @@ use App\Models\Feeship;
 use App\Models\Payment;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Coupon;
 use Session;
 use App\Rules\Captcha;
 use Validator;
@@ -118,22 +119,6 @@ class CheckoutController extends Controller
         ));
     }
 
-    public function payment(Request $request){
-        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
-        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
-        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
-        $feeship = Session::get('feeship', 0);
-
-        $meta_desc = "Bước thanh toán cuối cùng. Bạn sẽ chọn phương thức thanh toán bạn thấy tốt nhất.";
-        $meta_keywords = "thanh toan cuoi,thanh toán cuối,phuong thuc,phương thức,phuong thuc thanh toan,phương thức thanh toán";
-        $meta_title = "Phương thức thanh toán";
-        $url_canonical = $request->url();
-        return view('pages.checkout.payment', compact(
-            'category', 'author', 'publisher', 'meta_desc', 'meta_keywords', 
-            'meta_title', 'url_canonical', 'feeship'
-        ));
-    }
-
     public function save_checkout_customer(Request $request){
         $customer_id = Session::get('customer_id');
         $shipping_id = Session::get('shipping_id');
@@ -189,6 +174,23 @@ class CheckoutController extends Controller
 
         Session::put('feeship', $feeship);
         return Redirect::to('/payment');
+    }
+
+    public function payment(Request $request){
+        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $author = DB::table('tbl_author')->orderby('author_id','desc')->get();
+        $publisher = DB::table('tbl_publisher')->orderby('publisher_id','desc')->get();
+        $feeship = Session::get('feeship', 0);
+
+        $meta_desc = "Bước thanh toán cuối cùng. Bạn sẽ chọn phương thức thanh toán bạn thấy tốt nhất.";
+        $meta_keywords = "thanh toan cuoi,thanh toán cuối,phuong thuc,phương thức,phuong thuc thanh toan,phương thức thanh toán";
+        $meta_title = "Phương thức thanh toán";
+        $url_canonical = $request->url();
+
+        return view('pages.checkout.payment', compact(
+            'category', 'author', 'publisher', 'meta_desc', 'meta_keywords', 
+            'meta_title', 'url_canonical', 'feeship'
+        ));
     }
 
     public function logout_checkout(){
@@ -292,8 +294,7 @@ class CheckoutController extends Controller
                           ->first();
         if($feeship){
             $feeship_price = $feeship->fee_price;
-            Session::put('fees', $feeship_price);
-            Session::save();
+            Session::put('feeship', $feeship_price);
             }
         }
         return response()->json(['feeship' => $feeship_price]);
@@ -306,7 +307,7 @@ class CheckoutController extends Controller
         $total_bf = $request->input('total_bf');
         $coupon = Session::get('coupon');
         $total_coupon = Session::get('total_coupon', 0);
-        $feeship = Session::get('fees', 0);
+        $feeship = Session::get('feeship', 0);
 
         if ($coupon) {
             $coupon_code = $coupon[0]['coupon_code'];
@@ -331,8 +332,16 @@ class CheckoutController extends Controller
         $order->order_status = 1;
         $order->created_at = now();
         $order->save();
-        $order_id = $order->order_id; // Lấy ID của đơn hàng vừa tạo
+        $order_id = $order->order_id;
         
+        if($coupon){
+            $coupon_code = $coupon[0]['coupon_code'];
+            $coupo = Coupon::where('coupon_code', $coupon_code)->first();
+            if($coupo && $coupo->coupon_time > 0){
+                $coupo->coupon_time -= 1;
+                $coupo->save();
+            }
+        }        
         $cart = Session::get('cart', []);
         foreach($cart as $key => $cart_order){
             $order_detail = new OrderDetail();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2025 at 12:31 PM
+-- Generation Time: Apr 20, 2025 at 10:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -472,7 +472,7 @@ CREATE TABLE `tbl_coupon` (
 INSERT INTO `tbl_coupon` (`coupon_id`, `coupon_name`, `coupon_code`, `coupon_time`, `coupon_condition`, `coupon_price`, `coupon_start`, `coupon_end`, `coupon_status`, `created_at`, `updated_at`) VALUES
 (1, 'Giảm giá 14/2', 'VALEN142', 10, 1, 20, '2025-02-14', '2025-03-14', 0, NULL, NULL),
 (2, 'Giảm giá 6/9', 'SSS69', 69, 2, 69000, '2025-04-01', '2025-09-06', 1, NULL, NULL),
-(4, 'Mã ngày 4/4', 'TIEN44', 44, 2, 44000, '2025-04-04', '2025-05-30', 1, NULL, NULL),
+(4, 'Mã ngày 4/4', 'TIEN44', 39, 2, 44000, '2025-04-04', '2025-05-30', 1, NULL, NULL),
 (5, 'Giảm giá 18/4', '184', 20, 2, 184000, '2025-04-08', '2025-04-17', 0, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -612,7 +612,11 @@ CREATE TABLE `tbl_order` (
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
 (1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL),
 (2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 3, '2025-04-02 09:07:11', NULL),
-(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 3, '2025-04-12 08:15:13', NULL);
+(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 3, '2025-04-12 08:15:13', NULL),
+(4, 4, 9, 2, '60000', 'TIEN44', '44000', '20000', '36000', 1, '2025-04-20 07:07:51', NULL),
+(6, 4, 9, 2, '86000', 'Không có', '0', '20000', '106000', 1, '2025-04-20 07:27:13', NULL),
+(8, 4, 9, 2, '1030000', 'TIEN44', '44000', '20000', '1006000', 1, '2025-04-20 08:10:56', NULL),
+(9, 4, 9, 2, '75000', 'TIEN44', '44000', '20000', '51000', 1, '2025-04-20 08:13:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -639,7 +643,12 @@ INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_
 (1, 1, 3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', '95000', 1, '2025-03-28 01:16:25', NULL),
 (2, 2, 2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', '80000', 3, '2025-04-02 09:07:11', NULL),
 (3, 3, 5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', '43000', 3, '2025-04-12 08:15:13', NULL),
-(4, 3, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 1, '2025-04-12 08:15:13', NULL);
+(4, 3, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 1, '2025-04-12 08:15:13', NULL),
+(5, 4, 4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', '30000', 2, '2025-04-20 07:07:51', NULL),
+(7, 6, 5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', '43000', 2, '2025-04-20 07:27:13', NULL),
+(10, 8, 4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', '30000', 20, '2025-04-20 08:10:56', NULL),
+(11, 8, 5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', '43000', 10, '2025-04-20 08:10:56', NULL),
+(12, 9, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 3, '2025-04-20 08:13:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -1487,7 +1496,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'ok', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'q', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13163,13 +13172,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`

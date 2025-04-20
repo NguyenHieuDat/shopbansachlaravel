@@ -89,7 +89,7 @@
                                 $total_coupon = Session::get('total_coupon', 0); // Lấy từ Session, mặc định là 0 nếu không tồn tại
                                 @endphp
                                 @if(Session::get('coupon'))
-                                    {{number_format(max(0, $total - $total_coupon, 0, ',', '.'))}}đ
+                                    {{number_format(max(0, $total - $total_coupon), 0, ',', '.')}}đ
                                 @else
                                     <em>Chưa áp dụng</em>
                                 @endif
@@ -99,7 +99,7 @@
                             <h6 class="font-weight-medium">Phí Vận Chuyển:</h6>
                             <h6 class="font-weight-medium feeship_display">
                                 @php
-                                 $feeship = Session::get('fees', 0);   
+                                 $feeship = Session::get('feeship', 0);
                                 @endphp
                                 @if($feeship > 0)
                                     {{ number_format($feeship, 0, ',', '.') }}đ
@@ -115,7 +115,7 @@
                             <h4 class="total_final_display">
                             @php
                                 $total_coupon = Session::get('coupon') ? Session::get('total_coupon', 0) : 0; 
-                                $feeship = Session::get('fees', 0);
+                                $feeship = Session::get('feeship', 0);
                                 $total_final = max(0, ($total - $total_coupon) + $feeship);
                             @endphp
                             {{ number_format($total_final, 0, ',', '.') }}đ</h4>

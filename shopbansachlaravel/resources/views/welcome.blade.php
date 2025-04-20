@@ -450,7 +450,7 @@
             updateCart(rowid, newQty, row);
         });
 
-        function updateCart(rowid, qty, row) {
+        function updateCart(rowid, qty, row){
             $.ajax({
                 url: "{{ url('/update_cart') }}",
                 method: 'POST',
@@ -459,16 +459,18 @@
                     qty: qty,
                     _token: '{{ csrf_token() }}'
                 },
-                success: function(response) {
-                    if (response.success) {
+                success: function(response){
+                    if (response.success){
                         row.find('.subtotal').text(response.new_subtotal);
                         $('#total').text(response.total);
-                        $('.total_after_discount').text(response.total_after_discount);
+                        if(response.has_coupon){
+                            $('.total_after_discount').text(response.total_after_discount);
+                        }
                         $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
                             <h5>${response.total_final}</h5>
                         `);
-                    } else {
+                    }else{
                         alert('Cập nhật giỏ hàng thất bại!');
                     }
                 },
@@ -636,7 +638,7 @@
         });
     });
     </script>
-    <script type="text/javascript">
+    <script>
     $(document).ready(function(){
         $('.choose').on('change', function() {
             var action = $(this).attr('id');
@@ -699,47 +701,50 @@
         });
     });
 </script>
-
 <script>
-    const customerId = "{{ Session::get('customer_id') }}";
+    document.addEventListener("DOMContentLoaded", function(){
+        const customerId = "{{ Session::get('customer_id') }}";
+        const btn = document.querySelector('.btn-checkstore');
+        if(btn){
+            btn.addEventListener('click', function(e){
+                e.preventDefault();
 
-    document.querySelector('.btn-checkstore').addEventListener('click', function(e) {
-        e.preventDefault();
+                fetch("{{ url('/check_storage') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'error') {
+                        const errorMessages = data.messages.map(item => {
+                            return `<li style="list-style-type: none; margin-bottom: 8px; color: #d9534f;">
+                                        Sản phẩm <strong><em>${item.book_name}</em></strong> chỉ còn <strong><em>${item.book_qty}</em></strong> cuốn trong kho.
+                                    </li>`;
+                        }).join('');
 
-        fetch("{{ url('/check_storage') }}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({})
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'error') {
-                const errorMessages = data.messages.map(item => {
-                    return `<li style="list-style-type: none; margin-bottom: 8px; color: #d9534f;">
-                                Sản phẩm <strong><em>${item.book_name}</em></strong> chỉ còn <strong><em>${item.book_qty}</em></strong> cuốn trong kho.
-                            </li>`;
-                }).join('');
-
-                Swal.fire({
-                    title: '<h3 style="color: #d33;">Lỗi!</h3>',
-                    html: `<div style="text-align: left;"><ul style="margin: 0; padding: 0;">${errorMessages}</ul></div>`,
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#d33'
-                });
-            } else {
-                // Kiểm tra customer_id để chuyển hướng đúng trang
-                if (customerId) {
-                    window.location.href = '{{ URL::to("/checkout") }}';
-                } else {
-                    window.location.href = '{{ URL::to("/login_checkout") }}';
-                }
-            }
-        })
-        .catch(error => console.error('Lỗi:', error));
+                        Swal.fire({
+                            title: '<h3 style="color: #d33;">Lỗi!</h3>',
+                            html: `<div style="text-align: left;"><ul style="margin: 0; padding: 0;">${errorMessages}</ul></div>`,
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#d33'
+                        });
+                    } else {
+                        // Kiểm tra customer_id để chuyển hướng đúng trang
+                        if (customerId) {
+                            window.location.href = '{{ URL::to("/checkout") }}';
+                        } else {
+                            window.location.href = '{{ URL::to("/login_checkout") }}';
+                        }
+                    }
+                })
+                .catch(error => console.error('Lỗi:', error));
+            });
+        }
     });
 </script>
 

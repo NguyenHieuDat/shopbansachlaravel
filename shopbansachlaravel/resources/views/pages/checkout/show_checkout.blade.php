@@ -129,7 +129,7 @@
                                 $total_coupon = Session::get('total_coupon', 0); // Lấy từ Session, mặc định là 0 nếu không tồn tại
                                 @endphp
                                 @if(Session::get('coupon'))
-                                    {{number_format(max(0, $total - $total_coupon, 0, ',', '.'))}}đ
+                                    {{number_format(max(0, $total - $total_coupon), 0, ',', '.')}}đ
                                 @else
                                     <em>Chưa áp dụng</em>
                                 @endif

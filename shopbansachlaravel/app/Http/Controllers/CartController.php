@@ -95,7 +95,8 @@ class CartController extends Controller
                 'new_subtotal' => number_format($newSubtotal, 0, ',', '.').'đ',
                 'total'        => number_format($total, 0, ',', '.').'đ',
                 'total_after_discount' => number_format($total_after_discount, 0, ',', '.') . 'đ',
-                'total_final'  => $total_final
+                'total_final'  => $total_final,
+                'has_coupon' => Session::has('coupon')
             ]);
         }
         return response()->json(['success' => false]);
