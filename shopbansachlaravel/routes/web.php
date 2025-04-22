@@ -17,6 +17,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\VnpayController;
 
 //Home
 Route::controller(HomeController::class)->group(function () {
@@ -120,11 +121,12 @@ Route::controller(CheckoutController::class)->group(function () {
     Route::get('/checkout', 'checkout');
     Route::post('/save_checkout_customer', 'save_checkout_customer');
     Route::post('/checkout_delivery', 'checkout_delivery');
-    Route::get('/payment', 'payment');
+    Route::match(['get', 'post'], '/payment', 'payment');
     Route::post('/calculate_feeship', 'calculate_feeship');
     Route::post('/save_previous_url', 'save_previous_url');
     Route::post('/order_place', 'order_place');
     Route::post('/check_storage', 'check_storage');
+    Route::post('/vnpay', 'vnpay')->name('vnpay');
 });
 
 Route::controller(DeliveryController::class)->group(function () {

@@ -138,25 +138,36 @@ class CartController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function check_coupon(Request $request) {
+    public function check_coupon(Request $request){
         $data = $request->all();
+
         $coupon = Coupon::where('coupon_code', $data['coupon'])->where('coupon_status', 1)->first();
     
         $cart = Session::get('cart', []);
+        $customer_id = Session::get('customer_id');
 
-        if(isset($data['book_id']) && isset($data['new_qty'])) {
-            foreach($cart as &$item) {
-                if($item['book_id'] == $data['book_id']) {
+        if(isset($data['book_id']) && isset($data['new_qty'])){
+            foreach($cart as &$item){
+                if($item['book_id'] == $data['book_id']){
                     $item['book_qty'] = $data['new_qty'];
                 }
             }
         }
         $total = 0;
-        foreach ($cart as $item) {
+        foreach($cart as $item){
             $total += $item['book_price'] * $item['book_qty'];
         }
     
-        if ($coupon) {
+        if($coupon){
+            $used = DB::table('used_coupon')->where('customer_id', $customer_id)->where('coupon_id', $coupon->coupon_id)->exists();
+
+            if($used){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Bạn đã sử dụng mã giảm giá này rồi!',
+                    'total' => number_format($total, 0, ',', '.')
+                ]);
+            }
             $total_coupon = 0;
     
             $cou = [];

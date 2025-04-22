@@ -49,7 +49,7 @@
                         @else
                         <tr>
                             <td colspan="5" class="text-center">Giỏ hàng của bạn đang trống! Đi đến 
-                                <a class="text-danger" href="{{URL::to('/cua_hang')}}">Cửa Hàng</a>?
+                                <a class="text-danger" href="{{URL::to('/trang_chu')}}">Trang chủ</a>?
                             </td>
                         </tr>
                         @endif
@@ -86,7 +86,7 @@
                             <h6>Thành Tiền Sau Khuyến Mãi:</h6>
                             <h6 class="font-weight-medium total_after_discount">
                                 @php
-                                $total_coupon = Session::get('total_coupon', 0); // Lấy từ Session, mặc định là 0 nếu không tồn tại
+                                    $total_coupon = Session::get('total_coupon', 0);
                                 @endphp
                                 @if(Session::get('coupon'))
                                     {{number_format(max(0, $total - $total_coupon), 0, ',', '.')}}đ
@@ -132,7 +132,7 @@
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment_option" id="banktransfer" value="1">
-                            <label class="custom-control-label" for="banktransfer">Chuyển khoản</label>
+                            <label class="custom-control-label" for="banktransfer">VNPay</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -147,12 +147,18 @@
                             <label class="custom-control-label" for="paypal">Paypal</label>
                         </div>
                     </div> --}}
+                    
                     <button type="submit" name="send_order_place" class="btn btn-block btn-danger font-weight-bold py-3">Đặt hàng</button>
                 </div>
                 </form>
             </div>
+            {{-- <form action="{{ url('/vnpay') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-block btn-danger font-weight-bold py-3">Đặt hàng vnpay</button>
+            </form> --}}
         </div>
     </div>
+    
 </div>
 <!-- Checkout End -->
 @endsection

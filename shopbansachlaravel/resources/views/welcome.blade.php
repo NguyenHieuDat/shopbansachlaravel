@@ -384,13 +384,12 @@
             e.preventDefault();
             var row = $(this).closest('tr');
             var input = row.find('.quantity-input');
-            // Lấy giá trị ban đầu được lưu trong data-initial
             var currentInitial = parseInt(input.data('initial'));
-            console.log("Initial qty from data:", currentInitial);
-            // Tính giá trị mới
+            console.log("Initial qty:", currentInitial);
+
             var newQty = currentInitial + 1;
-            console.log("New qty:", newQty);
-            // Cập nhật cả giá trị hiển thị và data-initial
+            console.log("qty mới:", newQty);
+
             input.val(newQty);
             input.data('initial', newQty);
 
@@ -402,27 +401,22 @@
             e.preventDefault();
             var row = $(this).closest('tr');
             var input = row.find('.quantity-input');
-
-            // Lấy giá trị từ data-initial
             var currentInitial = parseInt(input.data('initial'));
-            console.log("Initial qty from data:", currentInitial);
+            console.log("Initial qty:", currentInitial);
 
-            // Nếu giá trị đang là 1, không cho giảm thêm nữa
             if (currentInitial <= 1) {
                 input.val(1);
                 input.data('initial', 1);
                 input.attr('data-initial', 1);
-                console.log("Quantity is already at the minimum value (1).");
+                console.log("Số lượng đã nhỏ nhất");
                 return;
             }
-            // Nếu lớn hơn 1, giảm đi 1
+            //nếu lớn hơn 1, giảm đi 1
             var newQty = currentInitial - 1;
             console.log("New qty:", newQty);
 
-            // Cập nhật lại input và data-initial
             input.val(newQty);
             input.data('initial', newQty);
-            // Đảm bảo đồng bộ với thuộc tính DOM
             input.attr('data-initial', newQty);
 
             var rowid = row.data('rowid');
@@ -434,16 +428,14 @@
             var row   = $(this).closest('tr');
             var input = $(this);
             var newQty = parseInt(input.val());
-            // Kiểm tra số lượng hợp lệ (>= 1)
+            //kiểm tra số lượng
             if (isNaN(newQty) || newQty < 1) {
-                newQty = 1; // Mặc định về 1 nếu giá trị không hợp lệ
+                newQty = 1;
             }
-            // Giới hạn số lượng tối đa là 999
             if(newQty > 999) {
                 newQty = 999;
                 alert("Số lượng tối đa là 999!");
             }
-            // Cập nhật lại giá trị hiển thị và data-initial
             input.val(newQty);
             input.data('initial', newQty);
             var rowid = row.data('rowid');
@@ -468,7 +460,7 @@
                         }
                         $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
-                            <h5>${response.total_final}</h5>
+                            <h4>${response.total_final}</h4>
                         `);
                     }else{
                         alert('Cập nhật giỏ hàng thất bại!');
@@ -512,7 +504,7 @@
                             $('.total_after_discount').text(response.total_after_discount);
                             $('.total_include').html(`
                                 <h5>Tổng Tiền:</h5>
-                                <h5>${response.total_final}</h5>
+                                <h4>${response.total_final}</h4>
                             `);
                             if (response.cart_empty) {
                                 Swal.fire(
@@ -573,7 +565,7 @@
                     coupon: coupon_code
                 },
                 beforeSend: function(){
-                    $('.check_coupon').prop('disabled', true).text('Đang kiểm tra...'); // Vô hiệu hóa nút khi đang gửi request
+                    $('.check_coupon').prop('disabled', true).text('Đang kiểm tra...'); //disable nút khi đang gửi request
                 },
                 success: function(response){
                     if(response.status === 'success') {
@@ -582,7 +574,7 @@
                         $('.total_after_discount').text(response.total_after_discount + 'đ');
                         $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
-                            <h5>${response.total_after_discount}đ</h5>
+                            <h4>${response.total_after_discount}đ</h4>
                         `);
                     }else{
                         showMessage('<div class="alert alert-danger">'+ response.message +'</div>');
@@ -590,7 +582,7 @@
                         $(".total_after_discount").html("<em>Chưa áp dụng</em>");
                         $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
-                        <h5>${response.total}đ</h5>
+                            <h4>${response.total}đ</h4>
                         `);
                     }
                 },
@@ -600,16 +592,16 @@
                     $(".total_after_discount").html("<em>Chưa áp dụng</em>");
                     $('.total_include').html(`
                             <h5>Tổng Tiền:</h5>
-                        <h5>${response.total}đ</h5>
+                            <h4>${response.total}đ</h4>
                         `);
                 },
                 complete: function(){
-                    $('.check_coupon').prop('disabled', false).text('Áp Dụng Mã Giảm Giá'); // Bật lại nút sau khi xử lý
+                    $('.check_coupon').prop('disabled', false).text('Áp Dụng Mã Giảm Giá'); //hiện lại nút sau khi xử lý
                 }
             });
         });
         function showMessage(message){
-            $('#coupon_message').stop(true, true).html(message).fadeIn(); // Hiển thị lại nếu bị ẩn
+            $('#coupon_message').stop(true, true).html(message).fadeIn(); //hiện lại nếu bị ẩn
             setTimeout(function() {
                 $('#coupon_message').fadeOut();
             }, 6000);
@@ -621,24 +613,23 @@
         let searchInput = document.getElementById("searchInput");
         let searchIcon = document.getElementById("searchIcon");
 
-        // Khi nhấn Enter trong input
+        //nhấn Enter
         searchInput.addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
-                event.preventDefault(); // Chặn form submit mặc định
+                event.preventDefault();
                 if (searchInput.value.trim() !== "") {
-                    searchForm.submit(); // Chỉ submit nếu có nội dung
+                    searchForm.submit();
                 }
             }
         });
-        // Khi click vào icon tìm kiếm
         searchIcon.addEventListener("click", function () {
             if (searchInput.value.trim() !== "") {
                 searchForm.submit();
             }
         });
     });
-    </script>
-    <script>
+</script>
+<script>
     $(document).ready(function(){
         $('.choose').on('change', function() {
             var action = $(this).attr('id');
@@ -676,20 +667,16 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.feeship !== undefined) {
-                            var feeship = parseInt(data.feeship) || 0; // Chuyển về số, nếu lỗi thì = 0
-                            // Hiển thị phí vận chuyển hoặc "Chưa tính"
-                            if (feeship > 0) {
+                            var feeship = parseInt(data.feeship) || 0; //chuyển về số, nếu lỗi thì = 0
+                            if(feeship > 0){
                                 $('.feeship_display').text(feeship.toLocaleString('vi-VN') + 'đ');
-                            } else {
+                            }else{
                                 $('.feeship_display').html('<em>Chưa tính phí</em>');
                             }
-                            // Lấy tổng tiền sau giảm giá, nếu không có mã giảm giá thì lấy tổng tiền gốc
                             var total_after_discount = parseInt($('.total_after_discount').text().replace(/\D/g, '')) || 
                                                     parseInt($('#total').attr('data-total').replace(/\D/g, '')) || 0;
+                            var total_final = total_after_discount + feeship;
 
-                            var total_final = total_after_discount + feeship; // Cộng phí vận chuyển vào tổng sau giảm giá
-                            
-                            // Cập nhật tổng tiền mới
                             $('.total_include h4').text(total_final.toLocaleString('vi-VN') + 'đ');
                         }
                 },
@@ -733,11 +720,10 @@
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#d33'
                         });
-                    } else {
-                        // Kiểm tra customer_id để chuyển hướng đúng trang
-                        if (customerId) {
+                    }else{
+                        if(customerId){
                             window.location.href = '{{ URL::to("/checkout") }}';
-                        } else {
+                        }else{
                             window.location.href = '{{ URL::to("/login_checkout") }}';
                         }
                     }
@@ -747,47 +733,46 @@
         }
     });
 </script>
-
 <script>
-    $(document).ready(function () {
-        var previousUrl = document.referrer; // Lấy URL trước khi vào trang login
+    $(document).ready(function(){
+        var previousUrl = document.referrer; //URL trước
     
-        if (previousUrl) {
+        if(previousUrl){
             $.ajax({
-                url: "{{ url('/save_previous_url') }}", // Route để lưu session
+                url: "{{ url('/save_previous_url') }}",
                 type: "POST",
                 data: {
                     previous_url: previousUrl,
-                    _token: "{{ csrf_token() }}" // Bảo vệ CSRF token
+                    _token: "{{ csrf_token() }}"
                 },
-                success: function (response) {
+                success: function(response){
                     console.log("Lưu URL trước thành công:", response);
                 },
-                error: function () {
+                error: function(){
                     console.log("Lỗi khi lưu URL trước.");
                 }
             });
         }
     });
 
-    $(document).ready(function() {
-        $('input[type="radio"]').on('click', function() {
+    $(document).ready(function(){
+        $('input[type="radio"]').on('click', function(){
             if ($(this).hasClass('checked')) {
                 $(this).prop('checked', false).removeClass('checked');
             } else {
-                $('input[type="radio"]').removeClass('checked'); // Xóa trạng thái checked của các radio khác
+                $('input[type="radio"]').removeClass('checked');
                 $(this).addClass('checked');
             }
         });
     });
 
-    $(document).ready(function() {
-        $('#orderForm').submit(function(event) {
+    $(document).ready(function(){
+        $('#orderForm').submit(function(event){
             event.preventDefault();
             var total_final = parseInt($('.total_final_display').text().replace(/\D/g, '')) || 0;
             var payment_option = $('input[name="payment_option"]:checked').val();
 
-            if (!payment_option) {
+            if(!payment_option){
                 Swal.fire({
                     icon: 'error',
                     title: 'Lỗi!',
@@ -819,26 +804,31 @@
                         type: "POST",
                         data: formData,
                         success: function(response) {
-                            if (response.success) {
-                                if (response.payment_id == 2) {
+                            if(response.success){
+                                if(response.payment_id == 2){
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Đặt hàng thành công!',
                                         text: 'Đơn hàng của bạn đang được giao',
                                         confirmButtonText: 'Về trang chủ'
                                     }).then((result) => {
-                                        if (result.isConfirmed) {
+                                        if(result.isConfirmed){
                                             window.location.href = "{{ url('/trang_chu') }}";
                                         }
                                     });
-                                } else {
+                                }else if(response.payment_id == 1){
                                     Swal.fire({
                                         icon: 'info',
-                                        title: 'Đặt hàng thành công!',
-                                        text: 'Bạn đã chọn phương thức thanh toán ngân hàng.'
+                                        title: 'Bạn đã chọn phương thức thanh toán VNPAY!',
+                                        text: 'Bạn sẽ được chuyển đến trang thanh toán VNPay.',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if(result.isConfirmed){
+                                            window.location.href = response.vnp_url;
+                                        }
                                     });
                                 }
-                            } else {
+                            }else{
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Lỗi!',
@@ -857,11 +847,9 @@
                     });
                 }
             });
-
         });
     });
 </script>
-
 <script>
     $('#login-form').on('submit', function(e) {
         e.preventDefault();
@@ -1042,7 +1030,7 @@ $(document).ready(function() {
             });
         }
         
-        let selectedRating = $("#rating").val() || 0; // Mặc định là 0 nếu chưa có rating
+        let selectedRating = $("#rating").val() || 0;
 
         function updateStars(rating) {
             $(".star").each(function() {
@@ -1050,33 +1038,28 @@ $(document).ready(function() {
                 $(this).toggleClass("far", $(this).data("value") > rating || rating == 0);
             });
         }
-
-        // Cập nhật sao theo giá trị rating đã lưu
         updateStars(selectedRating);
 
-        // Khi hover vào sao
-        $(".star").on("mouseenter", function() {
+        $(".star").on("mouseenter", function(){
             let rating = $(this).data("value");
             updateStars(rating);
         });
 
-        // Khi rời chuột
-        $(".star").on("mouseleave", function() {
+        $(".star").on("mouseleave", function(){
             updateStars(selectedRating);
         });
 
-        // Khi click để chọn hoặc bỏ chọn sao
-        $(".star").on("click", function() {
+        $(".star").on("click", function(){
             let clickedValue = $(this).data("value");
 
-            if (clickedValue == selectedRating) {
-                selectedRating = 0; // Nếu click vào sao đã chọn, reset về 0
-            } else {
-                selectedRating = clickedValue; // Cập nhật giá trị rating mới
+            if(clickedValue == selectedRating){
+                selectedRating = 0;
+            }else{
+                selectedRating = clickedValue;
             }
 
-            $("#rating").val(selectedRating); // Gán vào input ẩn
-            updateStars(selectedRating); // Cập nhật giao diện
+            $("#rating").val(selectedRating); //gán vào input ẩn
+            updateStars(selectedRating);
         });
         
         $('.send_comment').click(function(){
@@ -1102,7 +1085,7 @@ $(document).ready(function() {
                     icon: "success",
                     confirmButtonText: "OK"
                     }).then((result) => {
-                        if (result.isConfirmed) {
+                        if (result.isConfirmed){
                             load_comment();
                             $('.comment_content').val('');
                             $('.comment_name').val('');
@@ -1121,9 +1104,9 @@ $(document).ready(function() {
         });
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function(){
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl){
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
@@ -1141,16 +1124,14 @@ $(document).ready(function() {
 //             type: 'GET',
 //             dataType: 'json',
 //             success: function(response) {
-//                 // Cập nhật danh sách sản phẩm
 //                 $('#product-list').html(response.view);
-//                 // Cập nhật phân trang
 //                 $('#pagination-container').html(response.pagination);
 //             }
 //         });
 //     }
 // });
 
-$(document).ready(function() {
+$(document).ready(function(){
     window.add_wishlist = function(book_id) {
         let book_name = $('.cart_book_name_' + book_id).val();
         let book_image = $('.cart_book_image_' + book_id).val();
@@ -1166,11 +1147,9 @@ $(document).ready(function() {
             avgRating: avgRating,
             totalreview: totalreview
         };
-        // Lấy wishlist từ localStorage, nếu không có thì khởi tạo mảng trống
+        //lấy wishlist từ localStorage
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        // Kiểm tra xem sách đã có trong wishlist chưa
         let exists = wishlist.some(item => item.id == book_id);
-        // Nếu chưa có, thêm sách vào wishlist
         if (!exists) {
             wishlist.push(newItem);
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -1184,13 +1163,13 @@ $(document).ready(function() {
                 showCancelButton: true,
                 cancelButtonText: 'OK',
             }).then((result) => {
-                if (result.isConfirmed) {
+                if(result.isConfirmed){
                     window.location.href = "{{ url('/yeu_thich') }}";
-                } else if (result.isDismissed) {
+                }else if(result.isDismissed){
                     
                 }
             });
-        } else {
+        }else{
             Swal.fire({
                 icon: 'info',
                 title: 'Sách đã có trong danh sách yêu thích!',
@@ -1200,9 +1179,9 @@ $(document).ready(function() {
                 showCancelButton: true,
                 cancelButtonText: 'OK',
             }).then((result) => {
-                if (result.isConfirmed) {
+                if(result.isConfirmed){
                     window.location.href = "{{ url('/yeu_thich') }}"; 
-                } else if (result.isDismissed) {
+                }else if(result.isDismissed){
                 
                 } 
             });
@@ -1210,38 +1189,34 @@ $(document).ready(function() {
     }
 });
 
-$(document).ready(function() {
-    // Lấy dữ liệu từ localStorage
+$(document).ready(function(){
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-    if (wishlist.length === 0) {
+    if(wishlist.length === 0){
         $('#wishlist-container').html('<div class="col-12 text-center"><h5>Bạn chưa thêm sách nào vào yêu thích.</h5></div>');
         return;
     }
-
-    // Duyệt qua từng sách trong wishlist và tạo HTML để hiển thị
     wishlist.forEach((book) => {
         let fullStars = 0;
         let halfStar = 0;
         let emptyStars = 5;
 
-        if (book.avgRating) {
+        if(book.avgRating){
             fullStars = Math.floor(book.avgRating);
             halfStar = (book.avgRating - fullStars) >= 0.5 ? 1 : 0;
             emptyStars = 5 - (fullStars + halfStar);
         }
 
         let starHtml = '';
-        for (let i = 0; i < fullStars; i++) {
+        for(let i = 0; i < fullStars; i++){
             starHtml += '<small class="fa fa-star text-danger mr-1"></small>';
         }
-        if (halfStar) {
+        if(halfStar){
             starHtml += '<small class="fa fa-star-half-alt text-danger mr-1"></small>';
         }
-        for (let i = 0; i < emptyStars; i++) {
+        for(let i = 0; i < emptyStars; i++){
             starHtml += '<small class="fa fa-star text-muted mr-1"></small>';
         }
-
         let bookHtml = `
         <div class="col-lg-2-4 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
@@ -1283,7 +1258,7 @@ $(document).ready(function() {
     });
 });
 
-    function remove_wishlist(book_id) {
+    function remove_wishlist(book_id){
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         wishlist = wishlist.filter(item => item.id != book_id);
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -1298,10 +1273,10 @@ $(document).ready(function() {
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function(){
         let ajaxRequest = null;
 
-        $('#sort').on('change', function() {
+        $('#sort').on('change', function(){
             var sort_by = $(this).val();
             var currentPage = new URLSearchParams(window.location.search).get('page') || 1;
             var newUrl = window.location.pathname + "?page=" + currentPage + "&sort_by=" + sort_by;
@@ -1324,14 +1299,14 @@ $(document).ready(function() {
             });
         });
 
-        $(document).on('click', '.pagination a', function(e) {
+        $(document).on('click', '.pagination a', function(e){
             e.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
             var sort_by = $('#sort').val();
             var newUrl = window.location.pathname + "?page=" + page + "&sort_by=" + sort_by;
             history.pushState(null, null, newUrl);
 
-            if (ajaxRequest) {
+            if(ajaxRequest){
                 ajaxRequest.abort();
             }
             ajaxRequest = $.ajax({
@@ -1348,11 +1323,10 @@ $(document).ready(function() {
             });
         });
     });
-
 </script>
 <script>
-$(document).ready(function() {
-    $('.cancel-order').click(function() {
+$(document).ready(function(){
+    $('.cancel-order').click(function(){
         var orderId = $(this).data('order_id');
         var _token = $('meta[name="csrf-token"]').attr('content');
 
@@ -1366,23 +1340,23 @@ $(document).ready(function() {
             confirmButtonText: 'Có, hủy đơn!',
             cancelButtonText: 'Không hủy nữa'
         }).then((result) => {
-            if (result.isConfirmed) {
+            if(result.isConfirmed){
                 $.ajax({
                     url: '{{ url("/cancel_order/") }}/' + orderId,
                     method: 'POST',
                     data: {
                         _token: _token,
                     },
-                    success: function(response) {
-                        if (response.status === 'success') {
+                    success: function(response){
+                        if(response.status === 'success'){
                             Swal.fire(
                                 'Đã hủy!',
                                 'Đơn hàng đã được hủy.',
                                 'success'
-                            ).then(function() {
+                            ).then(function(){
                                 location.reload();
                             });
-                        } else {
+                        }else{
                             Swal.fire(
                                 'Lỗi!',
                                 'Đã xảy ra lỗi khi hủy đơn.',

@@ -340,6 +340,12 @@ class CheckoutController extends Controller
             if($coupo && $coupo->coupon_time > 0){
                 $coupo->coupon_time -= 1;
                 $coupo->save();
+
+                DB::table('used_coupon')->insert([
+                    'customer_id' => Session::get('customer_id'),
+                    'coupon_id' => $coupo->coupon_id,
+                    'used_at' => now(),
+                ]);
             }
         }        
         $cart = Session::get('cart', []);
@@ -365,6 +371,14 @@ class CheckoutController extends Controller
                 'message' => 'Hiện tại phương thức thanh toán này không sử dụng được, vui lòng chọn phương thức khác!'
             ]);
         }
+        if ($payment->payment_id == 1) {
+            $vnpayUrl = $this->vnpay($order_id, $total_final);
+            return response()->json([
+                'success' => true,
+                'payment_id' => 1,
+                'vnp_url' => $vnpayUrl
+            ]);
+        }
         Session::forget('cart');
         Session::forget('coupon');
         Session::forget('fees');
@@ -373,6 +387,65 @@ class CheckoutController extends Controller
             'payment_id' => $payment->payment_id
         ]);
     }
+
+    public function vnpay($order_id, $total_final){
+        $url = $this->vnpayurl($order_id, $total_final);
+        return $url;
+    }
+
+    public function vnpayurl($order_id, $total_final){
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = url('/trang_chu');
+        $vnp_TmnCode = "6N4WEAG3";
+        $vnp_HashSecret = "RT1D878SN59PYOMFYAK1GCURT0W4GSOG";
+
+        $vnp_TxnRef = $order_id;
+        $vnp_OrderInfo = "Thanh toán đơn hàng #$order_id";
+        $vnp_OrderType = "billpayment";
+        $vnp_Amount = $total_final * 100;
+        $vnp_Locale = "vn";
+        $vnp_IpAddr = request()->ip();
+        $vnp_BankCode = "NCB";
+
+        $inputData = [
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => now()->format('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+        ];
+
+        if (!empty($vnp_BankCode)) {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+
+        ksort($inputData);
+        $query = "";
+        $hashdata = "";
+        $i = 0;
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_SecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
+        $vnp_Url .= "?" . $query . 'vnp_SecureHash=' . $vnp_SecureHash;
+
+        return $vnp_Url;
+    }
+
 
     public function check_storage(Request $request){
         $cart = Session::get('cart', []);
@@ -397,15 +470,12 @@ class CheckoutController extends Controller
                 }
             }
         }
-
         if (!empty($errorMessages)) {
             return response()->json([
                 'status' => 'error',
                 'messages' => $errorMessages
             ]);
         }
-
-        // Nếu không có lỗi
         return response()->json([
             'status' => 'success'
         ]);

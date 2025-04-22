@@ -126,7 +126,7 @@
                             <h6>Thành Tiền Sau Khuyến Mãi:</h6>
                             <h6 class="font-weight-medium total_after_discount">
                                 @php
-                                $total_coupon = Session::get('total_coupon', 0); // Lấy từ Session, mặc định là 0 nếu không tồn tại
+                                    $total_coupon = Session::get('total_coupon', 0);
                                 @endphp
                                 @if(Session::get('coupon'))
                                     {{number_format(max(0, $total - $total_coupon), 0, ',', '.')}}đ
