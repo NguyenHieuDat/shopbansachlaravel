@@ -58,9 +58,9 @@
                 
             </div>
             <div class="bg-light p-30 mb-3">
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Số 10 Võ Nguyên Giáp, Kênh Dương, Lê Chân, Hải Phòng 05000, Việt Nam</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>toramhatsunemiku69@gmail.com</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+84 936 5494 42</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-danger mr-3"></i>Số 10 Võ Nguyên Giáp, Kênh Dương, Lê Chân, Hải Phòng 05000, Việt Nam</p>
+                <p class="mb-2"><i class="fa fa-envelope text-danger mr-3"></i>toramhatsunemiku69@gmail.com</p>
+                <p class="mb-2"><i class="fa fa-phone-alt text-danger mr-3"></i>+84 936 5494 42</p>
             </div>
         </div>
     </div>

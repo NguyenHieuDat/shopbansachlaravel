@@ -17,9 +17,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $admin = Admin::with('roles')->orderBy('admin_id','DESC')->paginate(5);
+    public function index(){
+        $admin = Admin::with('roles')->orderBy('admin_id','DESC')->get();
         return view('admin.users.all_users')->with(compact('admin'));
     }
 

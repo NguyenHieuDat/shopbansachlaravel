@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--logo start-->
 <div class="brand">
     <a href="{{URL::to('/dashboard')}}" class="logo">
-        ADMIN
+        <p style="font-size:20px;">Quản lý Fahasa</p>
     </a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
@@ -264,7 +264,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="">
+                <img alt="" src="{{asset('public/backend/images/admin_icon.jpg')}}">
                 <span class="username">
 					{{ Auth::user()->admin_name ?? 'Tài khoản khách' }}
 				</span>
@@ -427,11 +427,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		@yield('admin_content')
     </section>
  <!-- footer -->
-		  <div class="footer">
+		  {{-- <div class="footer">
 			<div class="wthree-copyright">
 			  <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
 			</div>
-		  </div>
+		  </div> --}}
   <!-- / footer -->
 </section>
 <!--main content end-->
@@ -574,7 +574,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 				$('.colormark_qty_'+order_book_id[i]).css('background','#FF0000');
 			} else {
-				$('.colormark_qty_' + order_book_id[i]).css('background', ''); // Reset màu nếu hợp lệ
+				$('.colormark_qty_' + order_book_id[i]).css('background', '');
 			}
 		}
 		if(j === 0){

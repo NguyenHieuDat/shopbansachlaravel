@@ -308,7 +308,13 @@ class CheckoutController extends Controller
         $coupon = Session::get('coupon');
         $total_coupon = Session::get('total_coupon', 0);
         $feeship = Session::get('feeship', 0);
-
+        $cart = Session::get('cart', []);
+        if(empty($cart)){
+            return response()->json([
+                'success' => false,
+                'message' => 'Không có sản phẩm nào trong giỏ hàng để thanh toán!'
+            ]);
+        }
         if ($coupon) {
             $coupon_code = $coupon[0]['coupon_code'];
             $coupon_price = $total_coupon > 0 ? $total_coupon : 0;
@@ -348,7 +354,6 @@ class CheckoutController extends Controller
                 ]);
             }
         }        
-        $cart = Session::get('cart', []);
         foreach($cart as $key => $cart_order){
             $order_detail = new OrderDetail();
             $order_detail['order_id'] = $order_id;

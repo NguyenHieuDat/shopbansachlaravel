@@ -5,55 +5,29 @@
     <div class="panel-heading">
       Liệt kê người dùng
     </div>
-    <div class="row w3-res-tb">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Bulk action</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-          <option value="3">Export</option>
-        </select>
-        <button class="btn btn-sm btn-default">Apply</button>                
-      </div>
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span>
-        </div>
-      </div>
-    </div>
+      <?php
+        $message = Session::get('message');
+        if($message){
+            echo '<span class="text-success">'.$message.'</span>';
+            Session::put('message',null);
+        }
+      ?>
+      @if(session()->has('error'))
+        <span class="text-error">
+          {{ session('error') }}
+        </span>
+      @endif
     <div class="table-responsive">
-        <?php
-            $message = Session::get('message');
-            if($message){
-                echo '<span class="text-success">'.$message.'</span>';
-                Session::put('message',null);
-            }
-        ?>
-        @if(session()->has('error'))
-          <span class="text-error">
-            {{ session('error') }}
-          </span>
-        @endif
-      <table class="table table-striped b-t b-light">
+      <table class="table table-striped b-t b-light" id="dbTable">
         <thead>
           <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none">
-                <input type="checkbox"><i></i>
-              </label>
-            </th>
             <th>Tên người dùng</th>
             <th>Địa chỉ Email</th>
             <th>Số điện thoại</th>
             <th>Mật khẩu</th>
             <th>Admin</th>
             <th>User</th>
-            <th style="width:30px;"></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +35,6 @@
             <form action="{{url('/assign_roles')}}" method="POST">
               @csrf
               <tr>
-                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                 <td>{{ $user->admin_name }}</td>
                 <td>{{ $user->admin_email }} <input type="hidden" name="admin_email" value="{{ $user->admin_email }}">
                   <input type="hidden" name="admin_id" value="{{ $user->admin_id }}"></td>
@@ -82,7 +55,7 @@
         </tbody>
       </table>
     </div>
-    <footer class="panel-footer">
+    {{-- <footer class="panel-footer">
       <div class="row">
         
         <div class="col-sm-5 text-center">
@@ -104,7 +77,7 @@
           </ul>
         </div>
       </div>
-    </footer>
+    </footer> --}}
   </div>
 </div>
 @endsection

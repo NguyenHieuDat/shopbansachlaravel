@@ -49,7 +49,6 @@
           <tbody>
             @foreach ($all_category_product as $key => $cate_pro)
             <tr>
-              
               <td>{{$cate_pro->category_name}}</td>
               <td>
                 @if($cate_pro->category_parent==0)
