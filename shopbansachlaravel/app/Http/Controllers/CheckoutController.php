@@ -19,6 +19,7 @@ use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class CheckoutController extends Controller
 {
@@ -198,9 +199,7 @@ class CheckoutController extends Controller
         return Redirect::to('/login_checkout');
     }
 
-    public function save_previous_url(Request $request)
-    {
-        // Lưu previous_url vào session
+    public function save_previous_url(Request $request){
         Session::put('previous_url', $request->previous_url);
         return response()->json(['success' => true]);
     }
@@ -212,7 +211,7 @@ class CheckoutController extends Controller
             'g-recaptcha-response' => ['required', new Captcha()],
         ]);
     
-        if ($validator->fails()) {
+        if($validator->fails()){
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
@@ -323,6 +322,7 @@ class CheckoutController extends Controller
             $coupon_price = 0;
         }
         date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         
         $shipping_fee = $feeship > 0 ? $feeship : 'Không có';
 
@@ -336,6 +336,7 @@ class CheckoutController extends Controller
         $order->feeship_price = $shipping_fee;
         $order->order_total = $total_final;
         $order->order_status = 1;
+        $order->order_date = $today;
         $order->created_at = now();
         $order->save();
         $order_id = $order->order_id;

@@ -12,12 +12,14 @@ use App\Models\Customer;
 use App\Models\Shipping;
 use App\Models\Coupon;
 use App\Models\Book;
+use App\Models\Statistical;
 use Session;
 use DB;
 use Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -163,26 +165,62 @@ class OrderController extends Controller
         $order->order_status = $data['order_status'];
         $order->save();
 
+        $order_date = $order->order_date;
+        $statistic = Statistical::where('order_date',$order_date)->first();
+        
+        $total_order = 0;
+        $sales = 0;
+        $profit = 0;
+        $quantity = 0;
         foreach($data['order_book_id'] as $key => $book_id){
             $book = Book::find($book_id);
             $qty = $data['quantity'][$key];
+            $book_price = $book->book_price;
+            $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
             
-            if ($order_status_before == 1 && $order->order_status == 2) {
+            if($order_status_before == 1 && $order->order_status == 2){
                 // Từ Đang xử lý (1) -> Đã xử lý (2): Trừ số lượng mua khỏi kho
                 $book->book_quantity -= $qty;
                 $book->book_sold += $qty;
+                $quantity += $qty;
+                $total_order = 1;
+                $sales += $book_price*$qty;
+                $profit += ($book_price * $qty) - (10000 * $qty);
             } 
-            elseif ($order_status_before == 2 && ($order->order_status == 1 || $order->order_status == 3)) {
+            elseif($order_status_before == 2 && ($order->order_status == 1 || $order->order_status == 3)){
                 // Từ Đã xử lý (2) -> Hủy đơn (3) hoặc Đang xử lý (1): Cộng lại số lượng vào kho
                 $book->book_quantity += $qty;
                 $book->book_sold -= $qty;
+                $quantity -= $qty;
+                $sales -= $book_price * $qty;
+                $profit -= ($book_price * $qty) - (10000 * $qty);
+                $total_order = -1;
             }
-            elseif ($order_status_before == 3 && $order->order_status == 2) {
+            elseif($order_status_before == 3 && $order->order_status == 2){
                 // Từ Hủy đơn (3) -> Đã xử lý (2)
                 $book->book_quantity -= $qty;
                 $book->book_sold += $qty;
+                $quantity += $qty;
+                $total_order = 1;
+                $sales += $book_price * $qty;
+                $profit += ($book_price * $qty) - (10000 * $qty);
             }
             $book->save();
+        }
+        if($statistic){
+            $statistic->sales += $sales;
+            $statistic->profit += $profit;
+            $statistic->quantity += $quantity;
+            $statistic->total_order += $total_order;
+            $statistic->save();
+        }else{
+            Statistical::create([
+                'order_date' => $order_date,
+                'sales' => $sales,
+                'profit' => $profit,
+                'quantity' => $quantity,
+                'total_order' => $total_order,
+            ]);
         }
     }
 

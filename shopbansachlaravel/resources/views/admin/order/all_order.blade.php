@@ -49,7 +49,7 @@
                 @if($order->order_status == 1)
                   Đang chờ xử lý
                 @elseif($order->order_status == 2)
-                  Đã hoàn thành
+                  Đã giao hàng
                 @elseif($order->order_status == 3)
                   Đã hủy
                 @endif

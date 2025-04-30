@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 06:24 AM
+-- Generation Time: Apr 30, 2025 at 10:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -387,9 +387,9 @@ INSERT INTO `tbl_book` (`book_id`, `book_name`, `category_id`, `author_id`, `pub
 (1, 'Cây Cam Ngọt Của Tôi', 1, 1, 1, '1742028851_caycamngotbia.jpg', 'Tiếng Việt', 2020, 244, 108000, '100', 0, 1, '<p>C&Acirc;Y CAM NGỌT CỦA T&Ocirc;I - MỘT TUỔI THƠ BỊ L&Atilde;NG QU&Ecirc;N.</p>\r\n\r\n<p>Với một đứa trẻ, thế giới kh&ocirc;ng giới hạn trong một bữa ăn, m&agrave; thế giới cần c&oacute; h&agrave;o quang của t&igrave;nh thương. Bạn c&oacute; bao giờ cảm thấy bị lạc l&otilde;ng trong ch&iacute;nh ng&ocirc;i nh&agrave; của m&igrave;nh? Một c&acirc;u chuyện chạm đến tận c&ugrave;ng cảm x&uacute;c</p>', 'Cây cam, cay cam, cây cam ngọt của tôi, cây cam ngọt, cay cam ngot, cay cam ngot cua toi', NULL, NULL),
 (2, 'Hoàng Tử Bé (Song Ngữ Việt - Anh)', 2, 2, 2, '1742111017_hoangtubebia.jpg', 'Song Ngữ Việt - Anh', 2023, 200, 80000, '60', 0, 1, '<p><strong>Ho&agrave;ng Tử B&eacute; (Song Ngữ Việt - Anh)</strong></p>\r\n\r\n<p><em>Ho&agrave;ng tử b&eacute;</em>&nbsp;được xuất bản lần đầu năm 1943 của nh&agrave; văn, phi c&ocirc;ng người Ph&aacute;p Antoine de Saint-exup&eacute;ry l&agrave; một trong những cuốn tiểu thuyết kinh điển nổi tiếng nhất mọi thời đại. C&acirc;u chuyện ngắn gọn về cuộc gặp gỡ diệu kỳ giữa vi&ecirc;n phi c&ocirc;ng bị rơi m&aacute;y bay v&agrave; Ho&agrave;ng tử b&eacute; giữa sa mạc Sa-ha-ra hoang vu. H&agrave;nh tinh qu&ecirc; hương v&agrave; c&aacute;c mối quan hệ của ho&agrave;ng tử b&eacute; dần h&eacute; lộ: T&igrave;nh bạn, t&igrave;nh y&ecirc;u thương của Ho&agrave;ng tử b&eacute; d&agrave;nh cho b&ocirc;ng hồng duy nhất, t&igrave;nh cảm s&acirc;u sắc d&agrave;nh cho ch&uacute; c&aacute;o.</p>\r\n\r\n<p>Kh&ocirc;ng những vậy, th&ocirc;ng qua c&aacute;c cuộc gặp gỡ trong chuyến du ngoạn tới c&aacute;c h&agrave;nh tinh kh&aacute;c nhau của ho&agrave;ng tử b&eacute; cũng chứa đựng triết l&yacute; nh&acirc;n sinh s&acirc;u sắc về c&aacute;c kiểu người trong x&atilde; hội hiện đại.</p>\r\n\r\n<p>Thật kh&ocirc;ng ngoa khi khẳng định, mỗi c&acirc;u chữ trong cuốn s&aacute;ch n&agrave;y đều đầy triết l&yacute; v&agrave; mỗi người, mỗi lứa tuổi v&agrave; mỗi ho&agrave;n cảnh khi đọc sẽ c&oacute; những cảm nhận ri&ecirc;ng.</p>\r\n\r\n<p><strong>Th&agrave;nh t&iacute;ch</strong></p>\r\n\r\n<p>T&iacute;nh đến nay, t&aacute;c phẩm Ho&agrave;ng tử b&eacute; (Le Petit Prince) đ&atilde; được dịch sang 300 ng&ocirc;n ngữ, trở th&agrave;nh cuốn s&aacute;ch được chuyển thể ra nhiều ng&ocirc;n ngữ nhất tr&ecirc;n thế giới chỉ sau Kinh Th&aacute;nh. Với h&agrave;ng trăm triệu bản in tr&ecirc;n to&agrave;n thế giới, Ho&agrave;ng tử b&eacute; được coi l&agrave; một trong những t&aacute;c phẩm b&aacute;n chạy nhất của nh&acirc;n loại v&agrave; vẫn tiếp tục được xuất bản hằng năm với rất nhiều phi&ecirc;n bản kh&aacute;c nhau.</p>\r\n\r\n<p>Cuốn s&aacute;ch thiếu nhi c&oacute; k&egrave;m truyện tranh độc đ&aacute;o với phi&ecirc;n bản truyện song ngữ Anh Việt gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng, r&egrave;n luyện EQ, IQ. C&oacute; thể coi đ&acirc;y l&agrave; cuốn s&aacute;ch vượt xa c&aacute;c cuốn s&aacute;ch đương thời như: Harry Potter, Nh&oacute;c Nicolas, K&iacute;nh vạn hoa, Lũ trẻ hư nhất quả đất, Chuyện con m&egrave;o dạy hải &acirc;u bay...</p>\r\n\r\n<p>Cuốn s&aacute;ch được xếp v&agrave;o top 100 cuốn s&aacute;ch hay nhất thế kỷ XX.</p>\r\n\r\n<p><strong>Điểm kh&aacute;c biệt của phi&ecirc;n bản song ngữ Việt-Anh n&agrave;y so với c&aacute;c phi&ecirc;n bản kh&aacute;c c&oacute; tr&ecirc;n thị trường:</strong></p>\r\n\r\n<p>Phần tiếng Anh l&agrave; bản dịch của Katherine Wood &ndash; một bản dịch v&ocirc; c&ugrave;ng được y&ecirc;u th&iacute;ch bởi những người n&oacute;i tiếng Anh tr&ecirc;n khắp thế giới.</p>\r\n\r\n<p>Đ&acirc;y l&agrave; phi&ecirc;n bản Ho&agrave;ng tử b&eacute; song ngữ Anh-Việt duy nhất c&oacute; kết hợp chọn từ vựng tiếng Anh gi&uacute;p c&aacute;c em nhỏ học tiếng Anh, giải tr&iacute;, tăng vốn từ vựng với những đoạn hội thoại đậm chất văn học, nu&ocirc;i dưỡng v&agrave; r&egrave;n luyện tr&iacute; th&ocirc;ng m&igrave;nh cảm x&uacute;c (EQ) v&agrave; cảm nhận t&aacute;c phẩm kinh điển n&agrave;y bằng cả hai thứ tiếng.</p>\r\n\r\n<p>Tr&igrave;nh b&agrave;y song song hai ng&ocirc;n ngữ gi&uacute;p học tiếng Anh (hoặc người nước ngo&agrave;i học tiếng Việt) một c&aacute;ch dễ d&agrave;ng c&ugrave;ng phần ghi ch&uacute; từ vựng v&ocirc; c&ugrave;ng s&aacute;ng tạo, độc đ&aacute;o.</p>\r\n\r\n<p>S&aacute;ch song ngữ nhưng gi&aacute; b&igrave;a kh&ocirc;ng hề cao hơn s&aacute;ch tiếng Việt, c&ograve;n được tặng k&egrave;m link download phi&ecirc;n bản audio cho c&aacute;c độc giả muốn nghe truyện bằng tiếng Anh.</p>', 'hoang tu be, hoàng tử bé, little prince, prince, hoàng tử, hoang tu', NULL, NULL),
 (3, 'Khoa Học Và Khám Phá - Liệu IT Đã hết Thời (Tái Bản 2023)', 3, 3, 3, '1742112658_ithetthoibia.jpg', 'Tiếng Việt', 2023, 182, 95000, '50', 0, 1, '<p><strong>Khoa Học V&agrave; Kh&aacute;m Ph&aacute; - Liệu IT Đ&atilde; Hết Thời (T&aacute;i Bản 2023)</strong> l&agrave; cuốn s&aacute;ch nổi tiếng của <strong>Nicholas G. Carr</strong>, t&aacute;c giả được biết đến qua những nghi&ecirc;n cứu s&acirc;u sắc về t&aacute;c động của c&ocirc;ng nghệ đến kinh doanh v&agrave; x&atilde; hội.</p>\r\n\r\n<p>Trong cuốn s&aacute;ch n&agrave;y, Carr đưa ra những lập luận sắc b&eacute;n về việc <strong>c&ocirc;ng nghệ th&ocirc;ng tin đang dần trở th&agrave;nh một tiện &iacute;ch phổ th&ocirc;ng</strong>, kh&ocirc;ng c&ograve;n l&agrave; lợi thế cạnh tranh bền vững cho doanh nghiệp. Bản t&aacute;i bản 2023 cập nhật th&ecirc;m nhiều nghi&ecirc;n cứu v&agrave; v&iacute; dụ thực tiễn, gi&uacute;p độc giả hiểu r&otilde; hơn về sự thay đổi kh&ocirc;ng ngừng của thế giới c&ocirc;ng nghệ.</p>\r\n\r\n<p>Cuốn s&aacute;ch n&agrave;y đặc biệt ph&ugrave; hợp cho những ai muốn <strong>hiểu s&acirc;u hơn về vai tr&ograve; của IT trong kinh doanh hiện đại</strong> v&agrave; <strong>dự đo&aacute;n xu hướng ph&aacute;t triển của c&ocirc;ng nghệ trong tương lai</strong>.</p>', 'Khoa Học Và Khám Phá, khoa hoc va kham pha, Liệu IT Đã hết Thời, lieu it da het thoi, it, IT, Tái Bản 2023, tai ban 2023', NULL, NULL),
-(4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', 5, 5, 4, '1743666501_doremon do vui bia.jpg', 'Tiếng Việt', 2021, 256, 30000, '100', 0, 1, '<p>Những b&agrave;i học nhẹ nh&agrave;ng từ c&acirc;u chuyện kinh điển về c&aacute;c bạn nhỏ trong series truyện Doraemon nay đ&atilde; được mở rộng ra bằng Doraemon Đố Vui. Chắc chắn những c&acirc;u đố vui đầy bất ngờ th&uacute; vị đến từ những người bạn vốn th&acirc;n thiết bấy l&acirc;u n&agrave;y sẽ đem lại niềm vui cho c&aacute;c độc giả nh&iacute;.</p>', 'Doraemon,doraemon,Doremon,doremon,đô rê mon, đố vui, do vui, nobita', NULL, NULL),
-(5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', 1, 6, 3, '1743753696_conchutgidenho-bia.jpg', 'Tiếng Việt', 2022, 220, 43000, '100', 0, 1, '<p><strong>C&ograve;n Ch&uacute;t G&igrave; Để Nhớ</strong></p>\r\n\r\n<p>Đ&oacute; l&agrave; những kỷ niệm thời đi học của Chương, l&uacute;c mới bước ch&acirc;n v&agrave;o S&agrave;i G&ograve;n v&agrave; l&agrave;m quen với cuộc sống đ&ocirc; thị.</p>\r\n\r\n<p>L&agrave; những mối quan hệ bạn b&egrave; tưởng chừng hời hợt thoảng qua nhưng gắn b&oacute; suốt cuộc đời.</p>\r\n\r\n<p>Cuộc sống đầy biến động đ&atilde; x&ocirc; dạt mỗi người mỗi nơi, nhưng trải qua h&agrave;ng mấy chục năm, những kỷ niệm ấy vẫn lu&ocirc;n n&iacute;u k&eacute;o Chương về với một thời để nhớ.</p>', 'Con chut gi de nho, còn chút gì để nhớ,Còn Chút Gì Để Nhớ,chút gì để nhớ,chut gi de nho', NULL, NULL),
-(6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', 5, 5, 4, '1744015084_doremon_tauluatochanh-bia.jpg', 'Tiếng Việt', 2023, 96, 25000, '200', 0, 1, '<p><strong>Doraemon Tranh Truyện M&agrave;u - Đội Qu&acirc;n Doraemon - Chuyến T&agrave;u Lửa Tốc H&agrave;nh</strong></p>\r\n\r\n<p>Vi&ecirc;n nhộng năng lượng đột nhi&ecirc;n bị đ&aacute;nh cắp khỏi Trung t&acirc;m năng lượng khiến mọi hoạt động của th&agrave;nh phố tương lai đều bị ngưng trệ. Đội qu&acirc;n Doraemon nhận nhiệm vụ &aacute;p tải vi&ecirc;n nhộng dự bị đến Trung t&acirc;m năng lượng tr&ecirc;n một chiếc t&agrave;u hỏa cổ lỗ c&oacute; t&ecirc;n l&agrave; &quot;Roko&quot;. Suốt cuộc h&agrave;nh tr&igrave;nh, nh&agrave; khoa học xấu xa Achimov đ&atilde; d&ugrave;ng mọi thủ đoạn ph&aacute; hoại... Liệu Đội qu&acirc;n Doraemon c&oacute; ho&agrave;n th&agrave;nh nhiệm vụ hay kh&ocirc;ng, ch&uacute;ng ta h&atilde;y c&ugrave;ng theo d&otilde;i nh&eacute;! Đ&acirc;y l&agrave; phi&ecirc;n bản tranh truyện m&agrave;u được vẽ lại từ tập phim hoạt h&igrave;nh c&ugrave;ng t&ecirc;n của t&aacute;c giả Fujiko.F.Fujio.</p>', 'Doraemon,doremon,tranh truyen mau,Tranh Truyện Màu,doi quan doraemon,Đội Quân Doraemon,chuyen tau lua toc hanh,Chuyến Tàu Lửa Tốc Hành', NULL, NULL),
+(4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', 5, 5, 4, '1743666501_doremon do vui bia.jpg', 'Tiếng Việt', 2021, 256, 30000, '80', 20, 1, '<p>Những b&agrave;i học nhẹ nh&agrave;ng từ c&acirc;u chuyện kinh điển về c&aacute;c bạn nhỏ trong series truyện Doraemon nay đ&atilde; được mở rộng ra bằng Doraemon Đố Vui. Chắc chắn những c&acirc;u đố vui đầy bất ngờ th&uacute; vị đến từ những người bạn vốn th&acirc;n thiết bấy l&acirc;u n&agrave;y sẽ đem lại niềm vui cho c&aacute;c độc giả nh&iacute;.</p>', 'Doraemon,doraemon,Doremon,doremon,đô rê mon, đố vui, do vui, nobita', NULL, NULL),
+(5, 'Còn Chút Gì Để Nhớ (Tái Bản 2022)', 1, 6, 3, '1743753696_conchutgidenho-bia.jpg', 'Tiếng Việt', 2022, 220, 43000, '90', 10, 1, '<p><strong>C&ograve;n Ch&uacute;t G&igrave; Để Nhớ</strong></p>\r\n\r\n<p>Đ&oacute; l&agrave; những kỷ niệm thời đi học của Chương, l&uacute;c mới bước ch&acirc;n v&agrave;o S&agrave;i G&ograve;n v&agrave; l&agrave;m quen với cuộc sống đ&ocirc; thị.</p>\r\n\r\n<p>L&agrave; những mối quan hệ bạn b&egrave; tưởng chừng hời hợt thoảng qua nhưng gắn b&oacute; suốt cuộc đời.</p>\r\n\r\n<p>Cuộc sống đầy biến động đ&atilde; x&ocirc; dạt mỗi người mỗi nơi, nhưng trải qua h&agrave;ng mấy chục năm, những kỷ niệm ấy vẫn lu&ocirc;n n&iacute;u k&eacute;o Chương về với một thời để nhớ.</p>', 'Con chut gi de nho, còn chút gì để nhớ,Còn Chút Gì Để Nhớ,chút gì để nhớ,chut gi de nho', NULL, NULL),
+(6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', 5, 5, 4, '1744015084_doremon_tauluatochanh-bia.jpg', 'Tiếng Việt', 2023, 96, 25000, '197', 3, 1, '<p><strong>Doraemon Tranh Truyện M&agrave;u - Đội Qu&acirc;n Doraemon - Chuyến T&agrave;u Lửa Tốc H&agrave;nh</strong></p>\r\n\r\n<p>Vi&ecirc;n nhộng năng lượng đột nhi&ecirc;n bị đ&aacute;nh cắp khỏi Trung t&acirc;m năng lượng khiến mọi hoạt động của th&agrave;nh phố tương lai đều bị ngưng trệ. Đội qu&acirc;n Doraemon nhận nhiệm vụ &aacute;p tải vi&ecirc;n nhộng dự bị đến Trung t&acirc;m năng lượng tr&ecirc;n một chiếc t&agrave;u hỏa cổ lỗ c&oacute; t&ecirc;n l&agrave; &quot;Roko&quot;. Suốt cuộc h&agrave;nh tr&igrave;nh, nh&agrave; khoa học xấu xa Achimov đ&atilde; d&ugrave;ng mọi thủ đoạn ph&aacute; hoại... Liệu Đội qu&acirc;n Doraemon c&oacute; ho&agrave;n th&agrave;nh nhiệm vụ hay kh&ocirc;ng, ch&uacute;ng ta h&atilde;y c&ugrave;ng theo d&otilde;i nh&eacute;! Đ&acirc;y l&agrave; phi&ecirc;n bản tranh truyện m&agrave;u được vẽ lại từ tập phim hoạt h&igrave;nh c&ugrave;ng t&ecirc;n của t&aacute;c giả Fujiko.F.Fujio.</p>', 'Doraemon,doremon,tranh truyen mau,Tranh Truyện Màu,doi quan doraemon,Đội Quân Doraemon,chuyen tau lua toc hanh,Chuyến Tàu Lửa Tốc Hành', NULL, NULL),
 (7, 'Bóng Đêm Và Mặt Trời', 1, 7, 5, '1745720603_bongdem_va_mattroi_bia.jpg', 'Tiếng Việt', 2025, 304, 105000, '200', 0, 1, '<p><strong>B&oacute;ng Đ&ecirc;m V&agrave; Mặt Trời</strong></p>\r\n\r\n<p>&quot;B&oacute;ng đ&ecirc;m v&agrave; mặt trời&quot; đem đến c&acirc;u chuyện của l&agrave;ng Nguyệt Hạ, ng&ocirc;i l&agrave;ng c&oacute; bề d&agrave;y về văn h&oacute;a, lịch sử.</p>\r\n\r\n<p>Tiểu thuyết trải d&agrave;i từ cải c&aacute;ch ruộng đất, chiến tranh loạn lạc cho tới thời mở cửa, xoay quanh cuộc sống của c&aacute;c nh&acirc;n vật Ng&ocirc; Quất, Ho&agrave;ng Đ&ocirc;, gia đ&igrave;nh l&atilde;o K&igrave;nh (gồm c&oacute; Cả Lạnh, M&aacute;t, Bức) v&agrave; Hạnh, c&ocirc; g&aacute;i xinh đẹp, nết na, c&oacute; giọng h&aacute;t ch&egrave;o nổi tiếng trong v&ugrave;ng. Mỗi nh&acirc;n vật đều đại diện cho một kiểu người trong x&atilde; hội.</p>\r\n\r\n<p>Sự đổi thay của thời kỳ chuyển m&igrave;nh đầy biến động đ&atilde; tạo n&ecirc;n những nh&acirc;n vật với những c&acirc;u chuyện phản &aacute;nh sự tha h&oacute;a, biến chất, sẵn s&agrave;ng ch&agrave; đạp l&ecirc;n gi&aacute; trị truyền thống cốt l&otilde;i v&igrave; tiền t&agrave;i, danh vọng.</p>\r\n\r\n<p>Bằng ng&ograve;i b&uacute;t sắc sảo, nh&agrave; văn Dương Hướng đ&atilde; lột tả sinh động, ch&acirc;n thật về l&agrave;ng qu&ecirc; Việt Nam khi chuyển m&igrave;nh giữa c&aacute;i cũ v&agrave; c&aacute;i mới. Độc giả kh&ocirc;ng chỉ được trở về thời kỳ đầy biến động của đất nước m&agrave; c&ograve;n kh&ocirc;ng khỏi trăn trở với những phận người.</p>\r\n\r\n<p>Những c&acirc;u chuyện tưởng đ&atilde; cũ nhưng dường như vẫn phảng phất đ&acirc;u đ&acirc;y trong x&atilde; hội hiện đại để người đọc kh&ocirc;ng khỏi trầm ng&acirc;m, suy ngẫm.</p>', 'bong dem va mat troi,bóng đêm và mặt trời', NULL, NULL),
 (8, 'Người Quảng Đi Ăn Mì Quảng (Tái Bản 2023)', 1, 6, 3, '1745720930_nguoi_quang_bia.jpg', 'Tiếng Việt', 2023, 202, 68000, '100', 0, 1, '<p>&ldquo;Tạp văn của Nguyễn Nhật &Aacute;nh kh&ocirc;ng chỉ luận b&agrave;n về m&igrave; Quảng. Anh n&oacute;i đủ mọi thứ tr&ecirc;n trời dưới bể. Từ m&oacute;n ăn đến thư ph&aacute;p, từ s&acirc;n khấu đến điện ảnh, từ chuyện ở nh&agrave; đến chuyện cơ quan, từ chuyện si&ecirc;u thị đến chuyện phố x&aacute;, từ chuyện S&agrave;i G&ograve;n đến chuyện miền T&acirc;y... Anh luận b&agrave;n đủ thứ: từ lớn đến nhỏ, từ đồ giả đến cuộc n&aacute;o loạn Hollywood, từ quạt Cophaco đến quạt Ba Ti&ecirc;u... Anh cũng th&iacute;ch đủ mọi thứ: từ th&uacute; đọc quảng c&aacute;o đến nghe cải lương b&ecirc;n s&ocirc;ng Tiền, từ xem b&oacute;ng đ&aacute; đến ngắm hoa đ&agrave;o trong tranh, rồi &ldquo;chat&rdquo;... Rồi buồn v&agrave; nuối tiếc những kỷ niệm xưa như&nbsp;Chia tay buổi chiều, S&aacute;ch của một thời, Buồn g&igrave; đ&acirc;u...</p>\r\n\r\n<p>Anh tr&ograve; chuyện với đủ mọi người: từ g&atilde; họ Đỗ ở b&aacute;o S&agrave;i G&ograve;n Tiếp Thị đến c&aacute;c bạn đọc nh&iacute; của tờ Mực T&iacute;m, từ chị tr&ocirc;ng giữ xe đến những người h&agrave;ng x&oacute;m, b&agrave; cụ b&aacute;n nước, từ c&ocirc; con g&aacute;i nhỏ trong nh&agrave; đến những em b&eacute; chẳng hề quen... lang thang trong những kiếp người... Đọc hết, mới thấy một Nguyễn Nhật &Aacute;nh thật &acirc;n t&igrave;nh v&agrave; tỉ mỉ. H&oacute;a ra những cuộc tr&ograve; chuyện của anh cứ tưởng l&agrave; tầm ph&agrave;o thế m&agrave; đầy triết l&yacute;. Anh kh&ocirc;ng b&agrave;ng quan, kh&ocirc;ng thờ ơ với cuộc sống m&agrave; nặng l&ograve;ng với hết thảy. Sau mỗi cuộc chuyện tr&ograve;, cho d&ugrave; đ&oacute; l&agrave; cuộc gặp gỡ ngẫu nhi&ecirc;n, bao giờ anh cũng ph&aacute;t hiện ra một điều g&igrave; đấy - c&aacute;i điều m&agrave; ch&iacute;nh anh cũng thấy bất ngờ, th&uacute; vị.</p>', 'nguoi quang,mi quang,nguoi quang di an mi quang,người quảng đi ăn mì quảng', NULL, NULL),
 (9, 'Út Quyên Và Tôi (Tái Bản 2022)', 1, 6, 3, '1745721149_ut_quyen_bia.jpg', 'Tiếng Việt', 2022, 128, 40000, '100', 0, 1, '<p>Tập truyện ngắn với 12 c&acirc;u chuyện l&agrave; 12 niềm vui, 12 kỉ niệm dễ thương, 12 b&agrave;i học giản dị m&agrave; s&acirc;u sắc&hellip;</p>\r\n\r\n<p>Gặp trong tập truyện n&agrave;y những h&igrave;nh ảnh rất dễ thương, những lời thoại rất học tr&ograve;&hellip;</p>', 'ut quyen,ut quyen va toi,út quyên và tôi,út quyên', NULL, NULL),
@@ -680,6 +680,7 @@ CREATE TABLE `tbl_order` (
   `feeship_price` varchar(255) NOT NULL,
   `order_total` varchar(50) NOT NULL,
   `order_status` int(10) NOT NULL,
+  `order_date` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -688,21 +689,22 @@ CREATE TABLE `tbl_order` (
 -- Dumping data for table `tbl_order`
 --
 
-INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `created_at`, `updated_at`) VALUES
-(1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28 01:16:25', NULL),
-(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 3, '2025-04-02 09:07:11', NULL),
-(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 3, '2025-04-12 08:15:13', NULL),
-(4, 4, 9, 2, '60000', 'TIEN44', '44000', '20000', '36000', 1, '2025-04-20 07:07:51', NULL),
-(6, 4, 9, 2, '86000', 'Không có', '0', '20000', '106000', 1, '2025-04-20 07:27:13', NULL),
-(8, 4, 9, 2, '1030000', 'TIEN44', '44000', '20000', '1006000', 1, '2025-04-20 08:10:56', NULL),
-(9, 4, 9, 2, '75000', 'TIEN44', '44000', '20000', '51000', 1, '2025-04-20 08:13:07', NULL),
-(10, 4, 9, 2, '80000', 'Không có', '0', '20000', '100000', 1, '2025-04-22 06:33:48', NULL),
-(11, 4, 9, 2, '50000', 'TIEN44', '44000', '20000', '26000', 1, '2025-04-22 07:06:14', NULL),
-(12, 4, 9, 2, '129000', 'Không có', '0', '70000', '199000', 1, '2025-04-22 07:07:58', NULL),
-(13, 4, 9, 2, '90000', 'Không có', '0', '20000', '110000', 1, '2025-04-22 07:17:20', NULL),
-(14, 4, 9, 1, '30000', 'Không có', '0', '20000', '50000', 3, '2025-04-22 08:21:32', NULL),
-(15, 4, 9, 1, '25000', 'Không có', '0', '20000', '45000', 3, '2025-04-22 08:25:38', NULL),
-(34, 4, 9, 1, '125000', 'SSS69', '69000', '20000', '76000', 1, '2025-04-22 10:40:07', NULL);
+INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `total_bf`, `coupon_code`, `coupon_price`, `feeship_price`, `order_total`, `order_status`, `order_date`, `created_at`, `updated_at`) VALUES
+(1, 4, 9, 2, '95000', 'VALEN142', '19000', '20000', '96000', 1, '2025-03-28', '2025-03-28 01:16:25', NULL),
+(2, 4, 9, 2, '240000', 'SSS69', '69000', '20000', '191000', 3, '2025-04-02', '2025-04-02 09:07:11', NULL),
+(3, 4, 9, 2, '154000', 'Không có', '0', '20000', '174000', 3, '2025-04-12', '2025-04-12 08:15:13', NULL),
+(4, 4, 9, 2, '60000', 'TIEN44', '44000', '20000', '36000', 1, '2025-04-20', '2025-04-20 07:07:51', NULL),
+(6, 4, 9, 2, '86000', 'Không có', '0', '20000', '106000', 1, '2025-04-20', '2025-04-20 07:27:13', NULL),
+(8, 4, 9, 2, '1030000', 'TIEN44', '44000', '20000', '1006000', 2, '2025-04-20', '2025-04-20 08:10:56', NULL),
+(9, 4, 9, 2, '75000', 'TIEN44', '44000', '20000', '51000', 2, '2025-04-20', '2025-04-20 08:13:07', NULL),
+(10, 4, 9, 2, '80000', 'Không có', '0', '20000', '100000', 1, '2025-04-22', '2025-04-22 06:33:48', NULL),
+(11, 4, 9, 2, '50000', 'TIEN44', '44000', '20000', '26000', 1, '2025-04-22', '2025-04-22 07:06:14', NULL),
+(12, 4, 9, 2, '129000', 'Không có', '0', '70000', '199000', 1, '2025-04-22', '2025-04-22 07:07:58', NULL),
+(13, 4, 9, 2, '90000', 'Không có', '0', '20000', '110000', 1, '2025-04-22', '2025-04-22 07:17:20', NULL),
+(14, 4, 9, 1, '30000', 'Không có', '0', '20000', '50000', 3, '2025-04-22', '2025-04-22 08:21:32', NULL),
+(15, 4, 9, 1, '25000', 'Không có', '0', '20000', '45000', 3, '2025-04-22', '2025-04-22 08:25:38', NULL),
+(34, 4, 9, 1, '125000', 'SSS69', '69000', '20000', '76000', 1, '2025-04-22', '2025-04-22 10:40:07', NULL),
+(36, 4, 9, 2, '300000', 'Không có', '0', '20000', '320000', 1, '2025-04-28', '2025-04-28 02:31:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -741,7 +743,8 @@ INSERT INTO `tbl_order_detail` (`order_detail_id`, `order_id`, `book_id`, `book_
 (16, 13, 4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', '30000', 3, '2025-04-22 07:17:20', NULL),
 (17, 14, 4, 'Doraemon Đố Vui - Doraemon Những Cuộc Phiêu Lưu (Tái Bản 2021)', '30000', 1, '2025-04-22 08:21:32', NULL),
 (18, 15, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 1, '2025-04-22 08:25:38', NULL),
-(36, 34, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 5, '2025-04-22 10:40:07', NULL);
+(36, 34, 6, 'Doraemon - Tranh Truyện Màu - Đội Quân Doraemon - Chuyến Tàu Lửa Tốc Hành (Tái Bản 2023)', '25000', 5, '2025-04-22 10:40:07', NULL),
+(37, 36, 18, '100 Kỹ Năng Sinh Tồn', '100000', 3, '2025-04-28 02:31:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -1594,7 +1597,7 @@ CREATE TABLE `tbl_shipping` (
 --
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_phone`, `shipping_address`, `shipping_city`, `shipping_note`, `created_at`, `updated_at`) VALUES
-(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', '1', NULL, NULL);
+(9, 4, 'Nguyễn Hiếu Đạt', 'datnguyen@gmail.com', '0123456789', 'Số 60 phường dư hàng', 'Phường Dư Hàng, Quận Lê Chân, Thành phố Hải Phòng', 'asa', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1634,7 +1637,8 @@ INSERT INTO `tbl_statistical` (`statistical_id`, `order_date`, `sales`, `profit`
 (3, '2025-03-30', '5000000', '550200', 90, 68),
 (4, '2025-03-31', '900000', '236000', 60, 50),
 (5, '2025-04-01', '1520000', '452000', 50, 25),
-(6, '2025-04-02', '2250000', '800000', 80, 42);
+(6, '2025-04-02', '2250000', '800000', 80, 42),
+(14, '2025-04-20', '1105000', '775000', 33, 2);
 
 -- --------------------------------------------------------
 
@@ -13297,13 +13301,13 @@ ALTER TABLE `tbl_gallerry`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `order_detail_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -13345,7 +13349,7 @@ ALTER TABLE `tbl_social`
 -- AUTO_INCREMENT for table `tbl_statistical`
 --
 ALTER TABLE `tbl_statistical`
-  MODIFY `statistical_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `statistical_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `used_coupon`
