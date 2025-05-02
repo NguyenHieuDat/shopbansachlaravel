@@ -56,7 +56,7 @@
 <section id="form">
     <div class="container">
         <div class="login-container">
-            <div class="row align-items-center">
+            <div class="row align-items-center">    
         <!-- Đăng nhập -->
                 <div class="col-md-5">
                     <div class="login-form">
@@ -99,7 +99,15 @@
                 <div class="col-md-5">
                     <div class="signup-form">
                         <h2 class="text-danger text-center mb-4">Đăng ký</h2>
-                        <form action="{{URL::to('/add_customer')}}" method="POST" id="register-form">
+                        <?php
+                            $message = Session::get('message');
+                            if($message){
+                                echo "<span class='text-success'>{$message}</span>";
+                                Session::put('message',null);
+                            }
+                        ?>
+                        <form action="{{URL::to('/register_verification')}}" method="POST" >
+                            {{-- id="register-form" --}}
                             @csrf
                             <div id="error-message-2" style="color: red; margin-top: 10px;"></div>
                             <div class="mb-3">

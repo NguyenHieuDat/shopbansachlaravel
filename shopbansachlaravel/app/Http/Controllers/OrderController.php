@@ -176,25 +176,26 @@ class OrderController extends Controller
             $book = Book::find($book_id);
             $qty = $data['quantity'][$key];
             $book_price = $book->book_price;
+            $book_cost = $book->book_cost;
             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
             
             if($order_status_before == 1 && $order->order_status == 2){
-                // Từ Đang xử lý (1) -> Đã xử lý (2): Trừ số lượng mua khỏi kho
+                // Từ Đang xử lý (1) -> Đã xử lý (2)
                 $book->book_quantity -= $qty;
                 $book->book_sold += $qty;
                 $quantity += $qty;
                 $total_order = 1;
-                $sales += $book_price*$qty;
-                $profit += ($book_price * $qty) - (10000 * $qty);
+                $sales += $book_price * $qty;
+                $profit += ($book_price - $book_cost) * $qty;
             } 
             elseif($order_status_before == 2 && ($order->order_status == 1 || $order->order_status == 3)){
-                // Từ Đã xử lý (2) -> Hủy đơn (3) hoặc Đang xử lý (1): Cộng lại số lượng vào kho
+                // Từ Đã xử lý (2) -> Hủy đơn (3) hoặc Đang xử lý (1)
                 $book->book_quantity += $qty;
                 $book->book_sold -= $qty;
                 $quantity -= $qty;
-                $sales -= $book_price * $qty;
-                $profit -= ($book_price * $qty) - (10000 * $qty);
                 $total_order = -1;
+                $sales -= $book_price * $qty;
+                $profit -= ($book_price - $book_cost) * $qty;
             }
             elseif($order_status_before == 3 && $order->order_status == 2){
                 // Từ Hủy đơn (3) -> Đã xử lý (2)
@@ -203,7 +204,7 @@ class OrderController extends Controller
                 $quantity += $qty;
                 $total_order = 1;
                 $sales += $book_price * $qty;
-                $profit += ($book_price * $qty) - (10000 * $qty);
+                $profit += ($book_price - $book_cost) * $qty;
             }
             $book->save();
         }

@@ -46,8 +46,8 @@
                         <img class="img-fluid" src="{{ asset('public/upload/category/'.$cate_show->category_image) }}" alt="{{ $cate_show->category_name }}">
                     </div>
                     <div class="flex-fill pl-3">
-                        <h6>{{ $cate_show->category_name }}</h6>
-                        <small class="text-body">{{ $cate_show->total_quantity ?? 0 }} Sản phẩm</small>
+                        <h6>{{$cate_show->category_name}}</h6>
+                        <small class="text-body">{{$cate_show->total_books}} Sản phẩm</small>
                     </div>
                 </div>
             </a>

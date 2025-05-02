@@ -22,6 +22,7 @@
               <th>Danh mục</th>
               <th>Tác giả</th>
               <th>Nhà xuất bản</th>
+              <th>Giá gốc</th>
               <th>Giá tiền</th>
               <th>Ngôn ngữ</th>
               <th>Năm xuất bản</th>
@@ -42,7 +43,8 @@
               <td>{{$book->category_name}}</td>
               <td>{{$book->author_name}}</td>
               <td>{{$book->publisher_name}}</td>
-              <td>{{number_format($book->book_price,0,',','.')}}VND</td>
+              <td>{{number_format($book->book_cost,0,',','.')}} VND</td>
+              <td>{{number_format($book->book_price,0,',','.')}} VND</td>
               <td>{{$book->book_language}}</td>
               <td>{{$book->book_year}}</td>
               <td>{{$book->book_page}}</td>

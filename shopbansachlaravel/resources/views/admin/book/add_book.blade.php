@@ -66,6 +66,10 @@
                             <input type="text" name="book_quantity" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Giá gốc</label>
+                            <input type="text" name="book_cost" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label>Giá tiền</label>
                             <input type="text" name="book_price" class="form-control">
                         </div>

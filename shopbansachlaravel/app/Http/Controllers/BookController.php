@@ -55,6 +55,7 @@ class BookController extends Controller
         $data['book_year'] = $request->book_year;
         $data['book_page'] = $request->book_page;
         $data['book_quantity'] = $request->book_quantity;
+        $data['book_cost'] = $request->book_cost;
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
@@ -119,6 +120,7 @@ class BookController extends Controller
         $data['book_year'] = $request->book_year;
         $data['book_page'] = $request->book_page;
         $data['book_quantity'] = $request->book_quantity;
+        $data['book_cost'] = $request->book_cost;
         $data['book_price'] = $request->book_price;
         $data['book_status'] = $request->book_status;
         $data['book_description'] = $request->book_description;
@@ -154,10 +156,8 @@ class BookController extends Controller
             if (file_exists($image_path)) {
             unlink($image_path);
         }
-        // Lấy tất cả các ảnh gallery liên quan đến sách này
         $gallery_images = GalleryModel::where('book_id', $books_id)->get();
 
-        // Xóa từng ảnh trong gallery nếu tồn tại
         foreach ($gallery_images as $gallery) {
             $gallery_image_path = base_path('public/upload/gallery/' . ($gallery->gallery_image));
             if (file_exists($gallery_image_path)) {
@@ -165,14 +165,13 @@ class BookController extends Controller
             }
             $gallery->delete();
         }
-
         DB::table('tbl_book')->where('book_id',$books_id)->delete();
         Session::put('message','Xóa sách thành công!');
         return Redirect::to('all_book');
         }
     }
 
-    //Ham user
+    //Hàm user
 
     public function book_detail(Request $request,$books_id){
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get();

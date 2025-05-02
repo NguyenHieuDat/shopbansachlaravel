@@ -17,7 +17,8 @@
         <table class="table table-striped b-t b-light" id="dbTable">
           <thead>
             <tr>
-              <th>Thứ tự đơn hàng</th>
+              <th>Thứ tự</th>
+              <th>Ngày tạo đơn</th>
               <th>Tổng tiền trước</th>
               <th>Mã giảm giá</th>
               <th>Tiền giảm</th>
@@ -40,6 +41,7 @@
                 @endphp
                 {{$i}}
               </td>
+              <td>{{$order->order_date}}</td>
               <td>{{number_format($order->total_bf, 0, ',', '.')}} đ</td>
               <td>{{$order->coupon_code}}</td>
               <td>{{number_format($order->coupon_price, 0, ',', '.')}} đ</td>

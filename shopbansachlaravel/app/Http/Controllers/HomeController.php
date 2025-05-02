@@ -30,7 +30,7 @@ class HomeController extends Controller
             'tbl_category_product.category_id',
             'tbl_category_product.category_name',
             'tbl_category_product.category_image',
-            DB::raw('COALESCE(SUM(tbl_book.book_quantity), 0) as total_quantity') // Tính tổng book_quantity, nếu null thì mặc định 0
+            DB::raw('COUNT(tbl_book.book_id) as total_books')
         )
         ->groupBy('tbl_category_product.category_id', 'tbl_category_product.category_name', 'tbl_category_product.category_image')
         ->limit(10)->get();
@@ -42,32 +42,30 @@ class HomeController extends Controller
         $all_book = DB::table('tbl_book')->where('book_status','1');
         $sort_by = $request->get('sort_by');
         $page = $request->input('page', 1);
-        if ($sort_by == 'giam') {
+        if($sort_by == 'giam'){
             $all_book = $all_book->orderBy('book_price', 'desc');
-        } elseif ($sort_by == 'tang') {
+        }elseif($sort_by == 'tang'){
             $all_book = $all_book->orderBy('book_price', 'asc');
-        } elseif ($sort_by == 'z_a') {
+        }elseif($sort_by == 'z_a'){
             $all_book = $all_book->orderBy('book_name', 'desc');
-        } elseif ($sort_by == 'a_z') {
+        }elseif($sort_by == 'a_z'){
             $all_book = $all_book->orderBy('book_name', 'asc');
-        } else {
+        }else{
             $all_book = $all_book->orderBy('book_id', 'desc');
         }
         $all_book = $all_book->paginate(15)->appends($request->query());
 
-        foreach ($all_book as $book) {
+        foreach($all_book as $book){
             $rating = Rating::where('book_id', $book->book_id)->avg('rating');
             $book->avgRating = $rating !== null ? round($rating, 1) : 0;
             $book->totalreview = Rating::where('book_id', $book->book_id)->count();
         }
-
-        if ($request->ajax()) {
+        if($request->ajax()){
             return response()->json([
                 'view' => view('pages.book.book_paginate', compact('all_book', 'categories', 'banner', 'cate_product', 'author', 'publisher'))->render(),
                 'pagination' => (string) $all_book->links('vendor.pagination.custom')
             ]);
         }
-        
         return view('pages.home')->with('category',$cate_product)->with('author',$author)->with('publisher',$publisher)
         ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)
@@ -323,4 +321,59 @@ class HomeController extends Controller
     
         return back()->with('success', 'Đổi mật khẩu thành công!');
     }
+
+    public function register_verification(Request $request){
+        $data = $request->all();
+
+        if (Customer::where('customer_email', $data['customer_email'])->exists()) {
+            return redirect()->back()->with('error', 'Email đã được đăng ký.');
+        }
+        $token = Str::random(64);
+        session([
+            'register_data' => [
+                'name' => $data['customer_name'],
+                'email' => $data['customer_email'],
+                'password' => md5($data['customer_password']),
+                'phone' => $data['customer_phone'],
+                'token' => $token
+            ]
+        ]);
+
+        $verifyUrl = url('/verify_register?token=' . $token);
+        $mail_title = "Xác nhận đăng ký tài khoản - Cửa hàng sách Fahasa";
+
+        $mail_data = [
+            'name' => $data['customer_name'],
+            'email' => $data['customer_email'],
+            'verify_url' => $verifyUrl,
+        ];
+
+        Mail::send('pages.account.verify_register_email', ['data' => $mail_data], function ($message) use ($mail_title, $mail_data) {
+            $message->to($mail_data['email'])->subject($mail_title);
+            $message->from('no-reply@cuahangsachfahasa', $mail_title);
+        });
+        return redirect()->back()->with('message', 'Vui lòng kiểm tra email để xác nhận đăng ký (kiểm tra mục thư rác nếu không thấy).');
+    }
+
+    public function verify_register(Request $request){
+        $token = $request->query('token');
+        $registerData = session('register_data');
+
+        if (!$registerData || $registerData['token'] !== $token) {
+            return redirect('/login_checkout')->with('error', 'Liên kết không hợp lệ hoặc đã hết hạn.');
+        }
+
+        Customer::create([
+            'customer_name' => $registerData['name'],
+            'customer_email' => $registerData['email'],
+            'customer_phone' => $registerData['phone'],
+            'customer_password' => $registerData['password'],
+            'customer_token' => null,
+        ]);
+
+        session()->forget('register_data');
+
+        return redirect('/login_checkout')->with('message', 'Tài khoản đã được xác nhận. Vui lòng đăng nhập.');
+    }
+
 }

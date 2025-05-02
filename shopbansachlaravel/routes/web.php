@@ -35,6 +35,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/reset_password', 'reset_password');
     Route::get('/doi_mat_khau', 'show_change_password');
     Route::post('/change_password', 'change_password');
+    Route::post('/register_verification', 'register_verification');
+    Route::get('/verify_register', 'verify_register');
 });
 
 Route::controller(CategoryProduct::class)->group(function () {

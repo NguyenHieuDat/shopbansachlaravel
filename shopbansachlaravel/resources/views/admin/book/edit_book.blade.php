@@ -80,6 +80,10 @@
                             <input type="text" name="book_quantity" class="form-control" value="{{$edit_value->book_quantity}}">
                         </div>
                         <div class="form-group">
+                            <label>Giá gốc</label>
+                            <input type="text" name="book_cost" class="form-control" value="{{$edit_value->book_cost}}">
+                        </div>
+                        <div class="form-group">
                             <label>Giá tiền</label>
                             <input type="text" name="book_price" class="form-control" value="{{$edit_value->book_price}}">
                         </div>
